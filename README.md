@@ -46,7 +46,7 @@ python PhysicsTools/NanoAODTools/processors/ttX3.py \
     -i <root input file> \
     --year <year>  \
     [--isSignal] [--isData] [--nosys] [--invid] [--maxEvents=<N>] \
-    <output file name>
+    <output directory>
 ```
 
 The script accepts the following arguments:

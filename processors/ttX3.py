@@ -125,7 +125,7 @@ def leptonSequence():
             electronMaxEta = 2.4,
         ),
         EventSkim(selection=lambda event: (event.IsoMuTrigger_flag > 0) or (event.IsoElectronTrigger_flag > 0)),
-        EventSkim(selection=lambda event: (len(event.tightMuons) + len(event.tightElectrons)) == 1),
+        EventSkim(selection=lambda event: (len(event.tightMuons) + len(event.tightElectrons)) == 2),
         EventSkim(selection=lambda event: (len(event.looseMuons) + len(event.looseElectrons)) == 0),
         
     ]
@@ -141,7 +141,7 @@ def jetSelection(jetDict):
                 inputCollection=jetCollection,
                 leptonCollectionDRCleaning=lambda event: event.tightMuons+event.tightElectrons,
                 jetMinPt=30.,
-                jetMaxEta=4.7,
+                jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.TIGHT,
                 outputName="selectedJets_"+systName,
@@ -212,11 +212,6 @@ if args.isData:
     analyzerChain.extend(
         jetSelection({
             "nominal": lambda event: Collection(event,"Jet")
-        })
-    )
-    analyzerChain.extend(
-        eventReconstruction({
-            "nominal": (lambda event: Collection(event,"Jet"),met_variable[args.year])
         })
     )
 
@@ -320,7 +315,7 @@ if not globalOptions["isData"]:
 p = PostProcessor(
     args.output[0],
     args.inputFiles,
-    cut="(nJet>1)&&((nElectron+nMuon)>0)",
+    cut="(nJet>2)&&((nElectron+nMuon)>2)",
     modules=analyzerChain,
     friend=True,
     maxEntries = args.maxEvents
