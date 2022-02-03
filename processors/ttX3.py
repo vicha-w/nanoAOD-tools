@@ -315,7 +315,7 @@ if not globalOptions["isData"]:
 p = PostProcessor(
     args.output[0],
     args.inputFiles,
-    cut="(nJet>2)&&((nElectron+nMuon)>2)",
+    cut="(nJet>1)&&((nElectron+nMuon)>1)",
     modules=analyzerChain,
     friend=True,
     maxEntries = args.maxEvents
