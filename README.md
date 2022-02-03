@@ -1,4 +1,77 @@
-# nanoAOD-tools
+# ttX^3 specific documentation
+
+## First steps
+
+### Setup a fork
+
+Go to [https://github.com/ttXcubed/nanoAOD-tools](https://github.com/ttXcubed/nanoAOD-tools) and fork the repo under your name.
+You can now work and develop new things in your fork w/o interfering with others. Once finished a pull request (PR) can be 
+created to merge your developments with the main repo again making them available to others. 
+Please note to select the right base repository (`ttXcubed/nanoAOD-tools`) and branch (currently `ttx3`).
+
+If you have already a fork of `nanoAOD-tools` just create a new branch for developments and merge the updates from the main repo if any.
+The following adds a short cut (`ttx3-main`) to the main repo, creates a branch `ttx3` in your fork, and merges/pulls any updates from the main repo in branch `ttx3`.
+
+```
+git remote add ttx3-main https://github.com/ttXcubed/nanoAOD-tools.git
+git fetch ttx3-main
+git checkout -b ttx3
+git pull ttx3-main ttx3
+```
+
+
+### Checkout instructions: CMSSW_11_1_7
+
+```
+export SCRAM_ARCH=slc7_amd64_gcc820
+cmsrel CMSSW_11_1_7
+cd CMSSW_11_1_7/src
+git clone -b ttx3 git@github.com:<yourname>/nanoAOD-tools.git PhysicsTools/NanoAODTools
+cd PhysicsTools/NanoAODTools
+cmsenv
+scram b
+```
+
+## Run an example
+
+Example files:
+* TTbar dilepton (ca 60k): `root://cms-xrd-global.cern.ch//store/mc/RunIISummer20UL17NanoAODv9/TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/230000/2F43988F-FE4C-934B-B3FC-8343D149B68F.root`
+* signal: soon
+
+
+The main post-processing script for producing final ntuples for plotting and statistical interpretation is:
+
+```
+python PhysicsTools/NanoAODTools/processors/ttX3.py \
+    -i <root input file> \
+    --year <year>  \
+    [--isSignal] [--isData] [--nosys] [--invid] [--maxEvents=<N>] \
+    <output file name>
+```
+
+The script accepts the following arguments:
+* `-i` the input root file is an extended nanoAOD format which includes additional information to evaluate the charge tagger on-the-fly. It is created using the [ChargeReco](https://github.com/WbWbX/ChargeReco) package.
+* `--year` needs to be one of the following: '2016','2016preVFP','2017','2018' (default: '2017')
+* `--isSignal` optional flag to store additional information for the signal (e.g. parton/particle level observables, LHE weights) (default: false)
+* `--isData` optional flag to remove gen-level information when running on data (default: false)
+* `--nosys` optional flag to remove all systematics (default: false)
+* `--invid` optional flag to invert the lepton ID/isolation which can be used for QCD estimation (default: false)
+* `--maxEvents=<N>` optional flag to reduce the number of events for testing
+
+Feel free to create other post-processing scripts for studies on the side!
+
+## Analysis modules
+
+The analysis-specific modules can be found under [python/modules](https://github.com/WbWbX/nanoAOD-tools/tree/wbwbxUL/python/modules).
+In general, the input and output collections of modules should be configurable so that they can be easily reused, i.e. for evaluating systematics. A few important ones are
+* [MuonSelection](python/modules/MuonSelection.py)/[MuonVeto](python/modules/MuonVeto.py): modules to select tight isolated muon candidates and veto additional loose muons (similar modules exists for electrons). For MC, the module also produces weights to evaluate the uncertainties on the lepton selection and reconstruction efficiencies.
+* [JetMetUncertainties](python/modules/JetMetUncertainties.py): module to evalutate JEC/JER/MET uncertainties. Separate collections of objects are created for each variation.
+* [JetSelection](python/modules/JetSelection.py): module to select jets within acceptance
+* [MetFilter](python/modules/MetFilter.py): rejects events with spurious MET
+
+
+
+# Official nanoAOD-tools documentation
 Tools for working with NanoAOD (requiring only python + root, not CMSSW)
 
 ## Checkout instructions: standalone
