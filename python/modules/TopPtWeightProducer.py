@@ -4,7 +4,7 @@ import ROOT
 import math
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-allowed_modes = ['data/NLO','data/NNLO', 'NNLO/NLO']
+import gen_helper
 
 class TopPtWeightProducer(Module):
     DATA_NLO = 0 #data/NLO
@@ -14,7 +14,11 @@ class TopPtWeightProducer(Module):
 
     def __init__(self, mode=DATA_NLO):
         self.mode = mode
-        if not mode in [DATA_NLO,DATA_NNLO,NNLO_NLO]:
+        if not mode in [
+            TopPtWeightProducer.DATA_NLO,
+            TopPtWeightProducer.DATA_NNLO,
+            TopPtWeightProducer.NNLO_NLO
+        ]:
             raise ValueError('top pt reweighting mode {} not supported: please check'.format(mode))
         pass
 
@@ -35,7 +39,7 @@ class TopPtWeightProducer(Module):
         tt_cand = []
         genParts = Collection(event,'GenPart')
         for part in genParts:
-            if abs(part.pdgId) == 6 and self.isLastCopy(part):
+            if abs(part.pdgId) == 6 and gen_helper.isLastCopy(part):
                 tt_cand.append(part)
 
         weight = 1.
@@ -60,21 +64,16 @@ class TopPtWeightProducer(Module):
         return weight **.5
 
     def getParticleWeight(self, t_cand):
-        if self.mode == 'data/NLO':
+        if self.mode == TopPtWeightProducer.DATA_NLO:
             return math.exp(.0615-.0005*t_cand.pt)
-        elif self.mode == 'data/NNLO':
+        elif self.mode == TopPtWeightProducer.DATA_NNLO:
             return math.exp(.0416-.0003*t_cand.pt)
-        elif self.mode == 'NNLO/NLO':
+        elif self.mode == TopPtWeightProducer.NNLO_NLO:
             return .103 * math.exp(-.0118*t_cand.pt) - .000134*t_cand.pt + .973
         else:
             raise ValueError('top pt reweighting mode {} not supported: please check'.format(self.mode))
 
 
-    # isLastCopy corresponds to bit 13 of statusFlags:
-    # https://cms-nanoaod-integration.web.cern.ch/integration/master-106X/mc102X_doc.html#Generator
 
-    def isLastCopy(self,part):
-        flag = bin(part.statusFlags)
-        if len(flag.replace('0b','')) < 14:
-            return False
-        return int(flag[-14]) == 1
+        
+        
