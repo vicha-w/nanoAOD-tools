@@ -7,9 +7,14 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 allowed_modes = ['data/NLO','data/NNLO', 'NNLO/NLO']
 
 class TopPtWeightProducer(Module):
-    def __init__(self, mode='data/NLO'):
+    DATA_NLO = 0 #data/NLO
+    DATA_NNLO = 1 #data/NNLO
+    NNLO_NLO = 2 #NNLO/NLO
+
+
+    def __init__(self, mode=DATA_NLO):
         self.mode = mode
-        if not mode in allowed_modes:
+        if not mode in [DATA_NLO,DATA_NNLO,NNLO_NLO]:
             raise ValueError('top pt reweighting mode {} not supported: please check'.format(mode))
         pass
 

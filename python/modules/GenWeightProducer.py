@@ -4,8 +4,8 @@ import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 class GenWeightProducer(Module):
-    def __init__(self, isSignal=False):
-        self.isSignal = isSignal
+    def __init__(self):
+        self.isSignal = self.globalOptions['isSignal']
 
         self.nPDFs = 103
         self.nPSweights = 4

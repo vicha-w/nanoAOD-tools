@@ -144,6 +144,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.TIGHT,
+                storeKinematics=['pt', 'eta'],
                 outputName="selectedJets_"+systName,
             )
         )
@@ -161,13 +162,13 @@ def jetSelection(jetDict):
                 storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )
         )
-
+        
     systNames = jetDict.keys()
     
-    #at least 2 AK4 jets
+    #at least 3 AK4 jets
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
-            any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
+            any([getattr(event, "nselectedJets_"+systName) >= 3 for systName in systNames])
         )
     )
     
@@ -178,7 +179,8 @@ def jetSelection(jetDict):
         )
     )
     
-
+    #TODO: btagging SF producer might have a bug
+    '''
     if isMC:
         jesUncertForBtag = ['jes'+syst.replace('Total','') for syst in jesUncertaintyNames]
         # to remove once breakdown available
@@ -191,7 +193,7 @@ def jetSelection(jetDict):
                 nosyst = args.nosys
             )
         )
-
+    '''
 
     
             
@@ -206,6 +208,7 @@ analyzerChain = [
         outputName="MET_filter"
     ),
 ]
+
 analyzerChain.extend(leptonSequence())
 
 if args.isData:
@@ -255,6 +258,7 @@ else:
     jetDict = {
         "nominal": lambda event: event.jets_nominal,
     }
+    
     if not args.nosys:
         jetDict["jerUp"] = lambda event: event.jets_jerUp
         jetDict["jerDown"] = lambda event: event.jets_jerDown
@@ -262,22 +266,18 @@ else:
         for jesUncertaintyName in jesUncertaintyNames:
             jetDict['jes'+jesUncertaintyName+"Up"] = lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up")
             jetDict['jes'+jesUncertaintyName+"Down"] = lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down")
-
+    
     analyzerChain.extend(
         jetSelection(jetDict)
     )
 
 
 if not args.isData:
-    analyzerChain.append(
-        GenWeightProducer(
-            isSignal = args.isSignal
-        )
-    )
+    #analyzerChain.append(GenWeightProducer())
     if isPowhegTTbar:
         analyzerChain.append(
             TopPtWeightProducer(
-                mode='data/NLO'
+                mode=TopPtWeightProducer.DATA_NLO
             )
         )
 
@@ -299,6 +299,7 @@ if not globalOptions["isData"]:
                            event: tree.fillBranch("genweight",
                            event.Generator_weight)])
 
+    '''
     L1prefirWeights =  ['Dn', 'Nom', 'Up', 'ECAL_Dn', 'ECAL_Nom', 'ECAL_Up',
                         'Muon_Nom', 'Muon_StatDn', 'Muon_StatUp', 'Muon_SystDn', 'Muon_SystUp']
 
@@ -308,14 +309,13 @@ if not globalOptions["isData"]:
             lambda tree, event, L1prefirWeight=L1prefirWeight: tree.fillBranch('L1PreFiringWeight_{}'.format(L1prefirWeight.replace('Dn','Down').replace('Nom','Nominal')),
                                                                                getattr(event,'L1PreFiringWeight_{}'.format(L1prefirWeight)))
         ])
-
-            
+    '''
     analyzerChain.append(EventInfo(storeVariables=storeVariables))
 
 p = PostProcessor(
     args.output[0],
     args.inputFiles,
-    cut="(nJet>1)&&((nElectron+nMuon)>1)",
+    cut="(nJet>2)&&((nElectron+nMuon)>1)", #at least 3 jets + 2 leptons
     modules=analyzerChain,
     friend=True,
     maxEntries = args.maxEvents

@@ -40,7 +40,6 @@ Example files:
 
 
 The main post-processing script for producing final ntuples for plotting and statistical interpretation is:
-
 ```
 python PhysicsTools/NanoAODTools/processors/ttX3.py \
     -i <root input file> \
@@ -50,7 +49,7 @@ python PhysicsTools/NanoAODTools/processors/ttX3.py \
 ```
 
 The script accepts the following arguments:
-* `-i` the input root file is an extended nanoAOD format which includes additional information to evaluate the charge tagger on-the-fly. It is created using the [ChargeReco](https://github.com/WbWbX/ChargeReco) package.
+* `-i` the input root file (nanoAODv9 or higher; needs to created from miniAODv2)
 * `--year` needs to be one of the following: '2016','2016preVFP','2017','2018' (default: '2017')
 * `--isSignal` optional flag to store additional information for the signal (e.g. parton/particle level observables, LHE weights) (default: false)
 * `--isData` optional flag to remove gen-level information when running on data (default: false)
