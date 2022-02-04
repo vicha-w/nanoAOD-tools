@@ -1,0 +1,19 @@
+name: ttX^3 workflow
+
+on:
+  push:
+    branches: [ ttx3 ]
+  pull_request:
+    branches: [ ttx3 ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Testing ttX^3 workflow
+      run: |
+        docker pull clelange/cc7-cmssw-cvmfs
+        docker run --rm --privileged -v $PWD:/scripts:ro --device /dev/fuse clelange/cc7-cmssw-cvmfs /bin/bash -c /scripts/test/runCMSSWTest.sh
+  
