@@ -50,6 +50,7 @@ globalOptions = {
 
 Module.globalOptions = globalOptions
 
+
 isMC = not args.isData
 isPowheg = 'powheg' in args.inputFiles[0].lower()
 isPowhegTTbar = 'TTTo' in args.inputFiles[0] and isPowheg
