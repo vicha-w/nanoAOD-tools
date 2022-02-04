@@ -1,4 +1,4 @@
-name: ttX^3 workflow
+name: ttX^3
 
 on:
   push:

@@ -1,5 +1,10 @@
 # ttX^3 specific documentation
 
+[![ttX^3 workflow](https://github.com/ttXcubed/nanoAOD-tools/actions/workflows/main.yml/badge.svg)](https://github.com/ttXcubed/nanoAOD-tools/actions/workflows/main.yml)
+
+Tests are defined in [test/runCMSSWTest.sh](test/runCMSSWTest.sh):
+
+
 ## First steps
 
 ### Setup a fork

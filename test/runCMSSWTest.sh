@@ -18,6 +18,10 @@ function run_test()
     echo "==================== 2017 ==============="
     python PhysicsTools/NanoAODTools/processors/ttX3.py --year 2017 --input=https://github.com/ttXcubed/test-files/raw/main/nanoAODv9UL/TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8_2017.root . || return 1
 
+
+    echo "==================== data ==============="
+    python PhysicsTools/NanoAODTools/processors/ttX3.py --year 2017 --isData --input=https://github.com/ttXcubed/test-files/raw/main/nanoAODv9UL/TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8_2017.root . || return 1
+
     
     echo "==================== done ====================="
 }
