@@ -154,22 +154,31 @@ def leptonSequence():
 def jetSelection(jetDict):
     seq = []
     
-    selectedJetCollections = []
-    for systName,jetCollection in jetDict.items():
-        seq.append(
+    for systName,(jetCollection,fatjetCollection) in jetDict.items():
+        seq.extend([
             JetSelection(
                 inputCollection=jetCollection,
                 leptonCollectionDRCleaning=lambda event: event.tightMuons+event.tightElectrons,
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
-                jetId=JetSelection.TIGHT,
+                jetId=JetSelection.LOOSE,
                 storeKinematics=['pt', 'eta'],
                 outputName="selectedJets_"+systName,
+            ),
+            #TODO: every ak8 might also be ak4 -> cross cleaning required or select N(ak4)>=4 where 2 are also ak8?
+            JetSelection(
+                inputCollection=fatjetCollection,
+                leptonCollectionDRCleaning=lambda event,sys=systName: event.tightMuons+event.tightElectrons,
+                jetMinPt=200., #ak8 only stored > 175 GeV
+                jetMaxEta=2.4,
+                dRCleaning=0.8,
+                jetId=JetSelection.LOOSE,
+                storeKinematics=['pt', 'eta'],
+                outputName="selectedFatJets_"+systName,
             )
-        )
+        ])
         
-        selectedJetCollections.append(lambda event: getattr(event,"selectedJets_"+systName))
         
         seq.append(
             BTagSelection(
@@ -185,11 +194,11 @@ def jetSelection(jetDict):
         )
         
     systNames = jetDict.keys()
-    
-    #at least 3 AK4 jets
+   
+    #at least 2 AK4 jets
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
-            any([getattr(event, "nselectedJets_"+systName) >= 3 for systName in systNames])
+            any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
         )
     )
     
@@ -199,7 +208,14 @@ def jetSelection(jetDict):
             any([len(filter(lambda jet: jet.isBTagged,getattr(event,"selectedJets_"+systName))) >= 2 for systName in systNames])
         )
     )
-    
+    '''
+    #at least 2 AK8 jets
+    seq.append(
+        EventSkim(selection=lambda event, systNames=systNames: 
+            any([getattr(event, "nselectedFatJets_"+systName) >= 2 for systName in systNames])
+        )
+    )
+    '''
     #TODO: btagging SF producer might have a bug
     '''
     if isMC:
@@ -235,7 +251,7 @@ analyzerChain.extend(leptonSequence())
 if args.isData:
     analyzerChain.extend(
         jetSelection({
-            "nominal": lambda event: Collection(event,"Jet")
+            "nominal": (lambda event: Collection(event,"Jet"),lambda event: Collection(event,"FatJet"))
         })
     )
 
@@ -294,16 +310,16 @@ else:
     ])
 
     jetDict = {
-        "nominal": lambda event: event.jets_nominal,
+        "nominal": (lambda event: event.jets_nominal,lambda event: event.fatjets_nominal)
     }
     
     if not args.nosys:
-        jetDict["jerUp"] = lambda event: event.jets_jerUp
-        jetDict["jerDown"] = lambda event: event.jets_jerDown
+        jetDict["jerUp"] = (lambda event: event.jets_jerUp,lambda event: event.fatjets_jerUp)
+        jetDict["jerDown"] = (lambda event: event.jets_jerDown,lambda event: event.fatjets_jerDown)
         
         for jesUncertaintyName in jesUncertaintyNames:
-            jetDict['jes'+jesUncertaintyName+"Up"] = lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up")
-            jetDict['jes'+jesUncertaintyName+"Down"] = lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down")
+            jetDict['jes'+jesUncertaintyName+"Up"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"))
+            jetDict['jes'+jesUncertaintyName+"Down"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"))
     
     analyzerChain.extend(
         jetSelection(jetDict)
