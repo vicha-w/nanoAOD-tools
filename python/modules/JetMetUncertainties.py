@@ -16,13 +16,11 @@ class JERUncertaintyCalculator():
     def __init__(self,jerResolutionFileName,jerSFUncertaintyFileName):
         self.jerResolutionFileName = os.path.expandvars(jerResolutionFileName)
         self.jerSFUncertaintyFileName = os.path.expandvars(jerSFUncertaintyFileName)
-        
-        print("Loading jet energy resolutions (JER) from file '%s'" %(self.jerResolutionFileName))
+
         if not os.path.exists(self.jerResolutionFileName):
             raise Exception("File '"+self.jerResolutionFileName+"' does not exists")
         self.jer = ROOT.PyJetResolutionWrapper(self.jerResolutionFileName)
-        
-        print("Loading JER scale factors and uncertainties from file '%s'" % (self.jerSFUncertaintyFileName))
+
         if not os.path.exists(self.jerSFUncertaintyFileName):
             raise Exception("File '"+self.jerSFUncertaintyFileName+"' does not exists")
         self.jerSF_and_Uncertainty = ROOT.PyJetResolutionScaleFactorWrapper(self.jerSFUncertaintyFileName)
@@ -175,10 +173,11 @@ class JetMetUncertainties(Module):
         genJetCollection = lambda event: Collection(event,"GenJet"),
         muonCollection = lambda event: Collection(event,"Muon"),
         electronCollection = lambda event: Collection(event,"Electron"),
+        propagateToMet = True,
         propagateJER = True,
         outputJetPrefix = 'jets_',
         outputMetPrefix = 'met_',
-        jetKeys=['jetId', 'nConstituents'],
+        jetKeys=[],
         metKeys = [],
     ):
 
@@ -190,6 +189,7 @@ class JetMetUncertainties(Module):
         self.genJetCollection = genJetCollection
         self.muonCollection = muonCollection
         self.electronCollection = electronCollection
+        self.propagateToMet = propagateToMet
         self.propagateJER = propagateJER
         self.outputJetPrefix = outputJetPrefix
         self.outputMetPrefix = outputMetPrefix
@@ -256,7 +256,7 @@ class JetMetUncertainties(Module):
         return newMet
     
     def analyze(self, event):
-        met = self.metInput(event)
+        
         rho = self.rhoInput(event)
         jets = self.jetCollection(event)
         lowPtJets = self.lowPtJetCollection(event)
@@ -280,16 +280,19 @@ class JetMetUncertainties(Module):
         genjet_lowpt_match = matchObjectCollection(lowPtJets, genJets, dRmax=0.2, presel=genjet_resolution_matching)
         genjet_match.update(genjet_lowpt_match)
           
-        def metP4(obj):
-            p4 = ROOT.TLorentzVector()
-            p4.SetPtEtaPhiM(obj.pt,0,obj.phi,0)
-            return p4
-            
-        met.uncertainty_p4 = {
-            'nominal': metP4(met),
-            'jerUp': metP4(met),
-            'jerDown': metP4(met)
-        }
+        if self.propagateToMet:
+            met = self.metInput(event)
+        
+            def metP4(obj):
+                p4 = ROOT.TLorentzVector()
+                p4.SetPtEtaPhiM(obj.pt,0,obj.phi,0)
+                return p4
+                
+            met.uncertainty_p4 = {
+                'nominal': metP4(met),
+                'jerUp': metP4(met),
+                'jerDown': metP4(met)
+            }
         
         
         self.jerUncertaintyCalculator.setSeed(event)
@@ -309,7 +312,7 @@ class JetMetUncertainties(Module):
             jet.uncertainty_p4['jerUp'] = jet.p4()*jerFactor['up']
             jet.uncertainty_p4['jerDown'] = jet.p4()*jerFactor['down']
 
-            if self.propagateJER:
+            if self.propagateToMet and self.propagateJER:
                 leptonP4 = ROOT.TLorentzVector(0,0,0,0)
 
                 for muon in muons:
@@ -334,44 +337,48 @@ class JetMetUncertainties(Module):
                 jet.uncertainty_p4['jes'+jesUncertaintyName+"Up"] = jet.uncertainty_p4['nominal']*(1.+jecDelta)
                 jet.uncertainty_p4['jes'+jesUncertaintyName+"Down"] = jet.uncertainty_p4['nominal']*(1.-jecDelta)
                     
-        for jesUncertaintyName in self.jesUncertaintyNames: 
-            for mode in ["Up","Down"]:
-                if self.propagateJER:
-                    met.uncertainty_p4['jes'+jesUncertaintyName+mode] = met.uncertainty_p4['nominal']
-                else:
-                    met.uncertainty_p4['jes'+jesUncertaintyName+mode] = metP4(met)
-                    
-                for jet in jets:
-                    if jet.uncertainty_p4['jes'+jesUncertaintyName+mode].Pt()>self.unclEnThreshold and (jet.neEmEF+jet.chEmEF) < 0.9:
-                        met.uncertainty_p4['jes'+jesUncertaintyName+mode] -= jet.uncertainty_p4['jes'+jesUncertaintyName+mode]-jet.uncertainty_p4['nominal']
-                  
+        if self.propagateToMet:
+            for jesUncertaintyName in self.jesUncertaintyNames: 
+                for mode in ["Up","Down"]:
+                    if self.propagateJER:
+                        met.uncertainty_p4['jes'+jesUncertaintyName+mode] = met.uncertainty_p4['nominal']
+                    else:
+                        met.uncertainty_p4['jes'+jesUncertaintyName+mode] = metP4(met)
+                        
+                    for jet in jets:
+                        if jet.uncertainty_p4['jes'+jesUncertaintyName+mode].Pt()>self.unclEnThreshold and (jet.neEmEF+jet.chEmEF) < 0.9:
+                            met.uncertainty_p4['jes'+jesUncertaintyName+mode] -= jet.uncertainty_p4['jes'+jesUncertaintyName+mode]-jet.uncertainty_p4['nominal']
+                      
                   
             
-        unclMetDelta = ROOT.TLorentzVector()
-        unclMetDelta.SetXYZM(
-            met.MetUnclustEnUpDeltaX,
-            met.MetUnclustEnUpDeltaY,
-            0,
-            0
-        )    
-        met.uncertainty_p4['unclEnUp'] = met.uncertainty_p4['nominal']+unclMetDelta
-        met.uncertainty_p4['unclEnDown'] = met.uncertainty_p4['nominal']-unclMetDelta
+            unclMetDelta = ROOT.TLorentzVector()
+            unclMetDelta.SetXYZM(
+                met.MetUnclustEnUpDeltaX,
+                met.MetUnclustEnUpDeltaY,
+                0,
+                0
+            )    
+            met.uncertainty_p4['unclEnUp'] = met.uncertainty_p4['nominal']+unclMetDelta
+            met.uncertainty_p4['unclEnDown'] = met.uncertainty_p4['nominal']-unclMetDelta
         
         
         
         setattr(event,self.outputJetPrefix+"nominal",self.makeNewJetCollection(jets,"nominal"))
-        setattr(event,self.outputMetPrefix+"nominal",self.makeNewMetObject(met,"nominal"))
+        if self.propagateToMet:
+            setattr(event,self.outputMetPrefix+"nominal",self.makeNewMetObject(met,"nominal"))
         
         for jesUncertaintyName in self.jesUncertaintyNames:
             for mode in ["Up","Down"]:
                 setattr(event,self.outputJetPrefix+"jes"+jesUncertaintyName+mode,self.makeNewJetCollection(jets,"jes"+jesUncertaintyName+mode))
-                setattr(event,self.outputMetPrefix+"jes"+jesUncertaintyName+mode,self.makeNewMetObject(met,"jes"+jesUncertaintyName+mode))
+                if self.propagateToMet:
+                    setattr(event,self.outputMetPrefix+"jes"+jesUncertaintyName+mode,self.makeNewMetObject(met,"jes"+jesUncertaintyName+mode))
 
                 
         for mode in ["Up","Down"]:
             setattr(event,self.outputJetPrefix+"jer"+mode,self.makeNewJetCollection(jets,"jer"+mode))
-            setattr(event,self.outputMetPrefix+"jer"+mode,self.makeNewMetObject(met,"jer"+mode))
-            setattr(event,self.outputMetPrefix+"unclEn"+mode,self.makeNewMetObject(met,"unclEn"+mode))
+            if self.propagateToMet:
+                setattr(event,self.outputMetPrefix+"jer"+mode,self.makeNewMetObject(met,"jer"+mode))
+                setattr(event,self.outputMetPrefix+"unclEn"+mode,self.makeNewMetObject(met,"unclEn"+mode))
                 
         return True
         
