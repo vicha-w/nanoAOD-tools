@@ -2,11 +2,11 @@ function run_test()
 {
     cd ~
     source /cvmfs/cms.cern.ch/cmsset_default.sh
-    export SCRAM_ARCH=slc7_amd64_gcc820 || return 1
+    export SCRAM_ARCH=slc7_amd64_gcc900 || return 1
     echo
     echo "==================== setup CMSSW ==============="
-    scramv1 project CMSSW CMSSW_11_1_7 || return 1
-    cd CMSSW_11_1_7/src || return 1
+    scramv1 project CMSSW CMSSW_12_1_0_pre4 || return 1
+    cd CMSSW_12_1_0_pre4/src || return 1
     eval `scram runtime -sh` || return 1
     mkdir -p PhysicsTools/NanoAODTools
     rsync -r --stats /scripts/ PhysicsTools/NanoAODTools/. || return 1
