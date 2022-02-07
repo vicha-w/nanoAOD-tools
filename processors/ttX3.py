@@ -67,15 +67,35 @@ jesUncertaintyFilesRegrouped = {
 jerResolutionFiles = {
     '2016':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt",
     '2016preVFP': "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt",
-    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV2_MC_PtResolution_AK4PFchs.txt",
+    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt",
     '2018':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt"
 }
-
 jerSFUncertaintyFiles = {
     '2016':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt",
     '2016preVFP': "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_SF_AK4PFchs.txt",
-    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV2_MC_SF_AK4PFchs.txt",
+    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt",
     '2018':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt"
+}
+
+
+
+jesAK8UncertaintyFilesRegrouped = {
+    '2016':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16_V7_MC_UncertaintySources_AK8PFPuppi.txt",
+    '2016preVFP': "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16APV_V7_MC_UncertaintySources_AK8PFPuppi.txt",
+    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_V5_MC_UncertaintySources_AK8PFPuppi.txt",
+    '2018':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_V5_MC_UncertaintySources_AK8PFPuppi.txt"
+}
+jerAK8ResolutionFiles = {
+    '2016':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_PtResolution_AK8PFPuppi.txt",
+    '2016preVFP': "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_PtResolution_AK8PFPuppi.txt",
+    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_PtResolution_AK8PFPuppi.txt",
+    '2018':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK8PFPuppi.txt"
+}
+jerAK8SFUncertaintyFiles = {
+    '2016':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_SF_AK8PFPuppi.txt",
+    '2016preVFP': "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_SF_AK8PFPuppi.txt",
+    '2017':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_SF_AK8PFPuppi.txt",
+    '2018':       "${CMSSW_BASE}/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK8PFPuppi.txt"
 }
 
 def leptonSequence():
@@ -148,6 +168,7 @@ def jetSelection(jetDict):
                 outputName="selectedJets_"+systName,
             )
         )
+        
         selectedJetCollections.append(lambda event: getattr(event,"selectedJets_"+systName))
         
         seq.append(
@@ -234,7 +255,7 @@ else:
         print "JECs: ",jesUncertaintyNames
         
     #TODO: apply type2 corrections? -> improves met modelling; in particular for 2018
-    analyzerChain.append(
+    analyzerChain.extend([
         JetMetUncertainties(
             jesUncertaintyFilesRegrouped[args.year],
             jerResolutionFiles[args.year],
@@ -251,9 +272,26 @@ else:
             outputJetPrefix = 'jets_',
             outputMetPrefix = 'met_',
             jetKeys=['jetId', 'nConstituents','btagDeepFlavB','hadronFlavour','partonFlavour'],
-            metKeys = [],
+        ),
+        JetMetUncertainties(
+            jesAK8UncertaintyFilesRegrouped[args.year],
+            jerAK8ResolutionFiles[args.year],
+            jerAK8SFUncertaintyFiles[args.year],
+            jesUncertaintyNames = jesUncertaintyNames, 
+            metInput = None,
+            rhoInput = lambda event: event.fixedGridRhoFastjetAll,
+            jetCollection = lambda event: Collection(event,"FatJet"),
+            lowPtJetCollection = lambda event: [],
+            genJetCollection = lambda event: Collection(event,"GenJetAK8"),
+            muonCollection = lambda event: Collection(event,"Muon"),
+            electronCollection = lambda event: Collection(event,"Electron"),
+            propagateToMet = False, #no met variations
+            propagateJER = False, #not recommended
+            outputJetPrefix = 'fatjets_',
+            outputMetPrefix = None,
+            jetKeys=['jetId', 'nConstituents','deepTag_TvsQCD','hadronFlavour'],
         )
-    )
+    ])
 
     jetDict = {
         "nominal": lambda event: event.jets_nominal,
@@ -315,7 +353,7 @@ if not globalOptions["isData"]:
 p = PostProcessor(
     args.output[0],
     args.inputFiles,
-    cut="(nJet>2)&&((nElectron+nMuon)>1)", #at least 3 jets + 2 leptons
+    cut="(nJet>1)&&((nElectron+nMuon)>1)", #at least 2 jets + 2 leptons
     modules=analyzerChain,
     friend=True,
     maxEntries = args.maxEvents
