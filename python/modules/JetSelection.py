@@ -13,6 +13,7 @@ from utils import deltaR, deltaPhi
 
 class JetSelection(Module):
 
+    NONE = -1
     LOOSE = 0
     TIGHT = 1
     TIGHTLEPVETO = 2
@@ -37,6 +38,11 @@ class JetSelection(Module):
         self.dRCleaning = dRCleaning
         self.storeKinematics = storeKinematics
         self.jetId=jetId
+        
+        #loose jet ID does not exists for UL 2017 or 2018 -> accepting all jets
+        if self.jetId==JetSelection.LOOSE and Module.globalOptions['year'] in ['2017','2018']:
+            self.jetId = JetSelection.NONE
+            
 
     def beginJob(self):
         pass
@@ -74,7 +80,7 @@ class JetSelection(Module):
                 unselectedJets.append(jet)
                 continue
 
-            if (jet.jetId & (1 << self.jetId)) == 0:
+            if self.jetId>=0 and ((jet.jetId & (1 << self.jetId)) == 0):
                 unselectedJets.append(jet)
                 continue
 
@@ -95,6 +101,7 @@ class JetSelection(Module):
                 setattr(jet,"minDRClean",100)
                 
             selectedJets.append(jet)
+            
 
         self.out.fillBranch("n"+self.outputName, len(selectedJets))
         for variable in self.storeKinematics:
