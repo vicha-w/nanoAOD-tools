@@ -8,7 +8,7 @@ import random
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
-from PhysicsTools.NanoAODTools.modules.utils import deltaR, deltaPhi
+from utils import deltaR, deltaPhi
 
 
 class JetSelection(Module):
@@ -96,11 +96,11 @@ class JetSelection(Module):
                 
             selectedJets.append(jet)
 
-        self.out.fillBranch("n"+self.outputName, len(list(selectedJets)))
+        self.out.fillBranch("n"+self.outputName, len(selectedJets))
         for variable in self.storeKinematics:
             self.out.fillBranch(
                 self.outputName+"_"+variable,
-                list(map(lambda jet: getattr(jet, variable), selectedJets))
+                map(lambda jet: getattr(jet, variable), selectedJets)
             )
 
         setattr(event, self.outputName, selectedJets)

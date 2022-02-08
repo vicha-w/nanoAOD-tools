@@ -2,35 +2,35 @@ import ROOT
 import sys
 #can only load this once
 if (ROOT.gSystem.Load("libPhysicsToolsNanoAODTools.so")!=0):
-    print("Cannot load 'libPhysicsToolsNanoAODTools'")
+    print "Cannot load 'libPhysicsToolsNanoAODTools'"
     sys.exit(1)
 
 #muons
-from PhysicsTools.NanoAODTools.modules.SingleMuonTriggerSelection import SingleMuonTriggerSelection
-from PhysicsTools.NanoAODTools.modules.MuonSelection import MuonSelection
-from PhysicsTools.NanoAODTools.modules.MuonVeto import MuonVeto
+from SingleMuonTriggerSelection import SingleMuonTriggerSelection
+from MuonSelection import MuonSelection
+from MuonVeto import MuonVeto
 
 #electrons
-from PhysicsTools.NanoAODTools.modules.SingleElectronTriggerSelection import SingleElectronTriggerSelection
-from PhysicsTools.NanoAODTools.modules.ElectronSelection import ElectronSelection
-from PhysicsTools.NanoAODTools.modules.ElectronVeto import ElectronVeto
+from SingleElectronTriggerSelection import SingleElectronTriggerSelection
+from ElectronSelection import ElectronSelection
+from ElectronVeto import ElectronVeto
 
 #aux
-from PhysicsTools.NanoAODTools.modules.EventSkim import EventSkim
-from PhysicsTools.NanoAODTools.modules.MetFilter import MetFilter
-from PhysicsTools.NanoAODTools.modules.EventInfo import EventInfo
+from EventSkim import EventSkim
+from MetFilter import MetFilter
+from EventInfo import EventInfo
 
 #jets
-from PhysicsTools.NanoAODTools.modules.JetMetUncertainties import JetMetUncertainties
-from PhysicsTools.NanoAODTools.modules.JetSelection import JetSelection
-from PhysicsTools.NanoAODTools.modules.BTagSelection import BTagSelection
-from PhysicsTools.NanoAODTools.modules.btagSFProducer import btagSFProducer
+from JetMetUncertainties import JetMetUncertainties
+from JetSelection import JetSelection
+from BTagSelection import BTagSelection
+from btagSFProducer import btagSFProducer
 
 #event
-from PhysicsTools.NanoAODTools.modules.PUWeightProducer import puWeightProducer, PUWeightProducer_dict
-from PhysicsTools.NanoAODTools.modules.GenWeightProducer import GenWeightProducer
-from PhysicsTools.NanoAODTools.modules.TopPtWeightProducer import TopPtWeightProducer
+from PUWeightProducer import puWeightProducer, PUWeightProducer_dict
+from GenWeightProducer import GenWeightProducer
+from TopPtWeightProducer import TopPtWeightProducer
 
 #reco
-from PhysicsTools.NanoAODTools.modules.EventObservables import EventObservables
+from EventObservables import EventObservables
 
