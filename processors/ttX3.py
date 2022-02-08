@@ -166,7 +166,7 @@ def jetSelection(jetDict):
                 storeKinematics=['pt', 'eta'],
                 outputName="selectedJets_"+systName,
             ),
-            #TODO: every ak8 might also be ak4 -> cross cleaning required or select N(ak4)>=4 where 2 are also ak8?
+            #TODO: every ak8 will also be ak4 -> some cross cleaning required
             JetSelection(
                 inputCollection=fatjetCollection,
                 leptonCollectionDRCleaning=lambda event,sys=systName: event.tightMuons+event.tightElectrons,
@@ -261,11 +261,11 @@ else:
     if args.nosys:
         jesUncertaintyNames = []
     else:
-        '''
+        
         jesUncertaintyNames = ["Total","Absolute","EC2","BBEC1", "HF","RelativeBal","FlavorQCD" ]
         for jesUncertaintyExtra in ["RelativeSample","HF","Absolute","EC2","BBEC1"]:
             jesUncertaintyNames.append(jesUncertaintyExtra+"_"+args.year.replace("preVFP",""))
-        '''
+        
         jesUncertaintyNames = ["Total"]
             
         print "JECs: ",jesUncertaintyNames
