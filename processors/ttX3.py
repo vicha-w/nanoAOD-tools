@@ -195,7 +195,6 @@ def jetSelection(jetDict):
         
     systNames = jetDict.keys()
    
-    
     #at least 2 AK4 jets
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
