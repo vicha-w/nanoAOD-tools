@@ -43,7 +43,7 @@ Example files:
 * TTbar dilepton (ca 60k): `root://cms-xrd-global.cern.ch//store/mc/RunIISummer20UL17NanoAODv9/TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/230000/2F43988F-FE4C-934B-B3FC-8343D149B68F.root`
 * Signal (1.6k): `root://cms-xrd-global.cern.ch//store/user/mullerd/tt_heavyHiggs_M-500_TuneCP5_PSweights_13TeV_pythia8/RunIISummer20UL17_NanoAODv9/220206_135734/0000/NanoAODv9_1.root`
 
-Full sample files can be found under [doc/Samples](doc/Samples.md).
+Full sample files can be found under [doc/SignalSamples](doc/SignalSamples.md).
 
 The main post-processing script for producing final ntuples for plotting and statistical interpretation is:
 ```
