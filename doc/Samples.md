@@ -3,7 +3,7 @@
 
 ## Cross sections
 
-* 4 top NLO sample: 12.0 fb (theo. paper)[https://arxiv.org/abs/1711.02116]
+* 4 top NLO sample: 12.0 fb [theo. paper](https://arxiv.org/abs/1711.02116)
 * TopPhilic ttbar associated signal (ttbar+V1): 77.1 fb (500 GeV); 4.75 fb (1 TeV); 0.0869 fb (2 TeV)
 * TopPhilic single top associated signal (qt/tW+V1): 113 fb (500 GeV); 8.63 fb (1 TeV); 0.218 fb (2 TeV)
 
