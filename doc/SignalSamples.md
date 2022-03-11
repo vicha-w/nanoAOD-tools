@@ -1,6 +1,5 @@
 # Signal samples
 
-----
 
 ## Cross sections
 
