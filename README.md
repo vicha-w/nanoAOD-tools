@@ -44,6 +44,7 @@ Example files:
 * BSM signal (1.6k): `root://cms-xrd-global.cern.ch//store/user/mullerd/tt_heavyHiggs_M-500_TuneCP5_PSweights_13TeV_pythia8/RunIISummer20UL17_NanoAODv9/220206_135734/0000/NanoAODv9_1.root`
 * SM 4-tops (38k): `root://cms-xrd-global.cern.ch//store/mc/RunIISummer20UL17NanoAODv9/TTTT_TuneCP5_13TeV-amcatnlo-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/92382329-7C4F-D241-808B-A6C678805119.root`
 
+Full sample files can be found under [doc/SignalSamples](doc/SignalSamples.md).
 
 The main post-processing script for producing final ntuples for plotting and statistical interpretation is:
 ```
