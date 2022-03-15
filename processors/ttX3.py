@@ -219,9 +219,6 @@ def jetSelection(jetDict):
 
     if isMC:
         jesUncertForBtag = ['jes'+syst.replace('Total','') for syst in jesUncertaintyNames]
-        # to remove once breakdown available
-        if args.year != '2016preVFP':
-            jesUncertForBtag = ['jes']
         seq.append(
             btagSFProducer(
                 era=args.year,
