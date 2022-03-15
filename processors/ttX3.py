@@ -216,8 +216,7 @@ def jetSelection(jetDict):
         )
     )
     '''
-    #TODO: btagging SF producer might have a bug
-    '''
+
     if isMC:
         jesUncertForBtag = ['jes'+syst.replace('Total','') for syst in jesUncertaintyNames]
         # to remove once breakdown available
@@ -230,7 +229,6 @@ def jetSelection(jetDict):
                 nosyst = args.nosys
             )
         )
-    '''
 
     
             
