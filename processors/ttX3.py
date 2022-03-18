@@ -103,7 +103,7 @@ def leptonSequence():
         MuonSelection(
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName="tightMuons",
-            storeKinematics=[],
+            storeKinematics=["pt", "eta", "phi"],
             storeWeights=True,
             muonMinPt=minMuonPt[args.year],
             muonMaxEta=2.4,
@@ -130,7 +130,7 @@ def leptonSequence():
             electronID = ElectronSelection.INV if args.invid else ElectronSelection.WP90,
             electronMinPt = minElectronPt[args.year],
             electronMaxEta = 2.4,
-            storeKinematics=[],
+            storeKinematics=["pt", "eta", "phi"],
             storeWeights=True,
         ),
         SingleElectronTriggerSelection(
@@ -163,12 +163,12 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta'],
+                storeKinematics=['pt', 'eta', 'phi', 'btagDeepJetB'],
                 outputName="selectedJets_"+systName,
             ),
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
             JetSelection(
-                inputCollection=fatjetCollection,
+                inputCollection=lambda event: Collection(event, "FatJet"),
                 leptonCollectionDRCleaning=lambda event,sys=systName: event.tightMuons+event.tightElectrons,
                 jetMinPt=200., #ak8 only stored > 175 GeV
                 jetMaxEta=2.4,
@@ -319,7 +319,6 @@ else:
     analyzerChain.extend(
         jetSelection(jetDict)
     )
-
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
