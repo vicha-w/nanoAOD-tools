@@ -39,8 +39,3 @@ class MetSelection(Module):
             )
 
         return True
-
-
-# define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
-
-exampleModuleConstr = lambda: exampleProducer(jetSelection=lambda j: j.pt > 30)
