@@ -320,6 +320,14 @@ else:
         jetSelection(jetDict)
     )
 
+analyzerChain.extend(
+    MetSelection(
+         inputCollection=lambda event: Collection(event, "MET"),
+         outputName="MET",
+         storeKinematics=['pt', 'eta']
+    )
+)
+
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
     if isPowhegTTbar:
