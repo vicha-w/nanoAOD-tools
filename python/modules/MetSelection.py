@@ -1,0 +1,46 @@
+from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
+from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
+import ROOT
+ROOT.PyConfig.IgnoreCommandLineOptions = True
+
+
+class MetSelection(Module):
+    def __init__(
+         self,
+         inputCollection=lambda event: Collection(event, "MET"),
+         outputName="MET",
+         storeKinematics=['pt', 'eta']
+     ):
+        self.inputCollection = inputCollection
+        self.outputName = outputName
+        self.storeKinematics = storeKinematics
+
+    def beginJob(self):
+        pass
+
+    def endJob(self):
+        pass
+
+    def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
+        self.out = wrappedOutputTree
+        for variable in self.storeKinematics:
+            self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
+
+    def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
+        pass
+
+    def analyze(self, event):
+        """process event, return True (go to next module) or False (fail, go to next event)"""
+        met = self.inputCollection(event)
+        for variable in self.storeKinematics:
+            self.out.fillBranch(
+                self.outputName+"_"+variable,
+                map(lambda met: getattr(met, variable), met)
+            )
+
+        return True
+
+
+# define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
+
+exampleModuleConstr = lambda: exampleProducer(jetSelection=lambda j: j.pt > 30)
