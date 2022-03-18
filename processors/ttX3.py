@@ -179,7 +179,11 @@ def jetSelection(jetDict):
             )
         ])
         
-        
+        if isMC:
+	    truthKeys = ['hadronFlavour','partonFlavour']
+        else:
+            truthKeys = [] 
+
         seq.append(
             BTagSelection(
                 inputCollection=lambda event,sys=systName: getattr(event,"selectedJets_"+sys),
@@ -189,7 +193,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 workingpoint = BTagSelection.TIGHT,
                 storeKinematics=[],
-                storeTruthKeys = ['hadronFlavour','partonFlavour'],
+                storeTruthKeys = truthKeys,
             )
         )
         
