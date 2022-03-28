@@ -10,20 +10,38 @@
 ## UL miniaodv2 / nanoaodv9 
 
 
-### 2016preVFP
+### 2016 pre-VFP
 
 4 top NLO sample
 * /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM
 
-### 2016
+Gen-skimmed ttbar to semilepton
+* /TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM
+
+Gen-skimmed ttbar to dilepton
+* /TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM
+
+### 2016 post-VFP
 
 4 top NLO sample
 * /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+
+Gen-skimmed ttbar to semilepton
+* /TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
+
+Gen-skimmed ttbar to dilepton
+* /TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
 
 ### 2017
 
 4 top NLO sample
 * /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+
+Gen-skimmed ttbar to semilepton
+* /TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+
+Gen-skimmed ttbar to dilepton
+* /TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
 
 TopPhilic ttbar associated signal (ttbar+V1, V1 -> ttbar):
 * /TTV1ToTT_TopPhilic_m1000_width10_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220223-76de701442013e6ff941c86cd482e64d/USER
@@ -46,6 +64,11 @@ TopPhilic single top (t+tW) associated signal (qt/tW+V1, V1 -> ttbar):
 4 top NLO sample
 * /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
 
+Gen-skimmed ttbar to semilepton
+* /TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+
+Gen-skimmed ttbar to dilepton
+* /TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
 
 ## Get the files from a dataset
 
