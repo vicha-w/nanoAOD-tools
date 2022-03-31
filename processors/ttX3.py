@@ -326,7 +326,6 @@ else:
 
 analyzerChain.extend([
     MetSelection(
-         inputCollection=lambda event: Collection(event, "MET"),
          outputName="MET",
          storeKinematics=['pt', 'eta']
     ),
