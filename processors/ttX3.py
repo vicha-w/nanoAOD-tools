@@ -327,7 +327,7 @@ else:
 analyzerChain.extend([
     MetSelection(
          outputName="MET",
-         storeKinematics=['pt', 'eta']
+         storeKinematics=['pt', 'phi']
     ),
     LHEWeightProducer()
 ])
