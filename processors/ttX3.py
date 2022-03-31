@@ -12,7 +12,6 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel \
     import Collection, Object
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.modules import *
-from python.modules.LHEWeightProducer import LHEWeightProducer
 
 parser = argparse.ArgumentParser()
 
