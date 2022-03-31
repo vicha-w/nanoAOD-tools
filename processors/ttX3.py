@@ -12,6 +12,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel \
     import Collection, Object
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.modules import *
+from python.modules.LHEWeightProducer import LHEWeightProducer
 
 parser = argparse.ArgumentParser()
 
@@ -329,7 +330,8 @@ analyzerChain.extend([
          inputCollection=lambda event: Collection(event, "MET"),
          outputName="MET",
          storeKinematics=['pt', 'eta']
-    )
+    ),
+    LHEWeightProducer()
 ])
 
 if not args.isData:

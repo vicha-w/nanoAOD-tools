@@ -37,3 +37,6 @@ from TopPtWeightProducer import TopPtWeightProducer
 #reco
 from EventObservables import EventObservables
 
+#lhe weights
+from LHEWeightProducer import LHEWeightProducer
+
