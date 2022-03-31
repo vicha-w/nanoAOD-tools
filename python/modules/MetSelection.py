@@ -7,11 +7,9 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 class MetSelection(Module):
     def __init__(
          self,
-         inputCollection=lambda event: Collection(event, "MET"),
          outputName="MET",
          storeKinematics=['pt', 'eta']
      ):
-        self.inputCollection = inputCollection
         self.outputName = outputName
         self.storeKinematics = storeKinematics
 
@@ -31,11 +29,7 @@ class MetSelection(Module):
 
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
-        met = self.inputCollection(event)
         for variable in self.storeKinematics:
-            self.out.fillBranch(
-                self.outputName+"_"+variable,
-                map(lambda met: getattr(met, variable), met)
-            )
+            self.out.fillBranch(self.outputName + "_" + variable, getattr(event, "MET_"+variable))
 
         return True
