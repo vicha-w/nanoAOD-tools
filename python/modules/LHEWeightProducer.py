@@ -40,7 +40,7 @@ class LHEWeightProducer(Module):
             if hasattr(event, "LHEWeights_yt_{}".format(yt)):
                 ytweight = getattr(event, "LHEWeights_yt_{}".format(yt))
             else: ytweight = 1
-            self.out.fillBranch("weights_yt{}".format(yt), ytweight)
+            self.out.fillBranch("weights_yt_{}".format(yt), ytweight)
         if hasattr(event, "LHEWeights_yt_sm"):
             ytweight = getattr(event, "LHEWeights_yt_sm")
         else: ytweight = 1
