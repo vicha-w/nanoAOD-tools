@@ -8,7 +8,7 @@ class MetSelection(Module):
     def __init__(
          self,
          outputName="MET",
-         storeKinematics=['pt', 'eta']
+         storeKinematics=['pt', 'phi']
      ):
         self.outputName = outputName
         self.storeKinematics = storeKinematics
