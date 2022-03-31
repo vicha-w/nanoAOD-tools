@@ -22,7 +22,7 @@ class MetSelection(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         for variable in self.storeKinematics:
-            self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
+            self.out.branch(self.outputName+"_"+variable, "F")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
