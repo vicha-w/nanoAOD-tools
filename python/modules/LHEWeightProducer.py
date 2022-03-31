@@ -6,6 +6,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 class LHEWeightProducer(Module):
     def __init__(self, verbose=False):
+        self.verbose = verbose
 
     def beginJob(self):
         pass
