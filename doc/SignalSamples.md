@@ -68,8 +68,8 @@ Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar):
 * /TTY1ToBB_5FS_Zprime_TB_m1000_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
 * /TTY1ToBB_5FS_Zprime_TB_m250_width10_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
 * /TTY1ToBB_5FS_Zprime_TB_m250_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
-* m500 w10
-* m500 w1
+* /TTY1ToBB_5FS_Zprime_TB_m500_width10_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m500_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
 
 ### 2018
 
