@@ -8,8 +8,7 @@
 * ttbar semilepton gen-filtered: **2.268 pb** as reported in AN-2020/085
 * TopPhilic ttbar associated signal (ttbar+V1): **77.1 fb** (500 GeV); **4.75 fb** (1 TeV); **0.0869 fb** (2 TeV)
 * TopPhilic single top associated signal (qt/tW+V1): **113 fb** (500 GeV); **8.63 fb** (1 TeV); **0.218 fb** (2 TeV)
-* Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar), decay width of 10 GeV: **438.4 fb** (250 GeV); **122.4 fb** (500 GeV); **14.8 fb** (1 TeV)
-* Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar), decay width of 1 GeV: **4384 fb** (250 GeV); **1224 fb** (500 GeV); **148 fb** (1 TeV)
+* Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar): **440.7 fb** (250 GeV); **61.47 fb** (500 GeV); **3.72 fb** (1 TeV)
 
 ## UL miniaodv2 / nanoaodv9 
 
