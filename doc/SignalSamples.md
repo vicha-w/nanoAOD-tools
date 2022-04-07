@@ -1,4 +1,4 @@
-# Signal samples
+# SM and BSM signal samples
 
 
 ## Cross sections
@@ -8,6 +8,8 @@
 * ttbar semilepton gen-filtered: **2.268 pb** as reported in AN-2020/085
 * TopPhilic ttbar associated signal (ttbar+V1): **77.1 fb** (500 GeV); **4.75 fb** (1 TeV); **0.0869 fb** (2 TeV)
 * TopPhilic single top associated signal (qt/tW+V1): **113 fb** (500 GeV); **8.63 fb** (1 TeV); **0.218 fb** (2 TeV)
+* Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar), decay width of 10 GeV: **438.4 fb** (250 GeV); **122.4 fb** (500 GeV); **14.8 fb** (1 TeV)
+* Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar), decay width of 1 GeV: **4384 fb** (250 GeV); **1224 fb** (500 GeV); **148 fb** (1 TeV)
 
 ## UL miniaodv2 / nanoaodv9 
 
@@ -60,6 +62,14 @@ TopPhilic single top (t+tW) associated signal (qt/tW+V1, V1 -> ttbar):
 * /TTV1ToTT_TopPhilic_ST_m2000_width1_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220223-76de701442013e6ff941c86cd482e64d/USER
 * /TTV1ToTT_TopPhilic_ST_m500_width10_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220223-76de701442013e6ff941c86cd482e64d/USER
 * /TTV1ToTT_TopPhilic_ST_m500_width1_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220223-76de701442013e6ff941c86cd482e64d/USER
+
+Zprime_TB ttbar associated signal (ttbar+Y1, Y1 -> bbbar):
+* /TTY1ToBB_5FS_Zprime_TB_m1000_width10_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m1000_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m250_width10_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m250_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m500_width10_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
+* /TTY1ToBB_5FS_Zprime_TB_m500_width1_TuneCP5_13TeV-madgraph-pythia8/mullerd-RunIISummer20UL17_NanoAODv9-76de701442013e6ff941c86cd482e64d/USER
 
 ### 2018
 
