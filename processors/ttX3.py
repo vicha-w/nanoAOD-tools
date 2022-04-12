@@ -174,7 +174,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta'],
+                storeKinematics=['pt', 'eta', 'phi', 'deepTagMD_TvsQCD'],
                 outputName="selectedFatJets_"+systName,
             )
         ])
