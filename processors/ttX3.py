@@ -192,17 +192,17 @@ def jetSelection(jetDict):
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 workingpoint = BTagSelection.TIGHT,
-                storeKinematics=[],
+                storeKinematics=["pt", "eta", "phi"],
                 storeTruthKeys = truthKeys,
             )
         )
         
     systNames = jetDict.keys()
    
-    #at least 2 AK4 jets
+    # At least 2 AK4 jets? No! We need at least 4 jets!
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
-            any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
+            any([getattr(event, "nselectedJets_"+systName) >= 4 for systName in systNames])
         )
     )
     
