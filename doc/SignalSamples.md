@@ -4,7 +4,7 @@
 ## Cross sections
 
 * 4 top NLO sample: **12.0 fb** [arxiv:1711.02116](https://arxiv.org/abs/1711.02116)
-* ttbar dilepton gen-filtered: **1.456 pb** as reported in AN-2020/085
+* ttbar dilepton gen-filtered: **1.456 pb** (`831.76 pb *(3*0.108)^2*0.01667=1.456 pb`) as reported in AN-2020/085
 * ttbar semilepton gen-filtered: **2.268 pb** as reported in AN-2020/085
 * TopPhilic ttbar associated signal (ttbar+V1): **77.1 fb** (500 GeV); **4.75 fb** (1 TeV); **0.0869 fb** (2 TeV)
 * TopPhilic single top associated signal (qt/tW+V1): **113 fb** (500 GeV); **8.63 fb** (1 TeV); **0.218 fb** (2 TeV)
