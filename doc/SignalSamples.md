@@ -46,6 +46,9 @@ Gen-skimmed ttbar to semilepton
 Gen-skimmed ttbar to dilepton
 * /TTTo2L2Nu_HT500Njet7_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
 
+ttH, H->bb:
+* /ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+
 4 tops LO with various yt
 * `QCD^2*QED^2` (nominal yt=172.5 GeV): /TTTT_5f_LO_QCD2_reweight_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220328-a3a6df684a2ee70993df2a83f7dfbc4d/USER
 * `QCD^2*QED^2` (nominal yt=400 GeV): /TTTT_yt400_5f_LO_QCD2_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220328-a3a6df684a2ee70993df2a83f7dfbc4d/USER
