@@ -9,6 +9,7 @@
 * TopPhilic ttbar associated signal (ttbar+V1): **77.1 fb** (500 GeV); **4.75 fb** (1 TeV); **0.0869 fb** (2 TeV)
 * TopPhilic single top associated signal (qt/tW+V1): **113 fb** (500 GeV); **8.63 fb** (1 TeV); **0.218 fb** (2 TeV)
 * Zprime_TB ttbar associated signal (ttbar+Y1): **440.7 fb** (250 GeV); **61.47 fb** (500 GeV); **3.72 fb** (1 TeV)
+* ttH, H -> bb: **0.295 pb** as reported in AN-2017/063 (0.5071 pb cross section times 0.5824 branching ratio)
 
 ## UL miniaodv2 / nanoaodv9 
 
