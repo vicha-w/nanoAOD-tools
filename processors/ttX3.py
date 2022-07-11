@@ -174,7 +174,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta'],
+                storeKinematics=['pt', 'eta', 'phi', 'deepTagMD_TvsQCD'],
                 outputName="selectedFatJets_"+systName,
             )
         ])
@@ -192,14 +192,14 @@ def jetSelection(jetDict):
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 workingpoint = BTagSelection.TIGHT,
-                storeKinematics=[],
+                storeKinematics=["pt", "eta", "phi"],
                 storeTruthKeys = truthKeys,
             )
         )
         
     systNames = jetDict.keys()
    
-    #at least 2 AK4 jets
+    # At least 2 AK4 jets
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
             any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
