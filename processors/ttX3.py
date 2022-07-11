@@ -199,10 +199,10 @@ def jetSelection(jetDict):
         
     systNames = jetDict.keys()
    
-    # At least 2 AK4 jets? No! We need at least 4 jets!
+    # At least 2 AK4 jets
     seq.append(
         EventSkim(selection=lambda event, systNames=systNames: 
-            any([getattr(event, "nselectedJets_"+systName) >= 4 for systName in systNames])
+            any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
         )
     )
     
