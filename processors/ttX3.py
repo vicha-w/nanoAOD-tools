@@ -163,7 +163,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB'],
+                storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB', "HT"],
                 outputName="selectedJets_"+systName,
             ),
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
