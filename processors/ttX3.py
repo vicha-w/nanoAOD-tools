@@ -324,6 +324,19 @@ else:
         jetSelection(jetDict)
     )
 
+# Adding GenJet collection
+analyzerChain.extend(
+    JetSelection(
+        inputCollection=lambda event: Collection(event,"GenJet"),
+        jetMinPt=30.,
+        jetMaxEta=2.4,
+        dRCleaning=0.4,
+        jetId=JetSelection.LOOSE,
+        storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB'],
+        outputName="selectedGenJets_nominal",
+    )
+)
+
 analyzerChain.extend([
     MetSelection(
          outputName="MET",
