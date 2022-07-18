@@ -55,7 +55,8 @@ class JetSelection(Module):
         
         self.out.branch("n"+self.outputName, "I")
         for variable in self.storeKinematics:
-            self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
+            if variable=="HT": self.out.branch(self.outputName+"_HT", "F", lenVar=1)
+            else: self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
