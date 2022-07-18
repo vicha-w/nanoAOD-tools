@@ -332,7 +332,7 @@ analyzerChain.extend([
         jetMaxEta=2.4,
         dRCleaning=0.4,
         jetId=JetSelection.LOOSE,
-        storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB'],
+        storeKinematics=['pt', 'eta', 'phi'],
         outputName="selectedGenJets_nominal",
     )
 ])
