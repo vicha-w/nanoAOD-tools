@@ -325,7 +325,7 @@ else:
     )
 
 # Adding GenJet collection
-analyzerChain.extend(
+analyzerChain.extend([
     JetSelection(
         inputCollection=lambda event: Collection(event,"GenJet"),
         jetMinPt=30.,
@@ -335,7 +335,7 @@ analyzerChain.extend(
         storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB'],
         outputName="selectedGenJets_nominal",
     )
-)
+])
 
 analyzerChain.extend([
     MetSelection(
