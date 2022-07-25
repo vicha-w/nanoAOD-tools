@@ -71,6 +71,13 @@ class BTagSelection(Module):
             self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
         for variable in self.storeTruthKeys:
             self.out.branch(self.outputName+"_"+variable, "F", lenVar="n"+self.outputName)
+        
+        if self.unselectedOutputName:
+            self.out.branch("n"+self.unselectedOutputName, "I")
+            for variable in self.storeKinematics:
+                self.out.branch(self.unselectedOutputName+"_"+variable, "F", lenVar="n"+self.unselectedOutputName)
+            for variable in self.storeTruthKeys:
+                self.out.branch(self.unselectedOutputName+"_"+variable, "F", lenVar="n"+self.unselectedOutputName)
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
