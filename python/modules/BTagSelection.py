@@ -22,6 +22,7 @@ class BTagSelection(Module):
         inputCollection=lambda event: Collection(event, "Jet"),
         flagName = "isBTagged",
         outputName="btaggedJets",
+        unselectedOutputName=None,
         jetMinPt=30.,
         jetMaxEta=2.4,
         workingpoint = TIGHT,
@@ -32,6 +33,7 @@ class BTagSelection(Module):
         self.inputCollection = inputCollection
         self.flagName = flagName
         self.outputName = outputName
+        self.unselectedOutputName = unselectedOutputName
         self.jetMinPt = jetMinPt
         self.jetMaxEta = jetMaxEta
         self.storeKinematics = storeKinematics
@@ -111,6 +113,16 @@ class BTagSelection(Module):
         for variable in self.storeTruthKeys:
             self.out.fillBranch(self.outputName+"_"+variable,
                                 map(lambda jet: getattr(jet, variable), bJets))
+        
+        if self.unselectedOutputName:
+            self.out.fillBranch("n"+self.unselectedOutputName, len(bJets))
+            for variable in self.storeKinematics:
+                self.out.fillBranch(self.unselectedOutputName+"_"+variable,
+                                    map(lambda jet: getattr(jet, variable), bJets))
+
+            for variable in self.storeTruthKeys:
+                self.out.fillBranch(self.unselectedOutputName+"_"+variable,
+                                    map(lambda jet: getattr(jet, variable), bJets))
 
 
         setattr(event, self.outputName, bJets)
