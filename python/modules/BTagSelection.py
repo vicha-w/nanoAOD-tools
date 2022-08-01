@@ -125,11 +125,11 @@ class BTagSelection(Module):
             self.out.fillBranch("n"+self.unselectedOutputName, len(bJets))
             for variable in self.storeKinematics:
                 self.out.fillBranch(self.unselectedOutputName+"_"+variable,
-                                    map(lambda jet: getattr(jet, variable), bJets))
+                                    map(lambda jet: getattr(jet, variable), lJets))
 
             for variable in self.storeTruthKeys:
                 self.out.fillBranch(self.unselectedOutputName+"_"+variable,
-                                    map(lambda jet: getattr(jet, variable), bJets))
+                                    map(lambda jet: getattr(jet, variable), lJets))
 
 
         setattr(event, self.outputName, bJets)
