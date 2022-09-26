@@ -12,6 +12,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel \
     import Collection, Object
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.modules import *
+from python.modules.GenParticleSelection import GenParticleSelection
 
 parser = argparse.ArgumentParser()
 
@@ -349,6 +350,13 @@ analyzerChain.extend([
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
+    analyzerChain.append(
+        GenParticleSelection(
+            inputCollection = lambda event: Collection(event, "GenPart"),
+            outputName="genParticles",
+            storeKinematics=['pt', 'eta', 'phi', 'mass', 'pdgId', "genPartIdxMother"]
+        )
+    )
     if isPowhegTTbar:
         analyzerChain.append(
             TopPtWeightProducer(
