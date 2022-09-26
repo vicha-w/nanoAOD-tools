@@ -40,3 +40,5 @@ from EventObservables import EventObservables
 #lhe weights
 from LHEWeightProducer import LHEWeightProducer
 
+#genparticles
+from GenParticleSelection import GenParticleSelection
