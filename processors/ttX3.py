@@ -103,7 +103,7 @@ def leptonSequence():
         MuonSelection(
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName="tightMuons",
-            storeKinematics=["pt", "eta", "phi", "mass"],
+            storeKinematics=["pt", "eta", "phi", "mass", "charge"],
             storeWeights=True,
             muonMinPt=minMuonPt[args.year],
             muonMaxEta=2.4,
@@ -130,7 +130,7 @@ def leptonSequence():
             electronID = ElectronSelection.INV if args.invid else ElectronSelection.WP90,
             electronMinPt = minElectronPt[args.year],
             electronMaxEta = 2.4,
-            storeKinematics=["pt", "eta", "phi", "mass"],
+            storeKinematics=["pt", "eta", "phi", "mass", "charge"],
             storeWeights=True,
         ),
         SingleElectronTriggerSelection(
