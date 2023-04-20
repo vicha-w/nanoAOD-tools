@@ -55,6 +55,7 @@ ttH, H->bb:
 * `QCD^2*QED^2` (nominal yt=400 GeV): /TTTT_yt400_5f_LO_QCD2_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220328-a3a6df684a2ee70993df2a83f7dfbc4d/USER
 * `QCD^4` (nominal yt=400 GeV): /TTTT_yt400_5f_LO_QCD4_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220328-a3a6df684a2ee70993df2a83f7dfbc4d/USER
 * `QCD^4+QCD^2*QED^2+interference` (nominal yt=400 GeV): /TTTT_yt400_5f_LO_QCD_plus_QED_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220328-a3a6df684a2ee70993df2a83f7dfbc4d/USER
+* `QCD^4+QCD^2*QED^2+interference` (nominal yt=400 GeV, new samples by Vichayanun): /TTTT_5f_LO_QCD2_reweight_TuneCP5_13TeV-madgraph-pythia8/vwachira-crab_tttt_yt_samples_nanoAOD_round2-00000000000000000000000000000000/USER
 
 TopPhilic ttbar associated signal (ttbar+V1, V1 -> ttbar):
 * /TTV1ToTT_TopPhilic_m1000_width10_TuneCP5_13TeV-madgraph-pythia8/mkomm-nanoaodUL17v9_220223-76de701442013e6ff941c86cd482e64d/USER
