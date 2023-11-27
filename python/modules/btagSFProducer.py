@@ -35,7 +35,7 @@ class btagSFProducer(Module):
     """
 
     def __init__(
-            self, era, algo='deepJet', selectedWPs=['shape_corr'],
+            self, era, algo='deepJet', selectedWPs=['L','M','shape_corr'],
             sfFileName=None, verbose=0, jesSystsForShape=["jes"],
             nosyst = False
     ):
@@ -189,7 +189,7 @@ class btagSFProducer(Module):
             return None
         return self.readers[wp_btv]
 
-    def getSFs(self, jet_data, syst, reader, measurement_type='auto', shape_corr=False):
+    def getSFs(self, jet_data, syst, reader, measurement_type='auto', wp='', shape_corr=False):
         if reader is None:
             if self.verbose > 0:
                 print("WARNING: Reader not available, setting b-tagging SF to -1!")
@@ -213,7 +213,7 @@ class btagSFProducer(Module):
                     sf = reader.evaluateBTagShape(self.algo+"_shape",
                         'central', flavor_btv, abs(eta), pt, discr)
             else:
-                sf = reader.evaluateBTagWorkingpoint(self.algo+"_"+self.measurement_types[flavor_btv],syst, self.selectedWPs, flavor_btv, abs(eta), pt)
+                sf = reader.evaluateBTagWorkingpoint(self.algo+"_"+self.measurement_types[flavor_btv],syst, wp, flavor_btv, abs(eta), pt)
             # check if SF is OK
             if sf < 0.01:
                 if self.verbose > 0:
@@ -251,13 +251,16 @@ class btagSFProducer(Module):
                     preloaded_jets = [(jet.pt, jet.eta, jet.hadronFlavour, getattr(jet, discr))
                                       for jet in getattr(event,"selectedJets_nominal")]
 
+                
                 scale_factors = list(self.getSFs(
-                    preloaded_jets, central_or_syst, reader, 'auto', isShape))
+                    preloaded_jets, central_or_syst, reader, 'auto', wp, isShape))
                 ev_weight = 1.
                 for SF in scale_factors:
                     ev_weight *= SF
                 self.out.fillBranch(
                     self.branchNames_central_and_systs[wp][self.getSystForFwk(central_or_syst)], ev_weight)
+
+
         return True
 
     def isJESvariation(self,central_or_syst):
@@ -278,3 +281,4 @@ class btagSFProducer(Module):
         if syst == 'jesUp': syst = 'jesTotalUp'
         elif syst == 'jesDown': syst = 'jesTotalDown'
         return syst
+
