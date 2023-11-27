@@ -11,11 +11,13 @@ class XGBEvaluationProducer(Module):
             self,
             modelPath="",
             inputHOTVRJetCollection="",
-            outputName="scoreBDT"
+            outputName="scoreBDT",
+            trainingEventMasking=False
         ):
         self.outputName = outputName
         self.modelPath = modelPath
         self.inputHOTVRJetCollection = inputHOTVRJetCollection
+        self.trainingEventMasking = trainingEventMasking
 
         self.inputs = (
             'fractional_subjet_pt', 'min_pairwise_subjets_mass', 'mass', 'nsubjets', 'tau3_over_tau2'
@@ -62,9 +64,19 @@ class XGBEvaluationProducer(Module):
 
             # to avoid overtraining, the training is done on jets of odd event number
             # while the evaluation on jets of even number
-            if event.run % 2 == 0:
-               self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, map(lambda hotvr: -1, hotvrjets))
-            else: self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, bdt_score[:, 1].tolist())
+
+            # VW: Why??? Haven't we already checked that our BDTs are not overtrained?
+            # If we can prove that both output distributions from training and evaluation set are identical,
+            # I do not see why we should mask them!
+            # Besides, for the dataset that is not used for the training, guaranteed,
+            # we should have BDT outputs from *all* events.
+
+            if self.trainingEventMasking:
+                if event.run % 2 == 0:
+                    self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, map(lambda hotvr: -1, hotvrjets))
+                else: self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, bdt_score[:, 1].tolist())
+            else:
+                self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, bdt_score[:, 1].tolist())
 
             self.out.fillBranch("inference_time_"+self.outputName, inference_time_perJet)
 
