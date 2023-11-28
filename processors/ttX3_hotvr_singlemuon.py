@@ -633,7 +633,8 @@ if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'
 def leptonic_W_cut(event):
     muon = event.tightRelIso_looseID_Muons[0]
     met = Object(event, "MET")
-    return (polarP4(muon) + met.p4()).Pt() >= 100.0
+    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
+    return (polarP4(muon) + metvec).Pt() >= 100.0
 
 def bjet_in_same_hemisphere_as_muon(event):
     muon = event.tightRelIso_looseID_Muons[0]
