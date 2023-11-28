@@ -8,10 +8,12 @@ class MetSelection(Module):
     def __init__(
          self,
          outputName="MET",
-         storeKinematics=['pt', 'phi']
+         storeKinematics=['pt', 'phi'],
+         metCut=lambda met: True # Example: lambda met: met.pt >= 50.0
      ):
         self.outputName = outputName
         self.storeKinematics = storeKinematics
+        self.metCut = metCut
 
     def beginJob(self):
         pass
@@ -29,7 +31,8 @@ class MetSelection(Module):
 
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
-        for variable in self.storeKinematics:
-            self.out.fillBranch(self.outputName + "_" + variable, getattr(event, "MET_"+variable))
-
-        return True
+        if self.metCut(event.met):
+            for variable in self.storeKinematics:
+                self.out.fillBranch(self.outputName + "_" + variable, getattr(event, "MET_"+variable))
+            return True
+        else: return False

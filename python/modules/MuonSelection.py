@@ -31,6 +31,7 @@ class MuonSelection(Module):
         muonMinPt=25.,
         muonMaxEta=2.4,
         storeKinematics= [],#['pt','eta'],
+        additionalMuonCuts = lambda muon: True,
     ):
         
         self.inputCollection = inputCollection
@@ -40,6 +41,7 @@ class MuonSelection(Module):
         self.storeKinematics = storeKinematics
         self.triggerMatch = triggerMatch
         self.triggerObjectCollection = lambda event: Collection(event, "TrigObj") if triggerMatch else lambda event: []
+        self.additionalMuonCuts = additionalMuonCuts
         
 	
     def triggerMatched(self, muon, trigger_object): 
@@ -107,7 +109,7 @@ class MuonSelection(Module):
             
             #baseline selection (pT, eta, trigger matching requirement)
             if muon.pt>self.muonMinPt and math.fabs(muon.eta)<self.muonMaxEta and \
-                self.triggerMatched(muon, triggerObjects)[0] and matched_trgObj_id_list.count(self.triggerMatched(muon, triggerObjects)[1])==1:
+                self.triggerMatched(muon, triggerObjects)[0] and matched_trgObj_id_list.count(self.triggerMatched(muon, triggerObjects)[1])==1 and self.additionalMuonCuts(muon) :
 
                 #saving relIso, cutBased Id 
                 nMuon+=1
