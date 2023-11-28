@@ -308,7 +308,8 @@ def jetSelection(jetDict):
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
-                leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,#event.tightRelIso_tightID_Muons+event.tight_MVA_Electrons,
+                #leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+                leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
@@ -321,7 +322,8 @@ def jetSelection(jetDict):
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
             JetSelection(
                 inputCollection= fatjetCollection, 
-                leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+                #leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+                leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
                 jetMinPt=400., 
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
@@ -350,7 +352,8 @@ def jetSelection(jetDict):
     seq.extend([
         JetSelection(
             inputCollection= lambda event: Collection(event,"HOTVRJet"), 
-            leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+            #leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+            leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
             jetMinPt=200., 
             jetMaxEta= 2.4,
             dRCleaning=0.,
@@ -364,7 +367,8 @@ def jetSelection(jetDict):
     seq.extend([
         JetSelection(
             inputCollection= lambda event: Collection(event,"HOTVRSubJet"), 
-            leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+            #leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+            leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
             jetMinPt=30., 
             jetMaxEta= 2.4,
             dRCleaning=0.,
@@ -466,7 +470,7 @@ analyzerChain.extend(leptonSequence())
 
 analyzerChain.extend([
     SingleMuonTriggerSelection(
-        inputCollection=lambda event: Collection(event, "tightRelIso_looseID_Muons"),
+        inputCollection=lambda event: Collection(event, "tightRelIso_tightID_Muons"),
         storeWeights=False,
         outputName="SingleMu_Trigger"
     )
@@ -619,7 +623,8 @@ else:
 
 event_reco_inputs = {
     'inputTriggersCollection': triggers,
-    'inputMuonCollection': lambda event: event.tightRelIso_looseID_Muons,
+    #'inputMuonCollection': lambda event: event.tightRelIso_looseID_Muons,
+    'inputMuonCollection': lambda event: event.tightRelIso_tightID_Muons,
     'inputElectronCollection': lambda event: event.loose_MVA_Electrons,
     'inputJetCollection': lambda event: event.selectedJets_nominal,
     'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
@@ -631,18 +636,18 @@ event_reco_inputs = {
 if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
 def leptonic_W_cut(event):
-    muon = event.tightRelIso_looseID_Muons[0]
+    muon = event.tightRelIso_tightID_Muons[0]
     met = Object(event, "MET")
     metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
     return (polarP4(muon) + metvec).Pt() >= 100.0
 
 def bjet_in_same_hemisphere_as_muon(event):
-    muon = event.tightRelIso_looseID_Muons[0]
+    muon = event.tightRelIso_tightID_Muons[0]
     bjets = [j for j in event.selectedJets_nominal if j.btagDeepFlavB > b_tagging_wpValues[args.year][1] and abs(deltaPhi(j.phi, muon.phi)) < 2]
     return len(bjets) != 0
 
 def fatjet_away_from_muon(event):
-    muon = event.tightRelIso_looseID_Muons[0]
+    muon = event.tightRelIso_tightID_Muons[0]
     probe_jets = [fj for fj in event.selectedFatJets_nominal if abs(deltaPhi(fj.phi, muon.phi)) > 2]
     return len(probe_jets) != 0
 
