@@ -466,7 +466,7 @@ analyzerChain.extend(leptonSequence())
 
 analyzerChain.extend([
     SingleMuonTriggerSelection(
-        inputCollection=lambda event: Collection(event, "Muon"),
+        inputCollection=lambda event: Collection(event, "tightRelIso_looseID_Muons"),
         storeWeights=False,
         outputName="SingleMu_Trigger"
     )
@@ -630,6 +630,11 @@ event_reco_inputs = {
 }
 if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
+def leptonic_W_cut(event):
+    muon = event.tightRelIso_looseID_Muons[0]
+    met = Object(event, "MET")
+    return (polarP4(muon) + met.p4()).Pt() >= 100.0
+
 def bjet_in_same_hemisphere_as_muon(event):
     muon = event.tightRelIso_looseID_Muons[0]
     bjets = [j for j in event.selectedJets_nominal if j.btagDeepFlavB > b_tagging_wpValues[args.year][1] and abs(deltaPhi(j.phi, muon.phi)) < 2]
@@ -644,7 +649,7 @@ analyzerChain.extend([
     # Exactly one muon
     EventSkim(selection=lambda event: event.nMuon == 1),
     # Leptonic W pt cut
-    EventSkim(selection=lambda event: (polarP4(event.tightRelIso_looseID_Muons[0]) + event.met.p4()).Pt() >= 100.0),
+    EventSkim(selection=leptonic_W_cut),
     # At least one b-jet, in the same hemisphere of the muon
     EventSkim(selection=bjet_in_same_hemisphere_as_muon),
     # At least one fat jet away from the muon
