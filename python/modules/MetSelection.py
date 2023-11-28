@@ -8,10 +8,14 @@ class MetSelection(Module):
     def __init__(
          self,
          outputName="MET",
-         storeKinematics=['pt', 'phi']
+         storeKinematics=['pt', 'phi'],
+         metInput = lambda event: Object(event, "MET"),
+         metCut=lambda met: True # Example: lambda met: met.pt >= 50.0
      ):
         self.outputName = outputName
         self.storeKinematics = storeKinematics
+        self.metInput = metInput
+        self.metCut = metCut
 
     def beginJob(self):
         pass
