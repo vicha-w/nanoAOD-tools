@@ -641,6 +641,8 @@ def fatjet_away_from_muon(event):
     return len(probe_jets) != 0
 
 analyzerChain.extend([
+    # Exactly one muon
+    EventSkim(selection=lambda event: event.nMuon == 1),
     # Leptonic W pt cut
     EventSkim(selection=lambda event: (polarP4(event.tightRelIso_looseID_Muons[0]) + event.met.p4()).Pt() >= 100.0),
     # At least one b-jet, in the same hemisphere of the muon
