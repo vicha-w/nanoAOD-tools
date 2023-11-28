@@ -615,11 +615,12 @@ if isMC:
 
 ##### EVENT RECONSTRUCTION MODULE
 triggers = {}
-if Module.globalOptions["isData"]:
-    triggers = {'ee': lambda event: False, 'emu': False, 'mumu': False} # initializing the dictionary 
-    triggers[args.trigger] = lambda event: getattr(event, "trigger_"+args.trigger+"_flag") # getting the trigger flag corresponding to the input trigger given
-else: 
-    triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
+#if Module.globalOptions["isData"]:
+#    triggers = {'ee': lambda event: False, 'emu': False, 'mumu': False} # initializing the dictionary 
+#    triggers[args.trigger] = lambda event: getattr(event, "trigger_"+args.trigger+"_flag") # getting the trigger flag corresponding to the input trigger given
+#else: 
+#    triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
+for key in ["ee", "emu", "mumu"]: triggers[key] = lambda event: False
 
 event_reco_inputs = {
     'inputTriggersCollection': triggers,
