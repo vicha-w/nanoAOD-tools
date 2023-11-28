@@ -466,6 +466,7 @@ analyzerChain.extend(leptonSequence())
 
 analyzerChain.extend([
     SingleMuonTriggerSelection(
+        inputCollection=lambda event: Collection(event, "Muon"),
         storeWeights=False,
         outputName="SingleMu_Trigger"
     )
