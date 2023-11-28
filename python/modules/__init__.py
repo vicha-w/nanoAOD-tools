@@ -30,6 +30,7 @@ from ElectronSFProducer import ElectronSFProducer
 #aux
 from EventSkim import EventSkim
 from MetFilter import MetFilter
+from MetSelection import MetSelection
 from EventInfo import EventInfo
 
 #jets
