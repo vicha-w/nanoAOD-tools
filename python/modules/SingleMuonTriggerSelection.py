@@ -21,7 +21,7 @@ class SingleMuonTriggerSelection(Module):
         self.outputName = outputName
         self.storeWeights = storeWeights
 
-        if not Module.globalOptions["isData"]:
+        if (not Module.globalOptions["isData"]) and self.storeWeights:
             if Module.globalOptions["year"] == '2016' or Module.globalOptions["year"] == '2016preVFP':
 
                 triggerSFBToF = getHist(
