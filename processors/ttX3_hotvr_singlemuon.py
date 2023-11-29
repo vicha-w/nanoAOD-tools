@@ -662,7 +662,7 @@ analyzerChain.extend([
     EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
     # Leptonic W pt cut
     EventSkim(selection=leptonic_W_cut),
-    EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
+    #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
     # At least one b-jet, in the same hemisphere of the muon
     EventSkim(selection=bjet_in_same_hemisphere_as_muon),
     # At least one fat jet away from the muon
