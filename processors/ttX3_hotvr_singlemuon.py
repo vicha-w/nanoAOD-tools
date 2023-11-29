@@ -664,7 +664,7 @@ analyzerChain.extend([
     EventSkim(selection=leptonic_W_cut),
     #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
     LeptonicWProducer(
-        inputMuonCollection=lambda event: event.ntightRelIso_tightID_Muons,
+        inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
         inputMet=lambda event: Object(event, "MET"),
         outputName="Leptonic_W_pt"
     ),

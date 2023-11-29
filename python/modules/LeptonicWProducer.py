@@ -34,7 +34,7 @@ class LeptonicWProducer(Module):
 
     def analyze(self, event):
 
-        muon = self.inputMuonCollection(event)
+        muon = self.inputMuonCollection(event)[0]
         met = self.inputMet(event)
 
         muonvec = ROOT.Math.PtEtaPhiMVector(muon.pt, muon.eta, muon.phi, muon.mass)
