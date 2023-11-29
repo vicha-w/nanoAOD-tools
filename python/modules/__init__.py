@@ -20,6 +20,7 @@ from SingleMuonTriggerSelection import SingleMuonTriggerSelection
 from MuonSelection import MuonSelection
 from MuonSFProducer import MuonSFProducer
 from MuonVeto import MuonVeto
+from LeptonicWProducer import LeptonicWProducer
 
 #electrons
 from SingleElectronTriggerSelection import SingleElectronTriggerSelection
