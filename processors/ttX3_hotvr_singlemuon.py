@@ -178,11 +178,11 @@ def leptonSequence():
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName_list=["tightRelIso_tightID_Muons","tightRelIso_mediumID_Muons","tightRelIso_looseID_Muons"],
             triggerMatch=True,
-            storeKinematics=['pt','eta','charge','phi','mass'],
+            storeKinematics=['pt','eta','charge','phi','mass', "miniPFRelIso_all"],
             #muonMinPt=minMuonPt[args.year],
             muonMinPt=55,
             muonMaxEta=2.4,
-            additionalMuonCuts = lambda muon: (math.fabs(muon.dxy)<0.2 and math.fabs(muon.dz)<0.5 and muon.tightId and muon.miniPFRelIso_all < 0.10)
+            additionalMuonCuts = lambda muon: (math.fabs(muon.dxy)<0.2 and math.fabs(muon.dz)<0.5 and muon.miniPFRelIso_all < 0.10)
         ),
                
         #MuonVeto(
@@ -308,12 +308,12 @@ def jetSelection(jetDict):
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
-                #leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
-                leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
-                jetMinPt=30.,
+                leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+                #leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
+                jetMinPt=25.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.TIGHTLEPVETO,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area'],
                 outputName_list=["selectedJets_"+systName,"unselectedJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
@@ -322,12 +322,12 @@ def jetSelection(jetDict):
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
             JetSelection(
                 inputCollection= fatjetCollection, 
-                #leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
-                leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
-                jetMinPt=400., 
+                leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
+                #leptonCollectionDRCleaning=lambda event,sys=systName: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
+                jetMinPt=200., 
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.TIGHT,
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD', 'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD', 'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
@@ -458,7 +458,7 @@ else:
         EventSkim(selection=lambda event: event.run in filtered_data.keys()),
         EventSkim(selection=lambda event: event.luminosityBlock in filtered_data[event.run]) ,
         EventSkim(selection=lambda event: event.nTrigObj > 0),
-            MetFilter(
+        MetFilter(
             globalOptions=globalOptions,
             outputName="MET_filter"
         ),
@@ -474,11 +474,6 @@ analyzerChain.extend([
         storeWeights=False,
         outputName="SingleMu_Trigger"
     )
-])
-
-# MET cut, requiring MET >= 50
-analyzerChain.extend([
-    MetSelection(metCut=lambda met: met.pt >= 50.0)
 ])
 
 #####JETMET UNCERTAINTIES MODULE
@@ -595,6 +590,10 @@ else:
     )
 #####
 
+# MET cut, requiring MET >= 50
+analyzerChain.extend([
+    MetSelection(metCut=lambda met: met.pt >= 50.0)
+])
 
 ##### GENERATION MODULE
 if isMC:
@@ -642,6 +641,12 @@ def leptonic_W_cut(event):
     metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
     return (polarP4(muon) + metvec).Pt() >= 100.0
 
+def leptonic_W_pt(event):
+    muon = event.tightRelIso_tightID_Muons[0]
+    met = Object(event, "MET")
+    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
+    return (polarP4(muon) + metvec).Pt()
+
 def bjet_in_same_hemisphere_as_muon(event):
     muon = event.tightRelIso_tightID_Muons[0]
     bjets = [j for j in event.selectedJets_nominal if j.btagDeepFlavB > b_tagging_wpValues[args.year][1] and abs(deltaPhi(j.phi, muon.phi)) < 2]
@@ -657,6 +662,7 @@ analyzerChain.extend([
     EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
     # Leptonic W pt cut
     EventSkim(selection=leptonic_W_cut),
+    EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
     # At least one b-jet, in the same hemisphere of the muon
     EventSkim(selection=bjet_in_same_hemisphere_as_muon),
     # At least one fat jet away from the muon
