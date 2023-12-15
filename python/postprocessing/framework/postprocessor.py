@@ -222,6 +222,7 @@ class PostProcessor:
                 bookkeepingTree = FriendOutput(inFile, inTree, outFile, treeName="bookkeeping")
                 bookkeepingTree.branch("total_events_pre_skimming", "I")
                 bookkeepingTree.fillBranch("total_events_pre_skimming", nEntries)
+                bookkeepingTree.fill()
             else:
                 outFile = None
                 outTree = None
