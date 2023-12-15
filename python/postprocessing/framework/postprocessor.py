@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from PhysicsTools.NanoAODTools.postprocessing.framework.jobreport import JobReport
 from PhysicsTools.NanoAODTools.postprocessing.framework.preskimming import preSkim
-from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput
+from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput, OutputTree
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import eventLoop
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import InputTree
 from PhysicsTools.NanoAODTools.postprocessing.framework.branchselection import BranchSelection
@@ -207,8 +207,6 @@ class PostProcessor:
                 # prepare output tree
                 if self.friend:
                     outTree = FriendOutput(inFile, inTree, outFile)
-                    outTree.branch("total_events_pre_skimming", "I")
-                    outTree.fillBranch("total_events_pre_skimming", nEntries)
                 else:
                     outTree = FullOutput(
                         inFile,
@@ -221,8 +219,9 @@ class PostProcessor:
                         firstEntry=self.firstEntry,
                         jsonFilter=jsonFilter,
                         provenance=self.provenance)
-                    outTree.branch("total_events_pre_skimming", "I")
-                    outTree.fillBranch("total_events_pre_skimming", nEntries)
+                bookkeepingTree = OutputTree(inFile, inTree, outFile)
+                bookkeepingTree.branch("total_events_pre_skimming", "I")
+                bookkeepingTree.fillBranch("total_events_pre_skimming", nEntries)
             else:
                 outFile = None
                 outTree = None
@@ -245,6 +244,7 @@ class PostProcessor:
             # now write the output
             if not self.noOut:
                 outTree.write()
+                bookkeepingTree.write()
                 outFile.Close()
                 print("Done %s" % outFileName)
             if self.jobReport:
