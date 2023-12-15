@@ -207,6 +207,8 @@ class PostProcessor:
                 # prepare output tree
                 if self.friend:
                     outTree = FriendOutput(inFile, inTree, outFile)
+                    outTree.branch("total_events_pre_skimming", "I")
+                    outTree.fillBranch("total_events_pre_skimming", nEntries)
                 else:
                     outTree = FullOutput(
                         inFile,
@@ -219,6 +221,8 @@ class PostProcessor:
                         firstEntry=self.firstEntry,
                         jsonFilter=jsonFilter,
                         provenance=self.provenance)
+                    outTree.branch("total_events_pre_skimming", "I")
+                    outTree.fillBranch("total_events_pre_skimming", nEntries)
             else:
                 outFile = None
                 outTree = None
