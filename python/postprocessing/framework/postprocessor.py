@@ -219,7 +219,7 @@ class PostProcessor:
                         firstEntry=self.firstEntry,
                         jsonFilter=jsonFilter,
                         provenance=self.provenance)
-                bookkeepingTree = OutputTree(inFile, inTree, outFile)
+                bookkeepingTree = FriendOutput(inFile, inTree, outFile)
                 bookkeepingTree.branch("total_events_pre_skimming", "I")
                 bookkeepingTree.fillBranch("total_events_pre_skimming", nEntries)
             else:
