@@ -87,8 +87,8 @@ class EventReconstruction(Module):
         else: return False
 
     def is_OS_lepton(self, leptons, **kwargs):
-        if len(leptons)==2:
-            if kwargs['lepton_selection']!='emu':
+        if len(leptons) == 2:
+            if kwargs['lepton_selection'] != 'emu':
                 first_lep_p4, second_lep_p4 = ROOT.TLorentzVector(), ROOT.TLorentzVector()
                 first_lep_p4.SetPtEtaPhiM(leptons[0].pt, leptons[0].eta, leptons[0].phi, leptons[0].mass)
                 second_lep_p4.SetPtEtaPhiM(leptons[1].pt, leptons[1].eta, leptons[1].phi, leptons[1].mass)
@@ -96,8 +96,8 @@ class EventReconstruction(Module):
 
                 if self.print_out:
                     print('Leading lepton pt {}; leptons charges {},{}; dilepton system invariant mass {}'.format(leptons[0].pt, leptons[0].charge, leptons[1].charge, dilepton_system.M()))
-                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20. and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
-            
+                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20. #and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
+
             else: return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25
         else: return False
 
@@ -159,8 +159,6 @@ class EventReconstruction(Module):
             triggers[Module.globalOptions['trigger']] = self.inputTriggersCollection[Module.globalOptions['trigger']](event)
         else: triggers = {'ee': self.inputTriggersCollection['ee'](event), 'emu': self.inputTriggersCollection['emu'](event), 'mumu': self.inputTriggersCollection['mumu'](event)}
 
-
-
         # print('############# EVENT')
         # ---- AK4 jet cleaning 
         if self.print_out: 
@@ -187,7 +185,7 @@ class EventReconstruction(Module):
 
         # ---- OS CUT
         event_selection_OS_dilepton_cut = False
-        event_selection_dilepton = {'ee':False, 'emu':False, 'mumu':False}
+        event_selection_dilepton = {'ee': False, 'emu': False, 'mumu': False}
         if triggers['ee'] and len(muons) == 0:
             if self.print_out: print('Trigger {}'.format('ee'))
             event_selection_dilepton['ee'] = self.is_OS_lepton(electrons, lepton_selection='ee')
@@ -227,8 +225,12 @@ class EventReconstruction(Module):
             subjets_in_hotvr = sorted(subjets_in_hotvr,key=lambda x: x.pt, reverse=True)
 
             setattr(hotvr, 'nsubjets', len(subjets_in_hotvr))
-            setattr(hotvr, 'tau3_over_tau2', hotvr.tau3/hotvr.tau2 )
-            setattr(hotvr, 'tau2_over_tau1', hotvr.tau2/hotvr.tau1 )
+            if hotvr.tau2 != 0.: 
+                setattr(hotvr, 'tau3_over_tau2', hotvr.tau3/hotvr.tau2 )
+            else: setattr(hotvr, 'tau3_over_tau2', -1 )
+            if hotvr.tau1 != 0.:
+                setattr(hotvr, 'tau2_over_tau1', hotvr.tau2/hotvr.tau1 )
+            else: setattr(hotvr, 'tau2_over_tau1', -1 )
             if len(subjets_in_hotvr)!=0:
                 setattr(hotvr, 'fractional_subjet_pt', subjets_in_hotvr[0].pt/hotvr.pt )
             else: 
