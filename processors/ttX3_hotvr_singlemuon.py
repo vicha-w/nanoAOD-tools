@@ -635,6 +635,9 @@ event_reco_inputs = {
 }
 if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
+if args.isData: ak4jet_systnames = ["nominal"]
+else: ak4jet_systnames = jetDict.keys()
+
 def leptonic_W_cut(event):
     muon = event.tightRelIso_tightID_Muons[0]
     met = Object(event, "MET")
@@ -647,15 +650,23 @@ def leptonic_W_pt(event):
     metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
     return (polarP4(muon) + metvec).Pt()
 
-def bjet_in_same_hemisphere_as_muon(event):
+def bjet_in_same_hemisphere_as_muon(event, systNames=ak4jet_systnames):
     muon = event.tightRelIso_tightID_Muons[0]
-    bjets = [j for j in event.selectedJets_nominal if j.btagDeepFlavB > b_tagging_wpValues[args.year][1] and abs(deltaPhi(j.phi, muon.phi)) < 2]
-    return len(bjets) != 0
 
-def fatjet_away_from_muon(event):
+    get_btag = lambda j: (j.btagDeepFlavB > b_tagging_wpValues[args.year][1]) and (abs(deltaPhi(j.phi, muon.phi)) < 2)
+
+    at_least_one_bjet_in_same_hemisphere = [len(filter(get_btag, getattr(event, "selectedJets_"+systname))) != 0 for systname in systNames]
+
+    return any(at_least_one_bjet_in_same_hemisphere)
+
+def fatjet_away_from_muon(event, systNames=ak4jet_systnames):
     muon = event.tightRelIso_tightID_Muons[0]
-    probe_jets = [fj for fj in event.selectedFatJets_nominal if abs(deltaPhi(fj.phi, muon.phi)) > 2]
-    return len(probe_jets) != 0
+
+    fatjet_is_away = lambda fj: abs(deltaPhi(fj.phi, muon.phi)) > 2
+
+    probe_jets = [len(filter(fatjet_is_away, getattr(event, "selectedFatJets_"+systname))) != 0 for systname in systNames]
+
+    return any(probe_jets)
 
 analyzerChain.extend([
     # Exactly one muon
