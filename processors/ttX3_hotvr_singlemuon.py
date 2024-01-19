@@ -653,9 +653,10 @@ def leptonic_W_pt(event):
 def bjet_in_same_hemisphere_as_muon(event, systNames=ak4jet_systnames):
     muon = event.tightRelIso_tightID_Muons[0]
 
-    get_btag = lambda j: (j.btagDeepFlavB > b_tagging_wpValues[args.year][1]) and (abs(deltaPhi(j.phi, muon.phi)) < 2)
+    #get_btag = lambda j: (j.btagDeepFlavB > b_tagging_wpValues[args.year][1]) and (abs(deltaPhi(j.phi, muon.phi)) < 2)
+    get_btag = lambda j: (abs(deltaPhi(j.phi, muon.phi)) < 2)
 
-    at_least_one_bjet_in_same_hemisphere = [len(filter(get_btag, getattr(event, "selectedJets_"+systname))) != 0 for systname in systNames]
+    at_least_one_bjet_in_same_hemisphere = [len(filter(get_btag, getattr(event, "selectedBJets_"+systname+"_medium"))) != 0 for systname in systNames]
 
     return any(at_least_one_bjet_in_same_hemisphere)
 
