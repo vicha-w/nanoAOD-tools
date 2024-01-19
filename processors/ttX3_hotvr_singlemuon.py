@@ -310,7 +310,7 @@ def jetSelection(jetDict):
                 inputCollection= jetCollection, 
                 leptonCollectionDRCleaning=lambda event: event.tightRelIso_looseID_Muons+event.loose_MVA_Electrons,
                 #leptonCollectionDRCleaning=lambda event: event.tightRelIso_tightID_Muons+event.loose_MVA_Electrons,
-                jetMinPt=25.,
+                jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.TIGHTLEPVETO,
