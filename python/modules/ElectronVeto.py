@@ -35,7 +35,7 @@ class ElectronVeto(Module):
         self.out.branch("n"+self.outputName,"I")
 
         for variable in self.storeKinematics:
-            self.out.branch(self.outputName+variable, 'F', lenVar="n"+self.outputName)
+            self.out.branch(self.outputName+'_'+variable, 'F', lenVar="n"+self.outputName)
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -56,7 +56,7 @@ class ElectronVeto(Module):
   
         self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
         for variable in self.storeKinematics:
-            self.out.fillBranch(self.outputName+variable, map(lambda electron: getattr(electron, variable), selectedElectrons))
+            self.out.fillBranch(self.outputName+'_'+variable, map(lambda electron: getattr(electron, variable), selectedElectrons))
         
         setattr(event,self.outputName,selectedElectrons)
         setattr(event,self.outputName+"_unselected",unselectedElectrons)
