@@ -16,11 +16,13 @@ class ElectronVeto(Module):
         outputName = "vetoElectrons",
         electronMinPt = 10.,
         electronMaxEta = 2.4,
+        storeKinematics = [],
     ):
         self.inputCollection = inputCollection
         self.outputName = outputName
         self.electronMinPt = electronMinPt
         self.electronMaxEta = electronMaxEta
+        self.storeKinematics = storeKinematics
  
     def beginJob(self):
         pass
@@ -30,7 +32,10 @@ class ElectronVeto(Module):
         
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
-        #self.out.branch("n"+self.outputName,"I")
+        self.out.branch("n"+self.outputName,"I")
+
+        for variable in self.storeKinematics:
+            self.out.branch(self.outputName+variable, 'F', lenVar="n"+self.outputName)
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -50,6 +55,8 @@ class ElectronVeto(Module):
                 unselectedElectrons.append(electron)
   
         self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
+        for variable in self.storeKinematics:
+            self.out.fillBranch(self.outputName+variable, map(lambda electron: getattr(electron, variable), selectedElectrons))
         
         setattr(event,self.outputName,selectedElectrons)
         setattr(event,self.outputName+"_unselected",unselectedElectrons)
