@@ -37,7 +37,7 @@ class LeptonicWProducer(Module):
         met = self.inputMet(event)
         metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
 
-        if len(self.inputMuonCollection) > 0:
+        if len(self.inputMuonCollection(event)) > 0:
             muon = self.inputMuonCollection(event)[0]
             muonvec = ROOT.Math.PtEtaPhiMVector(muon.pt, muon.eta, muon.phi, muon.mass)
             leptonic_W_pt = (muonvec + metvec).Pt()
