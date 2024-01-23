@@ -174,6 +174,8 @@ xgb_models = {
 muon_dict, electron_dict = {}, {}
 def leptonSequence():
     seq = [
+        # Muon with pT > 55, abs(eta) < 2.4 (JME-18-002)
+        # abs(muon dxy) < 0.2, abs(muon dz) < 0.5 (AN2018/107)
         MuonSelection(
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName_list=["tightRelIso_tightID_Muons","tightRelIso_mediumID_Muons","tightRelIso_looseID_Muons"],
@@ -182,7 +184,8 @@ def leptonSequence():
             #muonMinPt=minMuonPt[args.year],
             muonMinPt=55,
             muonMaxEta=2.4,
-            additionalMuonCuts = lambda muon: (math.fabs(muon.dxy)<0.2 and math.fabs(muon.dz)<0.5 and muon.miniPFRelIso_all < 0.10)
+            #additionalMuonCuts = lambda muon: (math.fabs(muon.dxy)<0.2 and math.fabs(muon.dz)<0.5 and muon.miniPFRelIso_all < 0.10)
+            additionalMuonCuts = lambda muon: (math.fabs(muon.dxy)<0.2 and math.fabs(muon.dz)<0.5)
         ),
                
         #MuonVeto(
@@ -193,23 +196,25 @@ def leptonSequence():
         #    storeKinematics=['pt','eta','charge','phi','mass'],
         #),
 
+        # electron pT > 10, abs(eta) < 2.5 (AN2017/006, for veto requirements, adding both loose and veto electrons)
         ElectronSelection(
             inputCollection = lambda event: Collection(event, "Electron"),
             id_type = ['MVA', 'cutBased'],
             #outputName_list = ["tight_MVA_Electrons","medium_MVA_Electrons","loose_MVA_Electrons"],
             triggerMatch=True,
-            electronMinPt = minElectronPt[args.year],
-            electronMaxEta = 2.4,
+            #electronMinPt = minElectronPt[args.year],
+            electronMinPt = 10.,
+            electronMaxEta = 2.5,
             storeKinematics=['pt','eta','charge','phi','mass'],#, 
         ),
 
-        #ElectronVeto(
-        #    inputCollection=lambda event: event.unselectedElectrons,
-        #    outputName = "vetoElectrons",
-        #    electronMinPt = 10.,
-        #    electronMaxEta = 2.4,
-        #    storeKinematics=['pt','eta','charge','phi','mass'],
-        #),
+        ElectronVeto(
+            inputCollection=lambda event: event.unselectedElectrons_cutBased,
+            outputName = "vetoElectrons",
+            electronMinPt = 10.,
+            electronMaxEta = 2.5,
+            storeKinematics=['pt','eta','charge','phi','mass'],
+        ),
 
         # EventSkim(selection=lambda event: (len(event.tightRelIso_looseID_Muons) + ( len(event.loose_cutBased_Electrons) + len(event.loose_MVA_Electrons) ) > 1 )),
     ]
@@ -313,7 +318,8 @@ def jetSelection(jetDict):
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
-                jetId=JetSelection.TIGHTLEPVETO,
+                #jetId=JetSelection.TIGHTLEPVETO,
+                jetId=JetSelection.LOOSE,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area'],
                 outputName_list=["selectedJets_"+systName,"unselectedJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
@@ -327,7 +333,7 @@ def jetSelection(jetDict):
                 jetMinPt=200., 
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
-                jetId=JetSelection.TIGHT,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD', 'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD', 'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
@@ -671,9 +677,9 @@ def fatjet_away_from_muon(event, systNames=ak4jet_systnames):
 
 analyzerChain.extend([
     # Exactly one muon
-    EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
+    #EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
     # Leptonic W pt cut
-    EventSkim(selection=leptonic_W_cut),
+    #EventSkim(selection=leptonic_W_cut),
     #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
     LeptonicWProducer(
         inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
@@ -681,9 +687,9 @@ analyzerChain.extend([
         outputName="Leptonic_W_pt"
     ),
     # At least one b-jet, in the same hemisphere of the muon
-    EventSkim(selection=bjet_in_same_hemisphere_as_muon),
+    #EventSkim(selection=bjet_in_same_hemisphere_as_muon),
     # At least one fat jet away from the muon
-    EventSkim(selection=fatjet_away_from_muon),
+    #EventSkim(selection=fatjet_away_from_muon),
     EventReconstruction(**event_reco_inputs),
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])

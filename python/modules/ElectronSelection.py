@@ -183,6 +183,6 @@ class ElectronSelection(Module):
                     # if variable=='' and not Module.globalOptions["isData"]:
                         # self.out.fillBranch(self.outputName_dict[id_type][wp]+"_genPartFlav",map(lambda electron: getattr(electron,'genPartFlav'),selectedElectrons[id_type][wp]))
                 setattr(event,self.outputName_dict[id_type][wp],selectedElectrons[id_type][wp])
-            setattr(event,"unselectedElectrons",unselectedElectrons[id_type])
+            setattr(event,"unselectedElectrons_"+id_type,unselectedElectrons[id_type])
 
         return True

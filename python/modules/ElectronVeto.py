@@ -49,7 +49,7 @@ class ElectronVeto(Module):
             else:
                 unselectedElectrons.append(electron)
   
-        #self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
+        self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
         
         setattr(event,self.outputName,selectedElectrons)
         setattr(event,self.outputName+"_unselected",unselectedElectrons)
