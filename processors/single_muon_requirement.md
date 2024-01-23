@@ -24,7 +24,7 @@ To be run in event loop
 - b-jet in the same hemisphere as muon within DeltaPhi < 2 (AN2018/103)
 - At least one fat jet away from muon with DeltaPhi > 2 (JME-18-002)
 - Two or more AK4 jets, at least one b-jet (JME-18-002)
-- Event passes MET filters (AN2017/006)
+- Event passes MET filters (AN2017/006, recorded at processor level)
 - leptonic W pT > 250 GeV (JME-18-002, AN2017/006, recorded at processor level)
 
 Removed

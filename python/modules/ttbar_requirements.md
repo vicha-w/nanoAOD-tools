@@ -23,6 +23,7 @@ Fat jets
 - One fat jet in the event with pT > 250 GeV (AN2017/006)
 
 AK4 jets
+- AK4 jets with loose ID (AN2018/103)
 - AK4 jets pT > 30 GeV, abs(eta) < 2.4 (JME-18-002)
 - Two or more AK4 jet, at least one b-jet (JME-18-002)
 - At least two AK4 jets pT > 30 GeV and abs(eta) < 2.4 (AN2018/103)
