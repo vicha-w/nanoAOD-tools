@@ -34,13 +34,14 @@ class LeptonicWProducer(Module):
 
     def analyze(self, event):
 
-        muon = self.inputMuonCollection(event)[0]
         met = self.inputMet(event)
-
-        muonvec = ROOT.Math.PtEtaPhiMVector(muon.pt, muon.eta, muon.phi, muon.mass)
         metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
 
-        leptonic_W_pt = (muonvec + metvec).Pt()
+        if len(self.inputMuonCollection) > 0:
+            muon = self.inputMuonCollection(event)[0]
+            muonvec = ROOT.Math.PtEtaPhiMVector(muon.pt, muon.eta, muon.phi, muon.mass)
+            leptonic_W_pt = (muonvec + metvec).Pt()
+        else: leptonic_W_pt = 0
 
         self.out.fillBranch(self.outputName, leptonic_W_pt)
         return True
