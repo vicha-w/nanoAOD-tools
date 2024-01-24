@@ -478,7 +478,8 @@ analyzerChain.extend([
     SingleMuonTriggerSelection(
         inputCollection=lambda event: Collection(event, "tightRelIso_tightID_Muons"),
         storeWeights=False,
-        outputName="SingleMu_Trigger"
+        outputName="SingleMu_Trigger",
+        applyCut=True
     )
 ])
 

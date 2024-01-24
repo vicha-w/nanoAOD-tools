@@ -16,10 +16,12 @@ class SingleMuonTriggerSelection(Module):
         inputCollection = lambda event: getattr(event,"tightMuons"),
         storeWeights=True,
         outputName = "IsoMuTrigger",
+        applyCut=False
     ):
         self.inputCollection = inputCollection
         self.outputName = outputName
         self.storeWeights = storeWeights
+        self.applyCut = applyCut
 
         if (not Module.globalOptions["isData"]) and self.storeWeights:
             if Module.globalOptions["year"] == '2016' or Module.globalOptions["year"] == '2016preVFP':
@@ -105,6 +107,8 @@ class SingleMuonTriggerSelection(Module):
 
         if hasattr(event, "HLT_Mu50"): trigger_flag = trigger_flag or event.HLT_Mu50
         if hasattr(event, "HLT_TkMu50"): trigger_flag = trigger_flag or event.HLT_TkMu50
+
+        if self.applyCut and (not trigger_flag): return False
 
         self.out.fillBranch(self.outputName+"_flag", trigger_flag)
             
