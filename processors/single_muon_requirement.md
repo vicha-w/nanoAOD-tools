@@ -13,10 +13,10 @@ Single-muon preselection requirements
 - HOTVR jet pT > 200 abs(eta) < 2.4 (following AK8 requirement in JME-18-002)
 - HOTVR subjet pT > 30, abs(eta) < 2.4 (old requirement in nanoAOD-tools, no requirement for HOTVR mentioned anywhere, we might not need this in SF measurement)
 - MET pT >= 50 (JME-18-002)
+- Passes HLT_Mu50_v trigger OR HLT_TkMu50_v trigger (AN2018/103)
 
 To be run in event loop
 - Event passes MET filters (AN2017/006, recorded at processor level)
-- Passes HLT_Mu50_v trigger OR HLT_TkMu50_v trigger (AN2018/103, recorded at processor level)
 - Exactly one muon (JME-18-002)
 - Muon PF-based combined relative isolation with Delta_beta correction to be smaller than 0.05 (pfRelIso04_all < 0.05?) (AN2018/107)
 - Muon deltaR between the muon and nearest AK4 jet > 0.4 OR the perpendicular component of the muon pT with respect to the nearest AK4 jet, pT_rel > 25 GeV (JME-18-002)
