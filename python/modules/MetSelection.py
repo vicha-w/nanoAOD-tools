@@ -36,6 +36,6 @@ class MetSelection(Module):
         met = self.metInput(event)
         if self.metCut(met):
             for variable in self.storeKinematics:
-                self.out.fillBranch(self.outputName + "_" + variable, getattr(event, "MET_"+variable))
+                self.out.fillBranch(self.outputName + "_" + variable, getattr(met, variable))
             return True
         else: return False

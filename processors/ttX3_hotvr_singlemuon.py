@@ -309,7 +309,7 @@ selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
     
-    for systName,(jetCollection,fatjetCollection, hotvrjetCollection, hotvrsubjetCollection) in jetDict.items():
+    for systName,(jetCollection,fatjetCollection, hotvrjetCollection, hotvrsubjetCollection, metCollection) in jetDict.items():
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
@@ -339,6 +339,11 @@ def jetSelection(jetDict):
                 metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons'],
             ),
+
+            MetSelection(
+                metInput = metCollection,
+                outputName = "MET_"+systName
+            )
         ])
 
         
@@ -419,32 +424,39 @@ def jetSelection(jetDict):
 #####
 
 ##### EVENT INFO MODULE
+def LHEScaleWeight_init(tree):
+    tree.branch("nLHEScaleWeight", "I")
+    tree.branch("LHEScaleWeight", "F", lenVar="nLHEScaleWeight")
+
+def LHEScaleWeight_fill(tree, event):
+    tree.fillBranch("nLHEScaleWeight", 9)
+    tree.fillBranch("LHEScaleWeight", event.LHEScaleWeight[:9])
+
 if not Module.globalOptions["isData"]:
     storeVariables = [[lambda tree: tree.branch("genweight", "F"), 
                        lambda tree, event: tree.fillBranch("genweight", event.Generator_weight)], 
-                       [lambda tree: tree.branch("run", "I"), 
-                        lambda tree, event: tree.fillBranch("run", event.run)],
-                        [lambda tree: tree.branch("PV_npvs", "I"), lambda tree,
-                        event: tree.fillBranch("PV_npvs", event.PV_npvs)],
-                        [lambda tree: tree.branch("PV_npvsGood", "I"), lambda tree,
-                        event: tree.fillBranch("PV_npvsGood", event.PV_npvsGood)],
-                        [lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), lambda tree,
-                        event: tree.fillBranch("fixedGridRhoFastjetAll",
-                        event.fixedGridRhoFastjetAll)],
+                      [lambda tree: tree.branch("run", "I"), 
+                       lambda tree, event: tree.fillBranch("run", event.run)],
+                      [lambda tree: tree.branch("PV_npvs", "I"), 
+                       lambda tree, event: tree.fillBranch("PV_npvs", event.PV_npvs)],
+                      [lambda tree: tree.branch("PV_npvsGood", "I"), 
+                       lambda tree, event: tree.fillBranch("PV_npvsGood", event.PV_npvsGood)],
+                      [lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), 
+                       lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.fixedGridRhoFastjetAll)],
+                      [LHEScaleWeight_init, LHEScaleWeight_fill],
     ]
 	
 else: 
     storeVariables = [[lambda tree: tree.branch("run", "I"),
-        lambda tree, event: tree.fillBranch("run", event.run)],
-        [lambda tree: tree.branch("PV_npvs", "I"), lambda tree,
-        event: tree.fillBranch("PV_npvs", event.PV_npvs)],
-        [lambda tree: tree.branch("PV_npvsGood", "I"), lambda tree,
-        event: tree.fillBranch("PV_npvsGood", event.PV_npvsGood)],
-        [lambda tree: tree.branch("luminosityBlock", "I"), lambda tree,
-        event: tree.fillBranch("luminosityBlock", event.luminosityBlock)],
-        [lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), lambda tree,
-        event: tree.fillBranch("fixedGridRhoFastjetAll",
-        event.fixedGridRhoFastjetAll)],
+                       lambda tree, event: tree.fillBranch("run", event.run)],
+                      [lambda tree: tree.branch("PV_npvs", "I"), 
+                       lambda tree, event: tree.fillBranch("PV_npvs", event.PV_npvs)],
+                      [lambda tree: tree.branch("PV_npvsGood", "I"), 
+                       lambda tree, event: tree.fillBranch("PV_npvsGood", event.PV_npvsGood)],
+                      [lambda tree: tree.branch("luminosityBlock", "I"), 
+                       lambda tree, event: tree.fillBranch("luminosityBlock", event.luminosityBlock)],
+                      [lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), 
+                       lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.fixedGridRhoFastjetAll)],
     ]
 
 #####ANALYZER CHAIN : DATA ARE FILTERED FROM GOLDENJSON RUNS
@@ -520,6 +532,7 @@ else:
             genJetCollection = lambda event: Collection(event,"GenJet"),
             muonCollection = lambda event: Collection(event,"Muon"),
             electronCollection = lambda event: Collection(event,"Electron"),
+            propagateToMet = True,
             propagateJER = False, #not recommended
             outputJetPrefix = 'jets_',
             outputMetPrefix = 'met_',
@@ -585,12 +598,36 @@ else:
     }
     
     if not args.nosys:
-        jetDict["jerUp"] = (lambda event: event.jets_jerUp,lambda event: event.fatjets_jerUp,lambda event: event.hotvrjets_jerUp,lambda event: event.hotvrsubjets_jerUp)
-        jetDict["jerDown"] = (lambda event: event.jets_jerDown,lambda event: event.fatjets_jerDown,lambda event: event.hotvrjets_jerDown,lambda event: event.hotvrsubjets_jerDown)
+        jetDict["jerUp"] = (
+            lambda event: event.jets_jerUp,
+            lambda event: event.fatjets_jerUp,
+            lambda event: event.hotvrjets_jerUp,
+            lambda event: event.hotvrsubjets_jerUp,
+            lambda event: event.met_jerUp
+            )
+        jetDict["jerDown"] = (
+            lambda event: event.jets_jerDown,
+            lambda event: event.fatjets_jerDown,
+            lambda event: event.hotvrjets_jerDown,
+            lambda event: event.hotvrsubjets_jerDown,
+            lambda event: event.met_jerDown
+            )
         
         for jesUncertaintyName in jesUncertaintyNames:
-            jetDict['jes'+jesUncertaintyName+"Up"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Up"))
-            jetDict['jes'+jesUncertaintyName+"Down"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Down"))
+            jetDict['jes'+jesUncertaintyName+"Up"] = (
+                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Up")
+                )
+            jetDict['jes'+jesUncertaintyName+"Down"] = (
+                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Down")
+                )
     
     analyzerChain.extend(
         jetSelection(jetDict)
