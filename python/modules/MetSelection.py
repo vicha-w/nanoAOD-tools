@@ -29,7 +29,9 @@ class MetSelection(Module):
 
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
-        for variable in self.storeKinematics:
-            self.out.fillBranch(self.outputName + "_" + variable, getattr(event, "MET_"+variable))
-
-        return True
+        met = self.metInput(event)
+        if self.metCut(met):
+            for variable in self.storeKinematics:
+                self.out.fillBranch(self.outputName + "_" + variable, getattr(met, variable))
+            return True
+        else: return False
