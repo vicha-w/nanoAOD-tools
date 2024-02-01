@@ -31,18 +31,26 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     Float_t sumgenweight = 0;
     int file_count = 0;
-    for (const auto &filename : glob(infilename.Data())) 
-    {
-        //chain->Add(filename.c_str());
-        file_count += 1;
-        TFile *infile = new TFile(filename.c_str());
-        if (!infile->Get("sumGenWeights")) break;
 
-        sumgenweight += ((TParameter<float>*) infile->Get("sumGenWeights"))->GetVal();
-        infile->Close();
+    if (!isData)
+    {
+        for (const auto &filename : glob(infilename.Data())) 
+        {
+            //chain->Add(filename.c_str());
+            file_count += 1;
+            TFile *infile = new TFile(filename.c_str());
+            //if (!infile->Get("sumGenWeights")) break;
+
+            sumgenweight += ((TParameter<float>*) infile->Get("sumGenWeights"))->GetVal();
+            infile->Close();
+        }
+        printf("Walked through %d files.\n", file_count);
+        printf("sumgenweight = %f\n", sumgenweight);
     }
-    printf("Walked through %d files.\n", file_count);
-    printf("sumgenweight = %f\n", sumgenweight);
+    else
+    {
+        printf("Data mode activated. No files walked for sumGenWeights.\n", file_count);
+    }
 
     //TFile *infile = new TFile(infilename);
     //TTree *intree = (TTree*) infile->Get("Friends");
@@ -241,7 +249,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             Float_t ht = 0.;
             for (int jet=0; jet<*(njets_pointers[i_variant]); jet++) ht += jets_pt_pointers[i_variant][jet];
 
-            Float_t genWeight = sumgenweight != 0 ? infriends->genweight/sumgenweight : 1;
+            Float_t genWeight = isData ? 1 : infriends->genweight/sumgenweight;
 
             // In case we have jet energy corrections for HOTVR...
             //Float_t fj_1_pt, fj_1_eta, fj_1_phi, fj_1_rawmass, fj_1_sdmass, fj_1_regressed_mass, fj_1_tau21, fj_1_tau32, fj_1_btagcsvv2, fj_1_btagjp, fj_1_deltaR_sj12;
