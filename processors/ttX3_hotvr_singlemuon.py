@@ -632,6 +632,19 @@ else:
     analyzerChain.extend(
         jetSelection(jetDict)
     )
+
+    analyzerChain.extend(
+        [
+            MetSelection(
+                metInput = lambda event: event.met_unclEnUp,
+                outputName = "MET_unclEnUp"
+            ),
+            MetSelection(
+                metInput = lambda event: event.met_unclEnDown,
+                outputName = "MET_unclEnDown"
+            ),
+        ]
+    )
 #####
 
 ##### GENERATION MODULE
