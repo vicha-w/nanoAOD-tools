@@ -634,11 +634,6 @@ else:
     )
 #####
 
-# MET cut, requiring MET >= 50
-analyzerChain.extend([
-    MetSelection(metCut=lambda met: met.pt >= 50.0)
-])
-
 ##### GENERATION MODULE
 if isMC:
     # for systName,(jetCollection,fatjetCollection) in jetDict.items():
