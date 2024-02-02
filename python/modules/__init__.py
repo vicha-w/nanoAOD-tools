@@ -37,6 +37,7 @@ from JetMetUncertainties import JetMetUncertainties
 from JetSelection import JetSelection
 from BTagSelection import BTagSelection
 from btagSFProducer import btagSFProducer
+from BTagWeightProducer import BTagWeightProducer
 
 #event
 from PUWeightProducer import puWeightProducer, PUWeightProducer_dict
@@ -48,6 +49,7 @@ from EventReconstruction import EventReconstruction
 from HOTVR_MVA import HOTVR_MVA
 from HOTVRJetComposition import HOTVRJetComposition
 from FatJetComposition import FatJetComposition
+from JetHOTVRUncertainties import JetHOTVRUncertainties
 
 #bdt evaluation
 from XGBEvaluationProducer import XGBEvaluationProducer

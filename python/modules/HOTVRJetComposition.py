@@ -14,12 +14,14 @@ class HOTVRJetComposition(Module):
             inputHOTVRJetCollection=lambda event: Collection(event, "preselectedHOTVRJets"),
             inputSubHOTVRJetCollection= lambda event: Collection(event, "preselectedHOTVRSubJets"),
             inputGenParticleCollections={},
+            outputJetPrefix='selectedHOTVRJets_nominal'
         ):
         self.globalOptions = globalOptions
         self.outputName = outputName
         self.inputHOTVRJetCollection = inputHOTVRJetCollection
         self.inputSubHOTVRJetCollection = inputSubHOTVRJetCollection
         self.inputGenParticleCollections = inputGenParticleCollections
+        self.outputJetPrefix = outputJetPrefix
         
         self.quarks_list = [1, 2, 3, 4]
         self.leptons_list = [11, 13, 15]
@@ -72,9 +74,9 @@ class HOTVRJetComposition(Module):
         if self.outputName is not None:
             self.out.branch(self.outputName, "I")
 
-        self.out.branch("npreselectedHOTVRJets","I")
+        self.out.branch("n{}".format(self.outputJetPrefix), "I")
         for composition_flag in self.jetCompositions:
-            self.out.branch("preselectedHOTVRJets_"+composition_flag, "I", lenVar="npreselectedHOTVRJets")
+            self.out.branch("{}_{}".format(self.outputJetPrefix, composition_flag), "I", lenVar="n{}".format(self.outputJetPrefix))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -169,10 +171,10 @@ class HOTVRJetComposition(Module):
             else: 
                 setattr(hotvr, 'has_other', True)
 
-        setattr(event, 'preselectedHOTVRJets', hotvrjets)
+        setattr(event, self.outputJetPrefix, hotvrjets)
 
-        self.out.fillBranch("npreselectedHOTVRJets", len(hotvrjets))
+        self.out.fillBranch("n{}".format(self.outputJetPrefix), len(hotvrjets))
         for composition_flag in self.jetCompositions:
-            self.out.fillBranch("preselectedHOTVRJets_"+composition_flag, map(lambda jet: getattr(jet, composition_flag), hotvrjets))
+            self.out.fillBranch("{}_{}".format(self.outputJetPrefix, composition_flag), map(lambda jet: getattr(jet, composition_flag), hotvrjets))
 
         return True
