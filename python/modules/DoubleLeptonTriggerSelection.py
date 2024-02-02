@@ -74,17 +74,22 @@ class DoubleLeptonTriggerSelection(Module):
             emu_flag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
             mumu_flag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL or event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ or event.HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL or event.HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ 
             ee_flag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ
-		
+        
         if Module.globalOptions["year"] == '2017':
             emu_flag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
             mumu_flag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 or event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ or event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8
             ee_flag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL>0
-	
+        
         if Module.globalOptions["year"] == '2018':
             emu_flag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
             mumu_flag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 
             ee_flag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL>0
-		
+        
+        if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+            emu_flag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
+            mumu_flag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8
+            ee_flag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
+
         #SFs are provided in range of leading/subleading lepton pT therefore are taken from h2D (leading vs subleading pT)
         triggerSFHist = None
         if (not Module.globalOptions["isData"]) and self.storeWeights: 
@@ -93,28 +98,28 @@ class DoubleLeptonTriggerSelection(Module):
                         self.dileptonTriggerSFFileName,
                         'h2D_SF_emu_lepABpt_FullError'
                 )
-                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist,electrons[0].pt,muons[0].pt)
-                weight_trigger_nominal*=weight_trigger
-                weight_trigger_up*=(weight_trigger+weight_trigger_err)
-                weight_trigger_down*=(weight_trigger-weight_trigger_err)
+                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist, electrons[0].pt, muons[0].pt)
+                weight_trigger_nominal *= weight_trigger
+                weight_trigger_up *= (weight_trigger+weight_trigger_err)
+                weight_trigger_down *= (weight_trigger-weight_trigger_err)
             elif mumu_flag and len(muons)>1:
                 triggerSFHist = getHist(
                         self.dileptonTriggerSFFileName,
                         'h2D_SF_mumu_lepABpt_FullError'
                 )
-                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist,muons[0].pt,muons[0].pt)
-                weight_trigger_nominal*=weight_trigger
-                weight_trigger_up*=(weight_trigger+weight_trigger_err)
-                weight_trigger_down*=(weight_trigger-weight_trigger_err)
+                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist, muons[0].pt, muons[1].pt)
+                weight_trigger_nominal *= weight_trigger
+                weight_trigger_up *= (weight_trigger+weight_trigger_err)
+                weight_trigger_down *= (weight_trigger-weight_trigger_err)
             elif ee_flag and len(electrons)>1:
                 triggerSFHist = getHist(
                         self.dileptonTriggerSFFileName,
                         'h2D_SF_ee_lepABpt_FullError'
                 )
-                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist,electrons[0].pt,electrons[0].pt)
-                weight_trigger_nominal*=weight_trigger
-                weight_trigger_up*=(weight_trigger+weight_trigger_err)
-                weight_trigger_down*=(weight_trigger-weight_trigger_err)
+                weight_trigger,weight_trigger_err = getSFXY(triggerSFHist, electrons[0].pt, electrons[1].pt)
+                weight_trigger_nominal *= weight_trigger
+                weight_trigger_up *= (weight_trigger+weight_trigger_err)
+                weight_trigger_down *= (weight_trigger-weight_trigger_err)
        
         general_flag = mumu_flag or emu_flag or ee_flag
 

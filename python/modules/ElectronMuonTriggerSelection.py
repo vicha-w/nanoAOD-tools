@@ -50,6 +50,8 @@ class ElectronMuonTriggerSelection(Module):
         if Module.globalOptions["year"] == '2018':
             HLT_trigFlag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
         
+        if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+            HLT_trigFlag = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ
 
         self.out.fillBranch(self.outputName+"_emu_flag", HLT_trigFlag)
         setattr(event, self.outputName+"_emu_flag", HLT_trigFlag)	

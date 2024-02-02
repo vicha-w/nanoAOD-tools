@@ -53,6 +53,9 @@ class DoubleMuonTriggerSelection(Module):
         if Module.globalOptions["year"] == '2018':
             HLT_trigFlag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or event.HLT_IsoMu24
 
+        if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+            HLT_trigFlag = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8
+
         self.out.fillBranch(self.outputName+"_mumu_flag", HLT_trigFlag)
         setattr(event, self.outputName+"_mumu_flag", HLT_trigFlag)	
 
