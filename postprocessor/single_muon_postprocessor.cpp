@@ -56,7 +56,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     {
         printf("Uncertainties are not supported while isData is true.\n");
         printf("uncmode = %d\n", uncmode);
-        exit();
+        return;
     }
 
     //TFile *infile = new TFile(infilename);
