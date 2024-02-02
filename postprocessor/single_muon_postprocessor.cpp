@@ -47,10 +47,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         printf("Walked through %d files.\n", file_count);
         printf("sumgenweight = %f\n", sumgenweight);
     }
-    else
-    {
-        printf("Data mode activated. No files walked for sumGenWeights.\n", file_count);
-    }
+    else printf("Data mode activated. No files walked for sumGenWeights.\n");
 
     if (isData && (uncmode!=0))
     {
