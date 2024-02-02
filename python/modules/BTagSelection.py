@@ -21,23 +21,21 @@ class BTagSelection(Module):
         self,
         btaggingWP = {},
         inputCollection=lambda event: Collection(event, "Jet"),
-        outputName_list= [], #"btaggedJets",
+        outputName= 'selectedBJets_', #"btaggedJets",
         jetMinPt=30.,
         jetMaxEta=2.4,
-        workingpoint = [], 
         storeKinematics=['pt', 'eta','phi','mass'],
         storeTruthKeys=[]
     ):
         self.btaggingWP = btaggingWP
         self.inputCollection = inputCollection
-        #self.outputName = outputName
-        self.outputName_list = outputName_list
+        self.outputName = outputName
         self.jetMinPt = jetMinPt
         self.jetMaxEta = jetMaxEta
         self.storeKinematics = storeKinematics
         self.storeTruthKeys = storeTruthKeys
-        self.workingpoint = workingpoint
-        
+        self.working_points = btaggingWP.keys()
+
     def beginJob(self):
         pass
 
@@ -46,17 +44,14 @@ class BTagSelection(Module):
 
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
-        
-        for outputName in self.outputName_list:
-            self.out.branch("n"+outputName, "I")
-            if not Module.globalOptions["isData"]:
-                self.out.branch(outputName+"_genJetIdx", "I", lenVar="n"+outputName)
-            self.out.branch(outputName+"_btagDeepFlavB", "F", lenVar="n"+outputName)
+
+        for wp in self.working_points:
+            self.out.branch("n{}_{}".format(self.outputName, wp), "I")
             for variable in self.storeKinematics:
-                self.out.branch(outputName+"_"+variable, "F", lenVar="n"+outputName)
+                self.out.branch("{}_{}_{}".format(self.outputName, wp, variable), "F", lenVar="n{}_{}".format(self.outputName, wp))
             if not Module.globalOptions["isData"]:
                 for variable in self.storeTruthKeys:
-                    self.out.branch(outputName+"_"+variable, "F", lenVar="n"+outputName)
+                    self.out.branch("{}_{}_{}".format(self.outputName, wp, variable), "F", lenVar="n{}_{}".format(self.outputName, wp))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -66,55 +61,51 @@ class BTagSelection(Module):
 
         jets = self.inputCollection(event)
 
+        # only info of b-tagged jets will be stored in the ntuplizer
         bJets = OrderedDict([('tight',[]), ('medium',[]), ('loose',[])])
         lJets = []
 
-
         for jet in jets:
+            # probably this check is not needed since the input collection
+            # is the selectedJets which have already this pT, eta requirements
             if jet.pt<self.jetMinPt:
                 lJets.append(jet)
                 continue
-        
             if math.fabs(jet.eta) > self.jetMaxEta:
                 lJets.append(jet)
                 continue
 
-            if jet.btagDeepFlavB>self.btaggingWP[2]:
-                bJets['tight'].append(jet)
-            
-            if jet.btagDeepFlavB>self.btaggingWP[1]:
-                bJets['medium'].append(jet)
-                
-            if jet.btagDeepFlavB>self.btaggingWP[0]:
+            if jet.btagDeepFlavB > self.btaggingWP['tight']:
+                bJets['tight'].append(jet), bJets['medium'].append(jet), bJets['loose'].append(jet)
+                setattr(jet, "b_tagged_tight", True)
+                setattr(jet, "b_tagged_medium", True)  # A tight jet is also medium
+                setattr(jet, "b_tagged_loose", True)   # And also loose
+            elif jet.btagDeepFlavB > self.btaggingWP['medium']:
+                bJets['medium'].append(jet), bJets['loose'].append(jet)
+                setattr(jet, "b_tagged_medium", True)
+                setattr(jet, "b_tagged_loose", True)   # A medium jet is also loose
+                setattr(jet, "b_tagged_tight", False)
+            elif jet.btagDeepFlavB > self.btaggingWP['loose']:
                 bJets['loose'].append(jet)
-            
-                       
-        for wp in bJets.keys():
-            for jet in bJets[wp]:
-                setattr(jet,"is_"+wp+"BTagged",True)
+                setattr(jet, "b_tagged_loose", True)
+                setattr(jet, "b_tagged_medium", False)
+                setattr(jet, "b_tagged_tight", False)
+            else:
+                setattr(jet, "b_tagged_loose", False)
+                setattr(jet, "b_tagged_medium", False)
+                setattr(jet, "b_tagged_tight", False)
 
-                
-        for jet in lJets:
-            setattr(jet,"is_notBTagged",True)
+        # new collection with flag is(not) loose/medium/tight tagged
+        setattr(event, 'selectedJets_nominal', jets)
 
-        for outputName, bJet_type in zip(self.outputName_list, ['tight','medium','loose']):
-
-            self.out.fillBranch("n"+outputName, len(bJets[bJet_type]))
-
-            if not Module.globalOptions["isData"]:
-                self.out.fillBranch(outputName+"_genJetIdx", map(lambda jet: getattr(jet, 'genJetIdx'), bJets[bJet_type]))
-            self.out.fillBranch(outputName+"_btagDeepFlavB", map(lambda jet: getattr(jet, 'btagDeepFlavB'), bJets[bJet_type]))
-            #print("b jet idxtogen ", list(map(lambda jet: getattr(jet, 'genJetIdx'), bJets)))        	
-
+        for wp in self.working_points:
+            self.out.fillBranch("n{}_{}".format(self.outputName, wp), len(bJets[wp]))
             for variable in self.storeKinematics:
-                self.out.fillBranch(outputName+"_"+variable, map(lambda jet: getattr(jet, variable), bJets[bJet_type]))
+                self.out.fillBranch("{}_{}_{}".format(self.outputName, wp, variable), map(lambda jet: getattr(jet, variable), bJets[wp]))
 
             if not Module.globalOptions["isData"]:
                 for variable in self.storeTruthKeys:
-                    self.out.fillBranch(outputName+"_"+variable, map(lambda jet: getattr(jet, variable), bJets[bJet_type]))
+                    self.out.fillBranch("{}_{}_{}".format(self.outputName, wp, variable), map(lambda jet: getattr(jet, variable), bJets[wp]))
+            setattr(event, self.outputName + '_' + wp, bJets[wp])
 
-
-            setattr(event, outputName, bJets[bJet_type])
-                    
         return True
-
