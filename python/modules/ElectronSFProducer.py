@@ -18,6 +18,7 @@ class ElectronSFProducer(Module):
             verbose=0,
             outputName='',
             WP='',
+            ID=''
     ):
 
         self.inputElectronCollection = inputElectronCollection
@@ -25,7 +26,8 @@ class ElectronSFProducer(Module):
         self.sfFileName = sfFileName
         self.verbose = verbose
         self.outputName = outputName
-        self.WP = WP
+        self.WP = WP.capitalize()
+        self.ID = ID
 
         self.sys = ['nominal', 'up', 'down']
 
@@ -42,8 +44,9 @@ class ElectronSFProducer(Module):
 
         for sys in self.sys:
             self.out.branch(self.outputName+"_weight_id_"+sys,"F")
-            for reco_type in ['PtAbove20','PtBelow20']:
-                self.out.branch(self.outputName+"_weight_reco"+reco_type+"_"+sys,"F")    
+            # for reco_type in ['PtAbove20','PtBelow20']:
+            #     self.out.branch(self.outputName+"_weight_recoPt"+reco_type+"_"+sys,"F")    
+            self.out.branch(self.outputName+"_weight_recoPt_"+sys,"F")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -52,7 +55,6 @@ class ElectronSFProducer(Module):
         for idx, lep in enumerate(leptons):
             # evaluate SF
             sf = None
-            #print(type, abs(lep.eta), lep.pt, syst)
             sf = reader.evaluateElectronSF(type, year, syst, wp, lep.eta, lep.pt)
             # check if SF is OK
             
@@ -71,29 +73,29 @@ class ElectronSFProducer(Module):
 
         year = self.sfFileName.rsplit('/')[-2]
 
-        wp = ''
-        if self.WP=='loose': wp='wploose'
-        if self.WP=='medium': wp='wp90iso'
-        if self.WP=='tight': wp='wp80iso'
+        if self.WP == 'Loose' and self.ID == 'MVA': self.WP = 'wploose'
+        if self.WP == 'Medium' and self.ID == 'MVA': self.WP = 'wp90iso'
+        if self.WP == 'Tight' and self.ID == 'MVA': self.WP = 'wp80iso'
 
         for sys, sys_type in zip(self.sys, ['sf','sfup','sfdown']):
-            ev_weight_id, ev_weight_reco_pt_above20, ev_weight_reco_pt_below20 = 1., 1., 1.
-            if wp=='wploose':  #SF not calculated for MVA WP LOOSE
-                scale_factors_id, scale_factors_reco_pt_above20, scale_factors_reco_pt_below20 = [1.], [1.], [1.]
+            ev_weight_id, ev_weight_reco_pt = 1., 1. 
+            if self.WP == 'wploose':  #SF not calculated for MVA WP LOOSE
+                scale_factors_id = list(map(lambda electron: 1., electrons))
             else:
-                scale_factors_id = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, wp, electrons))   
-                electrons_pt_above20 = filter(lambda electron: electron.pt>=20., electrons) 
-                scale_factors_reco_pt_above20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoAbove20', electrons_pt_above20))
-                electrons_pt_below20 = filter(lambda electron: electron.pt<20., electrons)
-                scale_factors_reco_pt_below20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoBelow20', electrons_pt_below20))
-            
-                for sf_id, sf_reco_pt_above20, sf_reco_pt_below20 in zip(scale_factors_id, scale_factors_reco_pt_above20, scale_factors_reco_pt_below20): 
-                    ev_weight_id *= sf_id
-                    ev_weight_reco_pt_above20 *= sf_reco_pt_above20
-                    ev_weight_reco_pt_below20 *= sf_reco_pt_below20
+                scale_factors_id = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, self.WP, electrons))   
+
+            electrons_pt_above20 = filter(lambda electron: electron.pt >= 20., electrons) 
+            scale_factors_reco_pt_above20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoAbove20', electrons_pt_above20))
+            electrons_pt_below20 = filter(lambda electron: electron.pt < 20., electrons)
+            scale_factors_reco_pt_below20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoBelow20', electrons_pt_below20))
+        
+            for sf_id, sf_reco_pt_above20, sf_reco_pt_below20 in zip(scale_factors_id, scale_factors_reco_pt_above20, scale_factors_reco_pt_below20): 
+                ev_weight_id *= sf_id
+                # ev_weight_reco_pt_above20 *= sf_reco_pt_above20 
+                ev_weight_reco_pt *= (sf_reco_pt_below20 * sf_reco_pt_above20)
+
             self.out.fillBranch(self.outputName+"_weight_id_"+sys, ev_weight_id)
-            self.out.fillBranch(self.outputName+"_weight_recoPtAbove20_"+sys, ev_weight_reco_pt_above20)
-            self.out.fillBranch(self.outputName+"_weight_recoPtBelow20_"+sys, ev_weight_reco_pt_below20)
+            self.out.fillBranch(self.outputName+"_weight_recoPt_"+sys, ev_weight_reco_pt)
 
         return True
 

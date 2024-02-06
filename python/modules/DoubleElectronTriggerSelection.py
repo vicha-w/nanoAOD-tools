@@ -47,7 +47,9 @@ class DoubleElectronTriggerSelection(Module):
             	
         if Module.globalOptions["year"] == '2018':
             HLT_trigFlag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL>0
-        
+
+        if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+            HLT_trigFlag = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
 
         self.out.fillBranch(self.outputName+"_ee_flag", HLT_trigFlag)
         setattr(event, self.outputName+"_ee_flag", HLT_trigFlag)	

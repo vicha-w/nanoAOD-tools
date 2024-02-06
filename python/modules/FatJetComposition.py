@@ -13,11 +13,13 @@ class FatJetComposition(Module):
             outputName=None,
             inputFatJetCollection=lambda event: Collection(event, "selectedFatJets_nominal"),
             inputGenParticleCollections={},
+            outputJetPrefix='selectedHOTVRJets_nominal'
         ):
         self.globalOptions = globalOptions
         self.outputName = outputName
         self.inputFatJetCollection = inputFatJetCollection
         self.inputGenParticleCollections = inputGenParticleCollections
+        self.outputJetPrefix = outputJetPrefix
         
         self.quarks_list = [1, 2, 3, 4]
         self.leptons_list = [11, 13, 15]
@@ -68,9 +70,9 @@ class FatJetComposition(Module):
         if self.outputName is not None:
             self.out.branch(self.outputName, "I")
 
-        self.out.branch("nselectedFatJets_nominal","I")
+        self.out.branch("n{}".format(self.outputJetPrefix), "I")
         for composition_flag in self.jetCompositions:
-            self.out.branch("selectedFatJets_nominal_"+composition_flag, "I", lenVar="nselectedFatJets_nominal")
+            self.out.branch("{}_{}".format(self.outputJetPrefix, composition_flag), "I", lenVar="n{}".format(self.outputJetPrefix))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -151,10 +153,10 @@ class FatJetComposition(Module):
             else: 
                 setattr(ak8, 'has_other', True)
 
-        setattr(event, 'selectedFatJets_nominal', fatjets)
+        setattr(event, self.outputJetPrefix, fatjets)
 
-        self.out.fillBranch("nselectedFatJets_nominal", len(fatjets))
+        self.out.fillBranch("n{}".format(self.outputJetPrefix), len(fatjets))
         for composition_flag in self.jetCompositions:
-            self.out.fillBranch("selectedFatJets_nominal_"+composition_flag, map(lambda jet: getattr(jet, composition_flag), fatjets))
+            self.out.fillBranch("{}_{}".format(self.outputJetPrefix, composition_flag), map(lambda jet: getattr(jet, composition_flag), fatjets))
 
         return True

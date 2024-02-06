@@ -12,12 +12,12 @@ class XGBEvaluationProducer(Module):
             modelPath="",
             inputHOTVRJetCollection="",
             outputName="scoreBDT",
-            trainingEventMasking=False
+            outputJetPrefix='selectedHOTVRJets_nominal'
         ):
         self.outputName = outputName
         self.modelPath = modelPath
         self.inputHOTVRJetCollection = inputHOTVRJetCollection
-        self.trainingEventMasking = trainingEventMasking
+        self.outputJetPrefix = outputJetPrefix
 
         self.inputs = (
             'fractional_subjet_pt', 'min_pairwise_subjets_mass', 'mass', 'nsubjets', 'tau3_over_tau2'
@@ -38,8 +38,8 @@ class XGBEvaluationProducer(Module):
 
         self.out.branch("inference_time_"+self.outputName, "F")
 
-        self.out.branch('npreselectedHOTVRJets', "I")
-        self.out.branch("preselectedHOTVRJets_"+self.outputName, "F", lenVar='npreselectedHOTVRJets')
+        self.out.branch("n{}".format(self.outputJetPrefix), "I")
+        self.out.branch("{}_{}".format(self.outputJetPrefix, self.outputName), "F", lenVar="n{}".format(self.outputJetPrefix))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -60,23 +60,14 @@ class XGBEvaluationProducer(Module):
             end_time =  time.time()
             inference_time_perJet = (end_time - start_time) / len(features_array)
 
-            self.out.fillBranch("npreselectedHOTVRJets", len(hotvrjets))
+            self.out.fillBranch("n{}".format(self.outputJetPrefix, self.outputName), len(hotvrjets))
 
             # to avoid overtraining, the training is done on jets of odd event number
             # while the evaluation on jets of even number
-
-            # VW: Why??? Haven't we already checked that our BDTs are not overtrained?
-            # If we can prove that both output distributions from training and evaluation set are identical,
-            # I do not see why we should mask them!
-            # Besides, for the dataset that is not used for the training, guaranteed,
-            # we should have BDT outputs from *all* events.
-
-            if self.trainingEventMasking:
-                if event.run % 2 == 0:
-                    self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, map(lambda hotvr: -1, hotvrjets))
-                else: self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, bdt_score[:, 1].tolist())
-            else:
-                self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, bdt_score[:, 1].tolist())
+            # if event.run % 2 == 0:
+            #    self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, map(lambda hotvr: -1, hotvrjets))
+            # else: 
+            self.out.fillBranch("{}_{}".format(self.outputJetPrefix, self.outputName), bdt_score[:, 1].tolist())
 
             self.out.fillBranch("inference_time_"+self.outputName, inference_time_perJet)
 

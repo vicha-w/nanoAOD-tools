@@ -88,18 +88,17 @@ class EventReconstruction(Module):
 
     def is_OS_lepton(self, leptons, **kwargs):
         if len(leptons) == 2:
-            if kwargs['lepton_selection'] != 'emu':
-                first_lep_p4, second_lep_p4 = ROOT.TLorentzVector(), ROOT.TLorentzVector()
-                first_lep_p4.SetPtEtaPhiM(leptons[0].pt, leptons[0].eta, leptons[0].phi, leptons[0].mass)
-                second_lep_p4.SetPtEtaPhiM(leptons[1].pt, leptons[1].eta, leptons[1].phi, leptons[1].mass)
-                dilepton_system = first_lep_p4 + second_lep_p4
+            first_lep_p4, second_lep_p4 = ROOT.TLorentzVector(), ROOT.TLorentzVector()
+            first_lep_p4.SetPtEtaPhiM(leptons[0].pt, leptons[0].eta, leptons[0].phi, leptons[0].mass)
+            second_lep_p4.SetPtEtaPhiM(leptons[1].pt, leptons[1].eta, leptons[1].phi, leptons[1].mass)
+            dilepton_system = first_lep_p4 + second_lep_p4
 
+            if kwargs['lepton_selection'] != 'emu':
                 if self.print_out:
                     print('Leading lepton pt {}; leptons charges {},{}; dilepton system invariant mass {}'.format(leptons[0].pt, leptons[0].charge, leptons[1].charge, dilepton_system.M()))
-                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20. #and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
-
-            else: return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25
-        else: return False
+                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20., dilepton_system.M() #and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
+            else: return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25, dilepton_system.M()
+        else: return False, -1
 
     def beginJob(self):
         pass
@@ -112,8 +111,9 @@ class EventReconstruction(Module):
 
         for cut_selection in ['ee','emu','mumu']:
             self.out.branch('eventSelection_'+cut_selection+'_cut',"I")
+            self.out.branch('dilepton_invariant_mass_'+cut_selection,"F")
 
-        for jet_collection in ['selectedJets_nominal', 'preselectedHOTVRJets','selectedFatJets_nominal']:
+        for jet_collection in ['selectedJets_nominal', 'selectedHOTVRJets_nominal','selectedFatJets_nominal']:
             
             self.out.branch("n"+jet_collection,"I")
             # for largeRadiusJet in ['ak8','hotvr']:
@@ -125,7 +125,7 @@ class EventReconstruction(Module):
                         self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
                     else: self.out.branch(jet_collection+"_"+var, "I", lenVar="n"+jet_collection)
 
-            if jet_collection == 'preselectedHOTVRJets':
+            if jet_collection == 'selectedHOTVRJets_nominal':
                 for var in self.hotvr_vars:
                     if var != 'nsubjets':
                         self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
@@ -167,14 +167,14 @@ class EventReconstruction(Module):
             print('# of hotvr jets: {}, ak8 jets: {}, ak4: {}'.format(len(hotvrjets), len(fatjets), len(jets)))
         
         for ak4 in jets:
-            setattr(ak4, "min_deltaRVSak8Jet", -99), setattr(ak4, "is_inside_ak8", False), setattr(ak4, "is_outside_ak8", False)
+            setattr(ak4, "min_deltaRVSak8Jet", -99), setattr(ak4, "is_inside_ak8", False)
             if len(fatjets)>0:
                 closest_ak8 = min(fatjets, key=lambda ak8: deltaR(ak8,ak4))
                 inside_any_ak8 = any( self.is_inside_ak8(ak4, ak8) for ak8 in fatjets)
                 setattr(ak4, "min_deltaRVSak8Jet", deltaR(closest_ak8,ak4))
                 setattr(ak4, "is_inside_ak8", inside_any_ak8)
 
-            setattr(ak4, "min_deltaRVShotvrJet", -99), setattr(ak4, "rho_over_pt_closest_hotvr", -99), setattr(ak4, "is_inside_hotvr", False), setattr(ak4, "is_outside_hotvr", False)
+            setattr(ak4, "min_deltaRVShotvrJet", -99), setattr(ak4, "rho_over_pt_closest_hotvr", -99), setattr(ak4, "is_inside_hotvr", False)
             if len(hotvrjets) > 0:
                 closest_hotvr = min(hotvrjets, key=lambda hotvr: deltaR(hotvr,ak4))
                 inside_any_hotvr = any( self.is_inside_hotvr(ak4, hotvr) for hotvr in hotvrjets)
@@ -186,17 +186,20 @@ class EventReconstruction(Module):
         # ---- OS CUT
         event_selection_OS_dilepton_cut = False
         event_selection_dilepton = {'ee': False, 'emu': False, 'mumu': False}
+        dilepton_mass = {'ee': -1, 'emu': -1, 'mumu': -1}
         if triggers['ee'] and len(muons) == 0:
             if self.print_out: print('Trigger {}'.format('ee'))
-            event_selection_dilepton['ee'] = self.is_OS_lepton(electrons, lepton_selection='ee')
+            event_selection_dilepton['ee'], dilepton_mass['ee'] = self.is_OS_lepton(electrons, lepton_selection='ee')
+
         if triggers['emu'] and len(electrons) == 1 and len(muons) == 1:
             if self.print_out: print('Trigger {}'.format('emu'))
             leptons = muons + electrons
             leptons.sort(key=lambda lep: lep.pt, reverse=True)
-            event_selection_dilepton['emu'] = self.is_OS_lepton(leptons, lepton_selection='emu')
+            event_selection_dilepton['emu'], dilepton_mass['emu'] = self.is_OS_lepton(leptons, lepton_selection='emu')
+        
         if triggers['mumu'] and len(electrons) == 0:
             if self.print_out: print('Trigger {}'.format('mumu'))
-            event_selection_dilepton['mumu'] = self.is_OS_lepton(muons, lepton_selection='mumu')
+            event_selection_dilepton['mumu'], dilepton_mass['mumu'] = self.is_OS_lepton(muons, lepton_selection='mumu')
 
         event_selection_OS_dilepton_cut = event_selection_dilepton['ee'] or event_selection_dilepton['emu'] or event_selection_dilepton['mumu']
         # ----
@@ -262,27 +265,27 @@ class EventReconstruction(Module):
                         if closest_gentop.has_hadronically_decay: setattr(ak8, 'has_genTopHadronic_inside', True)
                         if Module.globalOptions['isSignal'] and closest_gentop.from_resonance: setattr(ak8, 'has_genTopFromResonance_inside', True)
 
-
-        setattr(event, 'preselectedHOTVRJets', hotvrjets)
+        setattr(event, 'selectedHOTVRJets_nominal', hotvrjets)
         setattr(event, 'selectedFatJets_nominal', fatjets)
 
         self.out.fillBranch("nselectedJets_nominal", len(jets))
-        self.out.fillBranch("npreselectedHOTVRJets", len(hotvrjets))
+        self.out.fillBranch("nselectedHOTVRJets_nominal", len(hotvrjets))
         self.out.fillBranch("nselectedFatJets_nominal", len(fatjets))
 
 
         for var in self.eventReconstructionKeys_ak4Jets:
             self.out.fillBranch("selectedJets_nominal_"+var, map(lambda jet: getattr(jet,var), jets))
         for var in self.hotvr_vars:
-            self.out.fillBranch("preselectedHOTVRJets_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
+            self.out.fillBranch("selectedHOTVRJets_nominal_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
 
         if not Module.globalOptions['isData']:
             for jet_composition_flag in self.jet_composition:
-                self.out.fillBranch("preselectedHOTVRJets_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
+                self.out.fillBranch("selectedHOTVRJets_nominal_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
                 self.out.fillBranch("selectedFatJets_nominal_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
 
         for cut_selection in ['ee','emu','mumu']:
             self.out.fillBranch('eventSelection_'+cut_selection+'_cut', event_selection_dilepton[cut_selection])
+            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection, dilepton_mass[cut_selection])
         setattr(event, 'event_selection_OS_dilepton_cut', event_selection_OS_dilepton_cut)
 
         return True

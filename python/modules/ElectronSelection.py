@@ -39,11 +39,34 @@ class ElectronSelection(Module):
         self.triggerMatch = triggerMatch
         self.triggerObjectCollection = lambda event: Collection(event, "TrigObj") if triggerMatch else lambda event: []
 
+        self.WPs = ['tight', 'medium', 'loose']
+
         self.outputName_dict = OrderedDict()
         for id in id_type:
             self.outputName_dict[id] = OrderedDict()
-            for wp in ['tight', 'medium', 'loose']:
-                self.outputName_dict[id][wp] = wp+'_'+id+'_'+'Electrons'    
+            for wp in self.WPs:
+                self.outputName_dict[id][wp] = wp+'_'+id+'_'+'Electrons'
+
+        self.mva_id_wp = {
+            'tight': {
+                '2016': 'mvaFall17V2Iso_WP80', '2016preVFP': 'mvaFall17V2Iso_WP80', 
+                '2017': 'mvaFall17V2Iso_WP80', '2018': 'mvaFall17V2Iso_WP80',
+                '2022': 'mvaIso_WP80', '2022EE': 'mvaIso_WP80'
+            },
+            'medium': {
+                '2016': 'mvaFall17V2Iso_WP90', '2016preVFP': 'mvaFall17V2Iso_WP90', 
+                '2017': 'mvaFall17V2Iso_WP90', '2018': 'mvaFall17V2Iso_WP90',
+                '2022': 'mvaIso_WP90', '2022EE': 'mvaIso_WP90' 
+            },
+            'loose': {
+                '2016': 'mvaFall17V2Iso_WPL', '2016preVFP': 'mvaFall17V2Iso_WPL', 
+                '2017': 'mvaFall17V2Iso_WPL', '2018': 'mvaFall17V2Iso_WPL',
+                '2022': '', '2022EE': '' 
+            }
+            # no MVA ID loose WP for Nano v12 --> Run 3 
+            #https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv12/2022/2023/doc_DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8_Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2.html#Electron
+        }
+
 
     def triggerMatched(self, electron, trigger_object):
         #return 2 arguments: 
@@ -90,7 +113,7 @@ class ElectronSelection(Module):
                     self.out.branch(self.outputName_dict[id_type][wp]+"_"+variable,"F",lenVar="n"+self.outputName_dict[id_type][wp])
                     # if not Module.globalOptions["isData"]:
                             # self.out.branch(self.outputName_dict[id_type][wp]+"_genPartFlav","F",lenVar="n"+self.outputName_dict[id_type][wp])
-			
+
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
 
@@ -101,7 +124,7 @@ class ElectronSelection(Module):
         triggerObjects = self.triggerObjectCollection(event)
 
         selectedElectrons = OrderedDict([("MVA", OrderedDict([("tight", []), ("medium",[]), ("loose",[])])), ("cutBased", OrderedDict([("tight", []), ("medium",[]), ("loose",[])])) ])   
-        unselectedElectrons = OrderedDict([("MVA", []), ("cutBased", []) ])   
+        unselectedElectrons = OrderedDict([("MVA", []), ("cutBased", []) ])
         
         matched_trgObj_id_list = []
         electronCutBasedID = []
@@ -113,8 +136,9 @@ class ElectronSelection(Module):
             matched_trgObj_id_list.append(self.triggerMatched(electron, triggerObjects)[1])
 
             # https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+            trigger_matching = self.triggerMatched(electron, triggerObjects)
             if electron.pt>self.electronMinPt and math.fabs(electron.eta)<self.electronMaxEta and \
-                self.triggerMatched(electron, triggerObjects)[0] and matched_trgObj_id_list.count(self.triggerMatched(electron, triggerObjects)[1])==1:
+                trigger_matching[0] and matched_trgObj_id_list.count(trigger_matching[1])==1:
 
                 dxy = math.fabs(electron.dxy)
                 dz = math.fabs(electron.dz)
@@ -136,32 +160,35 @@ class ElectronSelection(Module):
                 #saving relIso, cutBased Id 
                 nElectron+=1
                 electronCutBasedID.append(electron.cutBased)
-                electronMVAID['tight'].append(electron.mvaFall17V2Iso_WP80)
-                electronMVAID['medium'].append(electron.mvaFall17V2Iso_WP90)
-                electronMVAID['loose'].append(electron.mvaFall17V2Iso_WPL)
+
+                for wp in self.WPs:
+                    mva_wp = self.mva_id_wp[wp][Module.globalOptions["year"]]
+                    if mva_wp == '': continue
+                    electronMVAID[wp].append(getattr(electron, mva_wp))
 
                 for id_type in self.id_type:
-                    if id_type=='MVA':
-                        if electron.mvaFall17V2Iso_WP80==1: 
+                    if id_type == 'MVA':
+                        tight_mva, medium_mva, loose_mva = self.mva_id_wp['tight'][Module.globalOptions["year"]], self.mva_id_wp['medium'][Module.globalOptions["year"]], self.mva_id_wp['loose'][Module.globalOptions["year"]]
+                        if getattr(electron, tight_mva) == 1: 
                             selectedElectrons[id_type]['tight'].append(electron)
                             selectedElectrons[id_type]['medium'].append(electron)
                             selectedElectrons[id_type]['loose'].append(electron)
-                        elif electron.mvaFall17V2Iso_WP90==1: 
+                        elif getattr(electron, medium_mva) == 1: 
                             selectedElectrons[id_type]['medium'].append(electron)
                             selectedElectrons[id_type]['loose'].append(electron)
-                        elif electron.mvaFall17V2Iso_WPL==1: 
+                        elif loose_mva != '' and getattr(electron, loose_mva) == 1: 
                             selectedElectrons[id_type]['loose'].append(electron)
                         else:
                             unselectedElectrons[id_type].append(electron)
-                    elif id_type=='cutBased':
-                        if electron.cutBased==4: 
+                    elif id_type == 'cutBased':
+                        if electron.cutBased == 4: 
                             selectedElectrons[id_type]['tight'].append(electron)
                             selectedElectrons[id_type]['medium'].append(electron)
                             selectedElectrons[id_type]['loose'].append(electron)
-                        elif electron.cutBased==3: 
+                        elif electron.cutBased == 3: 
                             selectedElectrons[id_type]['medium'].append(electron)
                             selectedElectrons[id_type]['loose'].append(electron)
-                        elif electron.cutBased==2: 
+                        elif electron.cutBased == 2: 
                             selectedElectrons[id_type]['loose'].append(electron)
                         else:
                             unselectedElectrons[id_type].append(electron)  
@@ -171,7 +198,7 @@ class ElectronSelection(Module):
 
         self.out.fillBranch("nElectron",nElectron) 
         self.out.fillBranch("electron_cutBasedID", map(lambda cutBased_id: cutBased_id, electronCutBasedID))
-        for wp in ['tight', 'medium', 'loose']:
+        for wp in self.WPs:
             self.out.fillBranch("electron_MVA_"+wp+"ID", map(lambda id: id, electronMVAID[wp]))
 
         for id_type in self.id_type:

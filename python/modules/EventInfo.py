@@ -5,6 +5,7 @@ import json
 import ROOT
 import random
 import yaml
+import re
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
@@ -15,40 +16,40 @@ class EventInfo(Module):
         storeVariables = []
     ):
         self.storeVariables = storeVariables
-        self.event_number = 0
-        
+
     def beginJob(self):
         pass
     def endJob(self):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
-        self.nGenWeights = 0	   
+        self.nGenWeights = 0
         self.out = wrappedOutputTree
         for variable in self.storeVariables:
             variable[0](self.out)
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     	if not Module.globalOptions["isData"]:
-            nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
+            if not Module.globalOptions["year"] == '2022' and not Module.globalOptions["year"] == '2022EE':
+                nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
+            else: 
+                nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.genEventSumw)
             outputFile.cd()
             nGenWeight_parameter.Write() 
         else:
             pass
         
     def analyze(self, event):
-        
+
         if not Module.globalOptions["isData"]:
             self.nGenWeights += event.Generator_weight
-            self.event_number += 1 
-            setattr(event, "run", self.event_number)
 
-        else: 
+        else:
             with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/13TeV_UL_Era_runNumber.yaml") as yaml_f:
                 try:
                     era_yaml = yaml.safe_load(yaml_f)
                 except yaml.YAMLError as exc:
                     print(exc)
-            
+
             for era in era_yaml[Module.globalOptions['year']]:
                 if event.run >= era_yaml[Module.globalOptions['year']][era][0] and event.run <= era_yaml[Module.globalOptions['year']][era][1]:
                     Module.globalOptions['era'] = era
@@ -56,4 +57,3 @@ class EventInfo(Module):
         for variable in self.storeVariables:
             variable[1](self.out, event)
         return True
-        

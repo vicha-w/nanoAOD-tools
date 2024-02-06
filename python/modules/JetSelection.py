@@ -46,9 +46,8 @@ class JetSelection(Module):
         self.storeTruthKeys = storeTruthKeys
 
         #loose jet ID does not exists for UL -> accepting all jets  https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD
-        if self.jetId==JetSelection.LOOSE and Module.globalOptions['year'] in ['2016','2016preVFP','2017','2018']:
+        if self.jetId==JetSelection.LOOSE and Module.globalOptions['year'] in ['2016','2016preVFP', '2017', '2018', '2022']:
             self.jetId = JetSelection.NONE
-            
 
     def beginJob(self):
         pass
@@ -89,7 +88,7 @@ class JetSelection(Module):
         leptonsForDRCleaning = self.leptonCollectionDRCleaning(event)
 
         for jet in jets:
-            if jet.pt<self.jetMinPt:
+            if jet.pt < self.jetMinPt:
                 unselectedJets.append(jet)
                 continue
         
@@ -97,16 +96,16 @@ class JetSelection(Module):
                 unselectedJets.append(jet)
                 continue
 
-             
             if self.jetId>=0 and ((jet.jetId & (1 << self.jetId)) == 0):
                 unselectedJets.append(jet)
                 continue
-            
-            minDeltaRSubtraction = 999.
-            if hasattr(jet, '_prefix') and 'HOTVR' in jet._prefix: 
+
+            # in case of HOTVR, the radius is be calculated as 600/jet pT
+            if self.dRCleaning == None:
                 effective_radius = 600./ jet.pt if 600./ jet.pt <= 1.5 else 1.5 
                 self.dRCleaning = effective_radius
 
+            minDeltaRSubtraction = 999.
             if len(leptonsForDRCleaning) > 0:
                 mindphi = min(map(lambda lepton: math.fabs(deltaPhi(lepton, jet)), leptonsForDRCleaning))
                 mindr = min(map(lambda lepton: deltaR(lepton, jet), leptonsForDRCleaning))
@@ -131,7 +130,7 @@ class JetSelection(Module):
         #print((metP4(met)).E())
         self.out.fillBranch("MET_energy", (metP4(met)).E())
 
-        for outputName, jet_list in zip(self.outputName_list, [selectedJets,unselectedJets]):
+        for outputName, jet_list in zip(self.outputName_list, [selectedJets, unselectedJets]):
             setattr(event, outputName, jet_list)
             
             self.out.fillBranch("n"+outputName, len(jet_list))
