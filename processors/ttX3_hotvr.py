@@ -71,7 +71,7 @@ if args.isData:
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_UL2016_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
     # goldenJSON ReReco 2022 --> https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json
-    if args.year == '2022' or args.year == '2022EE':
+    elif args.year == '2022' or args.year == '2022EE':
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_ReReco2022_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
     else:
@@ -314,7 +314,7 @@ selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
     
-    for systName,(jetCollection, fatjetCollection, hotvrjetCollection) in jetDict.items():
+    for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
@@ -359,6 +359,20 @@ def jetSelection(jetDict):
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
                 )
         ])
+        if systName == 'nominal':
+            seq.extend([
+                JetSelection(
+                    inputCollection= subhotvrjetCollection,
+                    leptonCollectionDRCleaning=lambda event: getattr(event, muon_collection_for_selection_and_cleaning) + getattr(event, electron_collection_for_selection_and_cleaning),
+                    jetMinPt=30., 
+                    jetMaxEta= 2.4,
+                    dRCleaning=None,
+                    jetId=JetSelection.NONE,
+                    storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
+                    outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
+                    metInput = lambda event: Object(event, "MET"),
+                    # storeTruthKeys = ['hadronFlavour','partonFlavour'],
+            )])
 
 
         seq.append(
@@ -384,20 +398,6 @@ def jetSelection(jetDict):
             jetId=JetSelection.NONE,
             storeKinematics=['pt','eta','phi','mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'area', 'btagDeepFlavB', 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
             outputName_list=["preselectedHOTVRJets","preunselectedHOTVRJets"],
-            metInput = lambda event: Object(event, "MET"),
-            # storeTruthKeys = ['hadronFlavour','partonFlavour'],
-            )])
-
-    seq.extend([
-        JetSelection(
-            inputCollection= lambda event: event.hotvrsubjets_nominal, #lambda event: Collection(event,"HOTVRSubJet"), 
-            leptonCollectionDRCleaning=lambda event: getattr(event, muon_collection_for_selection_and_cleaning) + getattr(event, electron_collection_for_selection_and_cleaning),
-            jetMinPt=30., 
-            jetMaxEta= 2.4,
-            dRCleaning=None,
-            jetId=JetSelection.NONE,
-            storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
-            outputName_list=["selectedHOTVRSubJets_nominal", "unselectedHOTVRSubJets_nominal"],
             metInput = lambda event: Object(event, "MET"),
             # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )])
@@ -503,7 +503,10 @@ analyzerChain.extend(trigger())
 if args.isData:
     analyzerChain.extend(
         jetSelection({
-            "nominal": (lambda event: Collection(event,"Jet"),lambda event: Collection(event,"FatJet"),lambda event: Collection(event,"HOTVRJet") )
+            "nominal": (lambda event: Collection(event,"Jet"),
+                        lambda event: Collection(event,"FatJet"),
+                        lambda event: Collection(event,"HOTVRJet"),
+                         lambda event: Collection(event,"HOTVRSubJet"))
         })
     )
 
@@ -581,16 +584,35 @@ else:
     ])
 
     jetDict = {
-        "nominal": (lambda event: event.jets_nominal,lambda event: event.fatjets_nominal,lambda event: event.hotvrjets_nominal)
+        "nominal": (lambda event: event.jets_nominal,
+                    lambda event: event.fatjets_nominal,
+                    lambda event: event.hotvrjets_nominal,
+                    lambda event: event.hotvrsubjets_nominal)
     }
     
     if not args.nosys:
-        jetDict["jerUp"] = (lambda event: event.jets_jerUp,lambda event: event.fatjets_jerUp,lambda event: event.hotvrjets_jerUp)
-        jetDict["jerDown"] = (lambda event: event.jets_jerDown,lambda event: event.fatjets_jerDown,lambda event: event.hotvrjets_jerDown)
+        jetDict["jerUp"] = (
+            lambda event: event.jets_jerUp,
+            lambda event: event.fatjets_jerUp,
+            lambda event: event.hotvrjets_jerUp,
+            [])
+        jetDict["jerDown"] = (
+            lambda event: event.jets_jerDown,
+            lambda event: event.fatjets_jerDown,
+            lambda event: event.hotvrjets_jerDown,
+            [])
         
         for jesUncertaintyName in jesUncertaintyNames:
-            jetDict['jes'+jesUncertaintyName+"Up"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"))
-            jetDict['jes'+jesUncertaintyName+"Down"] = (lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"))
+            jetDict['jes'+jesUncertaintyName+"Up"] = (
+                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
+                [])
+            jetDict['jes'+jesUncertaintyName+"Down"] = (
+                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
+                [])
     
     analyzerChain.extend(
         jetSelection(jetDict)
