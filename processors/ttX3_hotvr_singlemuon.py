@@ -209,7 +209,7 @@ def leptonSequence():
         #    storeKinematics=['pt','eta','charge','phi','mass'],
         #),
 
-        # electron pT > 10, abs(eta) < 2.5 (AN2017/006, for veto requirements, adding both loose and veto electrons)
+        # electron pT > 10, abs(eta) < 2.5 (AN2017/006, for veto requirements, using loose ID)
         ElectronSelection(
             inputCollection = lambda event: Collection(event, "Electron"),
             id_type = ['MVA', 'cutBased'],
@@ -221,13 +221,13 @@ def leptonSequence():
             storeKinematics=['pt','eta','charge','phi','mass'],#, 
         ),
 
-        ElectronVeto(
-            inputCollection=lambda event: event.unselectedElectrons_cutBased,
-            outputName = "vetoElectrons",
-            electronMinPt = 10.,
-            electronMaxEta = 2.5,
-            storeKinematics=['pt','eta','charge','phi','mass'],
-        ),
+        #ElectronVeto(
+        #    inputCollection=lambda event: event.unselectedElectrons_cutBased,
+        #    outputName = "vetoElectrons",
+        #    electronMinPt = 10.,
+        #    electronMaxEta = 2.5,
+        #    storeKinematics=['pt','eta','charge','phi','mass'],
+        #),
 
         # EventSkim(selection=lambda event: (len(event.tightRelIso_looseID_Muons) + ( len(event.loose_cutBased_Electrons) + len(event.loose_MVA_Electrons) ) > 1 )),
     ]
@@ -542,7 +542,8 @@ if args.isData:
                 lambda event: Collection(event,"Jet"),
                 lambda event: Collection(event,"FatJet"),
                 lambda event: Collection(event,"HOTVRJet"),
-                lambda event: Collection(event,"HOTVRSubJet")
+                lambda event: Collection(event,"HOTVRSubJet"),
+                lambda event: Object(event,"MET")
             )
         })
     )
