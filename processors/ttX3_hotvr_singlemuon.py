@@ -466,7 +466,7 @@ def LHEScaleWeight_init(tree):
 
 def LHEScaleWeight_fill(tree, event):
     tree.fillBranch("nLHEScaleWeight", 9)
-    tree.fillBranch("LHEScaleWeight", event.LHEScaleWeight[:9])
+    tree.fillBranch("LHEScaleWeight", map(lambda i: event.LHEScaleWeight[i], range(9)))
 
 storeVariables = [[lambda tree: tree.branch("run", "I"),
                    lambda tree, event: tree.fillBranch("run", event.run)],

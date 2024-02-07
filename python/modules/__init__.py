@@ -39,7 +39,7 @@ from JetMetUncertainties import JetMetUncertainties
 from JetSelection import JetSelection
 from BTagSelection import BTagSelection
 from btagSFProducer import btagSFProducer
-from BTagWeightProducer import BTagWeightProducer
+#from BTagWeightProducer import BTagWeightProducer
 
 #event
 from PUWeightProducer import puWeightProducer, PUWeightProducer_dict
