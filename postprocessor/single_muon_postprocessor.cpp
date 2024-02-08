@@ -109,6 +109,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         &(infriends->nselectedJets_nominal),
         &(infriends->nselectedJets_nominal)
         };
+        
+    Int_t* nhotvr_pointers[] = {
+        &(infriends->nselectedHOTVRJets_nominal),
+        &(infriends->nselectedHOTVRJets_jesTotalUp),
+        &(infriends->nselectedHOTVRJets_jesTotalDown),
+        &(infriends->nselectedHOTVRJets_jerUp),
+        &(infriends->nselectedHOTVRJets_jerDown),
+        &(infriends->nselectedHOTVRJets_nominal),
+        &(infriends->nselectedHOTVRJets_nominal)
+        };
 
     Int_t* nbjets_pointers[] = {
         &(infriends->nselectedBJets_nominal_medium),
@@ -129,6 +139,126 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedBJets_nominal_medium_phi),
         (infriends->selectedBJets_nominal_medium_phi)
     };
+    
+    Float_t* hotvrjets_pt_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_pt),
+        (infriends->selectedHOTVRJets_jesTotalUp_pt),
+        (infriends->selectedHOTVRJets_jesTotalDown_pt),
+        (infriends->selectedHOTVRJets_jerUp_pt),
+        (infriends->selectedHOTVRJets_jerDown_pt),
+        (infriends->selectedHOTVRJets_nominal_pt),
+        (infriends->selectedHOTVRJets_nominal_pt)
+    };
+    
+    Float_t* hotvrjets_eta_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_eta),
+        (infriends->selectedHOTVRJets_jesTotalUp_eta),
+        (infriends->selectedHOTVRJets_jesTotalDown_eta),
+        (infriends->selectedHOTVRJets_jerUp_eta),
+        (infriends->selectedHOTVRJets_jerDown_eta),
+        (infriends->selectedHOTVRJets_nominal_eta),
+        (infriends->selectedHOTVRJets_nominal_eta)
+    };
+    
+    Float_t* hotvrjets_phi_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_phi),
+        (infriends->selectedHOTVRJets_jesTotalUp_phi),
+        (infriends->selectedHOTVRJets_jesTotalDown_phi),
+        (infriends->selectedHOTVRJets_jerUp_phi),
+        (infriends->selectedHOTVRJets_jerDown_phi),
+        (infriends->selectedHOTVRJets_nominal_phi),
+        (infriends->selectedHOTVRJets_nominal_phi)
+    };
+    
+    Float_t* hotvrjets_mass_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_mass),
+        (infriends->selectedHOTVRJets_jesTotalUp_mass),
+        (infriends->selectedHOTVRJets_jesTotalDown_mass),
+        (infriends->selectedHOTVRJets_jerUp_mass),
+        (infriends->selectedHOTVRJets_jerDown_mass),
+        (infriends->selectedHOTVRJets_nominal_mass),
+        (infriends->selectedHOTVRJets_nominal_mass)
+    };
+    
+    Float_t* hotvrjets_tau1_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_tau1),
+        (infriends->selectedHOTVRJets_jesTotalUp_tau1),
+        (infriends->selectedHOTVRJets_jesTotalDown_tau1),
+        (infriends->selectedHOTVRJets_jerUp_tau1),
+        (infriends->selectedHOTVRJets_jerDown_tau1),
+        (infriends->selectedHOTVRJets_nominal_tau1),
+        (infriends->selectedHOTVRJets_nominal_tau1)
+    };
+
+    Float_t* hotvrjets_tau2_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_tau2),
+        (infriends->selectedHOTVRJets_jesTotalUp_tau2),
+        (infriends->selectedHOTVRJets_jesTotalDown_tau2),
+        (infriends->selectedHOTVRJets_jerUp_tau2),
+        (infriends->selectedHOTVRJets_jerDown_tau2),
+        (infriends->selectedHOTVRJets_nominal_tau2),
+        (infriends->selectedHOTVRJets_nominal_tau2)
+    };
+
+    Float_t* hotvrjets_tau3_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_tau3),
+        (infriends->selectedHOTVRJets_jesTotalUp_tau3),
+        (infriends->selectedHOTVRJets_jesTotalDown_tau3),
+        (infriends->selectedHOTVRJets_jerUp_tau3),
+        (infriends->selectedHOTVRJets_jerDown_tau3),
+        (infriends->selectedHOTVRJets_nominal_tau3),
+        (infriends->selectedHOTVRJets_nominal_tau3)
+    };
+
+    Float_t* hotvrjets_btagDeepFlavB_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_jesTotalUp_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_jesTotalDown_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_jerUp_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_jerDown_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_nominal_btagDeepFlavB),
+        (infriends->selectedHOTVRJets_nominal_btagDeepFlavB)
+    };
+
+    Int_t* hotvrjets_nsubjets_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_nsubjets),
+        (infriends->selectedHOTVRJets_jesTotalUp_nsubjets),
+        (infriends->selectedHOTVRJets_jesTotalDown_nsubjets),
+        (infriends->selectedHOTVRJets_jerUp_nsubjets),
+        (infriends->selectedHOTVRJets_jerDown_nsubjets),
+        (infriends->selectedHOTVRJets_nominal_nsubjets),
+        (infriends->selectedHOTVRJets_nominal_nsubjets)
+    };
+
+    Float_t* hotvrjets_subJetIdx1_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_subJetIdx1),
+        (infriends->selectedHOTVRJets_jesTotalUp_subJetIdx1),
+        (infriends->selectedHOTVRJets_jesTotalDown_subJetIdx1),
+        (infriends->selectedHOTVRJets_jerUp_subJetIdx1),
+        (infriends->selectedHOTVRJets_jerDown_subJetIdx1),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx1),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx1)
+    };
+
+    Float_t* hotvrjets_subJetIdx2_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_subJetIdx2),
+        (infriends->selectedHOTVRJets_jesTotalUp_subJetIdx2),
+        (infriends->selectedHOTVRJets_jesTotalDown_subJetIdx2),
+        (infriends->selectedHOTVRJets_jerUp_subJetIdx2),
+        (infriends->selectedHOTVRJets_jerDown_subJetIdx2),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx2),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx2)
+    };
+
+    Float_t* hotvrjets_subJetIdx3_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_subJetIdx3),
+        (infriends->selectedHOTVRJets_jesTotalUp_subJetIdx3),
+        (infriends->selectedHOTVRJets_jesTotalDown_subJetIdx3),
+        (infriends->selectedHOTVRJets_jerUp_subJetIdx3),
+        (infriends->selectedHOTVRJets_jerDown_subJetIdx3),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx3),
+        (infriends->selectedHOTVRJets_nominal_subJetIdx3)
+    };
 
     Float_t* jets_pt_pointers[] = {
         (infriends->selectedJets_nominal_pt),
@@ -138,6 +268,43 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedJets_jerDown_pt),
         (infriends->selectedJets_nominal_pt),
         (infriends->selectedJets_nominal_pt)
+    };
+
+    Float_t* subjets_pt_pointers[] = {
+        (infriends->selectedHOTVRSubJets_nominal_pt),
+        (infriends->selectedHOTVRSubJets_jesTotalUp_pt),
+        (infriends->selectedHOTVRSubJets_jesTotalDown_pt),
+        (infriends->selectedHOTVRSubJets_jerUp_pt),
+        (infriends->selectedHOTVRSubJets_jerDown_pt),
+        (infriends->selectedHOTVRSubJets_nominal_pt),
+        (infriends->selectedHOTVRSubJets_nominal_pt)
+    };
+    Float_t* subjets_eta_pointers[] = {
+        (infriends->selectedHOTVRSubJets_nominal_eta),
+        (infriends->selectedHOTVRSubJets_jesTotalUp_eta),
+        (infriends->selectedHOTVRSubJets_jesTotalDown_eta),
+        (infriends->selectedHOTVRSubJets_jerUp_eta),
+        (infriends->selectedHOTVRSubJets_jerDown_eta),
+        (infriends->selectedHOTVRSubJets_nominal_eta),
+        (infriends->selectedHOTVRSubJets_nominal_eta)
+    };
+    Float_t* subjets_phi_pointers[] = {
+        (infriends->selectedHOTVRSubJets_nominal_phi),
+        (infriends->selectedHOTVRSubJets_jesTotalUp_phi),
+        (infriends->selectedHOTVRSubJets_jesTotalDown_phi),
+        (infriends->selectedHOTVRSubJets_jerUp_phi),
+        (infriends->selectedHOTVRSubJets_jerDown_phi),
+        (infriends->selectedHOTVRSubJets_nominal_phi),
+        (infriends->selectedHOTVRSubJets_nominal_phi)
+    };
+    Float_t* subjets_mass_pointers[] = {
+        (infriends->selectedHOTVRSubJets_nominal_mass),
+        (infriends->selectedHOTVRSubJets_jesTotalUp_mass),
+        (infriends->selectedHOTVRSubJets_jesTotalDown_mass),
+        (infriends->selectedHOTVRSubJets_jerUp_mass),
+        (infriends->selectedHOTVRSubJets_jerDown_mass),
+        (infriends->selectedHOTVRSubJets_nominal_mass),
+        (infriends->selectedHOTVRSubJets_nominal_mass)
     };
 
     for (int ievent=0; ievent<intree->GetEntries(); ievent++)
@@ -150,7 +317,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (infriends->ntightRelIso_tightID_Muons != 1) continue;
 
         // Electron veto (AN2017/006)
-        if (infriends->nloose_MVA_Electrons + infriends->nvetoElectrons > 0) continue;
+        if (infriends->nloose_MVA_Electrons > 0) continue;
 
         bool two_or_more_ak4_jets;
         //for (int i=0; i<5; i++) 
@@ -220,7 +387,26 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (infriends->Leptonic_W_pt < 250) continue;
 
         // At least one HOTVR jet
-        if (infriends->npreselectedHOTVRJets == 0) continue;
+        bool at_least_one_hotvr_jet = false;
+        switch (uncmode)
+        {
+            case 1:
+                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jesTotalUp > 0;
+                break;
+            case 2:
+                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jesTotalDown > 0;
+                break;
+            case 3:
+                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jerUp > 0;
+                break;
+            case 4:
+                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jerDown > 0;
+                break;
+            default: at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_nominal > 0;
+        }
+
+        //if (infriends->npreselectedHOTVRJets == 0) continue;
+        if (!at_least_one_hotvr_jet) continue;
         
 
         // b-jet in the same hemisphere as muon (AN2018/103)
@@ -240,7 +426,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         bool fatjet_away_from_muon = false;
         for (int fjet=0; fjet<infriends->npreselectedHOTVRJets; fjet++)
         {
-            Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
+            //Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
+            Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][fjet]);
             fatjet_away_from_muon = fatjet_away_from_muon or (deltaphi_fjet_muon > 2);
             if (fatjet_away_from_muon) break;
         }
@@ -254,24 +441,26 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         Float_t genWeight = isData ? 1 : infriends->genweight/sumgenweight;
 
         // In case we have jet energy corrections for HOTVR...
-        //Float_t fj_1_pt, fj_1_eta, fj_1_phi, fj_1_rawmass, fj_1_sdmass, fj_1_regressed_mass, fj_1_tau21, fj_1_tau32, fj_1_btagcsvv2, fj_1_btagjp, fj_1_deltaR_sj12;
-        Float_t met_pt;
+        Float_t fj_1_pt, fj_1_eta, fj_1_phi, fj_1_rawmass, fj_1_sdmass, fj_1_regressed_mass, fj_1_tau21, fj_1_tau32, fj_1_btagcsvv2, fj_1_btagjp, fj_1_deltaR_sj12;
+        Float_t met_pt, met_phi;
 
         switch (uncmode)
         {
-            // This should be changed once we have MET variants...
             case 5:
-                met_pt = infriends->MET_pt;
+                met_pt  = infriends->MET_unclEnUp_pt;
+                met_phi = infriends->MET_unclEnUp_phi;
                 break;
             case 6:
-                met_pt = infriends->MET_pt;
+                met_pt  = infriends->MET_unclEnDown_pt;
+                met_phi = infriends->MET_unclEnDown_phi;
                 break;
             default:
-                met_pt = infriends->MET_pt;
+                met_pt  = infriends->MET_pt;
+                met_phi = infriends->MET_phi;
         }
         
         outevents->run = infriends->run;
-        outevents->luminosityBlock = 0;
+        outevents->luminosityBlock = infriends->luminosityBlock;
         outevents->event = 0;
         outevents->genWeight = genWeight;
         outevents->nPSWeight = 0;
@@ -329,32 +518,82 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->l1PreFiringWeight = 1.;
         outevents->l1PreFiringWeightUp = 1.;
         outevents->l1PreFiringWeightDown = 1.;
-        outevents->nlep = infriends->ntightRelIso_tightID_Muons + infriends->ntight_cutBased_Electrons;
+        outevents->nlep = infriends->ntightRelIso_tightID_Muons;
         outevents->ht = ht;
         outevents->met = met_pt;
-        outevents->metphi = infriends->MET_phi;
-        outevents->fj_1_is_qualified = true;
-        outevents->fj_1_pt = infriends->preselectedHOTVRJets_pt[0];
-        outevents->fj_1_eta = infriends->preselectedHOTVRJets_eta[0];
-        outevents->fj_1_phi = infriends->preselectedHOTVRJets_phi[0];
-        outevents->fj_1_rawmass = infriends->preselectedHOTVRJets_mass[0];
-        outevents->fj_1_sdmass = infriends->preselectedHOTVRJets_mass[0];
-        outevents->fj_1_regressed_mass = infriends->preselectedHOTVRJets_mass[0];
-        outevents->fj_1_tau21 = infriends->preselectedHOTVRJets_tau2_over_tau1[0];
-        outevents->fj_1_tau32 = infriends->preselectedHOTVRJets_tau3_over_tau2[0];
-        outevents->fj_1_btagcsvv2 = infriends->preselectedHOTVRJets_btagDeepB[0];
-        outevents->fj_1_btagjp = infriends->preselectedHOTVRJets_btagDeepB[0];
-        outevents->fj_1_deltaR_sj12 = 0.;
-        outevents->fj_1_sj1_pt =      (infriends->npreselectedHOTVRSubJets >= 1) ? infriends->preselectedHOTVRSubJets_pt[1]   : 0.;
-        outevents->fj_1_sj1_eta =     (infriends->npreselectedHOTVRSubJets >= 1) ? infriends->preselectedHOTVRSubJets_eta[1]  : 0.;
-        outevents->fj_1_sj1_phi =     (infriends->npreselectedHOTVRSubJets >= 1) ? infriends->preselectedHOTVRSubJets_phi[1]  : 0.;
-        outevents->fj_1_sj1_rawmass = (infriends->npreselectedHOTVRSubJets >= 1) ? infriends->preselectedHOTVRSubJets_mass[1] : 0.;
-        outevents->fj_1_sj1_btagdeepcsv = 0.;
-        outevents->fj_1_sj2_pt =      (infriends->npreselectedHOTVRSubJets >= 2) ? infriends->preselectedHOTVRSubJets_pt[1]   : 0.;
-        outevents->fj_1_sj2_eta =     (infriends->npreselectedHOTVRSubJets >= 2) ? infriends->preselectedHOTVRSubJets_eta[1]  : 0.;;
-        outevents->fj_1_sj2_phi =     (infriends->npreselectedHOTVRSubJets >= 2) ? infriends->preselectedHOTVRSubJets_phi[1]  : 0.;;
-        outevents->fj_1_sj2_rawmass = (infriends->npreselectedHOTVRSubJets >= 2) ? infriends->preselectedHOTVRSubJets_mass[1] : 0.;;
-        outevents->fj_1_sj2_btagdeepcsv = 0.;
+        outevents->metphi = met_phi;
+
+        if (*(nhotvr_pointers[uncmode]) >= 1)
+        {
+            outevents->fj_1_is_qualified = true;
+            outevents->fj_1_pt = hotvrjets_pt_pointers[uncmode][0];
+            outevents->fj_1_eta = hotvrjets_eta_pointers[uncmode][0];
+            outevents->fj_1_phi = hotvrjets_phi_pointers[uncmode][0];
+            outevents->fj_1_rawmass = hotvrjets_mass_pointers[uncmode][0];
+            outevents->fj_1_sdmass = hotvrjets_mass_pointers[uncmode][0];
+            outevents->fj_1_regressed_mass = hotvrjets_mass_pointers[uncmode][0];
+            outevents->fj_1_tau21 = hotvrjets_tau1_pointers[uncmode][0] != 0 ? hotvrjets_tau2_pointers[uncmode][0]/hotvrjets_tau1_pointers[uncmode][0] : -1;
+            outevents->fj_1_tau32 = hotvrjets_tau2_pointers[uncmode][0] != 0 ? hotvrjets_tau3_pointers[uncmode][0]/hotvrjets_tau2_pointers[uncmode][0] : -1;
+            outevents->fj_1_btagcsvv2 = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
+            outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
+            outevents->fj_1_deltaR_sj12 = 0.;
+
+            if (hotvrjets_nsubjets_pointers[uncmode][0] >= 1)
+            {
+                outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
+                outevents->fj_1_sj1_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
+                outevents->fj_1_sj1_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
+                outevents->fj_1_sj1_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
+            }
+            else
+            {
+                outevents->fj_1_sj1_pt =      0;
+                outevents->fj_1_sj1_eta =     0;
+                outevents->fj_1_sj1_phi =     0;
+                outevents->fj_1_sj1_rawmass = 0;
+            }
+            outevents->fj_1_sj1_btagdeepcsv = 0.;
+            if (hotvrjets_nsubjets_pointers[uncmode][0] >= 2)
+            {
+                outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            }
+            else
+            {
+                outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            }
+            outevents->fj_1_sj2_btagdeepcsv = 0.;
+        }
+        else
+        {
+            outevents->fj_1_is_qualified = false;
+            outevents->fj_1_pt  = 0.;
+            outevents->fj_1_eta = 0.;
+            outevents->fj_1_phi = 0.;
+            outevents->fj_1_rawmass = 0.;
+            outevents->fj_1_sdmass  = 0.;
+            outevents->fj_1_regressed_mass = 0.;
+            outevents->fj_1_tau21 = -1;
+            outevents->fj_1_tau32 = -1;
+            outevents->fj_1_btagcsvv2 = 0.;
+            outevents->fj_1_btagjp = 0.;
+            outevents->fj_1_deltaR_sj12 = 0.;
+            outevents->fj_1_sj1_pt =      0;
+            outevents->fj_1_sj1_eta =     0;
+            outevents->fj_1_sj1_phi =     0;
+            outevents->fj_1_sj1_rawmass = 0;
+            outevents->fj_1_sj1_btagdeepcsv = 0.;
+            outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            outevents->fj_1_sj2_btagdeepcsv = 0.;
+        }
         outevents->fj_1_DeepAK8_TvsQCD = 0.;
         outevents->fj_1_DeepAK8_WvsQCD = 0.;
         outevents->fj_1_DeepAK8_ZvsQCD = 0.;
@@ -412,11 +651,14 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->puWeight = infriends->puWeight;
         outevents->puWeightUp = infriends->puWeightUp;
         outevents->puWeightDown = infriends->puWeightDown;
-        outevents->topptWeight = infriends->TopPtWeight;
+        
+        if (infriends->fChain->GetListOfBranches()->FindObject("TopPtWeight")) outevents->topptWeight = infriends->TopPtWeight;
+        else outevents->topptWeight = 1.;
 
-        outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->preselectedHOTVRJets_has_hadronicTop_topIsInside[0];
-        outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside[0];
-        outevents->preselectedHOTVRJets_scoreBDT = infriends->preselectedHOTVRJets_scoreBDT[0];
+        outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
+        outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
+        //TODO: Fix this once we have BDT output for all JEC variations.
+        outevents->preselectedHOTVRJets_scoreBDT = infriends->selectedHOTVRJets_nominal_scoreBDT[0]; 
 
         outevents->FillTree();
     }

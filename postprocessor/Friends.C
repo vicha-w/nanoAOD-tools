@@ -41,4 +41,3 @@ void Friends::Loop()
       // if (Cut(ientry) < 0) continue;
    }
 }
-#undef Friends_cxx
