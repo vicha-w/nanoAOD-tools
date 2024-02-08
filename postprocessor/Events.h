@@ -29,6 +29,8 @@ public :
    UInt_t          nPSWeight;
    Float_t         PSWeight[4];   //[nPSWeight]
    Float_t         LHE_Vpt;
+   Float_t         LHEScaleWeight[9];
+   Float_t         LHEScaleWeightNorm[9];
    Int_t           genTtbarId;
    Int_t           PV_npvs;
    Bool_t          HLT_Ele27_WPTight_Gsf;
@@ -392,6 +394,8 @@ void Events::Init(TTree *tree)
    fChain->Branch("nPSWeight", &nPSWeight, "nPSWeight/i");
    fChain->Branch("PSWeight", PSWeight, "PSWeight[nPSWeight]/F");
    fChain->Branch("LHE_Vpt", &LHE_Vpt, "LHE_Vpt/F");
+   fChain->Branch("LHEScaleWeight", LHEScaleWeight, "LHEScaleWeight[9]/F");
+   fChain->Branch("LHEScaleWeightNorm", LHEScaleWeightNorm, "LHEScaleWeightNorm[9]/F");
    fChain->Branch("genTtbarId", &genTtbarId, "genTtbarId/I");
    fChain->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
    fChain->Branch("HLT_Ele27_WPTight_Gsf", &HLT_Ele27_WPTight_Gsf, "HLT_Ele27_WPTight_Gsf/O");
