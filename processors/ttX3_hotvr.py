@@ -704,14 +704,22 @@ if not Module.globalOptions["isData"]:
     )
 
 #### XGB EVALUATION MODULE
-analyzerChain.append(
-    XGBEvaluationProducer(
-        modelPath=xgb_models[args.year],
-        inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-        outputName="scoreBDT",
-        outputJetPrefix='selectedHOTVRJets_nominal'
+hotvrjet_collections = []
+if not Module.globalOptions["isData"]: 
+    hotvrjet_collections = ["selectedHOTVRJets_nominal", "selectedHOTVRJets_jesTotalUp", "selectedHOTVRJets_jesTotalDown", "selectedHOTVRJets_jerUp", "selectedHOTVRJets_jerDown"]
+else: 
+    hotvrjet_collections = ["selectedHOTVRJets_nominal"]
+for hotvrjet_collection in hotvrjet_collections:
+    analyzerChain.append(
+        XGBEvaluationProducer(
+            modelPath=xgb_models[args.year],
+            #inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
+            inputHOTVRJetCollection=lambda event: getattr(event, hotvrjet_collection),
+            outputName="scoreBDT",
+            #outputJetPrefix='selectedHOTVRJets_nominal'
+            outputJetPrefix=hotvrjet_collection
+        )
     )
-)
 
 
 if not args.isData:
