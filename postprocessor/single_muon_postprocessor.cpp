@@ -30,24 +30,34 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
 
     Float_t sumgenweight = 0;
+    Float_t LHEScaleWeightNorm[9];
     int file_count = 0;
 
     if (!isData)
     {
+        TH1D *hist_genweight_lhe[9];
+        //for (int i=0; i<9; i++) hist_genweight_lhe[i] = new TH1D("hist_genweight_lhe_" + str(i), "hist_genweight_lhe_" + str(i), 1, 0, 10);
         for (const auto &filename : glob(infilename.Data())) 
         {
             //chain->Add(filename.c_str());
             file_count += 1;
             TFile *infile = new TFile(filename.c_str());
+            //TTree *intree = infile->Get("Friends");
             //if (!infile->Get("sumGenWeights")) break;
 
             sumgenweight += ((TParameter<float>*) infile->Get("sumGenWeights"))->GetVal();
+            //for (int i=0; i<9; i++) intree->Project("hist_genweight_lhe_" + to_string(i), '1.0', 'LHEScaleSumw[%d]*genEventSumw')
+            
             infile->Close();
         }
         printf("Walked through %d files.\n", file_count);
         printf("sumgenweight = %f\n", sumgenweight);
     }
-    else printf("Data mode activated. No files walked for sumGenWeights.\n");
+    else 
+    {
+        printf("Data mode activated. No files walked for sumGenWeights.\n");
+    }
+    for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = 1.; // TODO: Check if this is also true for MC.
 
     if (isData && (uncmode!=0))
     {
@@ -128,7 +138,17 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         &(infriends->nselectedBJets_jerDown_medium),
         &(infriends->nselectedBJets_nominal_medium), 
         &(infriends->nselectedBJets_nominal_medium)
-        };
+    };
+
+    Float_t* jets_pt_pointers[] = {
+        (infriends->selectedJets_nominal_pt),
+        (infriends->selectedJets_jesTotalUp_pt),
+        (infriends->selectedJets_jesTotalDown_pt),
+        (infriends->selectedJets_jerUp_pt),
+        (infriends->selectedJets_jerDown_pt),
+        (infriends->selectedJets_nominal_pt),
+        (infriends->selectedJets_nominal_pt)
+    };
 
     Float_t* bjets_phi_pointers[] = {
         (infriends->selectedBJets_nominal_medium_phi),
@@ -220,6 +240,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_btagDeepFlavB)
     };
 
+    /*
     Int_t* hotvrjets_nsubjets_pointers[] = {
         (infriends->selectedHOTVRJets_nominal_nsubjets),
         (infriends->selectedHOTVRJets_jesTotalUp_nsubjets),
@@ -260,16 +281,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_subJetIdx3)
     };
 
-    Float_t* jets_pt_pointers[] = {
-        (infriends->selectedJets_nominal_pt),
-        (infriends->selectedJets_jesTotalUp_pt),
-        (infriends->selectedJets_jesTotalDown_pt),
-        (infriends->selectedJets_jerUp_pt),
-        (infriends->selectedJets_jerDown_pt),
-        (infriends->selectedJets_nominal_pt),
-        (infriends->selectedJets_nominal_pt)
-    };
-
     Float_t* subjets_pt_pointers[] = {
         (infriends->selectedHOTVRSubJets_nominal_pt),
         (infriends->selectedHOTVRSubJets_jesTotalUp_pt),
@@ -306,6 +317,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRSubJets_nominal_mass),
         (infriends->selectedHOTVRSubJets_nominal_mass)
     };
+    */
 
     for (int ievent=0; ievent<intree->GetEntries(); ievent++)
     {
@@ -446,6 +458,22 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         switch (uncmode)
         {
+            case 1:
+                met_pt  = infriends->MET_jesTotalUp_pt;
+                met_phi = infriends->MET_jesTotalUp_phi;
+                break;
+            case 2:
+                met_pt  = infriends->MET_jesTotalDown_pt;
+                met_phi = infriends->MET_jesTotalDown_phi;
+                break;
+            case 3:
+                met_pt  = infriends->MET_jerUp_pt;
+                met_phi = infriends->MET_jerUp_phi;
+                break;
+            case 4:
+                met_pt  = infriends->MET_jerDown_pt;
+                met_phi = infriends->MET_jerDown_phi;
+                break;
             case 5:
                 met_pt  = infriends->MET_unclEnUp_pt;
                 met_phi = infriends->MET_unclEnUp_phi;
@@ -455,8 +483,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 met_phi = infriends->MET_unclEnDown_phi;
                 break;
             default:
-                met_pt  = infriends->MET_pt;
-                met_phi = infriends->MET_phi;
+                met_pt  = infriends->MET_nominal_pt;
+                met_phi = infriends->MET_nominal_phi;
         }
         
         outevents->run = infriends->run;
@@ -469,6 +497,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->PSWeight[2] = 0.;
         outevents->PSWeight[3] = 0.;
         outevents->LHE_Vpt = 0.;
+        for (int i=0; i<9; i++)
+        {
+            outevents->LHEScaleWeight[i] = infriends->LHEScaleWeight[i];
+            outevents->LHEScaleWeightNorm[i] = LHEScaleWeightNorm[i];
+        }
         outevents->genTtbarId = 0;
         outevents->PV_npvs = infriends->PV_npvs;
         outevents->HLT_Ele27_WPTight_Gsf = true;
@@ -538,6 +571,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
             outevents->fj_1_deltaR_sj12 = 0.;
 
+            /*
             if (hotvrjets_nsubjets_pointers[uncmode][0] >= 1)
             {
                 outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
@@ -562,11 +596,22 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             }
             else
             {
-                outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_pt =      0;
+                outevents->fj_1_sj2_eta =     0;
+                outevents->fj_1_sj2_phi =     0;
+                outevents->fj_1_sj2_rawmass = 0;
             }
+            outevents->fj_1_sj2_btagdeepcsv = 0.;
+            */
+            outevents->fj_1_sj1_pt =      0;
+            outevents->fj_1_sj1_eta =     0;
+            outevents->fj_1_sj1_phi =     0;
+            outevents->fj_1_sj1_rawmass = 0;
+            outevents->fj_1_sj1_btagdeepcsv = 0.;
+            outevents->fj_1_sj2_pt =      0;
+            outevents->fj_1_sj2_eta =     0;
+            outevents->fj_1_sj2_phi =     0;
+            outevents->fj_1_sj2_rawmass = 0;
             outevents->fj_1_sj2_btagdeepcsv = 0.;
         }
         else
@@ -588,10 +633,10 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             outevents->fj_1_sj1_phi =     0;
             outevents->fj_1_sj1_rawmass = 0;
             outevents->fj_1_sj1_btagdeepcsv = 0.;
-            outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-            outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-            outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-            outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+            outevents->fj_1_sj2_pt =      0;
+            outevents->fj_1_sj2_eta =     0;
+            outevents->fj_1_sj2_phi =     0;
+            outevents->fj_1_sj2_rawmass = 0;
             outevents->fj_1_sj2_btagdeepcsv = 0.;
         }
         outevents->fj_1_DeepAK8_TvsQCD = 0.;
