@@ -29,7 +29,7 @@ class JetSelection(Module):
          storeKinematics=['pt', 'eta','phi','mass'],
          jetId=LOOSE,
          fatFlag=True,
-         metInput = lambda event: Object(event, "MET"),
+         #metInput = lambda event: Object(event, "MET"),
          storeTruthKeys=[]
      ):
 
@@ -42,7 +42,7 @@ class JetSelection(Module):
         self.storeKinematics = storeKinematics
         self.jetId=jetId
         self.fatFlag = fatFlag
-        self.metInput = metInput
+        #self.metInput = metInput
         self.storeTruthKeys = storeTruthKeys
 
         #loose jet ID does not exists for UL -> accepting all jets  https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD
@@ -58,7 +58,7 @@ class JetSelection(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         
-        self.out.branch("MET_energy", "F")
+        #self.out.branch("MET_energy", "F")
         for outputName in self.outputName_list:
             self.out.branch("n"+outputName, "I")
 
@@ -80,7 +80,7 @@ class JetSelection(Module):
         """process event, return True (go to next module) or False (fail, go to next event)"""
 
         jets = self.inputCollection(event)
-        met = self.metInput(event)
+        #met = self.metInput(event)
 
         selectedJets = []
         unselectedJets = []
@@ -122,13 +122,13 @@ class JetSelection(Module):
             
             selectedJets.append(jet)
             
-        def metP4(obj):
-            p4 = ROOT.TLorentzVector()
-            p4.SetPtEtaPhiM(obj.pt,0,obj.phi,0)
-            return p4
+        #def metP4(obj):
+        #    p4 = ROOT.TLorentzVector()
+        #    p4.SetPtEtaPhiM(obj.pt,0,obj.phi,0)
+        #    return p4
   
-        #print((metP4(met)).E())
-        self.out.fillBranch("MET_energy", (metP4(met)).E())
+        ##print((metP4(met)).E())
+        #self.out.fillBranch("MET_energy", (metP4(met)).E())
 
         for outputName, jet_list in zip(self.outputName_list, [selectedJets, unselectedJets]):
             setattr(event, outputName, jet_list)
