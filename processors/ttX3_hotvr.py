@@ -645,21 +645,41 @@ if Module.globalOptions["isData"]:
 else: 
     triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 
-event_reco_inputs = {
+event_reco_inputs = []
+event_reco_inputs.append({
     'inputTriggersCollection': triggers,
     'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
     'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
     'inputJetCollection': lambda event: event.selectedJets_nominal,
     'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
     'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
-    'inputMETCollection': [],  # to be included!
+    'inputMETCollection': lambda event: event.met_nominal,
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
     'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
-}
-if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
+    "inputGenTopCollection": lambda event: event.genTops if not Module.globalOptions["isData"] else {},
+    "outputSystName": "nominal"
+})
+#if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
+if not Module.globalOptions["isData"]:
+    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+        event_reco_inputs.append({
+            'inputTriggersCollection': triggers,
+            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+            'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
+            'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
+            'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
+            'inputMETCollection': lambda event: getattr(event, "met_"+unc),
+            'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
+            'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
+            "inputGenTopCollection": lambda event: event.genTops,
+            "outputSystName": unc
+        })
+
+analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 analyzerChain.extend([
-    EventReconstruction(**event_reco_inputs),
+    #EventReconstruction(**event_reco_inputs),
     EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
 
