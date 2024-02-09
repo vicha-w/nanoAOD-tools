@@ -707,7 +707,8 @@ triggers = {}
 #    triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 for key in ["ee", "emu", "mumu"]: triggers[key] = lambda event: False
 
-event_reco_inputs = {
+event_reco_inputs = []
+event_reco_inputs.append({
     'inputTriggersCollection': triggers,
     'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
     'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
@@ -717,7 +718,23 @@ event_reco_inputs = {
     'inputMETCollection': lambda event: event.met_nominal,
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
     'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
-}
+    "outputSystName": "nominal"
+})
+if not Module.globalOptions["isData"]:
+    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+        event_reco_inputs.append({
+            'inputTriggersCollection': triggers,
+            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+            'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
+            'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
+            'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
+            'inputMETCollection': lambda event: getattr(event, "met_"+unc),
+            'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
+            'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
+            "outputSystName": unc
+        })
+
 if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
 #if args.isData: ak4jet_systnames = ["nominal"]
@@ -769,9 +786,11 @@ analyzerChain.extend([
     #EventSkim(selection=bjet_in_same_hemisphere_as_muon),
     # At least one fat jet away from the muon
     #EventSkim(selection=fatjet_away_from_muon),
-    EventReconstruction(**event_reco_inputs),
+    #EventReconstruction(**event_reco_inputs),
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
+
+analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
