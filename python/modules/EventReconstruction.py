@@ -112,8 +112,8 @@ class EventReconstruction(Module):
         self.out = wrappedOutputTree
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.branch('eventSelection_'+cut_selection+'_cut',"I")
-            self.out.branch('dilepton_invariant_mass_'+cut_selection,"F")
+            self.out.branch('eventSelection_'+cut_selection+'_cut_'+self.outputSystName,"I")
+            self.out.branch('dilepton_invariant_mass_'+cut_selection+"_"+self.outputSystName,"F")
 
         for var in self.eventReconstructionKeys_ak4Jets:
             if 'min' in var or 'rho' in var :
