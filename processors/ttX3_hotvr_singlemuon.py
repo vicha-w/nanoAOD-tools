@@ -718,6 +718,7 @@ event_reco_inputs.append({
     'inputMETCollection': lambda event: event.met_nominal,
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
     'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+    'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
     "outputSystName": "nominal"
 })
 if not Module.globalOptions["isData"]:
