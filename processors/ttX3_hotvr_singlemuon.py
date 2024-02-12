@@ -732,10 +732,11 @@ if not Module.globalOptions["isData"]:
             'inputMETCollection': lambda event: getattr(event, "met_"+unc),
             'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
             'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
+            'inputGenTopCollection': lambda event: event.genTops
             "outputSystName": unc
         })
 
-if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
+#if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
 #if args.isData: ak4jet_systnames = ["nominal"]
 #else: ak4jet_systnames = jetDict.keys()
@@ -792,21 +793,28 @@ analyzerChain.extend([
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
+hotvrjet_collections = []
+if not Module.globalOptions["isData"]: 
+    hotvrjet_collections = ["selectedHOTVRJets_nominal", "selectedHOTVRJets_jesTotalUp", "selectedHOTVRJets_jesTotalDown", "selectedHOTVRJets_jerUp", "selectedHOTVRJets_jerDown"]
+else: 
+    hotvrjet_collections = ["selectedHOTVRJets_nominal"]
+
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
-    analyzerChain.append(
-        HOTVRJetComposition(
-            inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-            inputGenParticleCollections = {
-                'gentops': lambda event: event.genTops, 
-                'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
-                'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
-                'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
-                },
-            inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_nominal"),
-            outputJetPrefix='selectedHOTVRJets_nominal'
+    for hotvrjet_collection in hotvrjet_collections:
+        analyzerChain.append(
+            HOTVRJetComposition(
+                inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_"+hotvrjet_collection),
+                inputGenParticleCollections = {
+                    'gentops': lambda event: event.genTops, 
+                    'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
+                    'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
+                    'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
+                    },
+                inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_"+hotvrjet_collection),
+                outputJetPrefix='selectedHOTVRJets_'+hotvrjet_collection
+            )
         )
-    )
     analyzerChain.append(
         FatJetComposition(
             inputFatJetCollection = lambda event: getattr(event,"selectedFatJets_nominal"),
@@ -821,11 +829,6 @@ if not Module.globalOptions["isData"]:
     )
 
 #### XGB EVALUATION MODULE
-hotvrjet_collections = []
-if not Module.globalOptions["isData"]: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal", "selectedHOTVRJets_jesTotalUp", "selectedHOTVRJets_jesTotalDown", "selectedHOTVRJets_jerUp", "selectedHOTVRJets_jerDown"]
-else: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal"]
 for hotvrjet_collection in hotvrjet_collections:
     analyzerChain.append(
         XGBEvaluationProducer(
