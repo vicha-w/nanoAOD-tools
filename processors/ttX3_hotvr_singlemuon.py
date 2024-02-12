@@ -792,13 +792,13 @@ analyzerChain.extend([
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
 
-hotvrjetunc_collections = ["nominal"]
-if not Module.globalOptions["isData"]: 
-    hotvrjetunc_collections = ["nominal", "jesTotalUp", "jesTotalDown", "jerUp", "jerDown"]
+#hotvrjetunc_collections = ["nominal"]
+#if not Module.globalOptions["isData"]: 
+#    hotvrjetunc_collections = ["nominal", "jesTotalUp", "jesTotalDown", "jerUp", "jerDown"]
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
-    for hotvrjet_collection in hotvrjetunc_collections:
+    for hotvrjet_collection in ["nominal", "jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
         analyzerChain.append(
             HOTVRJetComposition(
                 inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_"+hotvrjet_collection),
