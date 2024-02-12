@@ -636,14 +636,14 @@ else:
             lambda event: event.jets_jerUp,
             lambda event: event.fatjets_jerUp,
             lambda event: event.hotvrjets_jerUp,
-            [],
+            lambda event: event.hotvrsubjets_jerUp,
             lambda event: event.met_jerUp
             )
         jetDict["jerDown"] = (
             lambda event: event.jets_jerDown,
             lambda event: event.fatjets_jerDown,
             lambda event: event.hotvrjets_jerDown,
-            [],
+            lambda event: event.hotvrsubjets_jerDown,
             lambda event: event.met_jerDown
             )
         
@@ -652,14 +652,14 @@ else:
                 lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
-                [],
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Up"),
                 lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Up")
                 )
             jetDict['jes'+jesUncertaintyName+"Down"] = (
                 lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
-                [],
+                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Down"),
                 lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Down")
                 )
     
