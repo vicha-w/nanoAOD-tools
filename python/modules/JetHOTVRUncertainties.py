@@ -316,8 +316,8 @@ class JetHOTVRUncertainties(Module):
                 )
 
                 subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
-                subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['jerUp']
-                subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['jerDown']
+                subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
+                subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
 
                 jet.uncertainty_p4['nominal'] += (subjet.p4() * jerFactor['nominal'])
                 jet.uncertainty_p4['jerUp'] += (subjet.p4() * jerFactor['up'])
