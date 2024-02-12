@@ -31,7 +31,7 @@ class MetSelection(Module):
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
 
-    def metP4(obj):
+    def metP4(self, obj):
         p4 = ROOT.TLorentzVector()
         p4.SetPtEtaPhiM(obj.pt,0,obj.phi,0)
         return p4
