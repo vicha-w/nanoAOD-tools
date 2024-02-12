@@ -339,8 +339,10 @@ class JetHOTVRUncertainties(Module):
         for jesUncertaintyName in self.jesUncertaintyNames:
             for mode in ["Up","Down"]:
                 setattr(event, self.outputJetPrefix + "jes" + jesUncertaintyName + mode, self.makeNewJetCollection(jets, "jes"+jesUncertaintyName + mode))
+                setattr(event, self.outputJetPrefix.replace('jets', 'subjets') + "jes" + jesUncertaintyName + mode, self.makeNewJetCollection(subjets, "jes"+jesUncertaintyName+mode, collection_type='subjets'))
 
         for mode in ["Up","Down"]:
             setattr(event, self.outputJetPrefix + "jer" + mode, self.makeNewJetCollection(jets, "jer" + mode))
+            setattr(event, self.outputJetPrefix.replace('jets', 'subjets') + "jer" + mode, self.makeNewJetCollection(subjets, "jer"+mode, collection_type='subjets'))
 
         return True
