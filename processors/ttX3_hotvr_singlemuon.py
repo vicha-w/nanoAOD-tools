@@ -341,7 +341,7 @@ def jetSelection(jetDict):
                 jetId=JetSelection.LOOSE,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area'],
                 outputName_list=["selectedJets_"+systName,"unselectedJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','partonFlavour'],
             ),
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
@@ -355,7 +355,7 @@ def jetSelection(jetDict):
                 jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD', 'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD', 'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons'],
             ),
             JetSelection(
@@ -370,7 +370,7 @@ def jetSelection(jetDict):
                                  'tau1', 'area', 'btagDeepFlavB', 
                                  'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             ),
             MetSelection(
@@ -389,7 +389,7 @@ def jetSelection(jetDict):
                     jetId=JetSelection.NONE,
                     storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
                     outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
-                    metInput = lambda event: Object(event, "MET"),
+                    #metInput = lambda event: Object(event, "MET"),
                     # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )])
         
@@ -416,7 +416,7 @@ def jetSelection(jetDict):
             jetId=JetSelection.NONE,
             storeKinematics=['pt','eta','phi','mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'area', 'btagDeepFlavB', 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
             outputName_list=["preselectedHOTVRJets","preunselectedHOTVRJets"],
-            metInput = lambda event: Object(event, "MET"),
+            #metInput = lambda event: Object(event, "MET"),
             # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )])
 
