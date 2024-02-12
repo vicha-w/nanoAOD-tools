@@ -378,20 +378,20 @@ def jetSelection(jetDict):
                 outputName = "MET_"+systName
             )
         ])
-        if systName == 'nominal':
-            seq.extend([
-                JetSelection(
-                    inputCollection= subhotvrjetCollection,
-                    leptonCollectionDRCleaning=lambda event: getattr(event, muon_collection_for_selection_and_cleaning) + getattr(event, electron_collection_for_selection_and_cleaning),
-                    jetMinPt=30., 
-                    jetMaxEta= 2.4,
-                    dRCleaning=None,
-                    jetId=JetSelection.NONE,
-                    storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
-                    outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
-                    #metInput = lambda event: Object(event, "MET"),
-                    # storeTruthKeys = ['hadronFlavour','partonFlavour'],
-            )])
+        #if systName == 'nominal':
+        seq.extend([
+            JetSelection(
+                inputCollection= subhotvrjetCollection,
+                leptonCollectionDRCleaning=lambda event: getattr(event, muon_collection_for_selection_and_cleaning) + getattr(event, electron_collection_for_selection_and_cleaning),
+                jetMinPt=30., 
+                jetMaxEta= 2.4,
+                dRCleaning=None,
+                jetId=JetSelection.NONE,
+                storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
+                outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
+                #metInput = lambda event: Object(event, "MET"),
+                # storeTruthKeys = ['hadronFlavour','partonFlavour'],
+        )])
         
         seq.append(
             BTagSelection(
@@ -792,6 +792,8 @@ analyzerChain.extend([
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
 
+analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
+
 #hotvrjetunc_collections = ["nominal"]
 #if not Module.globalOptions["isData"]: 
 #    hotvrjetunc_collections = ["nominal", "jesTotalUp", "jesTotalDown", "jerUp", "jerDown"]
@@ -824,8 +826,6 @@ if not Module.globalOptions["isData"]:
             outputJetPrefix='selectedFatJets_nominal'
         )
     )
-
-analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 hotvrjet_collections = []
 if not Module.globalOptions["isData"]: 
