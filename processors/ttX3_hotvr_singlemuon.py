@@ -792,7 +792,6 @@ analyzerChain.extend([
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
 
-analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 hotvrjet_collections = []
 if not Module.globalOptions["isData"]: 
@@ -828,6 +827,8 @@ if not Module.globalOptions["isData"]:
             outputJetPrefix='selectedFatJets_nominal'
         )
     )
+
+analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 #### XGB EVALUATION MODULE
 for hotvrjet_collection in hotvrjet_collections:
