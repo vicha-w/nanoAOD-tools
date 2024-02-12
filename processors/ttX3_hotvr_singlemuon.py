@@ -732,7 +732,7 @@ if not Module.globalOptions["isData"]:
             'inputMETCollection': lambda event: getattr(event, "met_"+unc),
             'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
             'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
-            'inputGenTopCollection': lambda event: event.genTops
+            'inputGenTopCollection': lambda event: event.genTops,
             "outputSystName": unc
         })
 
