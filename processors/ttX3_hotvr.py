@@ -314,7 +314,7 @@ selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
     
-    for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection, metCollection) in jetDict.items():
+    for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
@@ -357,11 +357,7 @@ def jetSelection(jetDict):
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
-            ),
-            MetSelection(
-                metInput = metCollection,
-                outputName = "MET_"+systName
-            )
+                )
         ])
         if systName == 'nominal':
             seq.extend([
@@ -510,9 +506,7 @@ if args.isData:
             "nominal": (lambda event: Collection(event,"Jet"),
                         lambda event: Collection(event,"FatJet"),
                         lambda event: Collection(event,"HOTVRJet"),
-                        lambda event: Collection(event,"HOTVRSubJet"),
-                        lambda event: Object(event, "MET")
-                       )
+                         lambda event: Collection(event,"HOTVRSubJet"))
         })
     )
 
@@ -593,8 +587,7 @@ else:
         "nominal": (lambda event: event.jets_nominal,
                     lambda event: event.fatjets_nominal,
                     lambda event: event.hotvrjets_nominal,
-                    lambda event: event.hotvrsubjets_nominal,
-                    lambda event: event.met_nominal)
+                    lambda event: event.hotvrsubjets_nominal)
     }
     
     if not args.nosys:
@@ -602,32 +595,24 @@ else:
             lambda event: event.jets_jerUp,
             lambda event: event.fatjets_jerUp,
             lambda event: event.hotvrjets_jerUp,
-            [],
-            lambda event: event.met_jerUp
-            )
+            [])
         jetDict["jerDown"] = (
             lambda event: event.jets_jerDown,
             lambda event: event.fatjets_jerDown,
             lambda event: event.hotvrjets_jerDown,
-            [],
-            lambda event: event.met_jerDown
-            )
+            [])
         
         for jesUncertaintyName in jesUncertaintyNames:
             jetDict['jes'+jesUncertaintyName+"Up"] = (
                 lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
-                [],
-                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Up")
-                )
+                [])
             jetDict['jes'+jesUncertaintyName+"Down"] = (
                 lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
                 lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
-                [],
-                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Down")
-                )
+                [])
     
     analyzerChain.extend(
         jetSelection(jetDict)
@@ -660,41 +645,21 @@ if Module.globalOptions["isData"]:
 else: 
     triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 
-event_reco_inputs = []
-event_reco_inputs.append({
+event_reco_inputs = {
     'inputTriggersCollection': triggers,
     'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
     'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
     'inputJetCollection': lambda event: event.selectedJets_nominal,
     'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
     'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
-    'inputMETCollection': lambda event: event.met_nominal,
+    'inputMETCollection': [],  # to be included!
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
     'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
-    "inputGenTopCollection": lambda event: event.genTops if not Module.globalOptions["isData"] else {},
-    "outputSystName": "nominal"
-})
-#if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
-if not Module.globalOptions["isData"]:
-    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
-        event_reco_inputs.append({
-            'inputTriggersCollection': triggers,
-            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-            'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
-            'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
-            'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
-            'inputMETCollection': lambda event: getattr(event, "met_"+unc),
-            'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
-            'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
-            "inputGenTopCollection": lambda event: event.genTops,
-            "outputSystName": unc
-        })
-
-analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
+}
+if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
 analyzerChain.extend([
-    #EventReconstruction(**event_reco_inputs),
+    EventReconstruction(**event_reco_inputs),
     EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
 
@@ -739,22 +704,14 @@ if not Module.globalOptions["isData"]:
     )
 
 #### XGB EVALUATION MODULE
-hotvrjet_collections = []
-if not Module.globalOptions["isData"]: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal", "selectedHOTVRJets_jesTotalUp", "selectedHOTVRJets_jesTotalDown", "selectedHOTVRJets_jerUp", "selectedHOTVRJets_jerDown"]
-else: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal"]
-for hotvrjet_collection in hotvrjet_collections:
-    analyzerChain.append(
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            #inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-            inputHOTVRJetCollection=lambda event: getattr(event, hotvrjet_collection),
-            outputName="scoreBDT",
-            #outputJetPrefix='selectedHOTVRJets_nominal'
-            outputJetPrefix=hotvrjet_collection
-        )
+analyzerChain.append(
+    XGBEvaluationProducer(
+        modelPath=xgb_models[args.year],
+        inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
+        outputName="scoreBDT",
+        outputJetPrefix='selectedHOTVRJets_nominal'
     )
+)
 
 
 if not args.isData:

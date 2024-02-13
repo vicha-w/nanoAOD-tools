@@ -27,7 +27,6 @@ class EventReconstruction(Module):
         inputHOTVRJetCollection = {},
         inputHOTVRSubJetCollection = {},
         inputGenTopCollection = {}, 
-        outputSystName = "nominal"
     ):
         
         self.inputTriggersCollection = inputTriggersCollection
@@ -42,7 +41,6 @@ class EventReconstruction(Module):
         if not Module.globalOptions['isData']:
             self.inputGenTopCollection = inputGenTopCollection
     
-        self.outputSystName = outputSystName
         self.print_out = False
 
         self.eventReconstructionKeys_ak4Jets = [
@@ -267,33 +265,27 @@ class EventReconstruction(Module):
                         if closest_gentop.has_hadronically_decay: setattr(ak8, 'has_genTopHadronic_inside', True)
                         if Module.globalOptions['isSignal'] and closest_gentop.from_resonance: setattr(ak8, 'has_genTopFromResonance_inside', True)
 
-        #setattr(event, 'selectedHOTVRJets_nominal', hotvrjets)
-        #setattr(event, 'selectedFatJets_nominal', fatjets)
-        setattr(event, 'selectedHOTVRJets_'+self.outputSystName, hotvrjets)
-        setattr(event, 'selectedFatJets_'+self.outputSystName, fatjets)
+        setattr(event, 'selectedHOTVRJets_nominal', hotvrjets)
+        setattr(event, 'selectedFatJets_nominal', fatjets)
 
-        self.out.fillBranch("nselectedJets_"+self.outputSystName, len(jets))
-        self.out.fillBranch("nselectedHOTVRJets_"+self.outputSystName, len(hotvrjets))
-        self.out.fillBranch("nselectedFatJets_"+self.outputSystName, len(fatjets))
+        self.out.fillBranch("nselectedJets_nominal", len(jets))
+        self.out.fillBranch("nselectedHOTVRJets_nominal", len(hotvrjets))
+        self.out.fillBranch("nselectedFatJets_nominal", len(fatjets))
 
 
         for var in self.eventReconstructionKeys_ak4Jets:
-            #self.out.fillBranch("selectedJets_nominal_"+var, map(lambda jet: getattr(jet,var), jets))
-            self.out.fillBranch("selectedJets_"+self.outputSystName+"_"+var, map(lambda jet: getattr(jet,var), jets))
+            self.out.fillBranch("selectedJets_nominal_"+var, map(lambda jet: getattr(jet,var), jets))
         for var in self.hotvr_vars:
-            #self.out.fillBranch("selectedHOTVRJets_nominal_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
-            self.out.fillBranch("selectedHOTVRJets_"+self.outputSystName+"_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
+            self.out.fillBranch("selectedHOTVRJets_nominal_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
 
         if not Module.globalOptions['isData']:
             for jet_composition_flag in self.jet_composition:
-                #self.out.fillBranch("selectedHOTVRJets_nominal_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
-                #self.out.fillBranch("selectedFatJets_nominal_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
-                self.out.fillBranch("selectedHOTVRJets_"+self.outputSystName+"_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
-                self.out.fillBranch("selectedFatJets_"+self.outputSystName+"_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
+                self.out.fillBranch("selectedHOTVRJets_nominal_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
+                self.out.fillBranch("selectedFatJets_nominal_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.fillBranch('eventSelection_'+cut_selection+'_cut_'+self.outputSystName, event_selection_dilepton[cut_selection])
-            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection+"_"+self.outputSystName, dilepton_mass[cut_selection])
+            self.out.fillBranch('eventSelection_'+cut_selection+'_cut', event_selection_dilepton[cut_selection])
+            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection, dilepton_mass[cut_selection])
         setattr(event, 'event_selection_OS_dilepton_cut', event_selection_OS_dilepton_cut)
 
         return True
