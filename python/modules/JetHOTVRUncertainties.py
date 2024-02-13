@@ -317,7 +317,7 @@ class JetHOTVRUncertainties(Module):
             #     jet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = jet.p4() #((subjet.p4() * jerFactor['nominal']) * (1. - jecDelta))
 
             for isubjet, subjet in enumerate(subjets_in_hotvr):
-                subjet.uncertainty_p4 = {}
+                #subjet.uncertainty_p4 = {}
 
                 genJet = genjet_match[subjet]
 
