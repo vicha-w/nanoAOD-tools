@@ -48,6 +48,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 printf("File %s is zombie, skipping arrrr.\n", filename.c_str());
                 continue;
             }
+            if (!infile->Get("Friends"))
+            {
+                printf("File %s does not contain Friends tree, skipping.\n", filename.c_str());
+                continue;
+            }
+            if (!infile->Get("sumGenWeights"))
+            {
+                printf("File %s does not contain sumGenWeights, skipping.\n", filename.c_str());
+                continue;
+            }
             file_count += 1;
             //TTree *intree = infile->Get("Friends");
             //if (!infile->Get("sumGenWeights")) break;
