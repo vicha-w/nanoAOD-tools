@@ -33,6 +33,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     Float_t LHEScaleWeightNorm[9];
     int file_count = 0;
 
+    TChain *intree = new TChain("Friends");
+
     if (!isData)
     {
         TH1D *hist_genweight_lhe[9];
@@ -40,8 +42,13 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         for (const auto &filename : glob(infilename.Data())) 
         {
             //chain->Add(filename.c_str());
-            file_count += 1;
             TFile *infile = new TFile(filename.c_str());
+            if (infile->IsZombie()) 
+            {
+                printf("File %s is zombie, skipping arrrr.\n", filename.c_str());
+                continue;
+            }
+            file_count += 1;
             //TTree *intree = infile->Get("Friends");
             //if (!infile->Get("sumGenWeights")) break;
 
@@ -49,6 +56,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             //for (int i=0; i<9; i++) intree->Project("hist_genweight_lhe_" + to_string(i), '1.0', 'LHEScaleSumw[%d]*genEventSumw')
             
             infile->Close();
+            intree->Add(filename.c_str());
         }
         printf("Walked through %d files.\n", file_count);
         printf("sumgenweight = %f\n", sumgenweight);
@@ -56,6 +64,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     else 
     {
         printf("Data mode activated. No files walked for sumGenWeights.\n");
+        intree->Add(infilename);
     }
     for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = 1.; // TODO: Check if this is also true for MC.
 
@@ -68,8 +77,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     //TFile *infile = new TFile(infilename);
     //TTree *intree = (TTree*) infile->Get("Friends");
-    TChain *intree = new TChain("Friends");
-    intree->Add(infilename);
 
     printf("Found %lld events.\n", intree->GetEntries());
     
@@ -240,7 +247,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_btagDeepFlavB)
     };
 
-    /*
     Int_t* hotvrjets_nsubjets_pointers[] = {
         (infriends->selectedHOTVRJets_nominal_nsubjets),
         (infriends->selectedHOTVRJets_jesTotalUp_nsubjets),
@@ -281,6 +287,36 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_subJetIdx3)
     };
 
+    Float_t* hotvrjets_min_pairwise_subjet_mass_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_jerUp_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_jerDown_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_nominal_min_pairwise_subjets_mass),
+        (infriends->selectedHOTVRJets_nominal_min_pairwise_subjets_mass)
+    };
+
+    Float_t* hotvrjets_fractional_subjet_pt[] = {
+        (infriends->selectedHOTVRJets_nominal_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_jesTotalUp_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_jesTotalDown_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_jerUp_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_jerDown_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_nominal_fractional_subjet_pt),
+        (infriends->selectedHOTVRJets_nominal_fractional_subjet_pt),
+    };
+    
+    Float_t* hotvrjets_tau3_over_tau2_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_jesTotalUp_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_jesTotalDown_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_jerUp_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_jerDown_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_nominal_tau3_over_tau2),
+        (infriends->selectedHOTVRJets_nominal_tau3_over_tau2)
+    };
+
     Float_t* subjets_pt_pointers[] = {
         (infriends->selectedHOTVRSubJets_nominal_pt),
         (infriends->selectedHOTVRSubJets_jesTotalUp_pt),
@@ -317,7 +353,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRSubJets_nominal_mass),
         (infriends->selectedHOTVRSubJets_nominal_mass)
     };
-    */
 
     for (int ievent=0; ievent<intree->GetEntries(); ievent++)
     {
@@ -420,6 +455,39 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         //if (infriends->npreselectedHOTVRJets == 0) continue;
         if (!at_least_one_hotvr_jet) continue;
         
+        Float_t met_pt, met_phi;
+        switch (uncmode)
+        {
+            case 1:
+                met_pt  = infriends->MET_jesTotalUp_pt;
+                met_phi = infriends->MET_jesTotalUp_phi;
+                break;
+            case 2:
+                met_pt  = infriends->MET_jesTotalDown_pt;
+                met_phi = infriends->MET_jesTotalDown_phi;
+                break;
+            case 3:
+                met_pt  = infriends->MET_jerUp_pt;
+                met_phi = infriends->MET_jerUp_phi;
+                break;
+            case 4:
+                met_pt  = infriends->MET_jerDown_pt;
+                met_phi = infriends->MET_jerDown_phi;
+                break;
+            case 5:
+                met_pt  = infriends->MET_unclEnUp_pt;
+                met_phi = infriends->MET_unclEnUp_phi;
+                break;
+            case 6:
+                met_pt  = infriends->MET_unclEnDown_pt;
+                met_phi = infriends->MET_unclEnDown_phi;
+                break;
+            default:
+                met_pt  = infriends->MET_nominal_pt;
+                met_phi = infriends->MET_nominal_phi;
+        }
+        // MET pT >= 50 (JME-18-002)
+        if (met_pt < 50) continue;
 
         // b-jet in the same hemisphere as muon (AN2018/103)
         bool bjet_in_same_hemisphere_as_muon = false;
@@ -454,38 +522,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // In case we have jet energy corrections for HOTVR...
         Float_t fj_1_pt, fj_1_eta, fj_1_phi, fj_1_rawmass, fj_1_sdmass, fj_1_regressed_mass, fj_1_tau21, fj_1_tau32, fj_1_btagcsvv2, fj_1_btagjp, fj_1_deltaR_sj12;
-        Float_t met_pt, met_phi;
-
-        switch (uncmode)
-        {
-            case 1:
-                met_pt  = infriends->MET_jesTotalUp_pt;
-                met_phi = infriends->MET_jesTotalUp_phi;
-                break;
-            case 2:
-                met_pt  = infriends->MET_jesTotalDown_pt;
-                met_phi = infriends->MET_jesTotalDown_phi;
-                break;
-            case 3:
-                met_pt  = infriends->MET_jerUp_pt;
-                met_phi = infriends->MET_jerUp_phi;
-                break;
-            case 4:
-                met_pt  = infriends->MET_jerDown_pt;
-                met_phi = infriends->MET_jerDown_phi;
-                break;
-            case 5:
-                met_pt  = infriends->MET_unclEnUp_pt;
-                met_phi = infriends->MET_unclEnUp_phi;
-                break;
-            case 6:
-                met_pt  = infriends->MET_unclEnDown_pt;
-                met_phi = infriends->MET_unclEnDown_phi;
-                break;
-            default:
-                met_pt  = infriends->MET_nominal_pt;
-                met_phi = infriends->MET_nominal_phi;
-        }
         
         outevents->run = infriends->run;
         outevents->luminosityBlock = infriends->luminosityBlock;
@@ -571,7 +607,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
             outevents->fj_1_deltaR_sj12 = 0.;
 
-            /*
             if (hotvrjets_nsubjets_pointers[uncmode][0] >= 1)
             {
                 outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
@@ -581,9 +616,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             }
             else
             {
-                outevents->fj_1_sj1_pt =      0;
-                outevents->fj_1_sj1_eta =     0;
-                outevents->fj_1_sj1_phi =     0;
+                outevents->fj_1_sj1_pt      = 0;
+                outevents->fj_1_sj1_eta     = 0;
+                outevents->fj_1_sj1_phi     = 0;
                 outevents->fj_1_sj1_rawmass = 0;
             }
             outevents->fj_1_sj1_btagdeepcsv = 0.;
@@ -601,17 +636,6 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->fj_1_sj2_phi =     0;
                 outevents->fj_1_sj2_rawmass = 0;
             }
-            outevents->fj_1_sj2_btagdeepcsv = 0.;
-            */
-            outevents->fj_1_sj1_pt =      0;
-            outevents->fj_1_sj1_eta =     0;
-            outevents->fj_1_sj1_phi =     0;
-            outevents->fj_1_sj1_rawmass = 0;
-            outevents->fj_1_sj1_btagdeepcsv = 0.;
-            outevents->fj_1_sj2_pt =      0;
-            outevents->fj_1_sj2_eta =     0;
-            outevents->fj_1_sj2_phi =     0;
-            outevents->fj_1_sj2_rawmass = 0;
             outevents->fj_1_sj2_btagdeepcsv = 0.;
         }
         else
@@ -700,10 +724,45 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (infriends->fChain->GetListOfBranches()->FindObject("TopPtWeight")) outevents->topptWeight = infriends->TopPtWeight;
         else outevents->topptWeight = 1.;
 
-        outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
-        outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
-        //TODO: Fix this once we have BDT output for all JEC variations.
-        outevents->preselectedHOTVRJets_scoreBDT = infriends->selectedHOTVRJets_nominal_scoreBDT[0]; 
+        //outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
+        //outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
+        //outevents->preselectedHOTVRJets_scoreBDT = infriends->selectedHOTVRJets_nominal_scoreBDT[0]; 
+        switch (uncmode)
+        {
+            case 1:
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_topIsInside   = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_scoreBDT                    = infriends->selectedHOTVRJets_jesTotalUp_scoreBDT[0];
+                break;
+            case 2:
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_topIsInside   = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_scoreBDT                    = infriends->selectedHOTVRJets_jesTotalDown_scoreBDT[0];
+                break;
+            case 3:
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_topIsInside   = infriends->selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_scoreBDT                    = infriends->selectedHOTVRJets_jerUp_scoreBDT[0];
+                break;
+            case 4:
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_topIsInside   = infriends->selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_scoreBDT                    = infriends->selectedHOTVRJets_jerDown_scoreBDT[0];
+                break;
+            default:
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_topIsInside   = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_scoreBDT                    = infriends->selectedHOTVRJets_nominal_scoreBDT[0];
+                break;
+        }
+
+        bool passedHOTVRCut = true;
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_mass_pointers[uncmode][0] > 140) and (hotvrjets_mass_pointers[uncmode][0] < 220);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_nsubjets_pointers[uncmode][0] >= 3);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][0] > 50);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_fractional_subjet_pt[uncmode][0] < 0.8);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][0] < 0.56);
+        outevents->passedHOTVRCut = passedHOTVRCut;
 
         outevents->FillTree();
     }

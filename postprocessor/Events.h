@@ -168,6 +168,7 @@ public :
    Bool_t  preselectedHOTVRJets_has_hadronicTop_topIsInside;
    Bool_t  preselectedHOTVRJets_has_hadronicW_topIsInside;
    Float_t preselectedHOTVRJets_scoreBDT;
+   Bool_t  passedHOTVRCut;
 
    // List of branches
    TBranch        *b_run;   //!
@@ -533,6 +534,8 @@ void Events::Init(TTree *tree)
    fChain->Branch("preselectedHOTVRJets_has_hadronicTop_topIsInside", &preselectedHOTVRJets_has_hadronicTop_topIsInside, "preselectedHOTVRJets_has_hadronicTop_topIsInside/O");
    fChain->Branch("preselectedHOTVRJets_has_hadronicW_topIsInside", &preselectedHOTVRJets_has_hadronicW_topIsInside, "preselectedHOTVRJets_has_hadronicW_topIsInside/O");
    fChain->Branch("preselectedHOTVRJets_scoreBDT", &preselectedHOTVRJets_scoreBDT, "preselectedHOTVRJets_scoreBDT/F");
+   fChain->Branch("passedHOTVRCut", &passedHOTVRCut, "passedHOTVRCut/O");
+
    Notify();
 }
 

@@ -1,8 +1,7 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Thu Feb  8 23:24:39 2024 by ROOT version 6.30/02
-// from TTree Friends/Friend tree for Events
-// found on file: test/NANO_NANO_3262_Friend.root
+// Wed Feb 14 09:07:33 2024 by ROOT version 6.20/07
+// from TChain Friends/
 //////////////////////////////////////////////////////////
 
 #ifndef Friends_h
@@ -36,10 +35,10 @@ public :
    Float_t         L1PreFiringWeight_Dn;
    Int_t           MET_filter;
    UInt_t          nMuon;
-   Float_t         muon_PFRelIso04[4];   //[nMuon]
-   Float_t         muon_tightID[4];   //[nMuon]
-   Float_t         muon_mediumID[4];   //[nMuon]
-   Float_t         muon_looseID[4];   //[nMuon]
+   Float_t         muon_PFRelIso04[2];   //[nMuon]
+   Float_t         muon_tightID[2];   //[nMuon]
+   Float_t         muon_mediumID[2];   //[nMuon]
+   Float_t         muon_looseID[2];   //[nMuon]
    Int_t           ntightRelIso_tightID_Muons;
    Float_t         tightRelIso_tightID_Muons_pt[2];   //[ntightRelIso_tightID_Muons]
    Float_t         tightRelIso_tightID_Muons_eta[2];   //[ntightRelIso_tightID_Muons]
@@ -62,10 +61,10 @@ public :
    Float_t         tightRelIso_looseID_Muons_mass[2];   //[ntightRelIso_looseID_Muons]
    Float_t         tightRelIso_looseID_Muons_miniPFRelIso_all[2];   //[ntightRelIso_looseID_Muons]
    UInt_t          nElectron;
-   Float_t         electron_cutBasedID[3];   //[nElectron]
-   Float_t         electron_MVA_tightID[3];   //[nElectron]
-   Float_t         electron_MVA_mediumID[3];   //[nElectron]
-   Float_t         electron_MVA_looseID[3];   //[nElectron]
+   Float_t         electron_cutBasedID[2];   //[nElectron]
+   Float_t         electron_MVA_tightID[2];   //[nElectron]
+   Float_t         electron_MVA_mediumID[2];   //[nElectron]
+   Float_t         electron_MVA_looseID[2];   //[nElectron]
    Int_t           ntight_MVA_Electrons;
    Float_t         tight_MVA_Electrons_pt[1];   //[ntight_MVA_Electrons]
    Float_t         tight_MVA_Electrons_eta[1];   //[ntight_MVA_Electrons]
@@ -160,25 +159,24 @@ public :
    Float_t         puWeight;
    Float_t         puWeightUp;
    Float_t         puWeightDown;
-   Float_t         MET_energy;
    Int_t           nselectedJets_jesTotalDown;
-   Float_t         selectedJets_jesTotalDown_pt[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_eta[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_phi[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_mass[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_btagDeepFlavB[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_area[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_hadronFlavour[11];   //[nselectedJets_jesTotalDown]
-   Float_t         selectedJets_jesTotalDown_partonFlavour[11];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_pt[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_eta[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_phi[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_mass[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_btagDeepFlavB[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_area[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_hadronFlavour[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_partonFlavour[10];   //[nselectedJets_jesTotalDown]
    Int_t           nunselectedJets_jesTotalDown;
-   Float_t         unselectedJets_jesTotalDown_pt[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_eta[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_phi[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_mass[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_btagDeepFlavB[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_area[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_hadronFlavour[21];   //[nunselectedJets_jesTotalDown]
-   Float_t         unselectedJets_jesTotalDown_partonFlavour[21];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_pt[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_eta[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_phi[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_mass[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_btagDeepFlavB[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_area[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_hadronFlavour[17];   //[nunselectedJets_jesTotalDown]
+   Float_t         unselectedJets_jesTotalDown_partonFlavour[17];   //[nunselectedJets_jesTotalDown]
    Int_t           nselectedFatJets_jesTotalDown;
    Float_t         selectedFatJets_jesTotalDown_pt[4];   //[nselectedFatJets_jesTotalDown]
    Float_t         selectedFatJets_jesTotalDown_eta[4];   //[nselectedFatJets_jesTotalDown]
@@ -237,22 +235,37 @@ public :
    Float_t         selectedHOTVRJets_jesTotalDown_subJetIdx2[3];   //[nselectedHOTVRJets_jesTotalDown]
    Float_t         selectedHOTVRJets_jesTotalDown_subJetIdx3[3];   //[nselectedHOTVRJets_jesTotalDown]
    Int_t           nunselectedHOTVRJets_jesTotalDown;
-   Float_t         unselectedHOTVRJets_jesTotalDown_pt[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_eta[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_phi[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_mass[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_btagDeepB[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_tau2[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_tau3[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_tau1[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_area[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_btagDeepFlavB[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_nConstituents[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx1[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx2[4];   //[nunselectedHOTVRJets_jesTotalDown]
-   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx3[4];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_pt[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_eta[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_phi[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_mass[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_btagDeepB[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_tau2[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_tau3[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_tau1[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_area[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_btagDeepFlavB[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_nConstituents[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx1[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx2[5];   //[nunselectedHOTVRJets_jesTotalDown]
+   Float_t         unselectedHOTVRJets_jesTotalDown_subJetIdx3[5];   //[nunselectedHOTVRJets_jesTotalDown]
    Float_t         MET_jesTotalDown_pt;
    Float_t         MET_jesTotalDown_phi;
+   Float_t         MET_jesTotalDown_E;
+   Int_t           nselectedHOTVRSubJets_jesTotalDown;
+   Float_t         selectedHOTVRSubJets_jesTotalDown_pt[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Float_t         selectedHOTVRSubJets_jesTotalDown_eta[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Float_t         selectedHOTVRSubJets_jesTotalDown_phi[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Float_t         selectedHOTVRSubJets_jesTotalDown_mass[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Int_t           selectedHOTVRSubJets_jesTotalDown_index[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Float_t         selectedHOTVRSubJets_jesTotalDown_area[10];   //[nselectedHOTVRSubJets_jesTotalDown]
+   Int_t           nunselectedHOTVRSubJets_jesTotalDown;
+   Float_t         unselectedHOTVRSubJets_jesTotalDown_pt[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
+   Float_t         unselectedHOTVRSubJets_jesTotalDown_eta[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
+   Float_t         unselectedHOTVRSubJets_jesTotalDown_phi[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
+   Float_t         unselectedHOTVRSubJets_jesTotalDown_mass[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
+   Int_t           unselectedHOTVRSubJets_jesTotalDown_index[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
+   Float_t         unselectedHOTVRSubJets_jesTotalDown_area[7];   //[nunselectedHOTVRSubJets_jesTotalDown]
    Int_t           nselectedBJets_jesTotalDown_tight;
    Float_t         selectedBJets_jesTotalDown_tight_pt[4];   //[nselectedBJets_jesTotalDown_tight]
    Float_t         selectedBJets_jesTotalDown_tight_eta[4];   //[nselectedBJets_jesTotalDown_tight]
@@ -263,41 +276,41 @@ public :
    Float_t         selectedBJets_jesTotalDown_tight_partonFlavour[4];   //[nselectedBJets_jesTotalDown_tight]
    Float_t         selectedBJets_jesTotalDown_tight_genJetIdx[4];   //[nselectedBJets_jesTotalDown_tight]
    Int_t           nselectedBJets_jesTotalDown_medium;
-   Float_t         selectedBJets_jesTotalDown_medium_pt[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_eta[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_phi[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_mass[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_area[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_hadronFlavour[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_partonFlavour[5];   //[nselectedBJets_jesTotalDown_medium]
-   Float_t         selectedBJets_jesTotalDown_medium_genJetIdx[5];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_pt[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_eta[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_phi[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_mass[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_area[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_hadronFlavour[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_partonFlavour[4];   //[nselectedBJets_jesTotalDown_medium]
+   Float_t         selectedBJets_jesTotalDown_medium_genJetIdx[4];   //[nselectedBJets_jesTotalDown_medium]
    Int_t           nselectedBJets_jesTotalDown_loose;
-   Float_t         selectedBJets_jesTotalDown_loose_pt[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_eta[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_phi[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_mass[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_area[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_hadronFlavour[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_partonFlavour[6];   //[nselectedBJets_jesTotalDown_loose]
-   Float_t         selectedBJets_jesTotalDown_loose_genJetIdx[6];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_pt[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_eta[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_phi[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_mass[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_area[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_hadronFlavour[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_partonFlavour[5];   //[nselectedBJets_jesTotalDown_loose]
+   Float_t         selectedBJets_jesTotalDown_loose_genJetIdx[5];   //[nselectedBJets_jesTotalDown_loose]
    Int_t           nselectedJets_jerUp;
-   Float_t         selectedJets_jerUp_pt[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_eta[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_phi[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_mass[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_btagDeepFlavB[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_area[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_hadronFlavour[11];   //[nselectedJets_jerUp]
-   Float_t         selectedJets_jerUp_partonFlavour[11];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_pt[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_eta[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_phi[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_mass[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_btagDeepFlavB[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_area[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_hadronFlavour[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_partonFlavour[10];   //[nselectedJets_jerUp]
    Int_t           nunselectedJets_jerUp;
-   Float_t         unselectedJets_jerUp_pt[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_eta[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_phi[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_mass[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_btagDeepFlavB[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_area[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_hadronFlavour[21];   //[nunselectedJets_jerUp]
-   Float_t         unselectedJets_jerUp_partonFlavour[21];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_pt[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_eta[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_phi[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_mass[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_btagDeepFlavB[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_area[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_hadronFlavour[17];   //[nunselectedJets_jerUp]
+   Float_t         unselectedJets_jerUp_partonFlavour[17];   //[nunselectedJets_jerUp]
    Int_t           nselectedFatJets_jerUp;
    Float_t         selectedFatJets_jerUp_pt[4];   //[nselectedFatJets_jerUp]
    Float_t         selectedFatJets_jerUp_eta[4];   //[nselectedFatJets_jerUp]
@@ -356,22 +369,37 @@ public :
    Float_t         selectedHOTVRJets_jerUp_subJetIdx2[3];   //[nselectedHOTVRJets_jerUp]
    Float_t         selectedHOTVRJets_jerUp_subJetIdx3[3];   //[nselectedHOTVRJets_jerUp]
    Int_t           nunselectedHOTVRJets_jerUp;
-   Float_t         unselectedHOTVRJets_jerUp_pt[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_eta[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_phi[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_mass[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_btagDeepB[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_tau2[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_tau3[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_tau1[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_area[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_btagDeepFlavB[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_nConstituents[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_subJetIdx1[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_subJetIdx2[4];   //[nunselectedHOTVRJets_jerUp]
-   Float_t         unselectedHOTVRJets_jerUp_subJetIdx3[4];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_pt[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_eta[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_phi[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_mass[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_btagDeepB[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_tau2[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_tau3[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_tau1[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_area[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_btagDeepFlavB[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_nConstituents[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_subJetIdx1[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_subJetIdx2[5];   //[nunselectedHOTVRJets_jerUp]
+   Float_t         unselectedHOTVRJets_jerUp_subJetIdx3[5];   //[nunselectedHOTVRJets_jerUp]
    Float_t         MET_jerUp_pt;
    Float_t         MET_jerUp_phi;
+   Float_t         MET_jerUp_E;
+   Int_t           nselectedHOTVRSubJets_jerUp;
+   Float_t         selectedHOTVRSubJets_jerUp_pt[10];   //[nselectedHOTVRSubJets_jerUp]
+   Float_t         selectedHOTVRSubJets_jerUp_eta[10];   //[nselectedHOTVRSubJets_jerUp]
+   Float_t         selectedHOTVRSubJets_jerUp_phi[10];   //[nselectedHOTVRSubJets_jerUp]
+   Float_t         selectedHOTVRSubJets_jerUp_mass[10];   //[nselectedHOTVRSubJets_jerUp]
+   Int_t           selectedHOTVRSubJets_jerUp_index[10];   //[nselectedHOTVRSubJets_jerUp]
+   Float_t         selectedHOTVRSubJets_jerUp_area[10];   //[nselectedHOTVRSubJets_jerUp]
+   Int_t           nunselectedHOTVRSubJets_jerUp;
+   Float_t         unselectedHOTVRSubJets_jerUp_pt[7];   //[nunselectedHOTVRSubJets_jerUp]
+   Float_t         unselectedHOTVRSubJets_jerUp_eta[7];   //[nunselectedHOTVRSubJets_jerUp]
+   Float_t         unselectedHOTVRSubJets_jerUp_phi[7];   //[nunselectedHOTVRSubJets_jerUp]
+   Float_t         unselectedHOTVRSubJets_jerUp_mass[7];   //[nunselectedHOTVRSubJets_jerUp]
+   Int_t           unselectedHOTVRSubJets_jerUp_index[7];   //[nunselectedHOTVRSubJets_jerUp]
+   Float_t         unselectedHOTVRSubJets_jerUp_area[7];   //[nunselectedHOTVRSubJets_jerUp]
    Int_t           nselectedBJets_jerUp_tight;
    Float_t         selectedBJets_jerUp_tight_pt[4];   //[nselectedBJets_jerUp_tight]
    Float_t         selectedBJets_jerUp_tight_eta[4];   //[nselectedBJets_jerUp_tight]
@@ -382,41 +410,41 @@ public :
    Float_t         selectedBJets_jerUp_tight_partonFlavour[4];   //[nselectedBJets_jerUp_tight]
    Float_t         selectedBJets_jerUp_tight_genJetIdx[4];   //[nselectedBJets_jerUp_tight]
    Int_t           nselectedBJets_jerUp_medium;
-   Float_t         selectedBJets_jerUp_medium_pt[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_eta[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_phi[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_mass[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_area[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_hadronFlavour[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_partonFlavour[5];   //[nselectedBJets_jerUp_medium]
-   Float_t         selectedBJets_jerUp_medium_genJetIdx[5];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_pt[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_eta[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_phi[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_mass[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_area[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_hadronFlavour[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_partonFlavour[4];   //[nselectedBJets_jerUp_medium]
+   Float_t         selectedBJets_jerUp_medium_genJetIdx[4];   //[nselectedBJets_jerUp_medium]
    Int_t           nselectedBJets_jerUp_loose;
-   Float_t         selectedBJets_jerUp_loose_pt[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_eta[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_phi[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_mass[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_area[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_hadronFlavour[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_partonFlavour[7];   //[nselectedBJets_jerUp_loose]
-   Float_t         selectedBJets_jerUp_loose_genJetIdx[7];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_pt[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_eta[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_phi[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_mass[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_area[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_hadronFlavour[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_partonFlavour[5];   //[nselectedBJets_jerUp_loose]
+   Float_t         selectedBJets_jerUp_loose_genJetIdx[5];   //[nselectedBJets_jerUp_loose]
    Int_t           nselectedJets_nominal;
-   Float_t         selectedJets_nominal_pt[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_eta[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_phi[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_mass[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_btagDeepFlavB[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_area[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_hadronFlavour[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_partonFlavour[11];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_pt[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_eta[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_phi[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_mass[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_btagDeepFlavB[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_area[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_hadronFlavour[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_partonFlavour[10];   //[nselectedJets_nominal]
    Int_t           nunselectedJets_nominal;
-   Float_t         unselectedJets_nominal_pt[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_eta[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_phi[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_mass[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_btagDeepFlavB[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_area[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_hadronFlavour[21];   //[nunselectedJets_nominal]
-   Float_t         unselectedJets_nominal_partonFlavour[21];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_pt[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_eta[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_phi[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_mass[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_btagDeepFlavB[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_area[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_hadronFlavour[17];   //[nunselectedJets_nominal]
+   Float_t         unselectedJets_nominal_partonFlavour[17];   //[nunselectedJets_nominal]
    Int_t           nselectedFatJets_nominal;
    Float_t         selectedFatJets_nominal_pt[4];   //[nselectedFatJets_nominal]
    Float_t         selectedFatJets_nominal_eta[4];   //[nselectedFatJets_nominal]
@@ -475,29 +503,30 @@ public :
    Float_t         selectedHOTVRJets_nominal_subJetIdx2[3];   //[nselectedHOTVRJets_nominal]
    Float_t         selectedHOTVRJets_nominal_subJetIdx3[3];   //[nselectedHOTVRJets_nominal]
    Int_t           nunselectedHOTVRJets_nominal;
-   Float_t         unselectedHOTVRJets_nominal_pt[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_eta[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_phi[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_mass[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_btagDeepB[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_tau2[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_tau3[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_tau1[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_area[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_btagDeepFlavB[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_nConstituents[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_subJetIdx1[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_subJetIdx2[4];   //[nunselectedHOTVRJets_nominal]
-   Float_t         unselectedHOTVRJets_nominal_subJetIdx3[4];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_pt[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_eta[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_phi[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_mass[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_btagDeepB[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_tau2[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_tau3[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_tau1[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_area[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_btagDeepFlavB[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_nConstituents[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_subJetIdx1[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_subJetIdx2[5];   //[nunselectedHOTVRJets_nominal]
+   Float_t         unselectedHOTVRJets_nominal_subJetIdx3[5];   //[nunselectedHOTVRJets_nominal]
    Float_t         MET_nominal_pt;
    Float_t         MET_nominal_phi;
+   Float_t         MET_nominal_E;
    Int_t           nselectedHOTVRSubJets_nominal;
-   Float_t         selectedHOTVRSubJets_nominal_pt[11];   //[nselectedHOTVRSubJets_nominal]
-   Float_t         selectedHOTVRSubJets_nominal_eta[11];   //[nselectedHOTVRSubJets_nominal]
-   Float_t         selectedHOTVRSubJets_nominal_phi[11];   //[nselectedHOTVRSubJets_nominal]
-   Float_t         selectedHOTVRSubJets_nominal_mass[11];   //[nselectedHOTVRSubJets_nominal]
-   Int_t           selectedHOTVRSubJets_nominal_index[11];   //[nselectedHOTVRSubJets_nominal]
-   Float_t         selectedHOTVRSubJets_nominal_area[11];   //[nselectedHOTVRSubJets_nominal]
+   Float_t         selectedHOTVRSubJets_nominal_pt[10];   //[nselectedHOTVRSubJets_nominal]
+   Float_t         selectedHOTVRSubJets_nominal_eta[10];   //[nselectedHOTVRSubJets_nominal]
+   Float_t         selectedHOTVRSubJets_nominal_phi[10];   //[nselectedHOTVRSubJets_nominal]
+   Float_t         selectedHOTVRSubJets_nominal_mass[10];   //[nselectedHOTVRSubJets_nominal]
+   Int_t           selectedHOTVRSubJets_nominal_index[10];   //[nselectedHOTVRSubJets_nominal]
+   Float_t         selectedHOTVRSubJets_nominal_area[10];   //[nselectedHOTVRSubJets_nominal]
    Int_t           nunselectedHOTVRSubJets_nominal;
    Float_t         unselectedHOTVRSubJets_nominal_pt[7];   //[nunselectedHOTVRSubJets_nominal]
    Float_t         unselectedHOTVRSubJets_nominal_eta[7];   //[nunselectedHOTVRSubJets_nominal]
@@ -515,41 +544,41 @@ public :
    Float_t         selectedBJets_nominal_tight_partonFlavour[4];   //[nselectedBJets_nominal_tight]
    Float_t         selectedBJets_nominal_tight_genJetIdx[4];   //[nselectedBJets_nominal_tight]
    Int_t           nselectedBJets_nominal_medium;
-   Float_t         selectedBJets_nominal_medium_pt[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_eta[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_phi[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_mass[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_area[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_hadronFlavour[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_partonFlavour[5];   //[nselectedBJets_nominal_medium]
-   Float_t         selectedBJets_nominal_medium_genJetIdx[5];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_pt[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_eta[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_phi[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_mass[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_area[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_hadronFlavour[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_partonFlavour[4];   //[nselectedBJets_nominal_medium]
+   Float_t         selectedBJets_nominal_medium_genJetIdx[4];   //[nselectedBJets_nominal_medium]
    Int_t           nselectedBJets_nominal_loose;
-   Float_t         selectedBJets_nominal_loose_pt[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_eta[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_phi[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_mass[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_area[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_hadronFlavour[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_partonFlavour[6];   //[nselectedBJets_nominal_loose]
-   Float_t         selectedBJets_nominal_loose_genJetIdx[6];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_pt[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_eta[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_phi[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_mass[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_area[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_hadronFlavour[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_partonFlavour[5];   //[nselectedBJets_nominal_loose]
+   Float_t         selectedBJets_nominal_loose_genJetIdx[5];   //[nselectedBJets_nominal_loose]
    Int_t           nselectedJets_jerDown;
-   Float_t         selectedJets_jerDown_pt[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_eta[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_phi[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_mass[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_btagDeepFlavB[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_area[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_hadronFlavour[11];   //[nselectedJets_jerDown]
-   Float_t         selectedJets_jerDown_partonFlavour[11];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_pt[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_eta[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_phi[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_mass[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_btagDeepFlavB[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_area[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_hadronFlavour[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_partonFlavour[10];   //[nselectedJets_jerDown]
    Int_t           nunselectedJets_jerDown;
-   Float_t         unselectedJets_jerDown_pt[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_eta[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_phi[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_mass[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_btagDeepFlavB[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_area[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_hadronFlavour[21];   //[nunselectedJets_jerDown]
-   Float_t         unselectedJets_jerDown_partonFlavour[21];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_pt[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_eta[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_phi[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_mass[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_btagDeepFlavB[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_area[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_hadronFlavour[17];   //[nunselectedJets_jerDown]
+   Float_t         unselectedJets_jerDown_partonFlavour[17];   //[nunselectedJets_jerDown]
    Int_t           nselectedFatJets_jerDown;
    Float_t         selectedFatJets_jerDown_pt[4];   //[nselectedFatJets_jerDown]
    Float_t         selectedFatJets_jerDown_eta[4];   //[nselectedFatJets_jerDown]
@@ -608,22 +637,37 @@ public :
    Float_t         selectedHOTVRJets_jerDown_subJetIdx2[3];   //[nselectedHOTVRJets_jerDown]
    Float_t         selectedHOTVRJets_jerDown_subJetIdx3[3];   //[nselectedHOTVRJets_jerDown]
    Int_t           nunselectedHOTVRJets_jerDown;
-   Float_t         unselectedHOTVRJets_jerDown_pt[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_eta[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_phi[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_mass[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_btagDeepB[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_tau2[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_tau3[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_tau1[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_area[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_btagDeepFlavB[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_nConstituents[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_subJetIdx1[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_subJetIdx2[4];   //[nunselectedHOTVRJets_jerDown]
-   Float_t         unselectedHOTVRJets_jerDown_subJetIdx3[4];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_pt[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_eta[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_phi[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_mass[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_btagDeepB[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_tau2[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_tau3[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_tau1[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_area[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_btagDeepFlavB[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_nConstituents[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_subJetIdx1[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_subJetIdx2[5];   //[nunselectedHOTVRJets_jerDown]
+   Float_t         unselectedHOTVRJets_jerDown_subJetIdx3[5];   //[nunselectedHOTVRJets_jerDown]
    Float_t         MET_jerDown_pt;
    Float_t         MET_jerDown_phi;
+   Float_t         MET_jerDown_E;
+   Int_t           nselectedHOTVRSubJets_jerDown;
+   Float_t         selectedHOTVRSubJets_jerDown_pt[10];   //[nselectedHOTVRSubJets_jerDown]
+   Float_t         selectedHOTVRSubJets_jerDown_eta[10];   //[nselectedHOTVRSubJets_jerDown]
+   Float_t         selectedHOTVRSubJets_jerDown_phi[10];   //[nselectedHOTVRSubJets_jerDown]
+   Float_t         selectedHOTVRSubJets_jerDown_mass[10];   //[nselectedHOTVRSubJets_jerDown]
+   Int_t           selectedHOTVRSubJets_jerDown_index[10];   //[nselectedHOTVRSubJets_jerDown]
+   Float_t         selectedHOTVRSubJets_jerDown_area[10];   //[nselectedHOTVRSubJets_jerDown]
+   Int_t           nunselectedHOTVRSubJets_jerDown;
+   Float_t         unselectedHOTVRSubJets_jerDown_pt[7];   //[nunselectedHOTVRSubJets_jerDown]
+   Float_t         unselectedHOTVRSubJets_jerDown_eta[7];   //[nunselectedHOTVRSubJets_jerDown]
+   Float_t         unselectedHOTVRSubJets_jerDown_phi[7];   //[nunselectedHOTVRSubJets_jerDown]
+   Float_t         unselectedHOTVRSubJets_jerDown_mass[7];   //[nunselectedHOTVRSubJets_jerDown]
+   Int_t           unselectedHOTVRSubJets_jerDown_index[7];   //[nunselectedHOTVRSubJets_jerDown]
+   Float_t         unselectedHOTVRSubJets_jerDown_area[7];   //[nunselectedHOTVRSubJets_jerDown]
    Int_t           nselectedBJets_jerDown_tight;
    Float_t         selectedBJets_jerDown_tight_pt[4];   //[nselectedBJets_jerDown_tight]
    Float_t         selectedBJets_jerDown_tight_eta[4];   //[nselectedBJets_jerDown_tight]
@@ -634,41 +678,41 @@ public :
    Float_t         selectedBJets_jerDown_tight_partonFlavour[4];   //[nselectedBJets_jerDown_tight]
    Float_t         selectedBJets_jerDown_tight_genJetIdx[4];   //[nselectedBJets_jerDown_tight]
    Int_t           nselectedBJets_jerDown_medium;
-   Float_t         selectedBJets_jerDown_medium_pt[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_eta[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_phi[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_mass[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_area[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_hadronFlavour[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_partonFlavour[5];   //[nselectedBJets_jerDown_medium]
-   Float_t         selectedBJets_jerDown_medium_genJetIdx[5];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_pt[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_eta[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_phi[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_mass[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_area[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_hadronFlavour[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_partonFlavour[4];   //[nselectedBJets_jerDown_medium]
+   Float_t         selectedBJets_jerDown_medium_genJetIdx[4];   //[nselectedBJets_jerDown_medium]
    Int_t           nselectedBJets_jerDown_loose;
-   Float_t         selectedBJets_jerDown_loose_pt[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_eta[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_phi[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_mass[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_area[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_hadronFlavour[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_partonFlavour[6];   //[nselectedBJets_jerDown_loose]
-   Float_t         selectedBJets_jerDown_loose_genJetIdx[6];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_pt[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_eta[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_phi[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_mass[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_area[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_hadronFlavour[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_partonFlavour[5];   //[nselectedBJets_jerDown_loose]
+   Float_t         selectedBJets_jerDown_loose_genJetIdx[5];   //[nselectedBJets_jerDown_loose]
    Int_t           nselectedJets_jesTotalUp;
-   Float_t         selectedJets_jesTotalUp_pt[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_eta[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_phi[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_mass[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_btagDeepFlavB[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_area[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_hadronFlavour[11];   //[nselectedJets_jesTotalUp]
-   Float_t         selectedJets_jesTotalUp_partonFlavour[11];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_pt[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_eta[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_phi[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_mass[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_btagDeepFlavB[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_area[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_hadronFlavour[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_partonFlavour[10];   //[nselectedJets_jesTotalUp]
    Int_t           nunselectedJets_jesTotalUp;
-   Float_t         unselectedJets_jesTotalUp_pt[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_eta[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_phi[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_mass[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_btagDeepFlavB[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_area[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_hadronFlavour[21];   //[nunselectedJets_jesTotalUp]
-   Float_t         unselectedJets_jesTotalUp_partonFlavour[21];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_pt[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_eta[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_phi[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_mass[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_btagDeepFlavB[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_area[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_hadronFlavour[17];   //[nunselectedJets_jesTotalUp]
+   Float_t         unselectedJets_jesTotalUp_partonFlavour[17];   //[nunselectedJets_jesTotalUp]
    Int_t           nselectedFatJets_jesTotalUp;
    Float_t         selectedFatJets_jesTotalUp_pt[4];   //[nselectedFatJets_jesTotalUp]
    Float_t         selectedFatJets_jesTotalUp_eta[4];   //[nselectedFatJets_jesTotalUp]
@@ -727,22 +771,37 @@ public :
    Float_t         selectedHOTVRJets_jesTotalUp_subJetIdx2[3];   //[nselectedHOTVRJets_jesTotalUp]
    Float_t         selectedHOTVRJets_jesTotalUp_subJetIdx3[3];   //[nselectedHOTVRJets_jesTotalUp]
    Int_t           nunselectedHOTVRJets_jesTotalUp;
-   Float_t         unselectedHOTVRJets_jesTotalUp_pt[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_eta[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_phi[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_mass[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_btagDeepB[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_tau2[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_tau3[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_tau1[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_area[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_btagDeepFlavB[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_nConstituents[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx1[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx2[4];   //[nunselectedHOTVRJets_jesTotalUp]
-   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx3[4];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_pt[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_eta[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_phi[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_mass[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_btagDeepB[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_tau2[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_tau3[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_tau1[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_area[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_btagDeepFlavB[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_nConstituents[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx1[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx2[5];   //[nunselectedHOTVRJets_jesTotalUp]
+   Float_t         unselectedHOTVRJets_jesTotalUp_subJetIdx3[5];   //[nunselectedHOTVRJets_jesTotalUp]
    Float_t         MET_jesTotalUp_pt;
    Float_t         MET_jesTotalUp_phi;
+   Float_t         MET_jesTotalUp_E;
+   Int_t           nselectedHOTVRSubJets_jesTotalUp;
+   Float_t         selectedHOTVRSubJets_jesTotalUp_pt[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Float_t         selectedHOTVRSubJets_jesTotalUp_eta[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Float_t         selectedHOTVRSubJets_jesTotalUp_phi[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Float_t         selectedHOTVRSubJets_jesTotalUp_mass[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Int_t           selectedHOTVRSubJets_jesTotalUp_index[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Float_t         selectedHOTVRSubJets_jesTotalUp_area[10];   //[nselectedHOTVRSubJets_jesTotalUp]
+   Int_t           nunselectedHOTVRSubJets_jesTotalUp;
+   Float_t         unselectedHOTVRSubJets_jesTotalUp_pt[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
+   Float_t         unselectedHOTVRSubJets_jesTotalUp_eta[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
+   Float_t         unselectedHOTVRSubJets_jesTotalUp_phi[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
+   Float_t         unselectedHOTVRSubJets_jesTotalUp_mass[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
+   Int_t           unselectedHOTVRSubJets_jesTotalUp_index[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
+   Float_t         unselectedHOTVRSubJets_jesTotalUp_area[7];   //[nunselectedHOTVRSubJets_jesTotalUp]
    Int_t           nselectedBJets_jesTotalUp_tight;
    Float_t         selectedBJets_jesTotalUp_tight_pt[4];   //[nselectedBJets_jesTotalUp_tight]
    Float_t         selectedBJets_jesTotalUp_tight_eta[4];   //[nselectedBJets_jesTotalUp_tight]
@@ -753,23 +812,23 @@ public :
    Float_t         selectedBJets_jesTotalUp_tight_partonFlavour[4];   //[nselectedBJets_jesTotalUp_tight]
    Float_t         selectedBJets_jesTotalUp_tight_genJetIdx[4];   //[nselectedBJets_jesTotalUp_tight]
    Int_t           nselectedBJets_jesTotalUp_medium;
-   Float_t         selectedBJets_jesTotalUp_medium_pt[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_eta[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_phi[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_mass[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_area[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_hadronFlavour[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_partonFlavour[5];   //[nselectedBJets_jesTotalUp_medium]
-   Float_t         selectedBJets_jesTotalUp_medium_genJetIdx[5];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_pt[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_eta[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_phi[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_mass[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_area[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_hadronFlavour[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_partonFlavour[4];   //[nselectedBJets_jesTotalUp_medium]
+   Float_t         selectedBJets_jesTotalUp_medium_genJetIdx[4];   //[nselectedBJets_jesTotalUp_medium]
    Int_t           nselectedBJets_jesTotalUp_loose;
-   Float_t         selectedBJets_jesTotalUp_loose_pt[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_eta[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_phi[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_mass[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_area[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_hadronFlavour[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_partonFlavour[7];   //[nselectedBJets_jesTotalUp_loose]
-   Float_t         selectedBJets_jesTotalUp_loose_genJetIdx[7];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_pt[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_eta[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_phi[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_mass[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_area[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_hadronFlavour[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_partonFlavour[5];   //[nselectedBJets_jesTotalUp_loose]
+   Float_t         selectedBJets_jesTotalUp_loose_genJetIdx[5];   //[nselectedBJets_jesTotalUp_loose]
    Int_t           npreselectedHOTVRJets;
    Float_t         preselectedHOTVRJets_pt[3];   //[npreselectedHOTVRJets]
    Float_t         preselectedHOTVRJets_eta[3];   //[npreselectedHOTVRJets]
@@ -786,20 +845,20 @@ public :
    Float_t         preselectedHOTVRJets_subJetIdx2[3];   //[npreselectedHOTVRJets]
    Float_t         preselectedHOTVRJets_subJetIdx3[3];   //[npreselectedHOTVRJets]
    Int_t           npreunselectedHOTVRJets;
-   Float_t         preunselectedHOTVRJets_pt[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_eta[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_phi[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_mass[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_btagDeepB[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_tau2[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_tau3[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_tau1[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_area[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_btagDeepFlavB[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_nConstituents[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_subJetIdx1[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_subJetIdx2[4];   //[npreunselectedHOTVRJets]
-   Float_t         preunselectedHOTVRJets_subJetIdx3[4];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_pt[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_eta[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_phi[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_mass[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_btagDeepB[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_tau2[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_tau3[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_tau1[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_area[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_btagDeepFlavB[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_nConstituents[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_subJetIdx1[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_subJetIdx2[5];   //[npreunselectedHOTVRJets]
+   Float_t         preunselectedHOTVRJets_subJetIdx3[5];   //[npreunselectedHOTVRJets]
    Float_t         btagSFlight_deepJet_M_2017_down;
    Float_t         btagSFbc_deepJet_M_2017_down;
    Float_t         btagSFlight_deepJet_M_2017_up;
@@ -832,8 +891,10 @@ public :
    Float_t         btagSFbc_deepJet_T_correlated_down;
    Float_t         MET_unclEnUp_pt;
    Float_t         MET_unclEnUp_phi;
+   Float_t         MET_unclEnUp_E;
    Float_t         MET_unclEnDown_pt;
    Float_t         MET_unclEnDown_phi;
+   Float_t         MET_unclEnDown_E;
    Int_t           ngenTop;
    Int_t           genTop_has_hadronically_decay[2];   //[ngenTop]
    Int_t           genTop_is_inside_ak8[2];   //[ngenTop]
@@ -851,17 +912,17 @@ public :
    Float_t         genTop_mass[2];   //[ngenTop]
    Int_t           genTop_daughters_pdgId[2];   //[ngenTop]
    Float_t         Leptonic_W_pt;
-   Int_t           eventSelection_ee_cut;
-   Float_t         dilepton_invariant_mass_ee;
-   Int_t           eventSelection_emu_cut;
-   Float_t         dilepton_invariant_mass_emu;
-   Int_t           eventSelection_mumu_cut;
-   Float_t         dilepton_invariant_mass_mumu;
-   Int_t           selectedJets_nominal_is_inside_hotvr[11];   //[nselectedJets_nominal]
-   Int_t           selectedJets_nominal_is_inside_ak8[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_min_deltaRVSak8Jet[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_min_deltaRVShotvrJet[11];   //[nselectedJets_nominal]
-   Float_t         selectedJets_nominal_rho_over_pt_closest_hotvr[11];   //[nselectedJets_nominal]
+   Int_t           eventSelection_ee_cut_nominal;
+   Float_t         dilepton_invariant_mass_ee_nominal;
+   Int_t           eventSelection_emu_cut_nominal;
+   Float_t         dilepton_invariant_mass_emu_nominal;
+   Int_t           eventSelection_mumu_cut_nominal;
+   Float_t         dilepton_invariant_mass_mumu_nominal;
+   Int_t           selectedJets_nominal_is_inside_hotvr[10];   //[nselectedJets_nominal]
+   Int_t           selectedJets_nominal_is_inside_ak8[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_min_deltaRVSak8Jet[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_min_deltaRVShotvrJet[10];   //[nselectedJets_nominal]
+   Float_t         selectedJets_nominal_rho_over_pt_closest_hotvr[10];   //[nselectedJets_nominal]
    Int_t           selectedHOTVRJets_nominal_nsubjets[3];   //[nselectedHOTVRJets_nominal]
    Float_t         selectedHOTVRJets_nominal_tau3_over_tau2[3];   //[nselectedHOTVRJets_nominal]
    Float_t         selectedHOTVRJets_nominal_fractional_subjet_pt[3];   //[nselectedHOTVRJets_nominal]
@@ -869,9 +930,93 @@ public :
    Float_t         selectedHOTVRJets_nominal_effective_radius[3];   //[nselectedHOTVRJets_nominal]
    Float_t         selectedHOTVRJets_nominal_tau2_over_tau1[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedHOTVRJets_nominal_has_genTop_inside[3];   //[nselectedHOTVRJets_nominal]
-   Int_t           selectedHOTVRJets_nominal_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedFatJets_nominal_has_genTop_inside[4];   //[nselectedFatJets_nominal]
+   Int_t           selectedHOTVRJets_nominal_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedFatJets_nominal_has_genTopHadronic_inside[4];   //[nselectedFatJets_nominal]
+   Int_t           eventSelection_ee_cut_jerUp;
+   Float_t         dilepton_invariant_mass_ee_jerUp;
+   Int_t           eventSelection_emu_cut_jerUp;
+   Float_t         dilepton_invariant_mass_emu_jerUp;
+   Int_t           eventSelection_mumu_cut_jerUp;
+   Float_t         dilepton_invariant_mass_mumu_jerUp;
+   Int_t           selectedJets_jerUp_is_inside_hotvr[10];   //[nselectedJets_jerUp]
+   Int_t           selectedJets_jerUp_is_inside_ak8[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_min_deltaRVSak8Jet[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_min_deltaRVShotvrJet[10];   //[nselectedJets_jerUp]
+   Float_t         selectedJets_jerUp_rho_over_pt_closest_hotvr[10];   //[nselectedJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_nsubjets[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerUp_tau3_over_tau2[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerUp_fractional_subjet_pt[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerUp_min_pairwise_subjets_mass[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerUp_effective_radius[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerUp_tau2_over_tau1[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_genTop_inside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedFatJets_jerUp_has_genTop_inside[4];   //[nselectedFatJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedFatJets_jerUp_has_genTopHadronic_inside[4];   //[nselectedFatJets_jerUp]
+   Int_t           eventSelection_ee_cut_jerDown;
+   Float_t         dilepton_invariant_mass_ee_jerDown;
+   Int_t           eventSelection_emu_cut_jerDown;
+   Float_t         dilepton_invariant_mass_emu_jerDown;
+   Int_t           eventSelection_mumu_cut_jerDown;
+   Float_t         dilepton_invariant_mass_mumu_jerDown;
+   Int_t           selectedJets_jerDown_is_inside_hotvr[10];   //[nselectedJets_jerDown]
+   Int_t           selectedJets_jerDown_is_inside_ak8[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_min_deltaRVSak8Jet[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_min_deltaRVShotvrJet[10];   //[nselectedJets_jerDown]
+   Float_t         selectedJets_jerDown_rho_over_pt_closest_hotvr[10];   //[nselectedJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_nsubjets[3];   //[nselectedHOTVRJets_jerDown]
+   Float_t         selectedHOTVRJets_jerDown_tau3_over_tau2[3];   //[nselectedHOTVRJets_jerDown]
+   Float_t         selectedHOTVRJets_jerDown_fractional_subjet_pt[3];   //[nselectedHOTVRJets_jerDown]
+   Float_t         selectedHOTVRJets_jerDown_min_pairwise_subjets_mass[3];   //[nselectedHOTVRJets_jerDown]
+   Float_t         selectedHOTVRJets_jerDown_effective_radius[3];   //[nselectedHOTVRJets_jerDown]
+   Float_t         selectedHOTVRJets_jerDown_tau2_over_tau1[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_genTop_inside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedFatJets_jerDown_has_genTop_inside[4];   //[nselectedFatJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedFatJets_jerDown_has_genTopHadronic_inside[4];   //[nselectedFatJets_jerDown]
+   Int_t           eventSelection_ee_cut_jesTotalUp;
+   Float_t         dilepton_invariant_mass_ee_jesTotalUp;
+   Int_t           eventSelection_emu_cut_jesTotalUp;
+   Float_t         dilepton_invariant_mass_emu_jesTotalUp;
+   Int_t           eventSelection_mumu_cut_jesTotalUp;
+   Float_t         dilepton_invariant_mass_mumu_jesTotalUp;
+   Int_t           selectedJets_jesTotalUp_is_inside_hotvr[10];   //[nselectedJets_jesTotalUp]
+   Int_t           selectedJets_jesTotalUp_is_inside_ak8[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_min_deltaRVSak8Jet[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_min_deltaRVShotvrJet[10];   //[nselectedJets_jesTotalUp]
+   Float_t         selectedJets_jesTotalUp_rho_over_pt_closest_hotvr[10];   //[nselectedJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_nsubjets[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalUp_tau3_over_tau2[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalUp_fractional_subjet_pt[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalUp_effective_radius[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalUp_tau2_over_tau1[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_genTop_inside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedFatJets_jesTotalUp_has_genTop_inside[4];   //[nselectedFatJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedFatJets_jesTotalUp_has_genTopHadronic_inside[4];   //[nselectedFatJets_jesTotalUp]
+   Int_t           eventSelection_ee_cut_jesTotalDown;
+   Float_t         dilepton_invariant_mass_ee_jesTotalDown;
+   Int_t           eventSelection_emu_cut_jesTotalDown;
+   Float_t         dilepton_invariant_mass_emu_jesTotalDown;
+   Int_t           eventSelection_mumu_cut_jesTotalDown;
+   Float_t         dilepton_invariant_mass_mumu_jesTotalDown;
+   Int_t           selectedJets_jesTotalDown_is_inside_hotvr[10];   //[nselectedJets_jesTotalDown]
+   Int_t           selectedJets_jesTotalDown_is_inside_ak8[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_min_deltaRVSak8Jet[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_min_deltaRVShotvrJet[10];   //[nselectedJets_jesTotalDown]
+   Float_t         selectedJets_jesTotalDown_rho_over_pt_closest_hotvr[10];   //[nselectedJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_nsubjets[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jesTotalDown_tau3_over_tau2[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jesTotalDown_fractional_subjet_pt[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jesTotalDown_effective_radius[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jesTotalDown_tau2_over_tau1[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_genTop_inside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedFatJets_jesTotalDown_has_genTop_inside[4];   //[nselectedFatJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_genTopHadronic_inside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedFatJets_jesTotalDown_has_genTopHadronic_inside[4];   //[nselectedFatJets_jesTotalDown]
    Int_t           selectedHOTVRJets_nominal_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedHOTVRJets_nominal_has_other[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedHOTVRJets_nominal_has_b_not_fromTop[3];   //[nselectedHOTVRJets_nominal]
@@ -920,6 +1065,198 @@ public :
    Int_t           selectedHOTVRJets_nominal_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedHOTVRJets_nominal_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_nominal]
    Int_t           selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_nominal]
+   Int_t           selectedHOTVRJets_jerUp_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_other[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_other_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_noTopDaughters_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_other_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerUp]
+   Int_t           selectedHOTVRJets_jerDown_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_other[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_other_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_noTopDaughters_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_other_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jerDown]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_other[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_other_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_other[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_other_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Int_t           selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[3];   //[nselectedHOTVRJets_jesTotalDown]
    Int_t           selectedFatJets_nominal_has_gluon_or_quark_not_fromTop[4];   //[nselectedFatJets_nominal]
    Int_t           selectedFatJets_nominal_has_other[4];   //[nselectedFatJets_nominal]
    Int_t           selectedFatJets_nominal_has_b_not_fromTop[4];   //[nselectedFatJets_nominal]
@@ -970,6 +1307,10 @@ public :
    Int_t           selectedFatJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop[4];   //[nselectedFatJets_nominal]
    Float_t         inference_time_scoreBDT;
    Float_t         selectedHOTVRJets_nominal_scoreBDT[3];   //[nselectedHOTVRJets_nominal]
+   Float_t         selectedHOTVRJets_jesTotalUp_scoreBDT[3];   //[nselectedHOTVRJets_jesTotalUp]
+   Float_t         selectedHOTVRJets_jesTotalDown_scoreBDT[3];   //[nselectedHOTVRJets_jesTotalDown]
+   Float_t         selectedHOTVRJets_jerUp_scoreBDT[3];   //[nselectedHOTVRJets_jerUp]
+   Float_t         selectedHOTVRJets_jerDown_scoreBDT[3];   //[nselectedHOTVRJets_jerDown]
    Float_t         TopPtWeight;
 
    // List of branches
@@ -1111,7 +1452,6 @@ public :
    TBranch        *b_puWeight;   //!
    TBranch        *b_puWeightUp;   //!
    TBranch        *b_puWeightDown;   //!
-   TBranch        *b_MET_energy;   //!
    TBranch        *b_nselectedJets_jesTotalDown;   //!
    TBranch        *b_selectedJets_jesTotalDown_pt;   //!
    TBranch        *b_selectedJets_jesTotalDown_eta;   //!
@@ -1204,6 +1544,21 @@ public :
    TBranch        *b_unselectedHOTVRJets_jesTotalDown_subJetIdx3;   //!
    TBranch        *b_MET_jesTotalDown_pt;   //!
    TBranch        *b_MET_jesTotalDown_phi;   //!
+   TBranch        *b_MET_jesTotalDown_E;   //!
+   TBranch        *b_nselectedHOTVRSubJets_jesTotalDown;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_pt;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_eta;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_phi;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_mass;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_index;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalDown_area;   //!
+   TBranch        *b_nunselectedHOTVRSubJets_jesTotalDown;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_pt;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_eta;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_phi;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_mass;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_index;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalDown_area;   //!
    TBranch        *b_nselectedBJets_jesTotalDown_tight;   //!
    TBranch        *b_selectedBJets_jesTotalDown_tight_pt;   //!
    TBranch        *b_selectedBJets_jesTotalDown_tight_eta;   //!
@@ -1323,6 +1678,21 @@ public :
    TBranch        *b_unselectedHOTVRJets_jerUp_subJetIdx3;   //!
    TBranch        *b_MET_jerUp_pt;   //!
    TBranch        *b_MET_jerUp_phi;   //!
+   TBranch        *b_MET_jerUp_E;   //!
+   TBranch        *b_nselectedHOTVRSubJets_jerUp;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_pt;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_eta;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_phi;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_mass;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_index;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerUp_area;   //!
+   TBranch        *b_nunselectedHOTVRSubJets_jerUp;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_pt;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_eta;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_phi;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_mass;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_index;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerUp_area;   //!
    TBranch        *b_nselectedBJets_jerUp_tight;   //!
    TBranch        *b_selectedBJets_jerUp_tight_pt;   //!
    TBranch        *b_selectedBJets_jerUp_tight_eta;   //!
@@ -1442,6 +1812,7 @@ public :
    TBranch        *b_unselectedHOTVRJets_nominal_subJetIdx3;   //!
    TBranch        *b_MET_nominal_pt;   //!
    TBranch        *b_MET_nominal_phi;   //!
+   TBranch        *b_MET_nominal_E;   //!
    TBranch        *b_nselectedHOTVRSubJets_nominal;   //!
    TBranch        *b_selectedHOTVRSubJets_nominal_pt;   //!
    TBranch        *b_selectedHOTVRSubJets_nominal_eta;   //!
@@ -1575,6 +1946,21 @@ public :
    TBranch        *b_unselectedHOTVRJets_jerDown_subJetIdx3;   //!
    TBranch        *b_MET_jerDown_pt;   //!
    TBranch        *b_MET_jerDown_phi;   //!
+   TBranch        *b_MET_jerDown_E;   //!
+   TBranch        *b_nselectedHOTVRSubJets_jerDown;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_pt;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_eta;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_phi;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_mass;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_index;   //!
+   TBranch        *b_selectedHOTVRSubJets_jerDown_area;   //!
+   TBranch        *b_nunselectedHOTVRSubJets_jerDown;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_pt;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_eta;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_phi;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_mass;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_index;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jerDown_area;   //!
    TBranch        *b_nselectedBJets_jerDown_tight;   //!
    TBranch        *b_selectedBJets_jerDown_tight_pt;   //!
    TBranch        *b_selectedBJets_jerDown_tight_eta;   //!
@@ -1694,6 +2080,21 @@ public :
    TBranch        *b_unselectedHOTVRJets_jesTotalUp_subJetIdx3;   //!
    TBranch        *b_MET_jesTotalUp_pt;   //!
    TBranch        *b_MET_jesTotalUp_phi;   //!
+   TBranch        *b_MET_jesTotalUp_E;   //!
+   TBranch        *b_nselectedHOTVRSubJets_jesTotalUp;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_pt;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_eta;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_phi;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_mass;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_index;   //!
+   TBranch        *b_selectedHOTVRSubJets_jesTotalUp_area;   //!
+   TBranch        *b_nunselectedHOTVRSubJets_jesTotalUp;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_pt;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_eta;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_phi;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_mass;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_index;   //!
+   TBranch        *b_unselectedHOTVRSubJets_jesTotalUp_area;   //!
    TBranch        *b_nselectedBJets_jesTotalUp_tight;   //!
    TBranch        *b_selectedBJets_jesTotalUp_tight_pt;   //!
    TBranch        *b_selectedBJets_jesTotalUp_tight_eta;   //!
@@ -1783,8 +2184,10 @@ public :
    TBranch        *b_btagSFbc_deepJet_T_correlated_down;   //!
    TBranch        *b_MET_unclEnUp_pt;   //!
    TBranch        *b_MET_unclEnUp_phi;   //!
+   TBranch        *b_MET_unclEnUp_E;   //!
    TBranch        *b_MET_unclEnDown_pt;   //!
    TBranch        *b_MET_unclEnDown_phi;   //!
+   TBranch        *b_MET_unclEnDown_E;   //!
    TBranch        *b_ngenTop;   //!
    TBranch        *b_genTop_has_hadronically_decay;   //!
    TBranch        *b_genTop_is_inside_ak8;   //!
@@ -1802,12 +2205,12 @@ public :
    TBranch        *b_genTop_mass;   //!
    TBranch        *b_genTop_daughters_pdgId;   //!
    TBranch        *b_Leptonic_W_pt;   //!
-   TBranch        *b_eventSelection_ee_cut;   //!
-   TBranch        *b_dilepton_invariant_mass_ee;   //!
-   TBranch        *b_eventSelection_emu_cut;   //!
-   TBranch        *b_dilepton_invariant_mass_emu;   //!
-   TBranch        *b_eventSelection_mumu_cut;   //!
-   TBranch        *b_dilepton_invariant_mass_mumu;   //!
+   TBranch        *b_eventSelection_ee_cut_nominal;   //!
+   TBranch        *b_dilepton_invariant_mass_ee_nominal;   //!
+   TBranch        *b_eventSelection_emu_cut_nominal;   //!
+   TBranch        *b_dilepton_invariant_mass_emu_nominal;   //!
+   TBranch        *b_eventSelection_mumu_cut_nominal;   //!
+   TBranch        *b_dilepton_invariant_mass_mumu_nominal;   //!
    TBranch        *b_selectedJets_nominal_is_inside_hotvr;   //!
    TBranch        *b_selectedJets_nominal_is_inside_ak8;   //!
    TBranch        *b_selectedJets_nominal_min_deltaRVSak8Jet;   //!
@@ -1820,9 +2223,93 @@ public :
    TBranch        *b_selectedHOTVRJets_nominal_effective_radius;   //!
    TBranch        *b_selectedHOTVRJets_nominal_tau2_over_tau1;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_genTop_inside;   //!
-   TBranch        *b_selectedHOTVRJets_nominal_has_genTopHadronic_inside;   //!
    TBranch        *b_selectedFatJets_nominal_has_genTop_inside;   //!
+   TBranch        *b_selectedHOTVRJets_nominal_has_genTopHadronic_inside;   //!
    TBranch        *b_selectedFatJets_nominal_has_genTopHadronic_inside;   //!
+   TBranch        *b_eventSelection_ee_cut_jerUp;   //!
+   TBranch        *b_dilepton_invariant_mass_ee_jerUp;   //!
+   TBranch        *b_eventSelection_emu_cut_jerUp;   //!
+   TBranch        *b_dilepton_invariant_mass_emu_jerUp;   //!
+   TBranch        *b_eventSelection_mumu_cut_jerUp;   //!
+   TBranch        *b_dilepton_invariant_mass_mumu_jerUp;   //!
+   TBranch        *b_selectedJets_jerUp_is_inside_hotvr;   //!
+   TBranch        *b_selectedJets_jerUp_is_inside_ak8;   //!
+   TBranch        *b_selectedJets_jerUp_min_deltaRVSak8Jet;   //!
+   TBranch        *b_selectedJets_jerUp_min_deltaRVShotvrJet;   //!
+   TBranch        *b_selectedJets_jerUp_rho_over_pt_closest_hotvr;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_nsubjets;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_tau3_over_tau2;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_fractional_subjet_pt;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_min_pairwise_subjets_mass;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_effective_radius;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_tau2_over_tau1;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_genTop_inside;   //!
+   TBranch        *b_selectedFatJets_jerUp_has_genTop_inside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_genTopHadronic_inside;   //!
+   TBranch        *b_selectedFatJets_jerUp_has_genTopHadronic_inside;   //!
+   TBranch        *b_eventSelection_ee_cut_jerDown;   //!
+   TBranch        *b_dilepton_invariant_mass_ee_jerDown;   //!
+   TBranch        *b_eventSelection_emu_cut_jerDown;   //!
+   TBranch        *b_dilepton_invariant_mass_emu_jerDown;   //!
+   TBranch        *b_eventSelection_mumu_cut_jerDown;   //!
+   TBranch        *b_dilepton_invariant_mass_mumu_jerDown;   //!
+   TBranch        *b_selectedJets_jerDown_is_inside_hotvr;   //!
+   TBranch        *b_selectedJets_jerDown_is_inside_ak8;   //!
+   TBranch        *b_selectedJets_jerDown_min_deltaRVSak8Jet;   //!
+   TBranch        *b_selectedJets_jerDown_min_deltaRVShotvrJet;   //!
+   TBranch        *b_selectedJets_jerDown_rho_over_pt_closest_hotvr;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_nsubjets;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_tau3_over_tau2;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_fractional_subjet_pt;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_min_pairwise_subjets_mass;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_effective_radius;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_tau2_over_tau1;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_genTop_inside;   //!
+   TBranch        *b_selectedFatJets_jerDown_has_genTop_inside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_genTopHadronic_inside;   //!
+   TBranch        *b_selectedFatJets_jerDown_has_genTopHadronic_inside;   //!
+   TBranch        *b_eventSelection_ee_cut_jesTotalUp;   //!
+   TBranch        *b_dilepton_invariant_mass_ee_jesTotalUp;   //!
+   TBranch        *b_eventSelection_emu_cut_jesTotalUp;   //!
+   TBranch        *b_dilepton_invariant_mass_emu_jesTotalUp;   //!
+   TBranch        *b_eventSelection_mumu_cut_jesTotalUp;   //!
+   TBranch        *b_dilepton_invariant_mass_mumu_jesTotalUp;   //!
+   TBranch        *b_selectedJets_jesTotalUp_is_inside_hotvr;   //!
+   TBranch        *b_selectedJets_jesTotalUp_is_inside_ak8;   //!
+   TBranch        *b_selectedJets_jesTotalUp_min_deltaRVSak8Jet;   //!
+   TBranch        *b_selectedJets_jesTotalUp_min_deltaRVShotvrJet;   //!
+   TBranch        *b_selectedJets_jesTotalUp_rho_over_pt_closest_hotvr;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_nsubjets;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_tau3_over_tau2;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_fractional_subjet_pt;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_effective_radius;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_tau2_over_tau1;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_genTop_inside;   //!
+   TBranch        *b_selectedFatJets_jesTotalUp_has_genTop_inside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_genTopHadronic_inside;   //!
+   TBranch        *b_selectedFatJets_jesTotalUp_has_genTopHadronic_inside;   //!
+   TBranch        *b_eventSelection_ee_cut_jesTotalDown;   //!
+   TBranch        *b_dilepton_invariant_mass_ee_jesTotalDown;   //!
+   TBranch        *b_eventSelection_emu_cut_jesTotalDown;   //!
+   TBranch        *b_dilepton_invariant_mass_emu_jesTotalDown;   //!
+   TBranch        *b_eventSelection_mumu_cut_jesTotalDown;   //!
+   TBranch        *b_dilepton_invariant_mass_mumu_jesTotalDown;   //!
+   TBranch        *b_selectedJets_jesTotalDown_is_inside_hotvr;   //!
+   TBranch        *b_selectedJets_jesTotalDown_is_inside_ak8;   //!
+   TBranch        *b_selectedJets_jesTotalDown_min_deltaRVSak8Jet;   //!
+   TBranch        *b_selectedJets_jesTotalDown_min_deltaRVShotvrJet;   //!
+   TBranch        *b_selectedJets_jesTotalDown_rho_over_pt_closest_hotvr;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_nsubjets;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_tau3_over_tau2;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_fractional_subjet_pt;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_effective_radius;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_tau2_over_tau1;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_genTop_inside;   //!
+   TBranch        *b_selectedFatJets_jesTotalDown_has_genTop_inside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_genTopHadronic_inside;   //!
+   TBranch        *b_selectedFatJets_jesTotalDown_has_genTopHadronic_inside;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_other;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_b_not_fromTop;   //!
@@ -1871,6 +2358,198 @@ public :
    TBranch        *b_selectedHOTVRJets_nominal_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_other;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_other_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_other_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_other;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_other_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_other_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_other;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_other_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_other;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_other_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_selectedFatJets_nominal_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_selectedFatJets_nominal_has_other;   //!
    TBranch        *b_selectedFatJets_nominal_has_b_not_fromTop;   //!
@@ -1921,6 +2600,10 @@ public :
    TBranch        *b_selectedFatJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop;   //!
    TBranch        *b_inference_time_scoreBDT;   //!
    TBranch        *b_selectedHOTVRJets_nominal_scoreBDT;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalUp_scoreBDT;   //!
+   TBranch        *b_selectedHOTVRJets_jesTotalDown_scoreBDT;   //!
+   TBranch        *b_selectedHOTVRJets_jerUp_scoreBDT;   //!
+   TBranch        *b_selectedHOTVRJets_jerDown_scoreBDT;   //!
    TBranch        *b_TopPtWeight;   //!
 
    Friends(TTree *tree=0);
@@ -1942,11 +2625,45 @@ Friends::Friends(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("test/NANO_NANO_3262_Friend.root");
+
+#ifdef SINGLE_TREE
+      // The following code should be used if you want this class to access
+      // a single tree instead of a chain
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Memory Directory");
       if (!f || !f->IsOpen()) {
-         f = new TFile("test/NANO_NANO_3262_Friend.root");
+         f = new TFile("Memory Directory");
       }
       f->GetObject("Friends",tree);
+
+#else // SINGLE_TREE
+
+      // The following code should be used if you want this class to access a chain
+      // of trees.
+      TChain * chain = new TChain("Friends","");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-100_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-101_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-102_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-103_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-104_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-105_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-106_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-107_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-108_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-109_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-10_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-110_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-111_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-112_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-113_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-114_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-115_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-116_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-117_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-118_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-119_Friend.root/Friends");
+      chain->Add("/eos/home-v/vwachira/HOTVR_nanoaod_output/2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANO_NANO_1-11_Friend.root/Friends");
+      tree = chain;
+#endif // SINGLE_TREE
 
    }
    Init(tree);
@@ -2131,7 +2848,6 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("puWeight", &puWeight, &b_puWeight);
    fChain->SetBranchAddress("puWeightUp", &puWeightUp, &b_puWeightUp);
    fChain->SetBranchAddress("puWeightDown", &puWeightDown, &b_puWeightDown);
-   fChain->SetBranchAddress("MET_energy", &MET_energy, &b_MET_energy);
    fChain->SetBranchAddress("nselectedJets_jesTotalDown", &nselectedJets_jesTotalDown, &b_nselectedJets_jesTotalDown);
    fChain->SetBranchAddress("selectedJets_jesTotalDown_pt", selectedJets_jesTotalDown_pt, &b_selectedJets_jesTotalDown_pt);
    fChain->SetBranchAddress("selectedJets_jesTotalDown_eta", selectedJets_jesTotalDown_eta, &b_selectedJets_jesTotalDown_eta);
@@ -2224,6 +2940,21 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("unselectedHOTVRJets_jesTotalDown_subJetIdx3", unselectedHOTVRJets_jesTotalDown_subJetIdx3, &b_unselectedHOTVRJets_jesTotalDown_subJetIdx3);
    fChain->SetBranchAddress("MET_jesTotalDown_pt", &MET_jesTotalDown_pt, &b_MET_jesTotalDown_pt);
    fChain->SetBranchAddress("MET_jesTotalDown_phi", &MET_jesTotalDown_phi, &b_MET_jesTotalDown_phi);
+   fChain->SetBranchAddress("MET_jesTotalDown_E", &MET_jesTotalDown_E, &b_MET_jesTotalDown_E);
+   fChain->SetBranchAddress("nselectedHOTVRSubJets_jesTotalDown", &nselectedHOTVRSubJets_jesTotalDown, &b_nselectedHOTVRSubJets_jesTotalDown);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_pt", selectedHOTVRSubJets_jesTotalDown_pt, &b_selectedHOTVRSubJets_jesTotalDown_pt);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_eta", selectedHOTVRSubJets_jesTotalDown_eta, &b_selectedHOTVRSubJets_jesTotalDown_eta);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_phi", selectedHOTVRSubJets_jesTotalDown_phi, &b_selectedHOTVRSubJets_jesTotalDown_phi);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_mass", selectedHOTVRSubJets_jesTotalDown_mass, &b_selectedHOTVRSubJets_jesTotalDown_mass);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_index", selectedHOTVRSubJets_jesTotalDown_index, &b_selectedHOTVRSubJets_jesTotalDown_index);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalDown_area", selectedHOTVRSubJets_jesTotalDown_area, &b_selectedHOTVRSubJets_jesTotalDown_area);
+   fChain->SetBranchAddress("nunselectedHOTVRSubJets_jesTotalDown", &nunselectedHOTVRSubJets_jesTotalDown, &b_nunselectedHOTVRSubJets_jesTotalDown);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_pt", unselectedHOTVRSubJets_jesTotalDown_pt, &b_unselectedHOTVRSubJets_jesTotalDown_pt);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_eta", unselectedHOTVRSubJets_jesTotalDown_eta, &b_unselectedHOTVRSubJets_jesTotalDown_eta);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_phi", unselectedHOTVRSubJets_jesTotalDown_phi, &b_unselectedHOTVRSubJets_jesTotalDown_phi);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_mass", unselectedHOTVRSubJets_jesTotalDown_mass, &b_unselectedHOTVRSubJets_jesTotalDown_mass);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_index", unselectedHOTVRSubJets_jesTotalDown_index, &b_unselectedHOTVRSubJets_jesTotalDown_index);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalDown_area", unselectedHOTVRSubJets_jesTotalDown_area, &b_unselectedHOTVRSubJets_jesTotalDown_area);
    fChain->SetBranchAddress("nselectedBJets_jesTotalDown_tight", &nselectedBJets_jesTotalDown_tight, &b_nselectedBJets_jesTotalDown_tight);
    fChain->SetBranchAddress("selectedBJets_jesTotalDown_tight_pt", selectedBJets_jesTotalDown_tight_pt, &b_selectedBJets_jesTotalDown_tight_pt);
    fChain->SetBranchAddress("selectedBJets_jesTotalDown_tight_eta", selectedBJets_jesTotalDown_tight_eta, &b_selectedBJets_jesTotalDown_tight_eta);
@@ -2343,6 +3074,21 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("unselectedHOTVRJets_jerUp_subJetIdx3", unselectedHOTVRJets_jerUp_subJetIdx3, &b_unselectedHOTVRJets_jerUp_subJetIdx3);
    fChain->SetBranchAddress("MET_jerUp_pt", &MET_jerUp_pt, &b_MET_jerUp_pt);
    fChain->SetBranchAddress("MET_jerUp_phi", &MET_jerUp_phi, &b_MET_jerUp_phi);
+   fChain->SetBranchAddress("MET_jerUp_E", &MET_jerUp_E, &b_MET_jerUp_E);
+   fChain->SetBranchAddress("nselectedHOTVRSubJets_jerUp", &nselectedHOTVRSubJets_jerUp, &b_nselectedHOTVRSubJets_jerUp);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_pt", selectedHOTVRSubJets_jerUp_pt, &b_selectedHOTVRSubJets_jerUp_pt);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_eta", selectedHOTVRSubJets_jerUp_eta, &b_selectedHOTVRSubJets_jerUp_eta);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_phi", selectedHOTVRSubJets_jerUp_phi, &b_selectedHOTVRSubJets_jerUp_phi);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_mass", selectedHOTVRSubJets_jerUp_mass, &b_selectedHOTVRSubJets_jerUp_mass);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_index", selectedHOTVRSubJets_jerUp_index, &b_selectedHOTVRSubJets_jerUp_index);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerUp_area", selectedHOTVRSubJets_jerUp_area, &b_selectedHOTVRSubJets_jerUp_area);
+   fChain->SetBranchAddress("nunselectedHOTVRSubJets_jerUp", &nunselectedHOTVRSubJets_jerUp, &b_nunselectedHOTVRSubJets_jerUp);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_pt", unselectedHOTVRSubJets_jerUp_pt, &b_unselectedHOTVRSubJets_jerUp_pt);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_eta", unselectedHOTVRSubJets_jerUp_eta, &b_unselectedHOTVRSubJets_jerUp_eta);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_phi", unselectedHOTVRSubJets_jerUp_phi, &b_unselectedHOTVRSubJets_jerUp_phi);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_mass", unselectedHOTVRSubJets_jerUp_mass, &b_unselectedHOTVRSubJets_jerUp_mass);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_index", unselectedHOTVRSubJets_jerUp_index, &b_unselectedHOTVRSubJets_jerUp_index);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerUp_area", unselectedHOTVRSubJets_jerUp_area, &b_unselectedHOTVRSubJets_jerUp_area);
    fChain->SetBranchAddress("nselectedBJets_jerUp_tight", &nselectedBJets_jerUp_tight, &b_nselectedBJets_jerUp_tight);
    fChain->SetBranchAddress("selectedBJets_jerUp_tight_pt", selectedBJets_jerUp_tight_pt, &b_selectedBJets_jerUp_tight_pt);
    fChain->SetBranchAddress("selectedBJets_jerUp_tight_eta", selectedBJets_jerUp_tight_eta, &b_selectedBJets_jerUp_tight_eta);
@@ -2462,6 +3208,7 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("unselectedHOTVRJets_nominal_subJetIdx3", unselectedHOTVRJets_nominal_subJetIdx3, &b_unselectedHOTVRJets_nominal_subJetIdx3);
    fChain->SetBranchAddress("MET_nominal_pt", &MET_nominal_pt, &b_MET_nominal_pt);
    fChain->SetBranchAddress("MET_nominal_phi", &MET_nominal_phi, &b_MET_nominal_phi);
+   fChain->SetBranchAddress("MET_nominal_E", &MET_nominal_E, &b_MET_nominal_E);
    fChain->SetBranchAddress("nselectedHOTVRSubJets_nominal", &nselectedHOTVRSubJets_nominal, &b_nselectedHOTVRSubJets_nominal);
    fChain->SetBranchAddress("selectedHOTVRSubJets_nominal_pt", selectedHOTVRSubJets_nominal_pt, &b_selectedHOTVRSubJets_nominal_pt);
    fChain->SetBranchAddress("selectedHOTVRSubJets_nominal_eta", selectedHOTVRSubJets_nominal_eta, &b_selectedHOTVRSubJets_nominal_eta);
@@ -2595,6 +3342,21 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("unselectedHOTVRJets_jerDown_subJetIdx3", unselectedHOTVRJets_jerDown_subJetIdx3, &b_unselectedHOTVRJets_jerDown_subJetIdx3);
    fChain->SetBranchAddress("MET_jerDown_pt", &MET_jerDown_pt, &b_MET_jerDown_pt);
    fChain->SetBranchAddress("MET_jerDown_phi", &MET_jerDown_phi, &b_MET_jerDown_phi);
+   fChain->SetBranchAddress("MET_jerDown_E", &MET_jerDown_E, &b_MET_jerDown_E);
+   fChain->SetBranchAddress("nselectedHOTVRSubJets_jerDown", &nselectedHOTVRSubJets_jerDown, &b_nselectedHOTVRSubJets_jerDown);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_pt", selectedHOTVRSubJets_jerDown_pt, &b_selectedHOTVRSubJets_jerDown_pt);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_eta", selectedHOTVRSubJets_jerDown_eta, &b_selectedHOTVRSubJets_jerDown_eta);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_phi", selectedHOTVRSubJets_jerDown_phi, &b_selectedHOTVRSubJets_jerDown_phi);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_mass", selectedHOTVRSubJets_jerDown_mass, &b_selectedHOTVRSubJets_jerDown_mass);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_index", selectedHOTVRSubJets_jerDown_index, &b_selectedHOTVRSubJets_jerDown_index);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jerDown_area", selectedHOTVRSubJets_jerDown_area, &b_selectedHOTVRSubJets_jerDown_area);
+   fChain->SetBranchAddress("nunselectedHOTVRSubJets_jerDown", &nunselectedHOTVRSubJets_jerDown, &b_nunselectedHOTVRSubJets_jerDown);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_pt", unselectedHOTVRSubJets_jerDown_pt, &b_unselectedHOTVRSubJets_jerDown_pt);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_eta", unselectedHOTVRSubJets_jerDown_eta, &b_unselectedHOTVRSubJets_jerDown_eta);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_phi", unselectedHOTVRSubJets_jerDown_phi, &b_unselectedHOTVRSubJets_jerDown_phi);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_mass", unselectedHOTVRSubJets_jerDown_mass, &b_unselectedHOTVRSubJets_jerDown_mass);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_index", unselectedHOTVRSubJets_jerDown_index, &b_unselectedHOTVRSubJets_jerDown_index);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jerDown_area", unselectedHOTVRSubJets_jerDown_area, &b_unselectedHOTVRSubJets_jerDown_area);
    fChain->SetBranchAddress("nselectedBJets_jerDown_tight", &nselectedBJets_jerDown_tight, &b_nselectedBJets_jerDown_tight);
    fChain->SetBranchAddress("selectedBJets_jerDown_tight_pt", selectedBJets_jerDown_tight_pt, &b_selectedBJets_jerDown_tight_pt);
    fChain->SetBranchAddress("selectedBJets_jerDown_tight_eta", selectedBJets_jerDown_tight_eta, &b_selectedBJets_jerDown_tight_eta);
@@ -2714,6 +3476,21 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("unselectedHOTVRJets_jesTotalUp_subJetIdx3", unselectedHOTVRJets_jesTotalUp_subJetIdx3, &b_unselectedHOTVRJets_jesTotalUp_subJetIdx3);
    fChain->SetBranchAddress("MET_jesTotalUp_pt", &MET_jesTotalUp_pt, &b_MET_jesTotalUp_pt);
    fChain->SetBranchAddress("MET_jesTotalUp_phi", &MET_jesTotalUp_phi, &b_MET_jesTotalUp_phi);
+   fChain->SetBranchAddress("MET_jesTotalUp_E", &MET_jesTotalUp_E, &b_MET_jesTotalUp_E);
+   fChain->SetBranchAddress("nselectedHOTVRSubJets_jesTotalUp", &nselectedHOTVRSubJets_jesTotalUp, &b_nselectedHOTVRSubJets_jesTotalUp);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_pt", selectedHOTVRSubJets_jesTotalUp_pt, &b_selectedHOTVRSubJets_jesTotalUp_pt);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_eta", selectedHOTVRSubJets_jesTotalUp_eta, &b_selectedHOTVRSubJets_jesTotalUp_eta);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_phi", selectedHOTVRSubJets_jesTotalUp_phi, &b_selectedHOTVRSubJets_jesTotalUp_phi);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_mass", selectedHOTVRSubJets_jesTotalUp_mass, &b_selectedHOTVRSubJets_jesTotalUp_mass);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_index", selectedHOTVRSubJets_jesTotalUp_index, &b_selectedHOTVRSubJets_jesTotalUp_index);
+   fChain->SetBranchAddress("selectedHOTVRSubJets_jesTotalUp_area", selectedHOTVRSubJets_jesTotalUp_area, &b_selectedHOTVRSubJets_jesTotalUp_area);
+   fChain->SetBranchAddress("nunselectedHOTVRSubJets_jesTotalUp", &nunselectedHOTVRSubJets_jesTotalUp, &b_nunselectedHOTVRSubJets_jesTotalUp);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_pt", unselectedHOTVRSubJets_jesTotalUp_pt, &b_unselectedHOTVRSubJets_jesTotalUp_pt);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_eta", unselectedHOTVRSubJets_jesTotalUp_eta, &b_unselectedHOTVRSubJets_jesTotalUp_eta);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_phi", unselectedHOTVRSubJets_jesTotalUp_phi, &b_unselectedHOTVRSubJets_jesTotalUp_phi);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_mass", unselectedHOTVRSubJets_jesTotalUp_mass, &b_unselectedHOTVRSubJets_jesTotalUp_mass);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_index", unselectedHOTVRSubJets_jesTotalUp_index, &b_unselectedHOTVRSubJets_jesTotalUp_index);
+   fChain->SetBranchAddress("unselectedHOTVRSubJets_jesTotalUp_area", unselectedHOTVRSubJets_jesTotalUp_area, &b_unselectedHOTVRSubJets_jesTotalUp_area);
    fChain->SetBranchAddress("nselectedBJets_jesTotalUp_tight", &nselectedBJets_jesTotalUp_tight, &b_nselectedBJets_jesTotalUp_tight);
    fChain->SetBranchAddress("selectedBJets_jesTotalUp_tight_pt", selectedBJets_jesTotalUp_tight_pt, &b_selectedBJets_jesTotalUp_tight_pt);
    fChain->SetBranchAddress("selectedBJets_jesTotalUp_tight_eta", selectedBJets_jesTotalUp_tight_eta, &b_selectedBJets_jesTotalUp_tight_eta);
@@ -2803,8 +3580,10 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("btagSFbc_deepJet_T_correlated_down", &btagSFbc_deepJet_T_correlated_down, &b_btagSFbc_deepJet_T_correlated_down);
    fChain->SetBranchAddress("MET_unclEnUp_pt", &MET_unclEnUp_pt, &b_MET_unclEnUp_pt);
    fChain->SetBranchAddress("MET_unclEnUp_phi", &MET_unclEnUp_phi, &b_MET_unclEnUp_phi);
+   fChain->SetBranchAddress("MET_unclEnUp_E", &MET_unclEnUp_E, &b_MET_unclEnUp_E);
    fChain->SetBranchAddress("MET_unclEnDown_pt", &MET_unclEnDown_pt, &b_MET_unclEnDown_pt);
    fChain->SetBranchAddress("MET_unclEnDown_phi", &MET_unclEnDown_phi, &b_MET_unclEnDown_phi);
+   fChain->SetBranchAddress("MET_unclEnDown_E", &MET_unclEnDown_E, &b_MET_unclEnDown_E);
    fChain->SetBranchAddress("ngenTop", &ngenTop, &b_ngenTop);
    fChain->SetBranchAddress("genTop_has_hadronically_decay", genTop_has_hadronically_decay, &b_genTop_has_hadronically_decay);
    fChain->SetBranchAddress("genTop_is_inside_ak8", genTop_is_inside_ak8, &b_genTop_is_inside_ak8);
@@ -2822,12 +3601,12 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("genTop_mass", genTop_mass, &b_genTop_mass);
    fChain->SetBranchAddress("genTop_daughters_pdgId", genTop_daughters_pdgId, &b_genTop_daughters_pdgId);
    fChain->SetBranchAddress("Leptonic_W_pt", &Leptonic_W_pt, &b_Leptonic_W_pt);
-   fChain->SetBranchAddress("eventSelection_ee_cut", &eventSelection_ee_cut, &b_eventSelection_ee_cut);
-   fChain->SetBranchAddress("dilepton_invariant_mass_ee", &dilepton_invariant_mass_ee, &b_dilepton_invariant_mass_ee);
-   fChain->SetBranchAddress("eventSelection_emu_cut", &eventSelection_emu_cut, &b_eventSelection_emu_cut);
-   fChain->SetBranchAddress("dilepton_invariant_mass_emu", &dilepton_invariant_mass_emu, &b_dilepton_invariant_mass_emu);
-   fChain->SetBranchAddress("eventSelection_mumu_cut", &eventSelection_mumu_cut, &b_eventSelection_mumu_cut);
-   fChain->SetBranchAddress("dilepton_invariant_mass_mumu", &dilepton_invariant_mass_mumu, &b_dilepton_invariant_mass_mumu);
+   fChain->SetBranchAddress("eventSelection_ee_cut_nominal", &eventSelection_ee_cut_nominal, &b_eventSelection_ee_cut_nominal);
+   fChain->SetBranchAddress("dilepton_invariant_mass_ee_nominal", &dilepton_invariant_mass_ee_nominal, &b_dilepton_invariant_mass_ee_nominal);
+   fChain->SetBranchAddress("eventSelection_emu_cut_nominal", &eventSelection_emu_cut_nominal, &b_eventSelection_emu_cut_nominal);
+   fChain->SetBranchAddress("dilepton_invariant_mass_emu_nominal", &dilepton_invariant_mass_emu_nominal, &b_dilepton_invariant_mass_emu_nominal);
+   fChain->SetBranchAddress("eventSelection_mumu_cut_nominal", &eventSelection_mumu_cut_nominal, &b_eventSelection_mumu_cut_nominal);
+   fChain->SetBranchAddress("dilepton_invariant_mass_mumu_nominal", &dilepton_invariant_mass_mumu_nominal, &b_dilepton_invariant_mass_mumu_nominal);
    fChain->SetBranchAddress("selectedJets_nominal_is_inside_hotvr", selectedJets_nominal_is_inside_hotvr, &b_selectedJets_nominal_is_inside_hotvr);
    fChain->SetBranchAddress("selectedJets_nominal_is_inside_ak8", selectedJets_nominal_is_inside_ak8, &b_selectedJets_nominal_is_inside_ak8);
    fChain->SetBranchAddress("selectedJets_nominal_min_deltaRVSak8Jet", selectedJets_nominal_min_deltaRVSak8Jet, &b_selectedJets_nominal_min_deltaRVSak8Jet);
@@ -2840,9 +3619,93 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_effective_radius", selectedHOTVRJets_nominal_effective_radius, &b_selectedHOTVRJets_nominal_effective_radius);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_tau2_over_tau1", selectedHOTVRJets_nominal_tau2_over_tau1, &b_selectedHOTVRJets_nominal_tau2_over_tau1);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_genTop_inside", selectedHOTVRJets_nominal_has_genTop_inside, &b_selectedHOTVRJets_nominal_has_genTop_inside);
-   fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_genTopHadronic_inside", selectedHOTVRJets_nominal_has_genTopHadronic_inside, &b_selectedHOTVRJets_nominal_has_genTopHadronic_inside);
    fChain->SetBranchAddress("selectedFatJets_nominal_has_genTop_inside", selectedFatJets_nominal_has_genTop_inside, &b_selectedFatJets_nominal_has_genTop_inside);
+   fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_genTopHadronic_inside", selectedHOTVRJets_nominal_has_genTopHadronic_inside, &b_selectedHOTVRJets_nominal_has_genTopHadronic_inside);
    fChain->SetBranchAddress("selectedFatJets_nominal_has_genTopHadronic_inside", selectedFatJets_nominal_has_genTopHadronic_inside, &b_selectedFatJets_nominal_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("eventSelection_ee_cut_jerUp", &eventSelection_ee_cut_jerUp, &b_eventSelection_ee_cut_jerUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_ee_jerUp", &dilepton_invariant_mass_ee_jerUp, &b_dilepton_invariant_mass_ee_jerUp);
+   fChain->SetBranchAddress("eventSelection_emu_cut_jerUp", &eventSelection_emu_cut_jerUp, &b_eventSelection_emu_cut_jerUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_emu_jerUp", &dilepton_invariant_mass_emu_jerUp, &b_dilepton_invariant_mass_emu_jerUp);
+   fChain->SetBranchAddress("eventSelection_mumu_cut_jerUp", &eventSelection_mumu_cut_jerUp, &b_eventSelection_mumu_cut_jerUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_mumu_jerUp", &dilepton_invariant_mass_mumu_jerUp, &b_dilepton_invariant_mass_mumu_jerUp);
+   fChain->SetBranchAddress("selectedJets_jerUp_is_inside_hotvr", selectedJets_jerUp_is_inside_hotvr, &b_selectedJets_jerUp_is_inside_hotvr);
+   fChain->SetBranchAddress("selectedJets_jerUp_is_inside_ak8", selectedJets_jerUp_is_inside_ak8, &b_selectedJets_jerUp_is_inside_ak8);
+   fChain->SetBranchAddress("selectedJets_jerUp_min_deltaRVSak8Jet", selectedJets_jerUp_min_deltaRVSak8Jet, &b_selectedJets_jerUp_min_deltaRVSak8Jet);
+   fChain->SetBranchAddress("selectedJets_jerUp_min_deltaRVShotvrJet", selectedJets_jerUp_min_deltaRVShotvrJet, &b_selectedJets_jerUp_min_deltaRVShotvrJet);
+   fChain->SetBranchAddress("selectedJets_jerUp_rho_over_pt_closest_hotvr", selectedJets_jerUp_rho_over_pt_closest_hotvr, &b_selectedJets_jerUp_rho_over_pt_closest_hotvr);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_nsubjets", selectedHOTVRJets_jerUp_nsubjets, &b_selectedHOTVRJets_jerUp_nsubjets);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_tau3_over_tau2", selectedHOTVRJets_jerUp_tau3_over_tau2, &b_selectedHOTVRJets_jerUp_tau3_over_tau2);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_fractional_subjet_pt", selectedHOTVRJets_jerUp_fractional_subjet_pt, &b_selectedHOTVRJets_jerUp_fractional_subjet_pt);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_min_pairwise_subjets_mass", selectedHOTVRJets_jerUp_min_pairwise_subjets_mass, &b_selectedHOTVRJets_jerUp_min_pairwise_subjets_mass);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_effective_radius", selectedHOTVRJets_jerUp_effective_radius, &b_selectedHOTVRJets_jerUp_effective_radius);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_tau2_over_tau1", selectedHOTVRJets_jerUp_tau2_over_tau1, &b_selectedHOTVRJets_jerUp_tau2_over_tau1);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_genTop_inside", selectedHOTVRJets_jerUp_has_genTop_inside, &b_selectedHOTVRJets_jerUp_has_genTop_inside);
+   fChain->SetBranchAddress("selectedFatJets_jerUp_has_genTop_inside", selectedFatJets_jerUp_has_genTop_inside, &b_selectedFatJets_jerUp_has_genTop_inside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_genTopHadronic_inside", selectedHOTVRJets_jerUp_has_genTopHadronic_inside, &b_selectedHOTVRJets_jerUp_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("selectedFatJets_jerUp_has_genTopHadronic_inside", selectedFatJets_jerUp_has_genTopHadronic_inside, &b_selectedFatJets_jerUp_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("eventSelection_ee_cut_jerDown", &eventSelection_ee_cut_jerDown, &b_eventSelection_ee_cut_jerDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_ee_jerDown", &dilepton_invariant_mass_ee_jerDown, &b_dilepton_invariant_mass_ee_jerDown);
+   fChain->SetBranchAddress("eventSelection_emu_cut_jerDown", &eventSelection_emu_cut_jerDown, &b_eventSelection_emu_cut_jerDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_emu_jerDown", &dilepton_invariant_mass_emu_jerDown, &b_dilepton_invariant_mass_emu_jerDown);
+   fChain->SetBranchAddress("eventSelection_mumu_cut_jerDown", &eventSelection_mumu_cut_jerDown, &b_eventSelection_mumu_cut_jerDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_mumu_jerDown", &dilepton_invariant_mass_mumu_jerDown, &b_dilepton_invariant_mass_mumu_jerDown);
+   fChain->SetBranchAddress("selectedJets_jerDown_is_inside_hotvr", selectedJets_jerDown_is_inside_hotvr, &b_selectedJets_jerDown_is_inside_hotvr);
+   fChain->SetBranchAddress("selectedJets_jerDown_is_inside_ak8", selectedJets_jerDown_is_inside_ak8, &b_selectedJets_jerDown_is_inside_ak8);
+   fChain->SetBranchAddress("selectedJets_jerDown_min_deltaRVSak8Jet", selectedJets_jerDown_min_deltaRVSak8Jet, &b_selectedJets_jerDown_min_deltaRVSak8Jet);
+   fChain->SetBranchAddress("selectedJets_jerDown_min_deltaRVShotvrJet", selectedJets_jerDown_min_deltaRVShotvrJet, &b_selectedJets_jerDown_min_deltaRVShotvrJet);
+   fChain->SetBranchAddress("selectedJets_jerDown_rho_over_pt_closest_hotvr", selectedJets_jerDown_rho_over_pt_closest_hotvr, &b_selectedJets_jerDown_rho_over_pt_closest_hotvr);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_nsubjets", selectedHOTVRJets_jerDown_nsubjets, &b_selectedHOTVRJets_jerDown_nsubjets);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_tau3_over_tau2", selectedHOTVRJets_jerDown_tau3_over_tau2, &b_selectedHOTVRJets_jerDown_tau3_over_tau2);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_fractional_subjet_pt", selectedHOTVRJets_jerDown_fractional_subjet_pt, &b_selectedHOTVRJets_jerDown_fractional_subjet_pt);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_min_pairwise_subjets_mass", selectedHOTVRJets_jerDown_min_pairwise_subjets_mass, &b_selectedHOTVRJets_jerDown_min_pairwise_subjets_mass);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_effective_radius", selectedHOTVRJets_jerDown_effective_radius, &b_selectedHOTVRJets_jerDown_effective_radius);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_tau2_over_tau1", selectedHOTVRJets_jerDown_tau2_over_tau1, &b_selectedHOTVRJets_jerDown_tau2_over_tau1);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_genTop_inside", selectedHOTVRJets_jerDown_has_genTop_inside, &b_selectedHOTVRJets_jerDown_has_genTop_inside);
+   fChain->SetBranchAddress("selectedFatJets_jerDown_has_genTop_inside", selectedFatJets_jerDown_has_genTop_inside, &b_selectedFatJets_jerDown_has_genTop_inside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_genTopHadronic_inside", selectedHOTVRJets_jerDown_has_genTopHadronic_inside, &b_selectedHOTVRJets_jerDown_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("selectedFatJets_jerDown_has_genTopHadronic_inside", selectedFatJets_jerDown_has_genTopHadronic_inside, &b_selectedFatJets_jerDown_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("eventSelection_ee_cut_jesTotalUp", &eventSelection_ee_cut_jesTotalUp, &b_eventSelection_ee_cut_jesTotalUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_ee_jesTotalUp", &dilepton_invariant_mass_ee_jesTotalUp, &b_dilepton_invariant_mass_ee_jesTotalUp);
+   fChain->SetBranchAddress("eventSelection_emu_cut_jesTotalUp", &eventSelection_emu_cut_jesTotalUp, &b_eventSelection_emu_cut_jesTotalUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_emu_jesTotalUp", &dilepton_invariant_mass_emu_jesTotalUp, &b_dilepton_invariant_mass_emu_jesTotalUp);
+   fChain->SetBranchAddress("eventSelection_mumu_cut_jesTotalUp", &eventSelection_mumu_cut_jesTotalUp, &b_eventSelection_mumu_cut_jesTotalUp);
+   fChain->SetBranchAddress("dilepton_invariant_mass_mumu_jesTotalUp", &dilepton_invariant_mass_mumu_jesTotalUp, &b_dilepton_invariant_mass_mumu_jesTotalUp);
+   fChain->SetBranchAddress("selectedJets_jesTotalUp_is_inside_hotvr", selectedJets_jesTotalUp_is_inside_hotvr, &b_selectedJets_jesTotalUp_is_inside_hotvr);
+   fChain->SetBranchAddress("selectedJets_jesTotalUp_is_inside_ak8", selectedJets_jesTotalUp_is_inside_ak8, &b_selectedJets_jesTotalUp_is_inside_ak8);
+   fChain->SetBranchAddress("selectedJets_jesTotalUp_min_deltaRVSak8Jet", selectedJets_jesTotalUp_min_deltaRVSak8Jet, &b_selectedJets_jesTotalUp_min_deltaRVSak8Jet);
+   fChain->SetBranchAddress("selectedJets_jesTotalUp_min_deltaRVShotvrJet", selectedJets_jesTotalUp_min_deltaRVShotvrJet, &b_selectedJets_jesTotalUp_min_deltaRVShotvrJet);
+   fChain->SetBranchAddress("selectedJets_jesTotalUp_rho_over_pt_closest_hotvr", selectedJets_jesTotalUp_rho_over_pt_closest_hotvr, &b_selectedJets_jesTotalUp_rho_over_pt_closest_hotvr);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_nsubjets", selectedHOTVRJets_jesTotalUp_nsubjets, &b_selectedHOTVRJets_jesTotalUp_nsubjets);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_tau3_over_tau2", selectedHOTVRJets_jesTotalUp_tau3_over_tau2, &b_selectedHOTVRJets_jesTotalUp_tau3_over_tau2);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_fractional_subjet_pt", selectedHOTVRJets_jesTotalUp_fractional_subjet_pt, &b_selectedHOTVRJets_jesTotalUp_fractional_subjet_pt);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass", selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass, &b_selectedHOTVRJets_jesTotalUp_min_pairwise_subjets_mass);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_effective_radius", selectedHOTVRJets_jesTotalUp_effective_radius, &b_selectedHOTVRJets_jesTotalUp_effective_radius);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_tau2_over_tau1", selectedHOTVRJets_jesTotalUp_tau2_over_tau1, &b_selectedHOTVRJets_jesTotalUp_tau2_over_tau1);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_genTop_inside", selectedHOTVRJets_jesTotalUp_has_genTop_inside, &b_selectedHOTVRJets_jesTotalUp_has_genTop_inside);
+   fChain->SetBranchAddress("selectedFatJets_jesTotalUp_has_genTop_inside", selectedFatJets_jesTotalUp_has_genTop_inside, &b_selectedFatJets_jesTotalUp_has_genTop_inside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_genTopHadronic_inside", selectedHOTVRJets_jesTotalUp_has_genTopHadronic_inside, &b_selectedHOTVRJets_jesTotalUp_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("selectedFatJets_jesTotalUp_has_genTopHadronic_inside", selectedFatJets_jesTotalUp_has_genTopHadronic_inside, &b_selectedFatJets_jesTotalUp_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("eventSelection_ee_cut_jesTotalDown", &eventSelection_ee_cut_jesTotalDown, &b_eventSelection_ee_cut_jesTotalDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_ee_jesTotalDown", &dilepton_invariant_mass_ee_jesTotalDown, &b_dilepton_invariant_mass_ee_jesTotalDown);
+   fChain->SetBranchAddress("eventSelection_emu_cut_jesTotalDown", &eventSelection_emu_cut_jesTotalDown, &b_eventSelection_emu_cut_jesTotalDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_emu_jesTotalDown", &dilepton_invariant_mass_emu_jesTotalDown, &b_dilepton_invariant_mass_emu_jesTotalDown);
+   fChain->SetBranchAddress("eventSelection_mumu_cut_jesTotalDown", &eventSelection_mumu_cut_jesTotalDown, &b_eventSelection_mumu_cut_jesTotalDown);
+   fChain->SetBranchAddress("dilepton_invariant_mass_mumu_jesTotalDown", &dilepton_invariant_mass_mumu_jesTotalDown, &b_dilepton_invariant_mass_mumu_jesTotalDown);
+   fChain->SetBranchAddress("selectedJets_jesTotalDown_is_inside_hotvr", selectedJets_jesTotalDown_is_inside_hotvr, &b_selectedJets_jesTotalDown_is_inside_hotvr);
+   fChain->SetBranchAddress("selectedJets_jesTotalDown_is_inside_ak8", selectedJets_jesTotalDown_is_inside_ak8, &b_selectedJets_jesTotalDown_is_inside_ak8);
+   fChain->SetBranchAddress("selectedJets_jesTotalDown_min_deltaRVSak8Jet", selectedJets_jesTotalDown_min_deltaRVSak8Jet, &b_selectedJets_jesTotalDown_min_deltaRVSak8Jet);
+   fChain->SetBranchAddress("selectedJets_jesTotalDown_min_deltaRVShotvrJet", selectedJets_jesTotalDown_min_deltaRVShotvrJet, &b_selectedJets_jesTotalDown_min_deltaRVShotvrJet);
+   fChain->SetBranchAddress("selectedJets_jesTotalDown_rho_over_pt_closest_hotvr", selectedJets_jesTotalDown_rho_over_pt_closest_hotvr, &b_selectedJets_jesTotalDown_rho_over_pt_closest_hotvr);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_nsubjets", selectedHOTVRJets_jesTotalDown_nsubjets, &b_selectedHOTVRJets_jesTotalDown_nsubjets);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_tau3_over_tau2", selectedHOTVRJets_jesTotalDown_tau3_over_tau2, &b_selectedHOTVRJets_jesTotalDown_tau3_over_tau2);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_fractional_subjet_pt", selectedHOTVRJets_jesTotalDown_fractional_subjet_pt, &b_selectedHOTVRJets_jesTotalDown_fractional_subjet_pt);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass", selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass, &b_selectedHOTVRJets_jesTotalDown_min_pairwise_subjets_mass);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_effective_radius", selectedHOTVRJets_jesTotalDown_effective_radius, &b_selectedHOTVRJets_jesTotalDown_effective_radius);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_tau2_over_tau1", selectedHOTVRJets_jesTotalDown_tau2_over_tau1, &b_selectedHOTVRJets_jesTotalDown_tau2_over_tau1);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_genTop_inside", selectedHOTVRJets_jesTotalDown_has_genTop_inside, &b_selectedHOTVRJets_jesTotalDown_has_genTop_inside);
+   fChain->SetBranchAddress("selectedFatJets_jesTotalDown_has_genTop_inside", selectedFatJets_jesTotalDown_has_genTop_inside, &b_selectedFatJets_jesTotalDown_has_genTop_inside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_genTopHadronic_inside", selectedHOTVRJets_jesTotalDown_has_genTopHadronic_inside, &b_selectedHOTVRJets_jesTotalDown_has_genTopHadronic_inside);
+   fChain->SetBranchAddress("selectedFatJets_jesTotalDown_has_genTopHadronic_inside", selectedFatJets_jesTotalDown_has_genTopHadronic_inside, &b_selectedFatJets_jesTotalDown_has_genTopHadronic_inside);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_nominal_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_nominal_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_other", selectedHOTVRJets_nominal_has_other, &b_selectedHOTVRJets_nominal_has_other);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_b_not_fromTop", selectedHOTVRJets_nominal_has_b_not_fromTop, &b_selectedHOTVRJets_nominal_has_b_not_fromTop);
@@ -2891,6 +3754,198 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_nominal_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_nominal_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_nominal_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_nominal_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_other", selectedHOTVRJets_jerUp_has_other, &b_selectedHOTVRJets_jerUp_has_other);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_not_fromTop", selectedHOTVRJets_jerUp_has_b_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside", selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_other_topIsInside", selectedHOTVRJets_jerUp_has_other_topIsInside, &b_selectedHOTVRJets_jerUp_has_other_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_noTopDaughters_topIsInside", selectedHOTVRJets_jerUp_has_noTopDaughters_topIsInside, &b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsInside", selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside", selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_other_topIsNotInside", selectedHOTVRJets_jerUp_has_other_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_other_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside", selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_other", selectedHOTVRJets_jerDown_has_other, &b_selectedHOTVRJets_jerDown_has_other);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_not_fromTop", selectedHOTVRJets_jerDown_has_b_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside", selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_other_topIsInside", selectedHOTVRJets_jerDown_has_other_topIsInside, &b_selectedHOTVRJets_jerDown_has_other_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_noTopDaughters_topIsInside", selectedHOTVRJets_jerDown_has_noTopDaughters_topIsInside, &b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsInside", selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside", selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_other_topIsNotInside", selectedHOTVRJets_jerDown_has_other_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_other_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside", selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside", selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_other", selectedHOTVRJets_jesTotalUp_has_other, &b_selectedHOTVRJets_jesTotalUp_has_other);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_other_topIsInside", selectedHOTVRJets_jesTotalUp_has_other_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_other_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsInside", selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_other", selectedHOTVRJets_jesTotalDown_has_other, &b_selectedHOTVRJets_jesTotalDown_has_other);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_other_topIsInside", selectedHOTVRJets_jesTotalDown_has_other_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_other_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsInside", selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsInside", selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsInside, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside", selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_other_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_noTopDaughters_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_leptonicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_b_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("selectedFatJets_nominal_has_gluon_or_quark_not_fromTop", selectedFatJets_nominal_has_gluon_or_quark_not_fromTop, &b_selectedFatJets_nominal_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("selectedFatJets_nominal_has_other", selectedFatJets_nominal_has_other, &b_selectedFatJets_nominal_has_other);
    fChain->SetBranchAddress("selectedFatJets_nominal_has_b_not_fromTop", selectedFatJets_nominal_has_b_not_fromTop, &b_selectedFatJets_nominal_has_b_not_fromTop);
@@ -2941,12 +3996,16 @@ void Friends::Init(TTree *tree)
    fChain->SetBranchAddress("selectedFatJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop", selectedFatJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop, &b_selectedFatJets_nominal_has_quark_fromW_not_fromTop_topIsNotInside_and_has_gluon_or_quark_not_fromTop);
    fChain->SetBranchAddress("inference_time_scoreBDT", &inference_time_scoreBDT, &b_inference_time_scoreBDT);
    fChain->SetBranchAddress("selectedHOTVRJets_nominal_scoreBDT", selectedHOTVRJets_nominal_scoreBDT, &b_selectedHOTVRJets_nominal_scoreBDT);
-
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalUp_scoreBDT", selectedHOTVRJets_jesTotalUp_scoreBDT, &b_selectedHOTVRJets_jesTotalUp_scoreBDT);
+   fChain->SetBranchAddress("selectedHOTVRJets_jesTotalDown_scoreBDT", selectedHOTVRJets_jesTotalDown_scoreBDT, &b_selectedHOTVRJets_jesTotalDown_scoreBDT);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerUp_scoreBDT", selectedHOTVRJets_jerUp_scoreBDT, &b_selectedHOTVRJets_jerUp_scoreBDT);
+   fChain->SetBranchAddress("selectedHOTVRJets_jerDown_scoreBDT", selectedHOTVRJets_jerDown_scoreBDT, &b_selectedHOTVRJets_jerDown_scoreBDT);
    if (fChain->GetListOfBranches()->FindObject("TopPtWeight"))
    {
       fChain->SetBranchAddress("TopPtWeight", &TopPtWeight, &b_TopPtWeight);
    }
    
+
    Notify();
 }
 
