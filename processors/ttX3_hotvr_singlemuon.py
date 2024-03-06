@@ -781,8 +781,8 @@ analyzerChain.extend([
     #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
     LeptonicWProducer(
         inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
-        inputMet=lambda event: Object(event, "MET"),
-        outputName="Leptonic_W_pt"
+        inputMet=lambda event: event.met_nominal,
+        outputName="Leptonic_W_pt_nominal"
     ),
     # At least one b-jet, in the same hemisphere of the muon
     #EventSkim(selection=bjet_in_same_hemisphere_as_muon),
@@ -791,6 +791,18 @@ analyzerChain.extend([
     #EventReconstruction(**event_reco_inputs),
     #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
 ])
+
+if not Module.globalOptions["isData"]:
+    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown", "unclEnUp", "unclEnDown"]:
+        analyzerChain.extend(
+            [
+                LeptonicWProducer(
+                    inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
+                    inputMet=lambda event: getattr(event, "met_"+unc),
+                    outputName="Leptonic_W_pt_" + unc
+                )
+            ]
+        )
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
