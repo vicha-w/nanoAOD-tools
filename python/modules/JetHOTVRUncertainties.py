@@ -319,25 +319,28 @@ class JetHOTVRUncertainties(Module):
             for isubjet, subjet in enumerate(subjets_in_hotvr):
                 #subjet.uncertainty_p4 = {}
 
-                genJet = genjet_match[subjet]
+                #genJet = genjet_match[subjet]
 
-                jerFactor = self.jerUncertaintyCalculator.getFactor(
-                    subjet,
-                    genJet,
-                    rho
-                )
+                #jerFactor = self.jerUncertaintyCalculator.getFactor(
+                #    subjet,
+                #    genJet,
+                #    rho
+                #)
 
                 #subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
                 #subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
                 #subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
 
-                jet.uncertainty_p4['nominal'] += (subjet.p4() * jerFactor['nominal'])
-                jet.uncertainty_p4['jerUp'] += (subjet.p4() * jerFactor['up'])
-                jet.uncertainty_p4['jerDown'] += (subjet.p4() * jerFactor['down'])
+                #jet.uncertainty_p4['nominal'] += (subjet.p4() * jerFactor['nominal'])
+                #jet.uncertainty_p4['jerUp'] += (subjet.p4() * jerFactor['up'])
+                #jet.uncertainty_p4['jerDown'] += (subjet.p4() * jerFactor['down'])
+                jet.uncertainty_p4['nominal'] += subjet.uncertainty_p4["nominal"]
+                jet.uncertainty_p4['jerUp']   += subjet.uncertainty_p4["jerUp"]
+                jet.uncertainty_p4['jerDown'] += subjet.uncertainty_p4["jerDown"]
 
 
                 for jesUncertaintyName in self.jesUncertaintyNames:
-                    jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
+                    #jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
                     jet.uncertainty_p4['jes' + jesUncertaintyName + "Up"] += subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]
                     jet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] += subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"]
                     #subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]   = subjet.uncertainty_p4['nominal'] * (1. + jecDelta)
