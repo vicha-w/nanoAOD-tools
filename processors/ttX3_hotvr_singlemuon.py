@@ -797,7 +797,7 @@ if not Module.globalOptions["isData"]:
         analyzerChain.append(
             LeptonicWProducer(
                 inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
-                inputMet=lambda event: getattr(event, "met_"+unc),
+                inputMet=lambda event, unc=unc: getattr(event, "met_"+unc),
                 outputName="Leptonic_W_pt_" + unc
             )
         )
