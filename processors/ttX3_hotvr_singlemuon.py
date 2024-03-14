@@ -896,17 +896,59 @@ else:
     hotvrjet_collections = ["selectedHOTVRJets_nominal"]
 
 #### XGB EVALUATION MODULE
-for hotvrjet_collection in hotvrjet_collections:
-    analyzerChain.append(
+analyzerChain.append(
+    XGBEvaluationProducer(
+        modelPath=xgb_models[args.year],
+        inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
+        outputName="scoreBDT",
+        outputJetPrefix="selectedHOTVRJets_nominal"
+    )
+)
+if not Module.globalOptions["isData"]:
+    analyzerChain.extend([
         XGBEvaluationProducer(
             modelPath=xgb_models[args.year],
-            #inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-            inputHOTVRJetCollection=lambda event: getattr(event, hotvrjet_collection),
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jesTotalUp,
             outputName="scoreBDT",
-            #outputJetPrefix='selectedHOTVRJets_nominal'
-            outputJetPrefix=hotvrjet_collection
+            outputJetPrefix="selectedHOTVRJets_jesTotalUp"
         )
-    )
+    ])
+    analyzerChain.extend([
+        XGBEvaluationProducer(
+            modelPath=xgb_models[args.year],
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jesTotalDown,
+            outputName="scoreBDT",
+            outputJetPrefix="selectedHOTVRJets_jesTotalDown"
+        )
+    ])
+    analyzerChain.extend([
+        XGBEvaluationProducer(
+            modelPath=xgb_models[args.year],
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jerUp,
+            outputName="scoreBDT",
+            outputJetPrefix="selectedHOTVRJets_jerUp"
+        )
+    ])
+    analyzerChain.extend([
+        XGBEvaluationProducer(
+            modelPath=xgb_models[args.year],
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jerDown,
+            outputName="scoreBDT",
+            outputJetPrefix="selectedHOTVRJets_jerDown"
+        )
+    ])
+
+#for hotvrjet_collection in hotvrjet_collections:
+#    analyzerChain.append(
+#        XGBEvaluationProducer(
+#            modelPath=xgb_models[args.year],
+#            #inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
+#            inputHOTVRJetCollection=lambda event: getattr(event, hotvrjet_collection),
+#            outputName="scoreBDT",
+#            #outputJetPrefix='selectedHOTVRJets_nominal'
+#            outputJetPrefix=hotvrjet_collection
+#        )
+#    )
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
