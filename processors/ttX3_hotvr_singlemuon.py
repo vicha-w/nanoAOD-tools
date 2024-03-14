@@ -717,77 +717,25 @@ event_reco_inputs.append({
     'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
     'inputMETCollection': lambda event: event.met_nominal,
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
-    'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_nominal,
+    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
     'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
     "outputSystName": "nominal"
 })
 if not Module.globalOptions["isData"]:
-    event_reco_inputs.append({
-        'inputTriggersCollection': triggers,
-        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': lambda event: event.selectedJets_jerUp,
-        'inputBJetCollection': lambda event: event.selectedBJets_jerUp_loose,
-        'inputFatJetCollection': lambda event: event.selectedFatJets_jerUp,
-        'inputMETCollection': lambda event: event.met_jerUp,
-        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jerUp,
-        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jerUp,
-        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-        "outputSystName": "jerUp"
-    })
-    event_reco_inputs.append({
-        'inputTriggersCollection': triggers,
-        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': lambda event: event.selectedJets_jerDown,
-        'inputBJetCollection': lambda event: event.selectedBJets_jerDown_loose,
-        'inputFatJetCollection': lambda event: event.selectedFatJets_jerDown,
-        'inputMETCollection': lambda event: event.met_jerDown,
-        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jerDown,
-        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jerDown,
-        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-        "outputSystName": "jerDown"
-    })
-    event_reco_inputs.append({
-        'inputTriggersCollection': triggers,
-        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': lambda event: event.selectedJets_jesTotalUp,
-        'inputBJetCollection': lambda event: event.selectedBJets_jesTotalUp_loose,
-        'inputFatJetCollection': lambda event: event.selectedFatJets_jesTotalUp,
-        'inputMETCollection': lambda event: event.met_jesTotalUp,
-        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jesTotalUp,
-        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jesTotalUp,
-        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-        "outputSystName": "jesTotalUp"
-    })
-    event_reco_inputs.append({
-        'inputTriggersCollection': triggers,
-        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': lambda event: event.selectedJets_jesTotalDown,
-        'inputBJetCollection': lambda event: event.selectedBJets_jesTotalDown_loose,
-        'inputFatJetCollection': lambda event: event.selectedFatJets_jesTotalDown,
-        'inputMETCollection': lambda event: event.met_jesTotalDown,
-        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jesTotalDown,
-        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jesTotalDown,
-        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-        "outputSystName": "jesTotalDown"
-    })
-    #for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
-    #    event_reco_inputs.append({
-    #        'inputTriggersCollection': triggers,
-    #        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-    #        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-    #        'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
-    #        'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
-    #        'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
-    #        'inputMETCollection': lambda event: getattr(event, "met_"+unc),
-    #        'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
-    #        'inputHOTVRSubJetCollection': lambda event: getattr(event, "hotvrsubjets_"+unc),
-    #        'inputGenTopCollection': lambda event: event.genTops,
-    #        "outputSystName": unc
-    #    })
+    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+        event_reco_inputs.append({
+            'inputTriggersCollection': triggers,
+            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+            'inputJetCollection': lambda event, unc=unc: getattr(event, "selectedJets_"+unc),
+            'inputBJetCollection': lambda event, unc=unc: getattr(event, "selectedBJets_"+unc+"_loose"),
+            'inputFatJetCollection': lambda event, unc=unc: getattr(event, "selectedFatJets_"+unc),
+            'inputMETCollection': lambda event, unc=unc: getattr(event, "met_"+unc),
+            'inputHOTVRJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRJets_"+unc),
+            'inputHOTVRSubJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRSubJets_"+unc),
+            'inputGenTopCollection': lambda event: event.genTops,
+            "outputSystName": unc
+        })
 
 #if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
@@ -865,14 +813,14 @@ if not Module.globalOptions["isData"]:
     for unc in ["nominal", "jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
         analyzerChain.append(
             HOTVRJetComposition(
-                inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_"+unc),
+                inputHOTVRJetCollection = lambda event, unc=unc: getattr(event,"selectedHOTVRJets_"+unc),
                 inputGenParticleCollections = {
                     'gentops': lambda event: event.genTops, 
                     'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
                     'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
                     'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
                     },
-                inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_"+unc),
+                inputSubHOTVRJetCollection = lambda event, unc=unc: getattr(event,"selectedHOTVRSubJets_"+unc),
                 outputJetPrefix='selectedHOTVRJets_'+unc
             )
         )
@@ -905,38 +853,15 @@ analyzerChain.append(
     )
 )
 if not Module.globalOptions["isData"]:
-    analyzerChain.extend([
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jesTotalUp,
-            outputName="scoreBDT",
-            outputJetPrefix="selectedHOTVRJets_jesTotalUp"
+    for unc in ["jesTotalUp", "jesTotalDown", "jerUp", "jerDown"]:
+        analyzerChain.append(
+            XGBEvaluationProducer(
+                modelPath=xgb_models[args.year],
+                inputHOTVRJetCollection=lambda event, unc=unc: getattr(event, "selectedHOTVRJets_" + unc),
+                outputName="scoreBDT",
+                outputJetPrefix="selectedHOTVRJets_" + unc
+            )
         )
-    ])
-    analyzerChain.extend([
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jesTotalDown,
-            outputName="scoreBDT",
-            outputJetPrefix="selectedHOTVRJets_jesTotalDown"
-        )
-    ])
-    analyzerChain.extend([
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jerUp,
-            outputName="scoreBDT",
-            outputJetPrefix="selectedHOTVRJets_jerUp"
-        )
-    ])
-    analyzerChain.extend([
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_jerDown,
-            outputName="scoreBDT",
-            outputJetPrefix="selectedHOTVRJets_jerDown"
-        )
-    ])
 
 #for hotvrjet_collection in hotvrjet_collections:
 #    analyzerChain.append(
