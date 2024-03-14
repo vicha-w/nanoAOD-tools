@@ -722,20 +722,72 @@ event_reco_inputs.append({
     "outputSystName": "nominal"
 })
 if not Module.globalOptions["isData"]:
-    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
-        event_reco_inputs.append({
-            'inputTriggersCollection': triggers,
-            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-            'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
-            'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
-            'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
-            'inputMETCollection': lambda event: getattr(event, "met_"+unc),
-            'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
-            'inputHOTVRSubJetCollection': lambda event: getattr(event, "hotvrsubjets_"+unc),
-            'inputGenTopCollection': lambda event: event.genTops,
-            "outputSystName": unc
-        })
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_jerUp,
+        'inputBJetCollection': lambda event: event.selectedBJets_jerUp_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_jerUp,
+        'inputMETCollection': lambda event: event.met_jerUp,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jerUp,
+        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jerUp,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "outputSystName": "jerUp"
+    })
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_jerDown,
+        'inputBJetCollection': lambda event: event.selectedBJets_jerDown_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_jerDown,
+        'inputMETCollection': lambda event: event.met_jerDown,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jerDown,
+        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jerDown,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "outputSystName": "jerDown"
+    })
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_jesTotalUp,
+        'inputBJetCollection': lambda event: event.selectedBJets_jesTotalUp_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_jesTotalUp,
+        'inputMETCollection': lambda event: event.met_jesTotalUp,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jesTotalUp,
+        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jesTotalUp,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "outputSystName": "jesTotalUp"
+    })
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_jesTotalDown,
+        'inputBJetCollection': lambda event: event.selectedBJets_jesTotalDown_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_jesTotalDown,
+        'inputMETCollection': lambda event: event.met_jesTotalDown,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_jesTotalDown,
+        'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_jesTotalDown,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "outputSystName": "jesTotalDown"
+    })
+    #for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+    #    event_reco_inputs.append({
+    #        'inputTriggersCollection': triggers,
+    #        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+    #        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+    #        'inputJetCollection': lambda event: getattr(event, "selectedJets_"+unc),
+    #        'inputBJetCollection': lambda event: getattr(event, "selectedBJets_"+unc+"_loose"),
+    #        'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
+    #        'inputMETCollection': lambda event: getattr(event, "met_"+unc),
+    #        'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
+    #        'inputHOTVRSubJetCollection': lambda event: getattr(event, "hotvrsubjets_"+unc),
+    #        'inputGenTopCollection': lambda event: event.genTops,
+    #        "outputSystName": unc
+    #    })
 
 #if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
