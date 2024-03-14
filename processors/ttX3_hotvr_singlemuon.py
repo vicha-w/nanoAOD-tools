@@ -717,7 +717,7 @@ event_reco_inputs.append({
     'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
     'inputMETCollection': lambda event: event.met_nominal,
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
-    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+    'inputHOTVRSubJetCollection': lambda event: event.hotvrsubjets_nominal,
     'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
     "outputSystName": "nominal"
 })
@@ -732,7 +732,7 @@ if not Module.globalOptions["isData"]:
             'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_"+unc),
             'inputMETCollection': lambda event: getattr(event, "met_"+unc),
             'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_"+unc),
-            'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_"+unc),
+            'inputHOTVRSubJetCollection': lambda event: getattr(event, "hotvrsubjets_"+unc),
             'inputGenTopCollection': lambda event: event.genTops,
             "outputSystName": unc
         })
@@ -794,14 +794,12 @@ analyzerChain.extend([
 
 if not Module.globalOptions["isData"]:
     for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown", "unclEnUp", "unclEnDown"]:
-        analyzerChain.extend(
-            [
-                LeptonicWProducer(
-                    inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
-                    inputMet=lambda event: getattr(event, "met_"+unc),
-                    outputName="Leptonic_W_pt_" + unc
-                )
-            ]
+        analyzerChain.append(
+            LeptonicWProducer(
+                inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
+                inputMet=lambda event: getattr(event, "met_"+unc),
+                outputName="Leptonic_W_pt_" + unc
+            )
         )
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
