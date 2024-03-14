@@ -617,6 +617,12 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
             outevents->fj_1_deltaR_sj12 = 0.;
 
+            outevents->preselectedHOTVRJets_fractional_subjet_pt = hotvrjets_fractional_subjet_pt[uncmode][0];
+            outevents->preselectedHOTVRJets_min_pairwise_subjets_mass = hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][0];
+            outevents->preselectedHOTVRJets_mass = hotvrjets_mass_pointers[uncmode][0];
+            outevents->preselectedHOTVRJets_nsubjets = hotvrjets_nsubjets_pointers[uncmode][0];
+            outevents->preselectedHOTVRJets_tau3_over_tau2 = hotvrjets_tau3_over_tau2_pointers[uncmode][0];
+
             if (hotvrjets_nsubjets_pointers[uncmode][0] >= 1)
             {
                 outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];

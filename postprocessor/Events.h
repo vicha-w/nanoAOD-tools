@@ -170,6 +170,12 @@ public :
    Float_t preselectedHOTVRJets_scoreBDT;
    Bool_t  passedHOTVRCut;
 
+   Float_t preselectedHOTVRJets_fractional_subjet_pt;
+   Float_t preselectedHOTVRJets_min_pairwise_subjets_mass;
+   Float_t preselectedHOTVRJets_mass;
+   Float_t preselectedHOTVRJets_nsubjets;
+   Float_t preselectedHOTVRJets_tau3_over_tau2;
+
    // List of branches
    TBranch        *b_run;   //!
    TBranch        *b_luminosityBlock;   //!
@@ -535,6 +541,12 @@ void Events::Init(TTree *tree)
    fChain->Branch("preselectedHOTVRJets_has_hadronicW_topIsInside", &preselectedHOTVRJets_has_hadronicW_topIsInside, "preselectedHOTVRJets_has_hadronicW_topIsInside/O");
    fChain->Branch("preselectedHOTVRJets_scoreBDT", &preselectedHOTVRJets_scoreBDT, "preselectedHOTVRJets_scoreBDT/F");
    fChain->Branch("passedHOTVRCut", &passedHOTVRCut, "passedHOTVRCut/O");
+
+   fChain->Branch("preselectedHOTVRJets_fractional_subjet_pt", &preselectedHOTVRJets_fractional_subjet_pt, "preselectedHOTVRJets_fractional_subjet_pt/F");
+   fChain->Branch("preselectedHOTVRJets_min_pairwise_subjets_mass", &preselectedHOTVRJets_min_pairwise_subjets_mass, "preselectedHOTVRJets_min_pairwise_subjets_mass/F");
+   fChain->Branch("preselectedHOTVRJets_mass", &preselectedHOTVRJets_mass, "preselectedHOTVRJets_mass/F");
+   fChain->Branch("preselectedHOTVRJets_nsubjets", &preselectedHOTVRJets_nsubjets, "preselectedHOTVRJets_nsubjets/F");
+   fChain->Branch("preselectedHOTVRJets_tau3_over_tau2", &preselectedHOTVRJets_tau3_over_tau2, "preselectedHOTVRJets_tau3_over_tau2/F");
 
    Notify();
 }
