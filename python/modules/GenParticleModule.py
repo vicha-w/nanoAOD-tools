@@ -145,6 +145,12 @@ class GenParticleModule(Module):
         # self.out.branch("ngenTop_daughters","I")
         self.out.branch("genTop_daughters_pdgId", "I", lenVar="ngenTop")
 
+        for genlepton in ['genElectron', 'genMuon']:
+            self.out.branch("n{}".format(genlepton), "I")
+            for variable in self.storeKinematics:
+                self.out.branch("{}_{}".format(genlepton, variable), "F", lenVar="n{}".format(genlepton))
+            self.out.branch("{}_status".format(genlepton), "F", lenVar="n{}".format(genlepton))
+            self.out.branch("{}_index".format(genlepton), "F", lenVar="n{}".format(genlepton))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -185,8 +191,15 @@ class GenParticleModule(Module):
         gen_top_quarks = []
         gen_w_bosons_not_from_top_list, gen_b_quarks_not_from_top = [], []
         gen_particles_not_from_top = []
+        gen_electrons = []
+        gen_muons = []
 
         for genParticle in genParticles:
+            if abs(genParticle.pdgId) == 11:# & genParticle.status == 1: 
+                gen_electrons.append(genParticle)
+            if abs(genParticle.pdgId) == 13:# & genParticle.status == 1: 
+                gen_muons.append(genParticle)
+
             if isLastCopy(genParticle):
                 if abs(genParticle.pdgId) == 6:
                     if self.verbose:
@@ -319,6 +332,13 @@ class GenParticleModule(Module):
             self.out.fillBranch("genTop_"+genTopKey, map(lambda gentop: getattr(gentop,genTopKey), gen_top_quarks))
         for variable in self.storeKinematics:
             self.out.fillBranch("genTop_"+variable, map(lambda gentop: getattr(gentop,variable), gen_top_quarks))
+
+        for genlepton, genlepton_collection in zip(['genElectron', 'genMuon'], [gen_electrons, gen_muons]):
+            self.out.fillBranch("n{}".format(genlepton), len(genlepton_collection))
+            for variable in self.storeKinematics:
+                self.out.fillBranch("{}_{}".format(genlepton, variable), map(lambda genlep: getattr(genlep, variable), genlepton_collection))
+            self.out.fillBranch("{}_status".format(genlepton), map(lambda genlep: getattr(genlep, 'status'), genlepton_collection))
+            self.out.fillBranch("{}_index".format(genlepton), map(lambda genlep: getattr(genlep, '_index'), genlepton_collection))
 
         return True
 
