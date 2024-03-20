@@ -14,6 +14,7 @@ from DoubleElectronTriggerSelection import DoubleElectronTriggerSelection
 from ElectronMuonTriggerSelection import ElectronMuonTriggerSelection
 #from TriggerMatching import TriggerMatching 
 from DoubleLeptonTriggerSelection import DoubleLeptonTriggerSelection
+from TriggerSelection import TriggerSelection
 
 #muons
 from SingleMuonTriggerSelection import SingleMuonTriggerSelection

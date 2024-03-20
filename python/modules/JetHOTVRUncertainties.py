@@ -173,6 +173,7 @@ class JetHOTVRUncertainties(Module):
         genJetCollection = lambda event: Collection(event,"GenJet"),
         genSubJetCollection = lambda event: Collection(event,"GenSubJet"),
         outputJetPrefix = 'jets_',
+        outputSubJetPrefix = 'subjets_',
         jetKeys=[],
     ):
 
@@ -184,6 +185,7 @@ class JetHOTVRUncertainties(Module):
         self.genJetCollection = genJetCollection
         self.genSubJetCollection = genSubJetCollection
         self.outputJetPrefix = outputJetPrefix
+        self.outputSubJetPrefix = outputSubJetPrefix
         self.jetKeys = jetKeys
 
         self.print_out = False
@@ -350,15 +352,19 @@ class JetHOTVRUncertainties(Module):
 
         setattr(event, self.outputJetPrefix + "nominal", self.makeNewJetCollection(jets, "nominal", collection_type='jets'))
         #for subjets, storing only the subjects collection linked to jets
-        setattr(event, self.outputJetPrefix.replace('jets', 'subjets') + "nominal", self.makeNewJetCollection(subjets, "nominal", collection_type='subjets'))
+        setattr(event, self.outputSubJetPrefix + "nominal", self.makeNewJetCollection(subjets, "nominal", collection_type='subjets'))
 
         for jesUncertaintyName in self.jesUncertaintyNames:
             for mode in ["Up","Down"]:
-                setattr(event, self.outputJetPrefix + "jes" + jesUncertaintyName + mode, self.makeNewJetCollection(jets, "jes"+jesUncertaintyName + mode))
-                setattr(event, self.outputJetPrefix.replace('jets', 'subjets') + "jes" + jesUncertaintyName + mode, self.makeNewJetCollection(subjets, "jes"+jesUncertaintyName+mode, collection_type='subjets'))
+                setattr(event, self.outputJetPrefix + "jes" + jesUncertaintyName + mode, 
+                        self.makeNewJetCollection(jets, "jes"+jesUncertaintyName + mode))
+                setattr(event, self.outputSubJetPrefix + "jes" + jesUncertaintyName + mode, 
+                        self.makeNewJetCollection(subjets, "jes"+jesUncertaintyName + mode, collection_type='subjets'))
 
         for mode in ["Up","Down"]:
-            setattr(event, self.outputJetPrefix + "jer" + mode, self.makeNewJetCollection(jets, "jer" + mode))
-            setattr(event, self.outputJetPrefix.replace('jets', 'subjets') + "jer" + mode, self.makeNewJetCollection(subjets, "jer"+mode, collection_type='subjets'))
+            setattr(event, self.outputJetPrefix + "jer" + mode, 
+                    self.makeNewJetCollection(jets, "jer" + mode))
+            setattr(event, self.outputSubJetPrefix + "jer" + mode, 
+                    self.makeNewJetCollection(subjets, "jer" + mode, collection_type='subjets'))
 
         return True
