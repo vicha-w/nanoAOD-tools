@@ -107,55 +107,98 @@ b_tagging_efficiencyMap = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2016",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2016preVFP",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2017",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2018"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2018",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2022",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btag_efficiency_maps/2018",
 }
 
 b_tagging_SF =    os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/btagSF/"
 
+# --- JERC webpage: https://cms-jerc.web.cern.ch/
 jesUncertaintyFilesRegrouped = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/RegroupedV2_Summer19UL16_V7_MC_UncertaintySources_AK4PFchs.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/RegroupedV2_Summer19UL16APV_V7_MC_UncertaintySources_AK4PFchs.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/RegroupedV2_Summer19UL17_V5_MC_UncertaintySources_AK4PFchs.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/RegroupedV2_Summer19UL18_V5_MC_UncertaintySources_AK4PFchs.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/RegroupedV2_Summer19UL18_V5_MC_UncertaintySources_AK4PFchs.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_V2_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_V2_MC_UncertaintySources_AK4PFPuppi.txt",
 }
 jerResolutionFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi.txt"
 }
 jerSFUncertaintyFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_SF_AK4PFchs.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_SF_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_SF_AK4PFPuppi.txt",
 }
 
 jesAK8UncertaintyFilesRegrouped = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16_V7_MC_UncertaintySources_AK8PFPuppi.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16APV_V7_MC_UncertaintySources_AK8PFPuppi.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_V5_MC_UncertaintySources_AK8PFPuppi.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_V5_MC_UncertaintySources_AK8PFPuppi.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_V5_MC_UncertaintySources_AK8PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_V2_MC_UncertaintySources_AK8PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_V2_MC_UncertaintySources_AK8PFPuppi.txt",
 }
 jerAK8ResolutionFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_PtResolution_AK8PFPuppi.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_PtResolution_AK8PFPuppi.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_PtResolution_AK8PFPuppi.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK8PFPuppi.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK8PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_PtResolution_AK8PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_PtResolution_AK8PFPuppi.txt",
 }
 jerAK8SFUncertaintyFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_SF_AK8PFPuppi.txt",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_SF_AK8PFPuppi.txt",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_SF_AK8PFPuppi.txt",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK8PFPuppi.txt"
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK8PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_SF_AK8PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_SF_AK8PFPuppi.txt"
 }
+
+jesHOTVRUncertaintyFilesRegrouped = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16_V7_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL16APV_V7_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_V5_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_V5_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_V2_MC_UncertaintySources_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_V2_MC_UncertaintySources_AK4PFPuppi.txt",
+}
+jerHOTVRResolutionFiles = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_PtResolution_AK4PFPuppi.txt",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFPuppi.txt",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_PtResolution_AK4PFPuppi.txt",
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_PtResolution_AK4PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi.txt"
+}
+jerHOTVRSFUncertaintyFiles = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16_JRV3_MC_SF_AK4PFPuppi.txt",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer20UL16APV_JRV3_MC_SF_AK4PFPuppi.txt",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL17_JRV3_MC_SF_AK4PFPuppi.txt",
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer19UL18_JRV2_MC_SF_AK4PFPuppi.txt",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22_22Sep2023_JRV1_MC_SF_AK4PFPuppi.txt",
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/Summer22EE_22Sep2023_JRV1_MC_SF_AK4PFPuppi.txt",
+}
+# ---
 
 #dilepton triggers SF provided by TOP PAG --> https://twiki.cern.ch/twiki/bin/view/CMS/TopTrigger#Dilepton_triggers
 dileptonTriggerSFFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/dilepton_triggerSF/2016postVFP_UL/TriggerSF_2016postVFP_ULv2.root",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/dilepton_triggerSF/2016preVFP_UL/TriggerSF_2016preVFP_ULv2.root",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/dilepton_triggerSF/2017_UL/TriggerSF_2017_ULv2.root",
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/dilepton_triggerSF/2018_UL/TriggerSF_2018_ULv2.root"    
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/dilepton_triggerSF/2018_UL/TriggerSF_2018_ULv2.root",
+    '2022':       "", #CHANGE!!!
+    '2022EE':       "", #CHANGE!!!
 }
 
 #muon and electron SF files from the central POG repository--> https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG
@@ -163,20 +206,25 @@ muonSFFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2016postVFP_UL/muon_Z.json.gz",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2016preVFP_UL/muon_Z.json.gz",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2017_UL/muon_Z.json.gz", 
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2018_UL/muon_Z.json.gz"      
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2018_UL/muon_Z.json.gz", 
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2022/muon_Z.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/muon/2022EE/muon_Z.json.gz", 
 }
 
+# EGM POG: https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/POG/EGM/
 electronSFFiles = {
     '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2016postVFP/electron.json.gz",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2016preVFP/electron.json.gz",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2017/electron.json.gz", 
-    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2018/electron.json.gz"      
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2018/electron.json.gz",
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2022/electron.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/electron/2022EE/electron.json.gz", 
 }
 
 #xgb models
 xgb_models = {
-    # '2022EE': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022EE/hadronicTopVSQCD_bdt_nTrees1000_maxDepth3_learningRate0.05_minChildWeight0.5.bin",
-    # '2022': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022/hadronicTopVSQCD_bdt_nTrees1000_maxDepth3_learningRate0.05_minChildWeight0.5.bin",
+    '2022EE': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022EE/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
+    '2022': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.08_minChildWeight0.5.bin",
     '2018': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2018/hadronicTopVSQCD_bdt_nTrees1000_maxDepth3_learningRate0.05_minChildWeight0.5.bin",
     '2017': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2017/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.08_minChildWeight0.5.bin", 
     '2016': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03_minChildWeight0.5.bin",
@@ -193,7 +241,7 @@ def leptonSequence():
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName_list=["tightRelIso_tightID_Muons","tightRelIso_mediumID_Muons","tightRelIso_looseID_Muons"],
             triggerMatch=True,
-            storeKinematics=['pt','eta','charge','phi','mass', "miniPFRelIso_all"],
+            storeKinematics=['pt','eta','charge','phi','mass', "pfRelIso04_all", "pfRelIso03_all", "miniPFRelIso_all"],
             #muonMinPt=minMuonPt[args.year],
             muonMinPt=55,
             muonMaxEta=2.4,
@@ -277,50 +325,51 @@ electron_dict = {
 muon_collection_for_selection_and_cleaning = 'tightRelIso_looseID_Muons'
 electron_collection_for_selection_and_cleaning = 'medium_MVA_Electrons'
 if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+    muon_collection_for_selection_and_cleaning = "tightRelIso_mediumID_Muons"
     electron_collection_for_selection_and_cleaning = 'medium_MVA_Electrons'
 
 #####
 
 ##### TRIGGER MODULES - DILEPTON TRIGGER
-def trigger():
-    if args.isData:
-        if args.trigger=='emu':
-            seq = [
-                ElectronMuonTriggerSelection(
-                    outputName="trigger",
-                ),
-                EventSkim(selection=lambda event: (event.trigger_emu_flag)),
-            ]
-            return seq
-        elif args.trigger=='mumu':
-            seq = [
-                DoubleMuonTriggerSelection(
-                    outputName="trigger",
-                ),	
-                EventSkim(selection=lambda event: (event.trigger_mumu_flag)),
-            ]
-            return seq
-        elif args.trigger=='ee':
-            seq = [
-                DoubleElectronTriggerSelection(
-                    outputName="trigger",
-                ),
-                EventSkim(selection=lambda event: (event.trigger_ee_flag)),
-            ] 
-            return seq
-    else: 
-        seq = [
-            DoubleLeptonTriggerSelection(
-                dileptonTriggerSFFiles[args.year],
-                inputMuonCollection = lambda event: event.tightRelIso_looseID_Muons,
-                inputElectronCollection = lambda event: event.loose_MVA_Electrons,
-                outputName="trigger",
-                storeWeights=True,
-                thresholdPt=15. #minDiMuonPt[args.year], PRELIMINARY VALUE
-            ),
-            EventSkim(selection=lambda event: (event.trigger_general_flag)),
-        ]
-        return seq
+#def trigger():
+#    if args.isData:
+#        if args.trigger=='emu':
+#            seq = [
+#                ElectronMuonTriggerSelection(
+#                    outputName="trigger",
+#                ),
+#                EventSkim(selection=lambda event: (event.trigger_emu_flag)),
+#            ]
+#            return seq
+#        elif args.trigger=='mumu':
+#            seq = [
+#                DoubleMuonTriggerSelection(
+#                    outputName="trigger",
+#                ),	
+#                EventSkim(selection=lambda event: (event.trigger_mumu_flag)),
+#            ]
+#            return seq
+#        elif args.trigger=='ee':
+#            seq = [
+#                DoubleElectronTriggerSelection(
+#                    outputName="trigger",
+#                ),
+#                EventSkim(selection=lambda event: (event.trigger_ee_flag)),
+#            ] 
+#            return seq
+#    else: 
+#        seq = [
+#            DoubleLeptonTriggerSelection(
+#                dileptonTriggerSFFiles[args.year],
+#                inputMuonCollection = lambda event: event.tightRelIso_looseID_Muons,
+#                inputElectronCollection = lambda event: event.loose_MVA_Electrons,
+#                outputName="trigger",
+#                storeWeights=True,
+#                thresholdPt=15. #minDiMuonPt[args.year], PRELIMINARY VALUE
+#            ),
+#            EventSkim(selection=lambda event: (event.trigger_general_flag)),
+#        ]
+#        return seq
 #####
 
 ##### JET MODULES   
@@ -339,7 +388,7 @@ def jetSelection(jetDict):
                 dRCleaning=0.4,
                 #jetId=JetSelection.TIGHTLEPVETO,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area'],
+                storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area', "minDPhiClean", "minDRClean", "jetId"],
                 outputName_list=["selectedJets_"+systName,"unselectedJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -356,7 +405,7 @@ def jetSelection(jetDict):
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD', 'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD', 'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
-                storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons'],
+                storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons', "genJetAK8Idx"],
             ),
             JetSelection(
                 inputCollection= hotvrjetCollection, 
@@ -366,9 +415,8 @@ def jetSelection(jetDict):
                 dRCleaning=None,
                 jetId=JetSelection.NONE,
                 storeKinematics=['pt','eta','phi','mass', 
-                                 'btagDeepB', 'tau2', 'tau3', 
-                                 'tau1', 'area', 'btagDeepFlavB', 
-                                 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
+                                 'tau2', 'tau3', 'tau1', 'area', 'btagDeepFlavB', 
+                                 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3', "minDPhiClean", "minDRClean"],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -387,7 +435,7 @@ def jetSelection(jetDict):
                 jetMaxEta= 2.4,
                 dRCleaning=None,
                 jetId=JetSelection.NONE,
-                storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area'],
+                storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area', "minDPhiClean", "minDRClean"],
                 outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -400,8 +448,8 @@ def jetSelection(jetDict):
                 outputName='selectedBJets_'+systName,
                 jetMinPt=30.,
                 jetMaxEta=2.4,
-                storeKinematics=['pt', 'eta','phi','mass', 'area'],
-                storeTruthKeys = ['hadronFlavour', 'partonFlavour', 'genJetIdx'],
+                storeKinematics=['pt', 'eta','phi','mass', 'area', "minDPhiClean", "minDRClean"],
+                storeTruthKeys = ['hadronFlavour', 'partonFlavour', 'genJetIdx', "jetId"],
             )
         )
 
@@ -414,13 +462,13 @@ def jetSelection(jetDict):
             jetMaxEta= 2.4,
             dRCleaning=None,
             jetId=JetSelection.NONE,
-            storeKinematics=['pt','eta','phi','mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'area', 'btagDeepFlavB', 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
+            storeKinematics=['pt','eta','phi','mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'area', 'btagDeepFlavB', 'btagDeepB', 'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3', "minDPhiClean", "minDRClean"],
             outputName_list=["preselectedHOTVRJets","preunselectedHOTVRJets"],
             #metInput = lambda event: Object(event, "MET"),
             # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )])
 
-    systNames = jetDict.keys()
+    #systNames = jetDict.keys()
    
     # at least 1 HOTVR
     # seq.append(
@@ -476,8 +524,10 @@ storeVariables = [[lambda tree: tree.branch("run", "I"),
                    lambda tree, event: tree.fillBranch("PV_npvsGood", event.PV_npvsGood)],
                   [lambda tree: tree.branch("luminosityBlock", "I"), 
                    lambda tree, event: tree.fillBranch("luminosityBlock", event.luminosityBlock)],
-                  [lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), 
-                   lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.fixedGridRhoFastjetAll)],
+                  [lambda tree: tree.branch("eventID", "L"), 
+                   lambda tree, event: tree.fillBranch("eventID", event.event)]
+                  #[lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"), 
+                  # lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.fixedGridRhoFastjetAll)],
 ]
 
 if not Module.globalOptions["isData"]:
@@ -497,13 +547,17 @@ if not Module.globalOptions["year"] == '2022' and not Module.globalOptions["year
     storeVariables.append([
         lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"),
           lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.fixedGridRhoFastjetAll)])
+else:
+    storeVariables.append([
+        lambda tree: tree.branch("fixedGridRhoFastjetAll", "F"),
+        lambda tree, event: tree.fillBranch("fixedGridRhoFastjetAll", event.Rho_fixedGridRhoFastjetAll)])
 
 #####ANALYZER CHAIN : DATA ARE FILTERED FROM GOLDENJSON RUNS
 # VW: This gives MET_filter branch equivalent to passmetfilters in NanoHRT-tools
 if not Module.globalOptions["isData"]:	
     analyzerChain = [
         EventInfo(storeVariables=storeVariables),
-        EventSkim(selection=lambda event: event.nTrigObj > 0),
+        #EventSkim(selection=lambda event: event.nTrigObj > 0),
         MetFilter(
             globalOptions=globalOptions,
             outputName="MET_filter"
@@ -514,7 +568,7 @@ else:
         EventInfo(storeVariables=storeVariables),
         EventSkim(selection=lambda event: event.run in filtered_data.keys()),
         EventSkim(selection=lambda event: event.luminosityBlock in filtered_data[event.run]) ,
-        EventSkim(selection=lambda event: event.nTrigObj > 0),
+        #EventSkim(selection=lambda event: event.nTrigObj > 0),
         MetFilter(
             globalOptions=globalOptions,
             outputName="MET_filter"
@@ -548,7 +602,18 @@ if args.isData:
         })
     )
 
+    jetDict = {
+        "nominal": (lambda event: event.selectedJets_nominal,
+                    lambda event: event.selectedFatJets_nominal,
+                    lambda event: event.selectedHOTVRJets_nominal,
+                    lambda event: event.selectedHOTVRSubJets_nominal,
+                    lambda event: event.MET_nominal)
+    }
+
 else:
+    # GM: pu weight producer are set to AUTO mode for 2022, 2022EE --> https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#True_and_observed_pileup_in_data
+    # 1) no MC distributions available (?) - 07/03/2024
+    # 2) no plus/minus variation
     analyzerChain.append(PUWeightProducer_dict[args.year]())
 
     if args.nosys:
@@ -564,6 +629,11 @@ else:
         print("JECs: ",jesUncertaintyNames)
         
     #TODO: apply type2 corrections? -> improves met modelling; in particular for 2018
+    if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+        rhoInput = lambda event: event.Rho_fixedGridRhoFastjetAll
+    else: 
+        rhoInput = lambda event: event.fixedGridRhoFastjetAll
+
     analyzerChain.extend([
         JetMetUncertainties(
             jesUncertaintyFilesRegrouped[args.year],
@@ -571,7 +641,7 @@ else:
             jerSFUncertaintyFiles[args.year],
             jesUncertaintyNames = jesUncertaintyNames, 
             metInput = lambda event: Object(event, "MET"),
-            rhoInput = lambda event: event.fixedGridRhoFastjetAll,
+            rhoInput = rhoInput,
             jetCollection = lambda event: Collection(event,"Jet"),
             lowPtJetCollection = lambda event: Collection(event,"CorrT1METJet"),
             genJetCollection = lambda event: Collection(event,"GenJet"),
@@ -589,7 +659,7 @@ else:
             jerAK8SFUncertaintyFiles[args.year],
             jesUncertaintyNames = jesUncertaintyNames, 
             metInput = None,
-            rhoInput = lambda event: event.fixedGridRhoFastjetAll,
+            rhoInput = rhoInput,
             jetCollection = lambda event: Collection(event,"FatJet"),
             lowPtJetCollection = lambda event: [],
             genJetCollection = lambda event: Collection(event,"GenJetAK8"),
@@ -609,13 +679,14 @@ else:
             jerResolutionFiles[args.year],
             jerSFUncertaintyFiles[args.year],
             jesUncertaintyNames = jesUncertaintyNames, 
-            rhoInput = lambda event: event.fixedGridRhoFastjetAll,
+            rhoInput = rhoInput,
             jetCollection = lambda event: Collection(event,"HOTVRJet"),
             subjetCollection = lambda event: Collection(event,"HOTVRSubJet"),
             lowPtJetCollection = lambda event: [],
             genJetCollection = lambda event: Collection(event,"GenHOTVRJet"),
             genSubJetCollection = lambda event: Collection(event,"GenHOTVRSubJet"),
             outputJetPrefix = 'hotvrjets_',
+            outputSubJetPrefix = "hotvrsubjets_",
             jetKeys=['nConstituents','hadronFlavour','partonFlavour',
                       'area', 'tau2', 'tau3', 'tau1', 'btagDeepB', 
                       'btagDeepFlavB', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
@@ -707,72 +778,6 @@ triggers = {}
 #    triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 for key in ["ee", "emu", "mumu"]: triggers[key] = lambda event: False
 
-event_reco_inputs = []
-event_reco_inputs.append({
-    'inputTriggersCollection': triggers,
-    'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-    'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-    'inputJetCollection': lambda event: event.selectedJets_nominal,
-    'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
-    'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
-    'inputMETCollection': lambda event: event.met_nominal,
-    'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
-    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
-    'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-    "outputSystName": "nominal"
-})
-if not Module.globalOptions["isData"]:
-    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
-        event_reco_inputs.append({
-            'inputTriggersCollection': triggers,
-            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-            'inputJetCollection': lambda event, unc=unc: getattr(event, "selectedJets_"+unc),
-            'inputBJetCollection': lambda event, unc=unc: getattr(event, "selectedBJets_"+unc+"_loose"),
-            'inputFatJetCollection': lambda event, unc=unc: getattr(event, "selectedFatJets_"+unc),
-            'inputMETCollection': lambda event, unc=unc: getattr(event, "met_"+unc),
-            'inputHOTVRJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRJets_"+unc),
-            'inputHOTVRSubJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRSubJets_"+unc),
-            'inputGenTopCollection': lambda event: event.genTops,
-            "outputSystName": unc
-        })
-
-#if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
-
-#if args.isData: ak4jet_systnames = ["nominal"]
-#else: ak4jet_systnames = jetDict.keys()
-
-#def leptonic_W_cut(event):
-#    muon = event.tightRelIso_tightID_Muons[0]
-#    met = Object(event, "MET")
-#    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
-#    return (polarP4(muon) + metvec).Pt() >= 100.0
-
-def leptonic_W_pt(event):
-    muon = event.tightRelIso_tightID_Muons[0]
-    met = Object(event, "MET")
-    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
-    return (polarP4(muon) + metvec).Pt()
-
-#def bjet_in_same_hemisphere_as_muon(event, systNames=ak4jet_systnames):
-#    muon = event.tightRelIso_tightID_Muons[0]
-#
-#    #get_btag = lambda j: (j.btagDeepFlavB > b_tagging_wpValues[args.year][1]) and (abs(deltaPhi(j.phi, muon.phi)) < 2)
-#    get_btag = lambda j: (abs(deltaPhi(j.phi, muon.phi)) < 2)
-#
-#    at_least_one_bjet_in_same_hemisphere = [len(filter(get_btag, getattr(event, "selectedBJets_"+systname+"_medium"))) != 0 for systname in systNames]
-#
-#    return any(at_least_one_bjet_in_same_hemisphere)
-#
-#def fatjet_away_from_muon(event, systNames=ak4jet_systnames):
-#    muon = event.tightRelIso_tightID_Muons[0]
-#
-#    fatjet_is_away = lambda fj: abs(deltaPhi(fj.phi, muon.phi)) > 2
-#
-#    probe_jets = [len(filter(fatjet_is_away, getattr(event, "selectedFatJets_"+systname))) != 0 for systname in systNames]
-#
-#    return any(probe_jets)
-
 analyzerChain.extend([
     # Exactly one muon
     #EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
@@ -801,8 +806,105 @@ if not Module.globalOptions["isData"]:
                 outputName="Leptonic_W_pt_" + unc
             )
         )
+        
+for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection, metCollection) in jetDict.items():
+    event_reco_inputs = {
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': jetCollection,
+        'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
+        'inputFatJetCollection': fatjetCollection,
+        'inputMETCollection': metCollection,
+        'inputHOTVRJetCollection': hotvrjetCollection,
+        'inputHOTVRSubJetCollection': subhotvrjetCollection,
+        'systName': systName
+    }
+    if not Module.globalOptions["isData"]: 
+        event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
 
-analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
+    analyzerChain.extend([
+        EventReconstruction(**event_reco_inputs),
+        # EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
+    ])
+
+    # #### XGB EVALUATION MODULE
+    analyzerChain.append(
+        XGBEvaluationProducer(
+            modelPath=xgb_models[args.year],
+            inputHOTVRJetCollection=hotvrjetCollection,
+            outputName="scoreBDT",
+            outputJetPrefix='selectedHOTVRJets_'+systName
+        )
+    )
+
+#event_reco_inputs = []
+#event_reco_inputs.append({
+#    'inputTriggersCollection': triggers,
+#    'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+#    'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+#    'inputJetCollection': lambda event: event.selectedJets_nominal,
+#    'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
+#    'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
+#    'inputMETCollection': lambda event: event.met_nominal,
+#    'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
+#    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+#    'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+#    "outputSystName": "nominal"
+#})
+#if not Module.globalOptions["isData"]:
+#    for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+#        event_reco_inputs.append({
+#            'inputTriggersCollection': triggers,
+#            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+#            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+#            'inputJetCollection': lambda event, unc=unc: getattr(event, "selectedJets_"+unc),
+#            'inputBJetCollection': lambda event, unc=unc: getattr(event, "selectedBJets_"+unc+"_loose"),
+#            'inputFatJetCollection': lambda event, unc=unc: getattr(event, "selectedFatJets_"+unc),
+#            'inputMETCollection': lambda event, unc=unc: getattr(event, "met_"+unc),
+#            'inputHOTVRJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRJets_"+unc),
+#            'inputHOTVRSubJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRSubJets_"+unc),
+#            'inputGenTopCollection': lambda event: event.genTops,
+#            "outputSystName": unc
+#        })
+
+#if not Module.globalOptions["isData"]: event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
+
+#if args.isData: ak4jet_systnames = ["nominal"]
+#else: ak4jet_systnames = jetDict.keys()
+
+#def leptonic_W_cut(event):
+#    muon = event.tightRelIso_tightID_Muons[0]
+#    met = Object(event, "MET")
+#    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
+#    return (polarP4(muon) + metvec).Pt() >= 100.0
+
+#def leptonic_W_pt(event):
+#    muon = event.tightRelIso_tightID_Muons[0]
+#    met = Object(event, "MET")
+#    metvec = ROOT.Math.PtEtaPhiMVector(met.pt, 0, met.phi, 0)
+#    return (polarP4(muon) + metvec).Pt()
+
+#def bjet_in_same_hemisphere_as_muon(event, systNames=ak4jet_systnames):
+#    muon = event.tightRelIso_tightID_Muons[0]
+#
+#    #get_btag = lambda j: (j.btagDeepFlavB > b_tagging_wpValues[args.year][1]) and (abs(deltaPhi(j.phi, muon.phi)) < 2)
+#    get_btag = lambda j: (abs(deltaPhi(j.phi, muon.phi)) < 2)
+#
+#    at_least_one_bjet_in_same_hemisphere = [len(filter(get_btag, getattr(event, "selectedBJets_"+systname+"_medium"))) != 0 for systname in systNames]
+#
+#    return any(at_least_one_bjet_in_same_hemisphere)
+#
+#def fatjet_away_from_muon(event, systNames=ak4jet_systnames):
+#    muon = event.tightRelIso_tightID_Muons[0]
+#
+#    fatjet_is_away = lambda fj: abs(deltaPhi(fj.phi, muon.phi)) > 2
+#
+#    probe_jets = [len(filter(fatjet_is_away, getattr(event, "selectedFatJets_"+systname))) != 0 for systname in systNames]
+#
+#    return any(probe_jets)
+
+#analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
 #hotvrjetunc_collections = ["nominal"]
 #if not Module.globalOptions["isData"]: 
@@ -836,44 +938,6 @@ if not Module.globalOptions["isData"]:
             outputJetPrefix='selectedFatJets_nominal'
         )
     )
-
-hotvrjet_collections = []
-if not Module.globalOptions["isData"]: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal", "selectedHOTVRJets_jesTotalUp", "selectedHOTVRJets_jesTotalDown", "selectedHOTVRJets_jerUp", "selectedHOTVRJets_jerDown"]
-else: 
-    hotvrjet_collections = ["selectedHOTVRJets_nominal"]
-
-#### XGB EVALUATION MODULE
-analyzerChain.append(
-    XGBEvaluationProducer(
-        modelPath=xgb_models[args.year],
-        inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
-        outputName="scoreBDT",
-        outputJetPrefix="selectedHOTVRJets_nominal"
-    )
-)
-if not Module.globalOptions["isData"]:
-    for unc in ["jesTotalUp", "jesTotalDown", "jerUp", "jerDown"]:
-        analyzerChain.append(
-            XGBEvaluationProducer(
-                modelPath=xgb_models[args.year],
-                inputHOTVRJetCollection=lambda event, unc=unc: getattr(event, "selectedHOTVRJets_" + unc),
-                outputName="scoreBDT",
-                outputJetPrefix="selectedHOTVRJets_" + unc
-            )
-        )
-
-#for hotvrjet_collection in hotvrjet_collections:
-#    analyzerChain.append(
-#        XGBEvaluationProducer(
-#            modelPath=xgb_models[args.year],
-#            #inputHOTVRJetCollection=lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-#            inputHOTVRJetCollection=lambda event: getattr(event, hotvrjet_collection),
-#            outputName="scoreBDT",
-#            #outputJetPrefix='selectedHOTVRJets_nominal'
-#            outputJetPrefix=hotvrjet_collection
-#        )
-#    )
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
