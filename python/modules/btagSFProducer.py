@@ -93,20 +93,20 @@ class btagSFProducer(Module):
                     'supported_wp': ["L", "M", "T", "shape_corr"]
                 },
                 '2022': {
-                    'inputFileName': "2022_Summer22/btagging.json.gz",
+                    'inputFileName': "2022/btagging.json.gz",
                     'measurement_types': {
                         5: "comb",  # b
                         4: "comb",  # c
-                        0: "incl"   # light
+                        0: "light"   # light
                     },
                     'supported_wp': ["L", "M", "T", "shape_corr"]
                 },
                 '2022EE': {
-                    'inputFileName': "2022_Summer22EE/btagging.json.gz",
+                    'inputFileName': "2022EE/btagging.json.gz",
                     'measurement_types': {
                         5: "comb",  # b
                         4: "comb",  # c
-                        0: "incl"   # light
+                        0: "light"   # light
                     },
                     'supported_wp': ["L", "M", "T", "shape_corr"]
                 },
@@ -232,10 +232,10 @@ class btagSFProducer(Module):
                 print('Process name not parsed.')
         # ---
 
-        # eff_file_path = os.path.join(self.efficiencyMaps, '{}_efficiencyMap.root'.format(process))
-        # if not os.path.exists(eff_file_path): 
-        eff_file_path = os.path.join(self.efficiencyMaps, 'tt_dilepton_efficiencyMap.root'.format(process))
-        print('No b-tagging efficiency map found for the process --> using tt_dilepton efficiency map...')
+        eff_file_path = os.path.join(self.efficiencyMaps, '{}_efficiencyMap.root'.format(process))
+        if not os.path.exists(eff_file_path): 
+            eff_file_path = os.path.join(self.efficiencyMaps, 'tt_dilepton_efficiencyMap.root'.format(process))
+            print('No b-tagging efficiency map found for the process --> using tt_dilepton efficiency map...')
 
         for wp in self.selectedWPs:
             if wp != 'shape_corr':
@@ -298,7 +298,11 @@ class btagSFProducer(Module):
                     sf = reader.evaluateBTagShape(self.algo+"_shape",
                         'central', flavor_btv, abs(eta), pt, discr)
             else:
-                sf = reader.evaluateBTagWorkingpoint(self.algo+"_"+self.measurement_types[flavor_btv],syst, wp, flavor_btv, abs(eta), pt)
+                if self.measurement_types[flavor_btv] == 'light' and 'correlated' in syst: #no up/down correlated SF for 2022, 2022EE -- 07/03/24
+                    sf = 1.
+                else:
+                    # print(self.algo+"_"+self.measurement_types[flavor_btv],syst, wp, flavor_btv, abs(eta), pt)
+                    sf = reader.evaluateBTagWorkingpoint(self.algo+"_"+self.measurement_types[flavor_btv],syst, wp, flavor_btv, abs(eta), pt)
             # check if SF is OK
             if sf < 0.01:
                 if self.verbose > 0:

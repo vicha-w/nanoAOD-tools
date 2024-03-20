@@ -4,6 +4,7 @@ import ROOT
 import os
 from itertools import chain
 from collections import OrderedDict
+from itertools import izip_longest
 
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
@@ -55,6 +56,10 @@ class ElectronSFProducer(Module):
         for idx, lep in enumerate(leptons):
             # evaluate SF
             sf = None
+            if Module.globalOptions["year"] == '2022':
+                year = '2022Re-recoBCD'
+            if Module.globalOptions["year"] == '2022EE':
+                year = '2022Re-recoE+PromptFG'
             sf = reader.evaluateElectronSF(type, year, syst, wp, lep.eta, lep.pt)
             # check if SF is OK
             
@@ -77,22 +82,44 @@ class ElectronSFProducer(Module):
         if self.WP == 'Medium' and self.ID == 'MVA': self.WP = 'wp90iso'
         if self.WP == 'Tight' and self.ID == 'MVA': self.WP = 'wp80iso'
 
+        if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+            electron_label = 'Electron-ID-SF'
+        else: electron_label = 'UL-Electron-ID-SF'
+
         for sys, sys_type in zip(self.sys, ['sf','sfup','sfdown']):
+            # --- electron ID SF
             ev_weight_id, ev_weight_reco_pt = 1., 1. 
             if self.WP == 'wploose':  #SF not calculated for MVA WP LOOSE
                 scale_factors_id = list(map(lambda electron: 1., electrons))
             else:
-                scale_factors_id = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, self.WP, electrons))   
+                scale_factors_id = list(self.getSFs(corrlibreader, electron_label, year, sys_type, self.WP, electrons))   
 
-            electrons_pt_above20 = filter(lambda electron: electron.pt >= 20., electrons) 
-            scale_factors_reco_pt_above20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoAbove20', electrons_pt_above20))
-            electrons_pt_below20 = filter(lambda electron: electron.pt < 20., electrons)
-            scale_factors_reco_pt_below20 = list(self.getSFs(corrlibreader, 'UL-Electron-ID-SF', year, sys_type, 'RecoBelow20', electrons_pt_below20))
-        
-            for sf_id, sf_reco_pt_above20, sf_reco_pt_below20 in zip(scale_factors_id, scale_factors_reco_pt_above20, scale_factors_reco_pt_below20): 
+            for sf_id in scale_factors_id:
                 ev_weight_id *= sf_id
-                # ev_weight_reco_pt_above20 *= sf_reco_pt_above20 
-                ev_weight_reco_pt *= (sf_reco_pt_below20 * sf_reco_pt_above20)
+            # ---
+
+            # --- electron pT RECO SF
+            electrons_pt_below20 = filter(lambda electron: electron.pt < 20., electrons)
+            scale_factors_reco_pt_below20 = list(self.getSFs(corrlibreader, electron_label, year, sys_type, 'RecoBelow20', electrons_pt_below20))
+
+            # differentiation between 2022, 2022EE
+            # 2022, 2022EE pT ranges are: 1) below 20 pT; 2) from 20 to 75; 3) above 75
+            # UL Run 2 pT ranges are: 1) below 20 pT; 2) above 75
+            if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
+                electrons_pt_from20to75 = filter(lambda electron: electron.pt >= 20. and electron.pt < 75., electrons) 
+                scale_factors_reco_pt_from20to75 = list(self.getSFs(corrlibreader, electron_label, year, sys_type, 'Reco20to75', electrons_pt_from20to75))
+                electrons_pt_above75 = filter(lambda electron: electron.pt >= 75., electrons) 
+                scale_factors_reco_pt_above75 = list(self.getSFs(corrlibreader, electron_label, year, sys_type, 'RecoAbove75', electrons_pt_above75))
+
+                for (sf_reco_pt_above75, sf_reco_pt_from20to75, sf_reco_pt_below20) in izip_longest(scale_factors_reco_pt_above75, scale_factors_reco_pt_from20to75, scale_factors_reco_pt_below20): 
+                    ev_weight_reco_pt *= (sf_reco_pt_below20 or 1) * (sf_reco_pt_from20to75 or 1) * (sf_reco_pt_above75 or 1)
+
+            else:
+                electrons_pt_above20 = filter(lambda electron: electron.pt >= 20., electrons) 
+                scale_factors_reco_pt_above20 = list(self.getSFs(corrlibreader, electron_label, year, sys_type, 'RecoAbove20', electrons_pt_above20))
+
+                for (sf_reco_pt_above20, sf_reco_pt_below20) in izip_longest(scale_factors_reco_pt_above20, scale_factors_reco_pt_below20): 
+                    ev_weight_reco_pt *= (sf_reco_pt_below20 or 1) * (sf_reco_pt_above20 or 1)
 
             self.out.fillBranch(self.outputName+"_weight_id_"+sys, ev_weight_id)
             self.out.fillBranch(self.outputName+"_weight_recoPt_"+sys, ev_weight_reco_pt)

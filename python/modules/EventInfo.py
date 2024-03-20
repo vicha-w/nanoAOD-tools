@@ -29,10 +29,7 @@ class EventInfo(Module):
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     	if not Module.globalOptions["isData"]:
-            if not Module.globalOptions["year"] == '2022' and not Module.globalOptions["year"] == '2022EE':
-                nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
-            else: 
-                nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.genEventSumw)
+            nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
             outputFile.cd()
             nGenWeight_parameter.Write() 
         else:
@@ -41,7 +38,10 @@ class EventInfo(Module):
     def analyze(self, event):
 
         if not Module.globalOptions["isData"]:
-            self.nGenWeights += event.Generator_weight
+            if hasattr(event, 'genEventSumw'):
+                self.nGenWeights += event.genEventSumw
+            else:
+                self.nGenWeights += event.Generator_weight
 
         else:
             with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/13TeV_UL_Era_runNumber.yaml") as yaml_f:

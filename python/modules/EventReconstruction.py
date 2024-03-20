@@ -24,10 +24,10 @@ class EventReconstruction(Module):
         inputBJetCollection = {},
         inputFatJetCollection = {},
         inputMETCollection = [],
-        inputHOTVRJetCollection = {},
+        inputHOTVRJetCollection = [],
         inputHOTVRSubJetCollection = {},
         inputGenTopCollection = {}, 
-        outputSystName = "nominal"
+        systName = ''
     ):
         
         self.inputTriggersCollection = inputTriggersCollection
@@ -39,10 +39,11 @@ class EventReconstruction(Module):
         self.inputMETCollection = inputMETCollection
         self.inputHOTVRJetCollection = inputHOTVRJetCollection
         self.inputHOTVRSubJetCollection = inputHOTVRSubJetCollection
+        self.systName = systName
+
         if not Module.globalOptions['isData']:
             self.inputGenTopCollection = inputGenTopCollection
     
-        self.outputSystName = outputSystName
         self.print_out = False
 
         self.eventReconstructionKeys_ak4Jets = [
@@ -61,7 +62,6 @@ class EventReconstruction(Module):
     def minimum_pairwise_mass(self, subjets_in_hotvr):
         if len(subjets_in_hotvr)>2:
             min_pair_sum_mass = float('inf')
-
             for i, sjet_i in enumerate(subjets_in_hotvr[:2]):  # minimum pairwise mass of the three leading subjets
                 for j, sjet_j in enumerate(subjets_in_hotvr[i+1:3]):
                     pair_sum = sjet_i.p4() + sjet_j.p4()
@@ -69,7 +69,10 @@ class EventReconstruction(Module):
                         min_pair_sum_mass = pair_sum.M()
             # if self.print_out: print("The minimum sum pair mass is :", min_pair_sum_mass)
             return min_pair_sum_mass
-        else: return -99.
+        elif len(subjets_in_hotvr)==2:
+            pair_sum = subjets_in_hotvr[0].p4() + subjets_in_hotvr[1].p4()
+            return pair_sum.M()
+        else: return -1.
 
     def is_inside_ak8(self, jet, ak8):
         if deltaR(jet, ak8)<0.8:
@@ -98,7 +101,7 @@ class EventReconstruction(Module):
             if kwargs['lepton_selection'] != 'emu':
                 if self.print_out:
                     print('Leading lepton pt {}; leptons charges {},{}; dilepton system invariant mass {}'.format(leptons[0].pt, leptons[0].charge, leptons[1].charge, dilepton_system.M()))
-                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20., dilepton_system.M() #and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
+                return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25 and dilepton_system.M() > 20., dilepton_system.M() # and (dilepton_system.M() < 80. or 100. < dilepton_system.M())
             else: return (leptons[0].charge*leptons[1].charge)<1 and leptons[0].pt>25, dilepton_system.M()
         else: return False, -1
 
@@ -112,22 +115,26 @@ class EventReconstruction(Module):
         self.out = wrappedOutputTree
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.branch('eventSelection_'+cut_selection+'_cut_'+self.outputSystName,"I")
-            self.out.branch('dilepton_invariant_mass_'+cut_selection+"_"+self.outputSystName,"F")
+            self.out.branch('eventSelection_'+cut_selection+'_cut_'+self.systName,"I")
+            self.out.branch('dilepton_invariant_mass_'+cut_selection+"_"+self.systName,"F")
+
+        self.out.branch("nselectedJets"+self.systName,"I")
+        self.out.branch("nselectedHOTVRJets"+self.systName,"I")
+        self.out.branch("nselectedFatJets"+self.systName,"I")
 
         for var in self.eventReconstructionKeys_ak4Jets:
             if 'min' in var or 'rho' in var :
-                self.out.branch("selectedJets_"+self.outputSystName+"_"+var, "F", lenVar="nselectedJets_"+self.outputSystName)
-            else: self.out.branch("selectedJets_"+self.outputSystName+"_"+var, "I", lenVar="nselectedJets_"+self.outputSystName)
+                self.out.branch("selectedJets_"+self.systName+"_"+var, "F", lenVar="nselectedJets_"+self.systName)
+            else: self.out.branch("selectedJets_"+self.systName+"_"+var, "I", lenVar="nselectedJets_"+self.systName)
 
         for var in self.hotvr_vars:
             if var != 'nsubjets':
-                self.out.branch("selectedHOTVRJets_"+self.outputSystName+"_"+var, "F", lenVar="nselectedHOTVRJets_"+self.outputSystName)
-            else: self.out.branch("selectedHOTVRJets_"+self.outputSystName+"_"+var, "I", lenVar="nselectedHOTVRJets_"+self.outputSystName)
+                self.out.branch("selectedHOTVRJets_"+self.systName+"_"+var, "F", lenVar="nselectedHOTVRJets_"+self.systName)
+            else: self.out.branch("selectedHOTVRJets_"+self.systName+"_"+var, "I", lenVar="nselectedHOTVRJets_"+self.systName)
 
         for jet_composition_flag in self.jet_composition:
-            self.out.branch("selectedHOTVRJets_"+self.outputSystName+"_"+jet_composition_flag, "I", lenVar="nselectedHOTVRJets_"+self.outputSystName)
-            self.out.branch("selectedFatJets_"+self.outputSystName+"_"+jet_composition_flag, "I", lenVar="nselectedFatJets_"+self.outputSystName)
+            self.out.branch("selectedHOTVRJets_"+self.systName+"_"+jet_composition_flag, "I", lenVar="nselectedHOTVRJets_"+self.systName)
+            self.out.branch("selectedFatJets_"+self.systName+"_"+jet_composition_flag, "I", lenVar="nselectedFatJets_"+self.systName)
 
         #for jet_collection in ['selectedJets_nominal', 'selectedHOTVRJets_nominal','selectedFatJets_nominal']:
         #    
@@ -170,10 +177,9 @@ class EventReconstruction(Module):
         # separation needed for data/MC:
         # data -> separate indipendent modules for ee, emu, mumu triggers
         # MC -> cumulative dilepton trigger (ee OR emu OR mumu)
-        if Module.globalOptions['isData']:
-            triggers = {'ee': False, 'emu': False, 'mumu': False}
-            triggers[Module.globalOptions['trigger']] = self.inputTriggersCollection[Module.globalOptions['trigger']](event)
-        else: triggers = {'ee': self.inputTriggersCollection['ee'](event), 'emu': self.inputTriggersCollection['emu'](event), 'mumu': self.inputTriggersCollection['mumu'](event)}
+        triggers = {'ee': self.inputTriggersCollection['ee'](event), 
+                    'emu': self.inputTriggersCollection['emu'](event), 
+                    'mumu': self.inputTriggersCollection['mumu'](event)}
 
         # print('############# EVENT')
         # ---- AK4 jet cleaning 
@@ -281,29 +287,23 @@ class EventReconstruction(Module):
                         if closest_gentop.has_hadronically_decay: setattr(ak8, 'has_genTopHadronic_inside', True)
                         if Module.globalOptions['isSignal'] and closest_gentop.from_resonance: setattr(ak8, 'has_genTopFromResonance_inside', True)
 
-        #setattr(event, 'selectedHOTVRJets_nominal', hotvrjets)
-        #setattr(event, 'selectedFatJets_nominal', fatjets)
-        setattr(event, 'selectedHOTVRJets_'+self.outputSystName, hotvrjets)
-        setattr(event, 'selectedFatJets_'+self.outputSystName, fatjets)
+        setattr(event, 'selectedHOTVRJets_'+self.systName, hotvrjets)
+        setattr(event, 'selectedFatJets_'+self.systName, fatjets)
 
-        self.out.fillBranch("nselectedJets_"+self.outputSystName, len(jets))
-        self.out.fillBranch("nselectedHOTVRJets_"+self.outputSystName, len(hotvrjets))
-        self.out.fillBranch("nselectedFatJets_"+self.outputSystName, len(fatjets))
+        self.out.fillBranch("nselectedJets_"+self.systName, len(jets))
+        self.out.fillBranch("nselectedHOTVRJets_"+self.systName, len(hotvrjets))
+        self.out.fillBranch("nselectedFatJets_"+self.systName, len(fatjets))
 
 
         for var in self.eventReconstructionKeys_ak4Jets:
-            #self.out.fillBranch("selectedJets_nominal_"+var, map(lambda jet: getattr(jet,var), jets))
-            self.out.fillBranch("selectedJets_"+self.outputSystName+"_"+var, map(lambda jet: getattr(jet,var), jets))
+            self.out.fillBranch("selectedJets_"+self.systName+"_"+var, map(lambda jet: getattr(jet,var), jets))
         for var in self.hotvr_vars:
-            #self.out.fillBranch("selectedHOTVRJets_nominal_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
-            self.out.fillBranch("selectedHOTVRJets_"+self.outputSystName+"_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
+            self.out.fillBranch("selectedHOTVRJets_"+self.systName+"_"+var, map(lambda hotvr: getattr(hotvr,var), hotvrjets))
 
         if not Module.globalOptions['isData']:
             for jet_composition_flag in self.jet_composition:
-                #self.out.fillBranch("selectedHOTVRJets_nominal_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
-                #self.out.fillBranch("selectedFatJets_nominal_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
-                self.out.fillBranch("selectedHOTVRJets_"+self.outputSystName+"_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
-                self.out.fillBranch("selectedFatJets_"+self.outputSystName+"_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
+                self.out.fillBranch("selectedHOTVRJets_"+self.systName+"_"+jet_composition_flag, map(lambda hotvr: getattr(hotvr, jet_composition_flag), hotvrjets))
+                self.out.fillBranch("selectedFatJets_"+self.systName+"_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
 
         for cut_selection in ['ee','emu','mumu']:
             self.out.fillBranch('eventSelection_'+cut_selection+'_cut_'+self.outputSystName, event_selection_dilepton[cut_selection])

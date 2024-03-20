@@ -63,7 +63,6 @@ class JetSelection(Module):
             self.out.branch("n"+outputName, "I")
 
             for variable in self.storeKinematics:
-                if Module.globalOptions["isData"] and variable=='genJetAK8Idx': continue
                 if variable=='_index': 
                     self.out.branch(outputName+variable, "I", lenVar="n"+outputName)
                     continue
@@ -86,8 +85,31 @@ class JetSelection(Module):
         unselectedJets = []
 
         leptonsForDRCleaning = self.leptonCollectionDRCleaning(event)
+        for i, jet in enumerate(jets):
+            # -- lepton cleaning
+            jet_radius = self.dRCleaning
+            # in case of HOTVR, the radius is be calculated as 600/jet pT
+            if self.dRCleaning == None:
+                jet_radius = 600./ jet.pt if 600./ jet.pt <= 1.5 else 1.5 
 
-        for jet in jets:
+            minDeltaRSubtraction = 999.
+            if len(leptonsForDRCleaning) > 0:
+                # mindphi = min(map(lambda lepton: math.fabs(deltaPhi(lepton, jet)), leptonsForDRCleaning))
+                mindphi = min(map(lambda lepton: deltaPhi(lepton, jet), leptonsForDRCleaning))
+                mindr = min(map(lambda lepton: deltaR(lepton, jet), leptonsForDRCleaning))
+
+                setattr(jet, "minDPhiClean", mindphi)
+                setattr(jet, "minDRClean", mindr)
+
+                if mindr < jet_radius:
+                    unselectedJets.append(jet)
+                    continue
+
+            else:
+                setattr(jet, "minDPhiClean", 100)
+                setattr(jet, "minDRClean", 100)
+            # --
+
             if jet.pt < self.jetMinPt:
                 unselectedJets.append(jet)
                 continue
@@ -100,26 +122,6 @@ class JetSelection(Module):
                 unselectedJets.append(jet)
                 continue
 
-            # in case of HOTVR, the radius is be calculated as 600/jet pT
-            if self.dRCleaning == None:
-                effective_radius = 600./ jet.pt if 600./ jet.pt <= 1.5 else 1.5 
-                self.dRCleaning = effective_radius
-
-            minDeltaRSubtraction = 999.
-            if len(leptonsForDRCleaning) > 0:
-                mindphi = min(map(lambda lepton: math.fabs(deltaPhi(lepton, jet)), leptonsForDRCleaning))
-                mindr = min(map(lambda lepton: deltaR(lepton, jet), leptonsForDRCleaning))
-                
-                if mindr < self.dRCleaning:
-                    unselectedJets.append(jet)
-                    continue
-                    
-                setattr(jet,"minDPhiClean",mindphi)
-                setattr(jet,"minDRClean",mindr)
-            else:
-                setattr(jet,"minDPhiClean",100)
-                setattr(jet,"minDRClean",100)
-            
             selectedJets.append(jet)
             
         #def metP4(obj):
@@ -132,11 +134,10 @@ class JetSelection(Module):
 
         for outputName, jet_list in zip(self.outputName_list, [selectedJets, unselectedJets]):
             setattr(event, outputName, jet_list)
-            
             self.out.fillBranch("n"+outputName, len(jet_list))
             for variable in self.storeKinematics:
                 if Module.globalOptions["isData"] and variable=='genJetAK8Idx': continue
-                if variable=='_index': 
+                if variable == '_index': 
                     self.out.fillBranch(outputName+variable, map(lambda jet: getattr(jet, variable), jet_list))
                     continue
                 self.out.fillBranch(outputName+"_"+variable, map(lambda jet: getattr(jet, variable), jet_list))
