@@ -28,6 +28,7 @@ class ElectronSelection(Module):
         electronMinPt = 29.,
         electronMaxEta = 2.4,
         storeKinematics= [] ,#['pt','eta'],
+        storeTruthKeys=[]
     ):
 
         self.inputCollection = inputCollection
@@ -38,6 +39,7 @@ class ElectronSelection(Module):
         self.storeKinematics = storeKinematics
         self.triggerMatch = triggerMatch
         self.triggerObjectCollection = lambda event: Collection(event, "TrigObj") if triggerMatch else lambda event: []
+        self.storeTruthKeys = storeTruthKeys
 
         self.WPs = ['tight', 'medium', 'loose']
 
@@ -78,12 +80,10 @@ class ElectronSelection(Module):
             for itrgObj, trig_obj in enumerate(trigger_object):
                 if abs(trig_obj.id) != 11:
                     continue
-                #trig_deltaR = min(trig_deltaR, deltaR(trig_obj, electron))
-                else:
-                    deltaR_trgObj_lep = deltaR(electron,trig_obj)
-                    if deltaR_trgObj_lep < min_deltaR:
-                        min_deltaR = deltaR_trgObj_lep
-                        matchedTrgObj_id = itrgObj
+                deltaR_trgObj_lep = deltaR(electron,trig_obj)
+                if deltaR_trgObj_lep < min_deltaR:
+                    min_deltaR = deltaR_trgObj_lep
+                    matchedTrgObj_id = itrgObj
             if min_deltaR < 0.3:
                 return True, matchedTrgObj_id
             else:
@@ -100,10 +100,10 @@ class ElectronSelection(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         
+        self.out.branch('nElectron', 'I')
         self.out.branch("electron_cutBasedID","F",lenVar="nElectron")
-        for wp in ['tight', 'medium', 'loose']:       
+        for wp in ['tight', 'medium', 'loose']:
             self.out.branch("electron_MVA_"+wp+"ID","F",lenVar="nElectron")
-
 
         for id_type in self.id_type:
             for wp in self.outputName_dict[id_type].keys():
@@ -111,8 +111,10 @@ class ElectronSelection(Module):
 
                 for variable in self.storeKinematics:
                     self.out.branch(self.outputName_dict[id_type][wp]+"_"+variable,"F",lenVar="n"+self.outputName_dict[id_type][wp])
-                    # if not Module.globalOptions["isData"]:
-                            # self.out.branch(self.outputName_dict[id_type][wp]+"_genPartFlav","F",lenVar="n"+self.outputName_dict[id_type][wp])
+                if not Module.globalOptions["isData"]:
+                    for variable in self.storeTruthKeys:
+                        self.out.branch(self.outputName_dict[id_type][wp]+"_"+variable,"F",lenVar="n"+self.outputName_dict[id_type][wp])
+                self.out.branch(self.outputName_dict[id_type][wp]+"_trigger_matching", "I", lenVar="n"+self.outputName_dict[id_type][wp])
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -123,7 +125,11 @@ class ElectronSelection(Module):
         muons = Collection(event, "tightRelIso_looseID_Muons")
         triggerObjects = self.triggerObjectCollection(event)
 
-        selectedElectrons = OrderedDict([("MVA", OrderedDict([("tight", []), ("medium",[]), ("loose",[])])), ("cutBased", OrderedDict([("tight", []), ("medium",[]), ("loose",[])])) ])   
+        selectedElectrons = OrderedDict(
+            [("MVA", OrderedDict(
+                [("tight", []), ("medium",[]), ("loose",[])])), 
+             ("cutBased", OrderedDict(
+                 [("tight", []), ("medium",[]), ("loose",[])])) ])   
         unselectedElectrons = OrderedDict([("MVA", []), ("cutBased", []) ])
         
         matched_trgObj_id_list = []
@@ -132,23 +138,34 @@ class ElectronSelection(Module):
         nElectron = 0
 
         for electron in electrons:
-
-            matched_trgObj_id_list.append(self.triggerMatched(electron, triggerObjects)[1])
+            trigger_matching = self.triggerMatched(electron, triggerObjects)
+            matched_trgObj_id_list.append(trigger_matching[1])
 
             # https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
-            trigger_matching = self.triggerMatched(electron, triggerObjects)
-            if electron.pt>self.electronMinPt and math.fabs(electron.eta)<self.electronMaxEta and \
-                trigger_matching[0] and matched_trgObj_id_list.count(trigger_matching[1])==1:
+            if electron.pt > self.electronMinPt and math.fabs(electron.eta) < self.electronMaxEta:
+                # and \
+                # trigger_matching[0] and matched_trgObj_id_list.count(trigger_matching[1])==1:
 
-                dxy = math.fabs(electron.dxy)
-                dz = math.fabs(electron.dz)
+                setattr(electron, "trigger_matching", False)
+                if trigger_matching[0] and matched_trgObj_id_list.count(trigger_matching[1])==1:
+                    setattr(electron, "trigger_matching", True)
                 
-                if math.fabs(electron.eta) < 1.479 and (dxy>0.05 or dz>0.10):
-                    #unselectedElectrons.append(electron)
-                    continue
-                elif dxy>0.10 or dz>0.20:
-                    #unselectedElectrons.append(electron)
-                    continue
+                if not Module.globalOptions["isData"]:
+                    setattr(electron, 'genPartIdx', electron.genPartIdx) 
+
+                # dxy = math.fabs(electron.dxy)
+                # dz = math.fabs(electron.dz)
+
+                # if math.fabs(electron.eta) < 1.479 and (dxy>0.05 or dz>0.10):
+                    # unselectedElectrons.append(electron)
+                    # continue
+                # elif dxy>0.10 or dz>0.20:
+                    # unselectedElectrons.append(electron)
+                    # continue
+
+                # gap between barrel and endcap
+                # if math.fabs(electron.eta) > 1.4442 and math.fabs(electron.eta) < 1.5660:
+                #     continue
 
                 #reject electron if close-by muon
                 if len(muons)>0:
@@ -168,7 +185,9 @@ class ElectronSelection(Module):
 
                 for id_type in self.id_type:
                     if id_type == 'MVA':
-                        tight_mva, medium_mva, loose_mva = self.mva_id_wp['tight'][Module.globalOptions["year"]], self.mva_id_wp['medium'][Module.globalOptions["year"]], self.mva_id_wp['loose'][Module.globalOptions["year"]]
+                        tight_mva = self.mva_id_wp['tight'][Module.globalOptions["year"]]
+                        medium_mva = self.mva_id_wp['medium'][Module.globalOptions["year"]]
+                        loose_mva = self.mva_id_wp['loose'][Module.globalOptions["year"]]
                         if getattr(electron, tight_mva) == 1: 
                             selectedElectrons[id_type]['tight'].append(electron)
                             selectedElectrons[id_type]['medium'].append(electron)
@@ -196,20 +215,25 @@ class ElectronSelection(Module):
                 continue
                 #unselectedElectrons[id_type].append(electron)
 
-        self.out.fillBranch("nElectron",nElectron) 
+        self.out.fillBranch("nElectron", nElectron) 
         self.out.fillBranch("electron_cutBasedID", map(lambda cutBased_id: cutBased_id, electronCutBasedID))
         for wp in self.WPs:
             self.out.fillBranch("electron_MVA_"+wp+"ID", map(lambda id: id, electronMVAID[wp]))
 
         for id_type in self.id_type:
             for wp in self.outputName_dict[id_type].keys():
+                setattr(event, self.outputName_dict[id_type][wp], selectedElectrons[id_type][wp])
                 self.out.fillBranch("n"+self.outputName_dict[id_type][wp], len(selectedElectrons[id_type][wp]))
 
                 for variable in self.storeKinematics:
-                    self.out.fillBranch(self.outputName_dict[id_type][wp]+"_"+variable,map(lambda electron: getattr(electron,variable),selectedElectrons[id_type][wp]))
-                    # if variable=='' and not Module.globalOptions["isData"]:
-                        # self.out.fillBranch(self.outputName_dict[id_type][wp]+"_genPartFlav",map(lambda electron: getattr(electron,'genPartFlav'),selectedElectrons[id_type][wp]))
-                setattr(event,self.outputName_dict[id_type][wp],selectedElectrons[id_type][wp])
-            setattr(event,"unselectedElectrons",unselectedElectrons[id_type])
+                    self.out.fillBranch(self.outputName_dict[id_type][wp]+"_"+variable, map(lambda electron: getattr(electron,variable), selectedElectrons[id_type][wp]))
+                self.out.fillBranch(self.outputName_dict[id_type][wp]+"_trigger_matching",map(lambda electron: getattr(electron,"trigger_matching"),selectedElectrons[id_type][wp]))
+            
+                if not Module.globalOptions["isData"]:
+                    for variable in self.storeTruthKeys:
+                        # if len(selectedElectrons[id_type][wp])>0: print(dir(selectedElectrons[id_type][wp][0]))
+                        self.out.fillBranch(self.outputName_dict[id_type][wp]+"_"+variable, map(lambda electron: getattr(electron,variable), selectedElectrons[id_type][wp]))
+                
+            setattr(event,"unselectedElectrons", unselectedElectrons[id_type])
 
         return True

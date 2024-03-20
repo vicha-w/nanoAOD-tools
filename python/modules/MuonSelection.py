@@ -31,6 +31,7 @@ class MuonSelection(Module):
         muonMinPt=25.,
         muonMaxEta=2.4,
         storeKinematics= [],#['pt','eta'],
+        storeTruthKeys=[]
     ):
         
         self.inputCollection = inputCollection
@@ -40,8 +41,9 @@ class MuonSelection(Module):
         self.storeKinematics = storeKinematics
         self.triggerMatch = triggerMatch
         self.triggerObjectCollection = lambda event: Collection(event, "TrigObj") if triggerMatch else lambda event: []
+        self.storeTruthKeys = storeTruthKeys
         
-	
+
     def triggerMatched(self, muon, trigger_object): 
         #return 2 arguments: 
         #   -1st: flag-->True, if muon matches a trigger object (deltaR<0.3); False, otherwise
@@ -82,6 +84,10 @@ class MuonSelection(Module):
 
             for variable in self.storeKinematics:
                 self.out.branch(outputName+"_"+variable,"F",lenVar="n"+outputName)
+            if not Module.globalOptions["isData"]:
+                for variable in self.storeTruthKeys:
+                    self.out.branch(outputName+"_"+variable,"F",lenVar="n"+outputName)    
+            self.out.branch(outputName+"_trigger_matching", "F", lenVar="n"+outputName)
                 # if not Module.globalOptions["isData"]:
                         # self.out.branch(outputName+"_genPartFlav","F",lenVar="n"+outputName)
 
@@ -103,11 +109,20 @@ class MuonSelection(Module):
         
         #https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2#Tight_Muon
         for muon in muons:
-            matched_trgObj_id_list.append(self.triggerMatched(muon, triggerObjects)[1])
+            trigger_matching = self.triggerMatched(muon, triggerObjects)
+            matched_trgObj_id_list.append(trigger_matching[1])
             
             #baseline selection (pT, eta, trigger matching requirement)
-            if muon.pt>self.muonMinPt and math.fabs(muon.eta)<self.muonMaxEta and \
-                self.triggerMatched(muon, triggerObjects)[0] and matched_trgObj_id_list.count(self.triggerMatched(muon, triggerObjects)[1])==1:
+            if muon.pt > self.muonMinPt and math.fabs(muon.eta) < self.muonMaxEta:
+                #and \
+                # self.triggerMatched(muon, triggerObjects)[0] and matched_trgObj_id_list.count(self.triggerMatched(muon, triggerObjects)[1])==1:
+
+                setattr(muon, "trigger_matching", False)
+                if trigger_matching[0] and matched_trgObj_id_list.count(trigger_matching[1])==1:
+                    setattr(muon, "trigger_matching", True)
+
+                if not Module.globalOptions["isData"]:
+                    setattr(muon, 'genPartIdx', muon.genPartIdx) 
 
                 #saving relIso, cutBased Id 
                 nMuon+=1
@@ -144,15 +159,19 @@ class MuonSelection(Module):
         for wp in muonID.keys():
             self.out.fillBranch("muon_"+wp+"ID", map(lambda id: id, muonID[wp]))
 
-        for outputName, muon_ID in zip(self.outputName_list, ['tight','medium','loose']):
+        for outputName, muon_ID in zip(self.outputName_list, ['tight', 'medium', 'loose']):
             self.out.fillBranch("n"+outputName,len(selectedMuons[muon_ID]))
 
             for variable in self.storeKinematics:
                 self.out.fillBranch(outputName+"_"+variable,map(lambda muon: getattr(muon,variable),selectedMuons[muon_ID]))
                 # if not Module.globalOptions["isData"]:
                     # self.out.fillBranch(outputName+"_genPartFlav",map(lambda muon: getattr(muon,'genPartFlav'),selectedMuons[muon_ID]))
+            self.out.fillBranch(outputName + "_trigger_matching", map(lambda muon: getattr(muon, "trigger_matching"), selectedMuons[muon_ID]))
+    
+            if not Module.globalOptions["isData"]:
+                    for variable in self.storeTruthKeys:
+                        self.out.fillBranch(outputName+"_"+variable,map(lambda muon: getattr(muon,variable), selectedMuons[muon_ID]))
             setattr(event,outputName,selectedMuons[muon_ID])
-            # setattr(event, muon_ID+'Muons',selectedMuons[muon_ID])
 
         setattr(event,"unselectedMuons",unselectedMuons)
         setattr(event,'nMuon',nMuon)
