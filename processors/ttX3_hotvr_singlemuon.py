@@ -850,7 +850,7 @@ event_reco_inputs.append({
     'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
     'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
     'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-    "outputSystName": "nominal"
+    "systName": "nominal"
 })
 if not Module.globalOptions["isData"]:
     for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
@@ -865,7 +865,7 @@ if not Module.globalOptions["isData"]:
             'inputHOTVRJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRJets_"+unc),
             'inputHOTVRSubJetCollection': lambda event, unc=unc: getattr(event, "selectedHOTVRSubJets_"+unc),
             'inputGenTopCollection': lambda event: event.genTops,
-            "outputSystName": unc
+            "systName": unc
         })
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
@@ -875,7 +875,7 @@ analyzerChain.extend([
         modelPath=xgb_models[args.year],
         inputHOTVRJetCollection=event_reco_input["inputHOTVRJetCollection"],
         outputName="scoreBDT",
-        outputJetPrefix="selectedHOTVRJets_"+event_reco_input["outputSystName"]
+        outputJetPrefix="selectedHOTVRJets_"+event_reco_input["systName"]
     ) for event_reco_input in event_reco_inputs
 ])
 
