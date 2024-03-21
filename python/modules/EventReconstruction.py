@@ -306,8 +306,8 @@ class EventReconstruction(Module):
                 self.out.fillBranch("selectedFatJets_"+self.systName+"_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.fillBranch('eventSelection_'+cut_selection+'_cut_'+self.outputSystName, event_selection_dilepton[cut_selection])
-            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection+"_"+self.outputSystName, dilepton_mass[cut_selection])
+            self.out.fillBranch('eventSelection_'+cut_selection+'_cut_'+self.systName, event_selection_dilepton[cut_selection])
+            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection+"_"+self.systName, dilepton_mass[cut_selection])
         setattr(event, 'event_selection_OS_dilepton_cut', event_selection_OS_dilepton_cut)
 
         return True
