@@ -265,7 +265,7 @@ def leptonSequence():
         #),
 
         # EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
-        EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
+        # EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
     ]
 
     if not Module.globalOptions["isData"]:
@@ -332,7 +332,7 @@ def trigger():
             storeWeights=store_weights_trigger,
             thresholdPt=15. 
         ),
-        EventSkim(selection=lambda event: (event.trigger_general_flag)),
+        # EventSkim(selection=lambda event: (event.trigger_general_flag)),
     ]
     return seq
 #####
@@ -689,17 +689,17 @@ if isMC:
 ##### EVENT RECONSTRUCTION MODULE
 triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 
-for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
+for systName in jetDict.keys():
     event_reco_inputs = {
         'inputTriggersCollection': triggers,
         'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
         'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': jetCollection,
+        'inputJetCollection': lambda event: getattr(event, "selectedJets_{}".format(systName)),
         'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
-        'inputFatJetCollection': fatjetCollection,
+        'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_{}".format(systName)),
         'inputMETCollection': [],  # to be included!
-        'inputHOTVRJetCollection': hotvrjetCollection,
-        'inputHOTVRSubJetCollection': subhotvrjetCollection,
+        'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_{}".format(systName)),
+        'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_{}".format(systName)),
         'systName': systName
     }
     if not Module.globalOptions["isData"]: 
