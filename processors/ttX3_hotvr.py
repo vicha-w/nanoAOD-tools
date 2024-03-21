@@ -714,7 +714,7 @@ for systName in jetDict.keys():
     analyzerChain.append(
         XGBEvaluationProducer(
             modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=hotvrjetCollection,
+            inputHOTVRJetCollection=lambda event: getattr(event, "selectedHOTVRJets_{}".format(systName)),
             outputName="scoreBDT",
             outputJetPrefix='selectedHOTVRJets_'+systName
         )
