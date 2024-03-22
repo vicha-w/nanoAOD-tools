@@ -265,7 +265,7 @@ def leptonSequence():
         #),
 
         # EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
-        # EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
+        EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
     ]
 
     if not Module.globalOptions["isData"]:
@@ -332,7 +332,7 @@ def trigger():
             storeWeights=store_weights_trigger,
             thresholdPt=15. 
         ),
-        # EventSkim(selection=lambda event: (event.trigger_general_flag)),
+        EventSkim(selection=lambda event: (event.trigger_general_flag)),
     ]
     return seq
 #####
@@ -689,36 +689,47 @@ if isMC:
 ##### EVENT RECONSTRUCTION MODULE
 triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 
-for systName in jetDict.keys():
-    event_reco_inputs = {
-        'inputTriggersCollection': triggers,
-        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-        'inputJetCollection': lambda event: getattr(event, "selectedJets_{}".format(systName)),
-        'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
-        'inputFatJetCollection': lambda event: getattr(event, "selectedFatJets_{}".format(systName)),
-        'inputMETCollection': [],  # to be included!
-        'inputHOTVRJetCollection': lambda event: getattr(event, "selectedHOTVRJets_{}".format(systName)),
-        'inputHOTVRSubJetCollection': lambda event: getattr(event, "selectedHOTVRSubJets_{}".format(systName)),
-        'systName': systName
-    }
-    if not Module.globalOptions["isData"]: 
-        event_reco_inputs['inputGenTopCollection'] = lambda event: event.genTops
+event_reco_inputs = []
+event_reco_inputs.append({
+    'inputTriggersCollection': triggers,
+    'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+    'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+    'inputJetCollection': lambda event: event.selectedJets_nominal,
+    'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
+    'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
+    'inputMETCollection': lambda event: event.met_nominal,
+    'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
+    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+    'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+    "systName": "nominal"
+})
+if not Module.globalOptions["isData"]:
+    for systName in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
+        event_reco_inputs.append({
+            'inputTriggersCollection': triggers,
+            'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+            'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+            'inputJetCollection': lambda event, systName=systName: getattr(event, "selectedJets_"+systName),
+            'inputBJetCollection': lambda event, systName=systName: getattr(event, "selectedBJets_"+systName+"_loose"),
+            'inputFatJetCollection': lambda event, systName=systName: getattr(event, "selectedFatJets_"+systName),
+            'inputMETCollection': lambda event, systName=systName: getattr(event, "met_"+systName),
+            'inputHOTVRJetCollection': lambda event, systName=systName: getattr(event, "selectedHOTVRJets_"+systName),
+            'inputHOTVRSubJetCollection': lambda event, systName=systName: getattr(event, "selectedHOTVRSubJets_"+systName),
+            'inputGenTopCollection': lambda event: event.genTops,
+            "systName": systName
+        })
 
-    analyzerChain.extend([
-        EventReconstruction(**event_reco_inputs),
-        # EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
-    ])
+analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
-    # #### XGB EVALUATION MODULE
-    analyzerChain.append(
-        XGBEvaluationProducer(
-            modelPath=xgb_models[args.year],
-            inputHOTVRJetCollection=lambda event: getattr(event, "selectedHOTVRJets_{}".format(systName)),
-            outputName="scoreBDT",
-            outputJetPrefix='selectedHOTVRJets_'+systName
-        )
-    )
+analyzerChain.extend([
+    XGBEvaluationProducer(
+        modelPath=xgb_models[args.year],
+        inputHOTVRJetCollection=event_reco_input["inputHOTVRJetCollection"],
+        outputName="scoreBDT",
+        outputJetPrefix="selectedHOTVRJets_"+event_reco_input["systName"]
+    ) for event_reco_input in event_reco_inputs
+])
+
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
