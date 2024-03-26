@@ -35,7 +35,7 @@ class EventInfo(Module):
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     	if not Module.globalOptions["isData"]:
-            nGenEventCount_parameter = ROOT.TParameter(float)("genEventCount", self.nGenWeights)
+            nGenEventCount_parameter = ROOT.TParameter(float)("genEventCount", self.nGenEventCount)
             nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
             genEventSumw2_parameter = ROOT.TParameter(float)("sumGenWeights2", self.genEventSumw2)
             LHEScaleSumw_parameter = []
