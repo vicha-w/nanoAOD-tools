@@ -342,7 +342,7 @@ selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
     
-    for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection, metCollection) in jetDict.items():
+    for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
         seq.extend([
             JetSelection(
                 inputCollection= jetCollection, 
@@ -387,11 +387,7 @@ def jetSelection(jetDict):
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
-            ),
-            MetSelection(
-                metInput = metCollection,
-                outputName = "MET_"+systName
-            )
+                )
         ])
         # if systName == 'nominal':
         seq.extend([
@@ -545,9 +541,7 @@ if args.isData:
             "nominal": (lambda event: Collection(event,"Jet"),
                         lambda event: Collection(event,"FatJet"),
                         lambda event: Collection(event,"HOTVRJet"),
-                        lambda event: Collection(event,"HOTVRSubJet"),
-                        lambda event: Object(event, "MET")
-                       )
+                         lambda event: Collection(event,"HOTVRSubJet"))
         })
     )
 
@@ -642,8 +636,7 @@ else:
         "nominal": (lambda event: event.jets_nominal,
                     lambda event: event.fatjets_nominal,
                     lambda event: event.hotvrjets_nominal,
-                    lambda event: event.hotvrsubjets_nominal,
-                    lambda event: event.met_nominal)
+                    lambda event: event.hotvrsubjets_nominal)
     }
     
     if not args.nosys:
