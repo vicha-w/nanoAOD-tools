@@ -511,7 +511,7 @@ else:
 #####ANALYZER CHAIN : DATA ARE FILTERED FROM GOLDENJSON RUNS
 if not Module.globalOptions["isData"]:  
     analyzerChain = [
-        EventInfo(storeVariables=storeVariables),
+        EventInfo(storeVariables=storeVariables, accessRunsTree=(Module.globalOptions["year"] == "2022EE")),
         # EventSkim(selection=lambda event: event.nTrigObj > 0),
         MetFilter(
             globalOptions=globalOptions,

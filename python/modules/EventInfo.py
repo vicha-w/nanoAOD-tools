@@ -7,15 +7,17 @@ import random
 import yaml
 import re
 
-from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
+from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection, Event
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
 class EventInfo(Module):
     def __init__(
         self,
-        storeVariables = []
+        storeVariables = [],
+        accessRunsTree = False
     ):
         self.storeVariables = storeVariables
+        self.accessRunsTree = accessRunsTree
 
     def beginJob(self):
         pass
@@ -26,10 +28,17 @@ class EventInfo(Module):
         self.nGenEventCount = 0
         self.genEventSumw2 = 0
         self.LHEScaleSumw = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        self.existingSumSaved = False
         self.out = wrappedOutputTree
         for variable in self.storeVariables:
             variable[0](self.out)
+        
+        if self.accessRunsTree:
+            runsTree = inputFile.Get("Runs")
+            runsEvent = Event(runsTree, 0)
+            self.nGenWeights = runsEvent.genEventSumw
+            self.nGenEventCount = runsEvent.genEventCount
+            self.genEventSumw2 = runsEvent.genEventSumw2
+            self.LHEScaleSumw = [runsEvent.LHEScaleSumw[i] for i in range(9)]
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     	if not Module.globalOptions["isData"]:
@@ -37,7 +46,10 @@ class EventInfo(Module):
             nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
             genEventSumw2_parameter = ROOT.TParameter(float)("sumGenWeights2", self.genEventSumw2)
             LHEScaleSumw_parameter = []
-            for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]/self.nGenWeights))
+            if self.accessRunsTree:
+                for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]))
+            else: 
+                for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]/self.nGenWeights))
 
             outputFile.cd()
             nGenEventCount_parameter.Write()
@@ -50,10 +62,11 @@ class EventInfo(Module):
     def analyze(self, event):
 
         if not Module.globalOptions["isData"]:
-            self.nGenWeights += event.Generator_weight
-            self.nGenEventCount += 1
-            self.genEventSumw2 += event.Generator_weight ** 2
-            for i in range(9): self.LHEScaleSumw[i] += event.LHEScaleWeight[i] * event.Generator_weight
+            if not self.accessRunsTree:
+                self.nGenWeights += event.Generator_weight
+                self.nGenEventCount += 1
+                self.genEventSumw2 += event.Generator_weight ** 2
+                for i in range(9): self.LHEScaleSumw[i] += event.LHEScaleWeight[i] * event.Generator_weight
 
         else:
             with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/13TeV_UL_Era_runNumber.yaml") as yaml_f:
