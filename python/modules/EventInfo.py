@@ -7,7 +7,7 @@ import random
 import yaml
 import re
 
-from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection, Event
+from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection, Event, InputTree
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
 class EventInfo(Module):
@@ -33,7 +33,7 @@ class EventInfo(Module):
             variable[0](self.out)
         
         if self.accessRunsTree:
-            runsTree = inputFile.Get("Runs")
+            runsTree = InputTree(inputFile.Get("Runs"))
             runsEvent = Event(runsTree, 0)
             self.nGenWeights = runsEvent.genEventSumw
             self.nGenEventCount = runsEvent.genEventCount
