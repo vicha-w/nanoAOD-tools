@@ -733,18 +733,18 @@ analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_inp
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
-    analyzerChain.append(
-        HOTVR_MVA(
-            inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-            inputGenParticleCollections = {
-                'gentops': lambda event: event.genTops, 
-                'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
-                'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
-                'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
-                },
-            inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_nominal"),
-        )
-    )
+    #analyzerChain.append(
+    #    HOTVR_MVA(
+    #        inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
+    #        inputGenParticleCollections = {
+    #            'gentops': lambda event: event.genTops, 
+    #            'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
+    #            'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
+    #            'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
+    #            },
+    #        inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_nominal"),
+    #    )
+    #)
     analyzerChain.append(
         HOTVRJetComposition(
             inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
