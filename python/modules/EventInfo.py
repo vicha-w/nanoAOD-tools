@@ -13,11 +13,9 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 class EventInfo(Module):
     def __init__(
         self,
-        storeVariables = [],
-        useExistingSum = False
+        storeVariables = []
     ):
         self.storeVariables = storeVariables
-        self.useExistingSum = useExistingSum
 
     def beginJob(self):
         pass
@@ -52,14 +50,7 @@ class EventInfo(Module):
     def analyze(self, event):
 
         if not Module.globalOptions["isData"]:
-            if self.useExistingSum and (not self.existingSumSaved):
-                self.nGenWeights = event.genEventSumw
-                self.existingSumSaved = True
-            #if hasattr(event, 'genEventSumw'):
-            #    self.nGenWeights += event.genEventSumw
-            else:
-                self.nGenWeights += event.Generator_weight
-            
+            self.nGenWeights += event.Generator_weight
             self.nGenEventCount += 1
             self.genEventSumw2 += event.Generator_weight ** 2
             for i in range(9): self.LHEScaleSumw[i] += event.LHEScaleWeight[i] * event.Generator_weight
