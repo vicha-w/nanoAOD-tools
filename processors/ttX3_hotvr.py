@@ -354,7 +354,7 @@ def jetSelection(jetDict):
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area',
                                  'minDPhiClean', 'minDRClean', 'jetId'],
                 outputName_list=["selectedJets_"+systName, "unselectedJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','partonFlavour'],
             ),
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
@@ -370,7 +370,7 @@ def jetSelection(jetDict):
                                     'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area',
                                     'minDPhiClean', 'minDRClean', 'jetId'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons', 'genJetAK8Idx'],
             ),
             JetSelection(
@@ -385,7 +385,7 @@ def jetSelection(jetDict):
                                  'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3',
                                  'minDPhiClean', 'minDRClean'],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
                 )
         ])
@@ -400,7 +400,7 @@ def jetSelection(jetDict):
                 jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta', 'phi', 'mass', '_index', 'area', 'minDPhiClean', 'minDRClean'],
                 outputName_list=["selectedHOTVRSubJets_"+systName, "unselectedHOTVRSubJets_"+systName],
-                metInput = lambda event: Object(event, "MET"),
+                #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
         )])
 
@@ -430,7 +430,7 @@ def jetSelection(jetDict):
                              'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3',
                              'minDPhiClean', 'minDRClean'],
             outputName_list=["preselectedHOTVRJets","preunselectedHOTVRJets"],
-            metInput = lambda event: Object(event, "MET"),
+            #metInput = lambda event: Object(event, "MET"),
             # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             )])
 
