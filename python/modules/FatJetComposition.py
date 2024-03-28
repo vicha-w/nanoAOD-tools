@@ -153,8 +153,6 @@ class FatJetComposition(Module):
             else: 
                 setattr(ak8, 'has_other', True)
 
-        setattr(event, self.outputJetPrefix, fatjets)
-
         self.out.fillBranch("n{}".format(self.outputJetPrefix), len(fatjets))
         for composition_flag in self.jetCompositions:
             self.out.fillBranch("{}_{}".format(self.outputJetPrefix, composition_flag), map(lambda jet: getattr(jet, composition_flag), fatjets))

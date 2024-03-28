@@ -235,5 +235,6 @@ class ElectronSelection(Module):
                         self.out.fillBranch(self.outputName_dict[id_type][wp]+"_"+variable, map(lambda electron: getattr(electron,variable), selectedElectrons[id_type][wp]))
                 
             setattr(event,"unselectedElectrons", unselectedElectrons[id_type])
+        setattr(event, "nElectron", nElectron)
 
         return True
