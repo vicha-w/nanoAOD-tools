@@ -16,6 +16,7 @@ class EventInfo(Module):
         storeVariables = [],
     ):
         self.storeVariables = storeVariables
+        self.accessRunsTree = accessRunsTree
 
         self.genEventSumw = 0
         self.genEventCount = 0
