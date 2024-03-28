@@ -95,8 +95,6 @@ class BTagSelection(Module):
                 setattr(jet, "b_tagged_medium", False)
                 setattr(jet, "b_tagged_tight", False)
 
-        # new collection with flag is(not) loose/medium/tight tagged
-        setattr(event, 'selectedJets_nominal', jets)
 
         for wp in self.working_points:
             self.out.fillBranch("n{}_{}".format(self.outputName, wp), len(bJets[wp]))

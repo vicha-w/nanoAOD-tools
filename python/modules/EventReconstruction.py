@@ -268,9 +268,6 @@ class EventReconstruction(Module):
                         if closest_gentop.has_hadronically_decay: setattr(ak8, 'has_genTopHadronic_inside', True)
                         if Module.globalOptions['isSignal'] and closest_gentop.from_resonance: setattr(ak8, 'has_genTopFromResonance_inside', True)
 
-        setattr(event, 'selectedHOTVRJets_'+self.systName, hotvrjets)
-        setattr(event, 'selectedFatJets_'+self.systName, fatjets)
-
         self.out.fillBranch("nselectedJets_"+self.systName, len(jets))
         self.out.fillBranch("nselectedHOTVRJets_"+self.systName, len(hotvrjets))
         self.out.fillBranch("nselectedFatJets_"+self.systName, len(fatjets))

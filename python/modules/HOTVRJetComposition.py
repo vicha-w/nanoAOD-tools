@@ -171,8 +171,6 @@ class HOTVRJetComposition(Module):
             else: 
                 setattr(hotvr, 'has_other', True)
 
-        setattr(event, self.outputJetPrefix, hotvrjets)
-
         self.out.fillBranch("n{}".format(self.outputJetPrefix), len(hotvrjets))
         for composition_flag in self.jetCompositions:
             self.out.fillBranch("{}_{}".format(self.outputJetPrefix, composition_flag), map(lambda jet: getattr(jet, composition_flag), hotvrjets))
