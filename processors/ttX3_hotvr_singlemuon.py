@@ -531,11 +531,17 @@ storeVariables = [[lambda tree: tree.branch("run", "I"),
 ]
 
 if not Module.globalOptions["isData"]:
-    storeVariables.extend([[lambda tree: tree.branch("genweight", "F"), 
-                            lambda tree, event: tree.fillBranch("genweight", event.Generator_weight)],
-                           [lambda tree: tree.branch("LHE_HT", "F"), 
-                            lambda tree, event: tree.fillBranch("LHE_HT", event.LHE_HT)],
-                           [LHEScaleWeight_init, LHEScaleWeight_fill],
+    storeVariables.extend(
+        [
+            [lambda tree: tree.branch("genweight", "F"), 
+             lambda tree, event: tree.fillBranch("genweight", event.Generator_weight)],
+            [lambda tree: tree.branch("LHE_HT", "F"), 
+             lambda tree, event: tree.fillBranch("LHE_HT", event.LHE_HT)],
+            [LHEScaleWeight_init, LHEScaleWeight_fill],
+            [lambda tree: tree.branch("nPSWeight", "I"), 
+             lambda tree, event: tree.fillBranch("nPSWeight", event.nPSWeight)],
+            [lambda tree: tree.branch("PSWeight", "F", lenVar="nPSWeight"), 
+             lambda tree, event: tree.fillBranch("PSWeight", map(lambda psweight: psweight, [event.PSWeight[i] for i in range(event.PSWeight.GetSize())]))]
     ])
     if Module.globalOptions["year"] in ['2016', '2016preVFP', '2017']:
         for l1prefiringw in ['Nom', 'Up', 'Dn']:
