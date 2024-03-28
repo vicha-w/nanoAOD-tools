@@ -14,42 +14,47 @@ class EventInfo(Module):
     def __init__(
         self,
         storeVariables = [],
-        accessRunsTree = False
     ):
         self.storeVariables = storeVariables
         self.accessRunsTree = accessRunsTree
+
+        self.genEventSumw = 0
+        self.genEventCount = 0
+        self.genEventSumw2 = 0
+        self.LHEScaleSumw = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.genEventInfoInFile = False
 
     def beginJob(self):
         pass
     def endJob(self):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
-        self.nGenWeights = 0
-        self.nGenEventCount = 0
-        self.genEventSumw2 = 0
-        self.LHEScaleSumw = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.out = wrappedOutputTree
         for variable in self.storeVariables:
             variable[0](self.out)
-        
-        if self.accessRunsTree:
-            runsTree = InputTree(inputFile.Get("Runs"))
-            runsEvent = Event(runsTree, 0)
-            self.nGenWeights = runsEvent.genEventSumw
-            self.nGenEventCount = runsEvent.genEventCount
+
+        runsTree = InputTree(inputFile.Get("Runs"))
+        runsEvent = Event(runsTree, 0)
+        if hasattr(runsEvent, "genEventSumw"):
+            self.genEventSumw = runsEvent.genEventSumw
+            self.genEventCount = runsEvent.genEventCount
             self.genEventSumw2 = runsEvent.genEventSumw2
             self.LHEScaleSumw = [runsEvent.LHEScaleSumw[i] for i in range(9)]
-        
+            self.noGenEventInfo = True
+
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
-    	if not Module.globalOptions["isData"]:
-            nGenEventCount_parameter = ROOT.TParameter(float)("genEventCount", self.nGenEventCount)
-            nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.nGenWeights)
+        if not Module.globalOptions["isData"]:
+            nGenEventCount_parameter = ROOT.TParameter(float)("genEventCount", self.genEventCount)
+            nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.genEventSumw)
             genEventSumw2_parameter = ROOT.TParameter(float)("sumGenWeights2", self.genEventSumw2)
             LHEScaleSumw_parameter = []
-            if self.accessRunsTree:
+            # -- in case the parameters are not already stored in "Runs" TTree of the input file,
+            # -- a manual calculation is required --> https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv9/2017UL/doc_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1.html
+            if self.genEventInfoInFile == False:
+                for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]/self.genEventSumw))
+            else:
                 for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]))
-            else: 
-                for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]/self.nGenWeights))
 
             outputFile.cd()
             nGenEventCount_parameter.Write()
@@ -62,9 +67,11 @@ class EventInfo(Module):
     def analyze(self, event):
 
         if not Module.globalOptions["isData"]:
-            if not self.accessRunsTree:
-                self.nGenWeights += event.Generator_weight
-                self.nGenEventCount += 1
+            # -- in case the parameters are not already stored in "Runs" TTree of the input file,
+            # -- a manual calculation is required
+            if self.genEventInfoInFile == False: 
+                self.genEventSumw += event.Generator_weight
+                self.genEventCount += 1
                 self.genEventSumw2 += event.Generator_weight ** 2
                 for i in range(9): self.LHEScaleSumw[i] += event.LHEScaleWeight[i] * event.Generator_weight
 

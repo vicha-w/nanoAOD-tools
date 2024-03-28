@@ -265,7 +265,7 @@ def leptonSequence():
         #),
 
         # EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
-        # EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
+        EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
     ]
 
     if not Module.globalOptions["isData"]:
@@ -332,7 +332,7 @@ def trigger():
             storeWeights=store_weights_trigger,
             thresholdPt=15. 
         ),
-        # EventSkim(selection=lambda event: (event.trigger_general_flag)),
+        EventSkim(selection=lambda event: (event.trigger_general_flag)),
     ]
     return seq
 #####
@@ -491,7 +491,11 @@ if not Module.globalOptions["isData"]:
         [lambda tree: tree.branch("genweight", "F"), 
          lambda tree, event: tree.fillBranch("genweight", event.Generator_weight)],
         [lambda tree: tree.branch("LHE_HT", "F"), 
-         lambda tree, event: tree.fillBranch("LHE_HT", event.LHE_HT)]
+         lambda tree, event: tree.fillBranch("LHE_HT", event.LHE_HT)],
+        [lambda tree: tree.branch("nPSWeight", "I"), 
+         lambda tree, event: tree.fillBranch("nPSWeight", event.nPSWeight)],
+        [lambda tree: tree.branch("PSWeight", "F", lenVar="nPSWeight"), 
+         lambda tree, event: tree.fillBranch("PSWeight", map(lambda psweight: psweight, [event.PSWeight[i] for i in range(event.PSWeight.GetSize())]))]
         ])
     if Module.globalOptions["year"] in ['2016', '2016preVFP', '2017']:
         for l1prefiringw in ['Nom', 'Up', 'Dn']:
@@ -721,30 +725,30 @@ if not Module.globalOptions["isData"]:
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
 
-# analyzerChain.extend([
-#     XGBEvaluationProducer(
-#         modelPath=xgb_models[args.year],
-#         inputHOTVRJetCollection=event_reco_input["inputHOTVRJetCollection"],
-#         outputName="scoreBDT",
-#         outputJetPrefix="selectedHOTVRJets_"+event_reco_input["systName"]
-#     ) for event_reco_input in event_reco_inputs
-# ])
+analyzerChain.extend([
+    XGBEvaluationProducer(
+        modelPath=xgb_models[args.year],
+        inputHOTVRJetCollection=event_reco_input["inputHOTVRJetCollection"],
+        outputName="scoreBDT",
+        outputJetPrefix="selectedHOTVRJets_"+event_reco_input["systName"]
+    ) for event_reco_input in event_reco_inputs
+])
 
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE 
 if not Module.globalOptions["isData"]:
-    analyzerChain.append(
-        HOTVR_MVA(
-            inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
-            inputGenParticleCollections = {
-                'gentops': lambda event: event.genTops, 
-                'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
-                'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
-                'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
-                },
-            inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_nominal"),
-        )
-    )
+    # analyzerChain.append(
+    #     HOTVR_MVA(
+    #         inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
+    #         inputGenParticleCollections = {
+    #             'gentops': lambda event: event.genTops, 
+    #             'genWs_not_from_top': lambda event: event.gen_w_bosons_not_from_top, 
+    #             'genbs_not_from_top': lambda event: event.gen_b_quarks_not_from_top, 
+    #             'genparticles_not_from_top': lambda event: event.gen_particles_not_from_top
+    #             },
+    #         inputSubHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRSubJets_nominal"),
+    #     )
+    # )
     analyzerChain.append(
         HOTVRJetComposition(
             inputHOTVRJetCollection = lambda event: getattr(event,"selectedHOTVRJets_nominal"),
