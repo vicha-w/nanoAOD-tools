@@ -39,21 +39,23 @@ class EventInfo(Module):
             self.genEventInfoInFile = True
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
-        if self.genEventInfoInFile == True:
-            runsTree = InputTree(inputFile.Get("Runs"))
-            runsEvent = Event(runsTree, 0)
-            self.genEventSumw = runsEvent.genEventSumw
-            self.genEventCount = runsEvent.genEventCount
-            self.genEventSumw2 = runsEvent.genEventSumw2
-            self.LHEScaleSumw = [runsEvent.LHEScaleSumw[i] for i in range(9)]
 
-        if not Module.globalOptions["isData"]:
+        if not Module.globalOptions["isData"]:            
+            if self.genEventInfoInFile == True:
+                runsTree = InputTree(inputFile.Get("Runs"))
+                runsEvent = Event(runsTree, 0)
+                self.genEventSumw = runsEvent.genEventSumw
+                self.genEventCount = runsEvent.genEventCount
+                self.genEventSumw2 = runsEvent.genEventSumw2
+                self.LHEScaleSumw = [runsEvent.LHEScaleSumw[i] for i in range(9)]
+
             nGenEventCount_parameter = ROOT.TParameter(float)("genEventCount", self.genEventCount)
             nGenWeight_parameter = ROOT.TParameter(float)("sumGenWeights", self.genEventSumw)
             genEventSumw2_parameter = ROOT.TParameter(float)("sumGenWeights2", self.genEventSumw2)
             LHEScaleSumw_parameter = []
             # -- in case the parameters are not already stored in "Runs" TTree of the input file,
             # -- a manual calculation is required --> https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv9/2017UL/doc_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1.html
+
             if self.genEventInfoInFile == True:
                 for i in range(9): LHEScaleSumw_parameter.append(ROOT.TParameter(float)("LHEScaleSumw_{}".format(i), self.LHEScaleSumw[i]))
             else:
