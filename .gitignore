@@ -8,3 +8,6 @@ build
 *.d
 *.so
 *.pcm
+postprocessor/for_ParticleNetSF/*
+postprocessor/test/*
+batchprocessor_output/*

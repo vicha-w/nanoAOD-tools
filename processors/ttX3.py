@@ -103,7 +103,7 @@ def leptonSequence():
         MuonSelection(
             inputCollection=lambda event: Collection(event, "Muon"),
             outputName="tightMuons",
-            storeKinematics=["pt", "eta", "phi"],
+            storeKinematics=["pt", "eta", "phi", "mass", "charge"],
             storeWeights=True,
             muonMinPt=minMuonPt[args.year],
             muonMaxEta=2.4,
@@ -130,7 +130,7 @@ def leptonSequence():
             electronID = ElectronSelection.INV if args.invid else ElectronSelection.WP90,
             electronMinPt = minElectronPt[args.year],
             electronMaxEta = 2.4,
-            storeKinematics=["pt", "eta", "phi"],
+            storeKinematics=["pt", "eta", "phi", "mass", "charge"],
             storeWeights=True,
         ),
         SingleElectronTriggerSelection(
@@ -163,7 +163,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta', 'phi', 'btagDeepFlavB'],
+                storeKinematics=['pt', 'eta', 'phi', "mass", 'btagDeepFlavB'],
                 outputName="selectedJets_"+systName,
             ),
             #TODO: every ak8 will also be ak4 -> some cross cleaning required
@@ -174,7 +174,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
                 jetId=JetSelection.LOOSE,
-                storeKinematics=['pt', 'eta', 'phi', 'deepTagMD_TvsQCD'],
+                storeKinematics=['pt', 'eta', 'phi', "mass", 'deepTagMD_TvsQCD'],
                 outputName="selectedFatJets_"+systName,
             )
         ])
@@ -189,10 +189,11 @@ def jetSelection(jetDict):
                 inputCollection=lambda event,sys=systName: getattr(event,"selectedJets_"+sys),
                 flagName="isBTagged",
                 outputName="selectedBJets_"+systName,
+                unselectedOutputName="selectedNonBJets_"+systName,
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 workingpoint = BTagSelection.TIGHT,
-                storeKinematics=["pt", "eta", "phi"],
+                storeKinematics=["pt", "eta", "phi", "mass"],
                 storeTruthKeys = truthKeys,
             )
         )
@@ -323,6 +324,20 @@ else:
         jetSelection(jetDict)
     )
 
+# Adding GenJet collection only if this is not data
+if not args.isData:
+    analyzerChain.extend([
+        JetSelection(
+            inputCollection=lambda event: Collection(event,"GenJet"),
+            jetMinPt=30.,
+            jetMaxEta=2.4,
+            dRCleaning=0.4,
+            jetId=JetSelection.LOOSE,
+            storeKinematics=["HT"],
+            outputName="selectedGenJets_nominal",
+        )
+    ])
+
 analyzerChain.extend([
     MetSelection(
          outputName="MET",
@@ -333,6 +348,13 @@ analyzerChain.extend([
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
+    analyzerChain.append(
+        GenParticleSelection(
+            inputCollection = lambda event: Collection(event, "GenPart"),
+            outputName="genParticles",
+            storeKinematics=['pt', 'eta', 'phi', 'mass', 'pdgId', "genPartIdxMother"]
+        )
+    )
     if isPowhegTTbar:
         analyzerChain.append(
             TopPtWeightProducer(

@@ -16,12 +16,14 @@ class SingleMuonTriggerSelection(Module):
         inputCollection = lambda event: getattr(event,"tightMuons"),
         storeWeights=True,
         outputName = "IsoMuTrigger",
+        applyCut=False
     ):
         self.inputCollection = inputCollection
         self.outputName = outputName
         self.storeWeights = storeWeights
+        self.applyCut = applyCut
 
-        if not Module.globalOptions["isData"]:
+        if (not Module.globalOptions["isData"]) and self.storeWeights:
             if Module.globalOptions["year"] == '2016' or Module.globalOptions["year"] == '2016preVFP':
 
                 triggerSFBToF = getHist(
@@ -92,16 +94,21 @@ class SingleMuonTriggerSelection(Module):
             weight_trigger_up*=(weight_trigger+weight_trigger_err)
             weight_trigger_down*=(weight_trigger-weight_trigger_err)
 
-        trigger_flag = 0
+        trigger_flag = False
 
-        if Module.globalOptions["year"] == '2016' or Module.globalOptions["year"] == '2016preVFP':
-            trigger_flag = event.HLT_IsoMu24>0 or event.HLT_IsoTkMu24>0
+        #if Module.globalOptions["year"] == '2016' or Module.globalOptions["year"] == '2016preVFP':
+        #    trigger_flag = event.HLT_IsoMu24>0 or event.HLT_IsoTkMu24>0
 
-        elif Module.globalOptions["year"] == '2017':
-            trigger_flag = event.HLT_IsoMu27>0
+        #elif Module.globalOptions["year"] == '2017':
+        #    trigger_flag = event.HLT_IsoMu27>0
 
-        elif Module.globalOptions["year"] == '2018':
-            trigger_flag = event.HLT_IsoMu24
+        #elif Module.globalOptions["year"] == '2018':
+        #    trigger_flag = event.HLT_IsoMu24
+
+        if hasattr(event, "HLT_Mu50"): trigger_flag = trigger_flag or event.HLT_Mu50
+        if hasattr(event, "HLT_TkMu50"): trigger_flag = trigger_flag or event.HLT_TkMu50
+
+        if self.applyCut and (not trigger_flag): return False
 
         self.out.fillBranch(self.outputName+"_flag", trigger_flag)
             

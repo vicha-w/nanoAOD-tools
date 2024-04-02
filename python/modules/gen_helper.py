@@ -345,7 +345,7 @@ def gentop_substructures_check(gentop, top_daughters, **keys):
 
     return substructure_flag
 
-def genW_substructures_check(genW, W_daughters, **keys):
+def genW_substructures_check(W_daughters, **keys):
     # return a flag given the substructures of the genW
     # N.B. the W considered in this case is not coming from top decay!
     substructure_flag = ''

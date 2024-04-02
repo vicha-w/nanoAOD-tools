@@ -115,29 +115,48 @@ class EventReconstruction(Module):
         self.out = wrappedOutputTree
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.branch('eventSelection_'+cut_selection+'_cut',"I")
-            self.out.branch('dilepton_invariant_mass_'+cut_selection,"F")
+            self.out.branch('eventSelection_'+cut_selection+'_cut_'+self.systName,"I")
+            self.out.branch('dilepton_invariant_mass_'+cut_selection+"_"+self.systName,"F")
 
-        for jet_collection in ['selectedJets_'+self.systName, 'selectedHOTVRJets_'+self.systName,'selectedFatJets_'+self.systName]:
-            self.out.branch("n"+jet_collection,"I")
-            # for largeRadiusJet in ['ak8','hotvr']:
-            #     self.out.branch("n"+jet_collection+'_inside_'+largeRadiusJet,"I")
-            #     self.out.branch("n"+jet_collection+'_outside_'+largeRadiusJet,"I")
-            if jet_collection == 'selectedJets_'+self.systName:
-                for var in self.eventReconstructionKeys_ak4Jets:
-                    if 'min' in var or 'rho' in var :
-                        self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
-                    else: self.out.branch(jet_collection+"_"+var, "I", lenVar="n"+jet_collection)
+        self.out.branch("nselectedJets"+self.systName,"I")
+        self.out.branch("nselectedHOTVRJets"+self.systName,"I")
+        self.out.branch("nselectedFatJets"+self.systName,"I")
 
-            if jet_collection == 'selectedHOTVRJets_'+self.systName:
-                for var in self.hotvr_vars:
-                    if var != 'nsubjets':
-                        self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
-                    else: self.out.branch(jet_collection+"_"+var, "I", lenVar="n"+jet_collection)
+        for var in self.eventReconstructionKeys_ak4Jets:
+            if 'min' in var or 'rho' in var :
+                self.out.branch("selectedJets_"+self.systName+"_"+var, "F", lenVar="nselectedJets_"+self.systName)
+            else: self.out.branch("selectedJets_"+self.systName+"_"+var, "I", lenVar="nselectedJets_"+self.systName)
 
-            if jet_collection != 'selectedJets_'+self.systName:
-                for jet_composition_flag in self.jet_composition:
-                    self.out.branch(jet_collection+"_"+jet_composition_flag, "I", lenVar="n"+jet_collection)
+        for var in self.hotvr_vars:
+            if var != 'nsubjets':
+                self.out.branch("selectedHOTVRJets_"+self.systName+"_"+var, "F", lenVar="nselectedHOTVRJets_"+self.systName)
+            else: self.out.branch("selectedHOTVRJets_"+self.systName+"_"+var, "I", lenVar="nselectedHOTVRJets_"+self.systName)
+
+        for jet_composition_flag in self.jet_composition:
+            self.out.branch("selectedHOTVRJets_"+self.systName+"_"+jet_composition_flag, "I", lenVar="nselectedHOTVRJets_"+self.systName)
+            self.out.branch("selectedFatJets_"+self.systName+"_"+jet_composition_flag, "I", lenVar="nselectedFatJets_"+self.systName)
+
+        #for jet_collection in ['selectedJets_nominal', 'selectedHOTVRJets_nominal','selectedFatJets_nominal']:
+        #    
+        #    self.out.branch("n"+jet_collection,"I")
+        #    # for largeRadiusJet in ['ak8','hotvr']:
+        #    #     self.out.branch("n"+jet_collection+'_inside_'+largeRadiusJet,"I")
+        #    #     self.out.branch("n"+jet_collection+'_outside_'+largeRadiusJet,"I")
+        #    if jet_collection == 'selectedJets_nominal':
+        #        for var in self.eventReconstructionKeys_ak4Jets:
+        #            if 'min' in var or 'rho' in var :
+        #                self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
+        #            else: self.out.branch(jet_collection+"_"+var, "I", lenVar="n"+jet_collection)
+
+        #    if jet_collection == 'selectedHOTVRJets_nominal':
+        #        for var in self.hotvr_vars:
+        #            if var != 'nsubjets':
+        #                self.out.branch(jet_collection+"_"+var, "F", lenVar="n"+jet_collection)
+        #            else: self.out.branch(jet_collection+"_"+var, "I", lenVar="n"+jet_collection)
+
+        #    if jet_collection != 'selectedJets_nominal':
+        #        for jet_composition_flag in self.jet_composition:
+        #            self.out.branch(jet_collection+"_"+jet_composition_flag, "I", lenVar="n"+jet_collection)
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -284,8 +303,8 @@ class EventReconstruction(Module):
                 self.out.fillBranch("selectedFatJets_"+self.systName+"_"+jet_composition_flag, map(lambda ak8: getattr(ak8, jet_composition_flag), fatjets))
 
         for cut_selection in ['ee','emu','mumu']:
-            self.out.fillBranch('eventSelection_'+cut_selection+'_cut', event_selection_dilepton[cut_selection])
-            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection, dilepton_mass[cut_selection])
+            self.out.fillBranch('eventSelection_'+cut_selection+'_cut_'+self.systName, event_selection_dilepton[cut_selection])
+            self.out.fillBranch('dilepton_invariant_mass_'+cut_selection+"_"+self.systName, dilepton_mass[cut_selection])
         setattr(event, 'event_selection_OS_dilepton_cut', event_selection_OS_dilepton_cut)
 
         return True

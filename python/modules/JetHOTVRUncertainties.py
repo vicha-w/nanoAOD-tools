@@ -275,6 +275,18 @@ class JetHOTVRUncertainties(Module):
 
         if self.print_out: print('EVENTO ########')
 
+        for subjet in subjets:
+            subjet.uncertainty_p4 = {}
+            genjet = genjet_match[subjet]
+            jerFactor = self.jerUncertaintyCalculator.getFactor(subjet, genjet, rho)
+            subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
+            subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
+            subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
+            for jesUncertaintyName in self.jesUncertaintyNames:
+                jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
+                subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]   = subjet.uncertainty_p4['nominal'] * (1. + jecDelta)
+                subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = subjet.uncertainty_p4['nominal'] * (1. - jecDelta)
+
         for ijet, jet in enumerate(itertools.chain(jets, lowPtJets)):
             # N.B.: JES, JER corrections are to be applied only on HOTVR subjets --> https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetTopTagging#Working_point_and_scale_factors
             # first step is to match jet and subjets with correct subjet indexes
@@ -307,35 +319,36 @@ class JetHOTVRUncertainties(Module):
             #     jet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = jet.p4() #((subjet.p4() * jerFactor['nominal']) * (1. - jecDelta))
 
             for isubjet, subjet in enumerate(subjets_in_hotvr):
-                subjet.uncertainty_p4 = {}
+                #subjet.uncertainty_p4 = {}
 
-                genJet = genjet_match[subjet]
+                #genJet = genjet_match[subjet]
 
-                jerFactor = self.jerUncertaintyCalculator.getFactor(
-                    subjet,
-                    genJet,
-                    rho
-                )
+                #jerFactor = self.jerUncertaintyCalculator.getFactor(
+                #    subjet,
+                #    genJet,
+                #    rho
+                #)
 
-                subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
-                subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
-                subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
+                #subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
+                #subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
+                #subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
 
-                jet.uncertainty_p4['nominal'] += (subjet.p4() * jerFactor['nominal'])
-                jet.uncertainty_p4['jerUp'] += (subjet.p4() * jerFactor['up'])
-                jet.uncertainty_p4['jerDown'] += (subjet.p4() * jerFactor['down'])
+                #jet.uncertainty_p4['nominal'] += (subjet.p4() * jerFactor['nominal'])
+                #jet.uncertainty_p4['jerUp'] += (subjet.p4() * jerFactor['up'])
+                #jet.uncertainty_p4['jerDown'] += (subjet.p4() * jerFactor['down'])
+                jet.uncertainty_p4['nominal'] += subjet.uncertainty_p4["nominal"]
+                jet.uncertainty_p4['jerUp']   += subjet.uncertainty_p4["jerUp"]
+                jet.uncertainty_p4['jerDown'] += subjet.uncertainty_p4["jerDown"]
 
 
                 for jesUncertaintyName in self.jesUncertaintyNames:
-                    jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
-                    jet.uncertainty_p4['jes' + jesUncertaintyName + "Up"] += (subjet.uncertainty_p4['nominal'] * (1. + jecDelta))
-                    jet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] += (subjet.uncertainty_p4['nominal'] * (1. - jecDelta))
-
-                    subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"] = (subjet.uncertainty_p4['nominal'] * (1. + jecDelta))
-                    subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = (subjet.uncertainty_p4['nominal'] * (1. - jecDelta))
+                    #jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
+                    jet.uncertainty_p4['jes' + jesUncertaintyName + "Up"] += subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]
+                    jet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] += subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"]
+                    #subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]   = subjet.uncertainty_p4['nominal'] * (1. + jecDelta)
+                    #subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = subjet.uncertainty_p4['nominal'] * (1. - jecDelta)
 
             if self.print_out: print('jet {}; nominal pT: {}; non-corrected pT: {}'.format(ijet, jet.uncertainty_p4['nominal'].Pt(), jet.pt))
-
 
         setattr(event, self.outputJetPrefix + "nominal", self.makeNewJetCollection(jets, "nominal", collection_type='jets'))
         #for subjets, storing only the subjects collection linked to jets
