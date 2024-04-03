@@ -29,7 +29,7 @@ Float_t deltaPhi(Float_t phi1, Float_t phi2)
 
 void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0) // outfilename must not have .root suffix! 
 {
-    gErrorIgnoreLevel = kError;
+    gErrorIgnoreLevel = kFatal;
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
 
     Float_t genEventCount = 0;
