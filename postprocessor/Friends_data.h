@@ -5,8 +5,8 @@
 // found on file: SingleMuonB_2017_hotvr_Friend.root
 //////////////////////////////////////////////////////////
 
-#ifndef Friends_h
-#define Friends_h
+//#ifndef Friends_h
+//#define Friends_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -846,4 +846,4 @@ Int_t Friends_data::Cut(Long64_t entry)
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef Friends_cxx
+//#endif // #ifdef Friends_cxx

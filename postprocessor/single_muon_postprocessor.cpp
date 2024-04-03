@@ -66,12 +66,12 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             //TTree *intree = infile->Get("Friends");
             //if (!infile->Get("sumGenWeights")) break;
 
-            genEventCount_obj = (TParameter<float>*) infile->Get("genEventCount");
-            sumgenweight_obj  = (TParameter<float>*) infile->Get("sumGenWeights");
-            sumgenweight2_obj = (TParameter<float>*) infile->Get("sumGenWeights2");
+            TParameter<float> *genEventCount_obj = (TParameter<float>*) infile->Get("genEventCount");
+            TParameter<float> *sumgenweight_obj  = (TParameter<float>*) infile->Get("sumGenWeights");
+            TParameter<float> *sumgenweight2_obj = (TParameter<float>*) infile->Get("sumGenWeights2");
 
             Float_t genEventCount_thisfile = genEventCount_obj->GetVal();
-            genEventCount += genEventCount_thisfile
+            genEventCount += genEventCount_thisfile;
             sumgenweight  += sumgenweight_obj->GetVal();
             sumgenweight2 += sumgenweight2_obj->GetVal();
 
