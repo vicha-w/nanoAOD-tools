@@ -115,8 +115,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     Friends *infriends_MC;
     Friends_data *infriends_data;
     
-    if (isData) *infriends_MC = new Friends(intree);
-    else *infriends_data = new Friends_data(intree);
+    if (isData) *infriends_data = new Friends_data(intree);
+    else *infriends_MC = new Friends(intree);
     auto infriends = isData ? infriends_data : infriends_MC;
 
     TString final_outfilename;
