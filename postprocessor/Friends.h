@@ -2962,9 +2962,9 @@ public :
    virtual void     Show(Long64_t entry = -1);
 };
 
-#endif
+//#endif
 
-#ifdef Friends_cxx
+//#ifdef Friends_cxx
 Friends::Friends(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file

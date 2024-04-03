@@ -112,7 +112,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     printf("Found %lld events.\n", intree->GetEntries());
     
-    if (isdata) Friends *infriends = new Friends(intree);
+    if (isData) Friends *infriends = new Friends(intree);
     else Friends_data *infriends = new Friends_data(intree);
 
     TString final_outfilename;
