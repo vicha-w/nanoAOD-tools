@@ -481,7 +481,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (!at_least_one_bjet) continue;
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
-        if (&leptonic_w_pt_pointers[uncmode] < 250) continue;
+        if (*leptonic_w_pt_pointers[uncmode] < 250) continue;
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;
@@ -786,7 +786,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->muon_pt = infriends->tightRelIso_tightID_Muons_pt[0];
         outevents->muon_eta = infriends->tightRelIso_tightID_Muons_eta[0];
         outevents->muon_miniIso = infriends->tightRelIso_tightID_Muons_miniPFRelIso_all[0];
-        outevents->leptonicW_pt = &leptonic_w_pt_pointers[uncmode];
+        outevents->leptonicW_pt = *leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
         outevents->puWeightUp = infriends->puWeight_up;
         outevents->puWeightDown = infriends->puWeight_down;
