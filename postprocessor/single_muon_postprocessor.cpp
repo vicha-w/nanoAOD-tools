@@ -6,6 +6,8 @@
 #include <TMath.h>
 #include <glob.h>
 
+gErrorIgnoreLevel = kError;
+
 std::vector<std::string> glob(const char *pattern) {
     glob_t g;
     glob(pattern, GLOB_TILDE, nullptr, &g); // one should ensure glob returns 0!
@@ -112,12 +114,14 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     printf("Found %lld events.\n", intree->GetEntries());
 
-    Friends *infriends_MC;
-    Friends_data *infriends_data;
-    
-    if (isData) *infriends_data = new Friends_data(intree);
-    else *infriends_MC = new Friends(intree);
-    auto infriends = isData ? infriends_data : infriends_MC;
+    //Friends *infriends_MC;
+    //Friends_data *infriends_data;
+    //
+    //if (isData) *infriends_data = new Friends_data(intree);
+    //else *infriends_MC = new Friends(intree);
+    //auto infriends = isData ? infriends_data : infriends_MC;
+
+    Friends *infriends = new Frends(intree);
 
     TString final_outfilename;
     switch (uncmode)
@@ -390,6 +394,15 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRSubJets_nominal_mass),
         (infriends->selectedHOTVRSubJets_nominal_mass)
     };
+    Float_t* leptonic_w_pt_pointers[] = {
+        &(infriends->Leptonic_W_pt_nominal),
+        &(infriends->Leptonic_W_pt_jesTotalUp),
+        &(infriends->Leptonic_W_pt_jesTotalDown),
+        &(infriends->Leptonic_W_pt_jerUp),
+        &(infriends->Leptonic_W_pt_jerDown),
+        &(infriends->Leptonic_W_pt_nominal),
+        &(infriends->Leptonic_W_pt_nominal)
+    };
 
     for (int ievent=0; ievent<intree->GetEntries(); ievent++)
     {
@@ -468,7 +481,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (!at_least_one_bjet) continue;
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
-        if (infriends->Leptonic_W_pt < 250) continue;
+        if (leptonic_w_pt_pointers[uncmode] < 250) continue;
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;
