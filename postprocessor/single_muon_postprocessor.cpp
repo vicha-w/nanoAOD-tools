@@ -5,8 +5,7 @@
 #include "Events.C"
 #include <TMath.h>
 #include <glob.h>
-
-gErrorIgnoreLevel = kError;
+#include <TError.h>
 
 std::vector<std::string> glob(const char *pattern) {
     glob_t g;
@@ -30,6 +29,7 @@ Float_t deltaPhi(Float_t phi1, Float_t phi2)
 
 void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0) // outfilename must not have .root suffix! 
 {
+    gErrorIgnoreLevel = kError;
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
 
     Float_t genEventCount = 0;
@@ -121,7 +121,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     //else *infriends_MC = new Friends(intree);
     //auto infriends = isData ? infriends_data : infriends_MC;
 
-    Friends *infriends = new Frends(intree);
+    Friends *infriends = new Friends(intree);
 
     TString final_outfilename;
     switch (uncmode)
@@ -481,7 +481,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (!at_least_one_bjet) continue;
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
-        if (leptonic_w_pt_pointers[uncmode] < 250) continue;
+        if (&leptonic_w_pt_pointers[uncmode] < 250) continue;
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;
@@ -786,10 +786,10 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->muon_pt = infriends->tightRelIso_tightID_Muons_pt[0];
         outevents->muon_eta = infriends->tightRelIso_tightID_Muons_eta[0];
         outevents->muon_miniIso = infriends->tightRelIso_tightID_Muons_miniPFRelIso_all[0];
-        outevents->leptonicW_pt = infriends->Leptonic_W_pt;
+        outevents->leptonicW_pt = &leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
-        outevents->puWeightUp = infriends->puWeightUp;
-        outevents->puWeightDown = infriends->puWeightDown;
+        outevents->puWeightUp = infriends->puWeight_up;
+        outevents->puWeightDown = infriends->puWeight_down;
         
         if (infriends->fChain->GetListOfBranches()->FindObject("TopPtWeight")) outevents->topptWeight = infriends->TopPtWeight;
         else outevents->topptWeight = 1.;
