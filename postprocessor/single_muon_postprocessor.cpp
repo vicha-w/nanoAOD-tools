@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Friends.C"
+#include "Friends_data.C"
 #include "Events.C"
 #include <TMath.h>
 #include <glob.h>
@@ -29,7 +30,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 {
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
 
+    Float_t genEventCount = 0;
     Float_t sumgenweight = 0;
+    Float_t sumgenweight2 = 0;
     Float_t LHEScaleWeightNorm[9];
     int file_count = 0;
 
@@ -39,6 +42,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     {
         TH1D *hist_genweight_lhe[9];
         //for (int i=0; i<9; i++) hist_genweight_lhe[i] = new TH1D("hist_genweight_lhe_" + str(i), "hist_genweight_lhe_" + str(i), 1, 0, 10);
+        for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = 0;
         for (const auto &filename : glob(infilename.Data())) 
         {
             //chain->Add(filename.c_str());
@@ -62,7 +66,24 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             //TTree *intree = infile->Get("Friends");
             //if (!infile->Get("sumGenWeights")) break;
 
-            sumgenweight += ((TParameter<float>*) infile->Get("sumGenWeights"))->GetVal();
+            genEventCount_obj = (TParameter<float>*) infile->Get("genEventCount");
+            sumgenweight_obj  = (TParameter<float>*) infile->Get("sumGenWeights");
+            sumgenweight2_obj = (TParameter<float>*) infile->Get("sumGenWeights2");
+
+            Float_t genEventCount_thisfile = genEventCount_obj->GetVal();
+            genEventCount += genEventCount_thisfile
+            sumgenweight  += sumgenweight_obj->GetVal();
+            sumgenweight2 += sumgenweight2_obj->GetVal();
+
+            LHEScaleWeightNorm[0] += ((TParameter<float>*) infile->Get("LHEScaleSumw_0"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[1] += ((TParameter<float>*) infile->Get("LHEScaleSumw_1"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[2] += ((TParameter<float>*) infile->Get("LHEScaleSumw_2"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[3] += ((TParameter<float>*) infile->Get("LHEScaleSumw_3"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[4] += ((TParameter<float>*) infile->Get("LHEScaleSumw_4"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[5] += ((TParameter<float>*) infile->Get("LHEScaleSumw_5"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[6] += ((TParameter<float>*) infile->Get("LHEScaleSumw_6"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[7] += ((TParameter<float>*) infile->Get("LHEScaleSumw_7"))->GetVal() * genEventCount_thisfile;
+            LHEScaleWeightNorm[8] += ((TParameter<float>*) infile->Get("LHEScaleSumw_8"))->GetVal() * genEventCount_thisfile;
             //for (int i=0; i<9; i++) intree->Project("hist_genweight_lhe_" + to_string(i), '1.0', 'LHEScaleSumw[%d]*genEventSumw')
             
             infile->Close();
@@ -70,13 +91,14 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         }
         printf("Walked through %d files.\n", file_count);
         printf("sumgenweight = %f\n", sumgenweight);
+        for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = LHEScaleWeightNorm[i]/genEventCount;
     }
     else 
     {
         printf("Data mode activated. No files walked for sumGenWeights.\n");
+        for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = 1;
         intree->Add(infilename);
     }
-    for (int i=0; i<9; i++) LHEScaleWeightNorm[i] = 1.; // TODO: Check if this is also true for MC.
 
     if (isData && (uncmode!=0))
     {
@@ -90,7 +112,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     printf("Found %lld events.\n", intree->GetEntries());
     
-    Friends *infriends = new Friends(intree);
+    if (isdata) Friends *infriends = new Friends(intree);
+    else Friends_data *infriends = new Friends_data(intree);
 
     TString final_outfilename;
     switch (uncmode)
@@ -514,7 +537,24 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // At least one fat jet away from muon (JME-18-002)
         bool fatjet_away_from_muon = false;
-        for (int fjet=0; fjet<infriends->npreselectedHOTVRJets; fjet++)
+        int num_HOTVRJets = 0;
+        switch(uncmode)
+        {
+            case 1:
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jesTotalUp;
+                break;
+            case 2:
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jesTotalDown;
+                break;
+            case 3:
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jerUp;
+                break;
+            case 4:
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jerDown;
+                break;
+            default: num_HOTVRJets = infriends->nselectedHOTVRJets_nominal;
+        }
+        for (int fjet=0; fjet<num_HOTVRJets; fjet++)
         {
             //Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
             Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][fjet]);
@@ -537,11 +577,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->luminosityBlock = infriends->luminosityBlock;
         outevents->event = 0;
         outevents->genWeight = genWeight;
-        outevents->nPSWeight = 0;
-        outevents->PSWeight[0] = 0.;
-        outevents->PSWeight[1] = 0.;
-        outevents->PSWeight[2] = 0.;
-        outevents->PSWeight[3] = 0.;
+        outevents->nPSWeight = 4;
+        for (int i=0; i<4; i++) outevents->PSWeight[i] = isData ? 1 : infriends->PSWeight[i];
         outevents->LHE_Vpt = 0.;
         for (int i=0; i<9; i++)
         {
