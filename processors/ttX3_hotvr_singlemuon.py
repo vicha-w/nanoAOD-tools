@@ -613,7 +613,7 @@ if args.isData:
                     lambda event: event.selectedFatJets_nominal,
                     lambda event: event.selectedHOTVRJets_nominal,
                     lambda event: event.selectedHOTVRSubJets_nominal,
-                    lambda event: event.MET_nominal)
+                    lambda event: Object(event,"MET")
     }
 
 else:
@@ -788,7 +788,7 @@ if Module.globalOptions["isData"]:
     analyzerChain.extend([
         LeptonicWProducer(
             inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
-            inputMet=lambda event: event.MET_nominal,
+            inputMet=lambda event: Object(event,"MET"),
             outputName="Leptonic_W_pt_nominal"
         )
     ])
@@ -876,7 +876,7 @@ else:
         'inputJetCollection': lambda event: event.selectedJets_nominal,
         'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
         'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
-        'inputMETCollection': lambda event: event.MET_nominal,
+        'inputMETCollection': lambda event: Object(event,"MET"),
         'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
         'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
         'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
