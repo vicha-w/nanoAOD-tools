@@ -785,7 +785,7 @@ triggers = {}
 for key in ["ee", "emu", "mumu"]: triggers[key] = lambda event: False
 
 if Module.globalOptions["isData"]:
-    analyzerChain.extend([1
+    analyzerChain.extend([
         LeptonicWProducer(
             inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
             inputMet=lambda event: event.MET_nominal,
