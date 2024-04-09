@@ -784,24 +784,33 @@ triggers = {}
 #    triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
 for key in ["ee", "emu", "mumu"]: triggers[key] = lambda event: False
 
-analyzerChain.extend([
-    # Exactly one muon
-    #EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
-    # Leptonic W pt cut
-    #EventSkim(selection=leptonic_W_cut),
-    #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
-    LeptonicWProducer(
-        inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
-        inputMet=lambda event: event.met_nominal,
-        outputName="Leptonic_W_pt_nominal"
-    ),
-    # At least one b-jet, in the same hemisphere of the muon
-    #EventSkim(selection=bjet_in_same_hemisphere_as_muon),
-    # At least one fat jet away from the muon
-    #EventSkim(selection=fatjet_away_from_muon),
-    #EventReconstruction(**event_reco_inputs),
-    #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
-])
+if Module.globalOptions["isData"]:
+    analyzerChain.extend([1
+        LeptonicWProducer(
+            inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
+            inputMet=lambda event: event.MET_nominal,
+            outputName="Leptonic_W_pt_nominal"
+        )
+    ])
+else:
+    analyzerChain.extend([
+        # Exactly one muon
+        #EventSkim(selection=lambda event: event.ntightRelIso_tightID_Muons == 1),
+        # Leptonic W pt cut
+        #EventSkim(selection=leptonic_W_cut),
+        #EventSkim(selection=leptonic_W_pt, outputName="leptonicW_pt"),
+        LeptonicWProducer(
+            inputMuonCollection=lambda event: event.tightRelIso_tightID_Muons,
+            inputMet=lambda event: event.met_nominal,
+            outputName="Leptonic_W_pt_nominal"
+        ),
+        # At least one b-jet, in the same hemisphere of the muon
+        #EventSkim(selection=bjet_in_same_hemisphere_as_muon),
+        # At least one fat jet away from the muon
+        #EventSkim(selection=fatjet_away_from_muon),
+        #EventReconstruction(**event_reco_inputs),
+        #EventSkim(selection=lambda event: (event.event_selection_OS_dilepton_cut))
+    ])
 
 if not Module.globalOptions["isData"]:
     for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown", "unclEnUp", "unclEnDown"]:
@@ -845,19 +854,34 @@ if not Module.globalOptions["isData"]:
 #    )
 
 event_reco_inputs = []
-event_reco_inputs.append({
-    'inputTriggersCollection': triggers,
-    'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-    'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
-    'inputJetCollection': lambda event: event.selectedJets_nominal,
-    'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
-    'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
-    'inputMETCollection': lambda event: event.met_nominal,
-    'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
-    'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
-    'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
-    "systName": "nominal"
-})
+if not Module.globalOptions["isData"]:
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_nominal,
+        'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
+        'inputMETCollection': lambda event: event.met_nominal,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
+        'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "systName": "nominal"
+    })
+else:
+    event_reco_inputs.append({
+        'inputTriggersCollection': triggers,
+        'inputMuonCollection': lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
+        'inputElectronCollection': lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
+        'inputJetCollection': lambda event: event.selectedJets_nominal,
+        'inputBJetCollection': lambda event: event.selectedBJets_nominal_loose,
+        'inputFatJetCollection': lambda event: event.selectedFatJets_nominal,
+        'inputMETCollection': lambda event: event.MET_nominal,
+        'inputHOTVRJetCollection': lambda event: event.selectedHOTVRJets_nominal,
+        'inputHOTVRSubJetCollection': lambda event: event.selectedHOTVRSubJets_nominal,
+        'inputGenTopCollection': (lambda event: event.genTops) if not Module.globalOptions["isData"] else {},
+        "systName": "nominal"
+    })
 if not Module.globalOptions["isData"]:
     for unc in ["jerUp", "jerDown", "jesTotalUp", "jesTotalDown"]:
         event_reco_inputs.append({
