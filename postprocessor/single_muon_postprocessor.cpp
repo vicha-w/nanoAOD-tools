@@ -592,7 +592,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         
         outevents->run = infriends->run;
         outevents->luminosityBlock = infriends->luminosityBlock;
-        outevents->event = 0;
+        outevents->event = infriends->eventID;
         outevents->genWeight = genWeight;
         outevents->nPSWeight = 4;
         for (int i=0; i<4; i++) outevents->PSWeight[i] = isData ? 1 : infriends->PSWeight[i];
