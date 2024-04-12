@@ -142,7 +142,7 @@ class HOTVRJetComposition(Module):
             # ---
                 
             # --- check on W, b, others not from top 
-            elif len(genWs_not_from_top) != 0:
+            if len(genWs_not_from_top) != 0:
                 closest_genW = min(genWs_not_from_top, key=lambda genW: deltaR(genW,hotvr))
                 if deltaR(closest_genW, hotvr) < effective_radius:
                     if self.print_out: print('Closest genW not from top inside hotvr')
@@ -156,7 +156,7 @@ class HOTVRJetComposition(Module):
                 else: 
                     setattr(hotvr, 'has_other', True)
 
-            elif len(genbs_not_from_top) != 0:
+            if len(genbs_not_from_top) != 0:
                 closest_genb = min(genbs_not_from_top, key=lambda genb: deltaR(genb,hotvr))
                 if deltaR(closest_genb,hotvr) < effective_radius:
                     if self.print_out: print('Closest b not from inside hotvr')
@@ -164,7 +164,7 @@ class HOTVRJetComposition(Module):
                 else: 
                     setattr(hotvr, 'has_other', True)
 
-            elif any(self.is_inside_hotvr(genp, hotvr) for genp in list(filter( self.is_quark_lepton_gluon, genparticles_not_from_top))):
+            if any(self.is_inside_hotvr(genp, hotvr) for genp in list(filter( self.is_quark_lepton_gluon, genparticles_not_from_top))):
                 if self.print_out: print('Quarks/Gluons not from top inside hotvr')
                 setattr(hotvr, 'has_gluon_or_quark_not_fromTop', True)
 
