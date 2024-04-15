@@ -165,8 +165,13 @@ public :
    Float_t         puWeightDown;
    Float_t         topptWeight;
 
+   Bool_t  preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside;
+   Bool_t  preselectedHOTVRJets_has_b_fromTop_topIsInside;
+   Bool_t  preselectedHOTVRJets_has_b_not_fromTop;
+   Bool_t  preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside;
+   Bool_t  preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside;
+   Bool_t  preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside;
    Bool_t  preselectedHOTVRJets_has_hadronicTop_topIsInside;
-   Bool_t  preselectedHOTVRJets_has_hadronicW_topIsInside;
    Float_t preselectedHOTVRJets_scoreBDT;
    Bool_t  passedHOTVRCut;
 
@@ -537,8 +542,14 @@ void Events::Init(TTree *tree)
    fChain->Branch("puWeightDown", &puWeightDown, "puWeightDown/F");
    fChain->Branch("topptWeight", &topptWeight, "topptWeight/F");
 
+   fChain->Branch("preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside", &preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside, "preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside/O");
+   fChain->Branch("preselectedHOTVRJets_has_b_fromTop_topIsInside", &preselectedHOTVRJets_has_b_fromTop_topIsInside, "preselectedHOTVRJets_has_b_fromTop_topIsInside/O");
+   fChain->Branch("preselectedHOTVRJets_has_b_not_fromTop", &preselectedHOTVRJets_has_b_not_fromTop, "preselectedHOTVRJets_has_b_not_fromTop/O");
+   fChain->Branch("preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside", &preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside, "preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside/O");
+   fChain->Branch("preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside", &preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside, "preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside/O");
+   fChain->Branch("preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside", &preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside, "preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside/O");
    fChain->Branch("preselectedHOTVRJets_has_hadronicTop_topIsInside", &preselectedHOTVRJets_has_hadronicTop_topIsInside, "preselectedHOTVRJets_has_hadronicTop_topIsInside/O");
-   fChain->Branch("preselectedHOTVRJets_has_hadronicW_topIsInside", &preselectedHOTVRJets_has_hadronicW_topIsInside, "preselectedHOTVRJets_has_hadronicW_topIsInside/O");
+   
    fChain->Branch("preselectedHOTVRJets_scoreBDT", &preselectedHOTVRJets_scoreBDT, "preselectedHOTVRJets_scoreBDT/F");
    fChain->Branch("passedHOTVRCut", &passedHOTVRCut, "passedHOTVRCut/O");
 
