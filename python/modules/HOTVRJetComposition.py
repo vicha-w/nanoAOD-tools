@@ -154,7 +154,7 @@ class HOTVRJetComposition(Module):
                                     W_daughters_inside_hotvr.append(W_daughter)
                             if self.print_out: print('Daugthers inside {}'.format(list(map(lambda daughter: daughter.pdgId, W_daughters_inside_hotvr))))
                             substr_flag = genW_substructures_check(W_daughters_inside_hotvr)
-                            print(substr_flag)
+                            #print(substr_flag)
                             import time
                             time.sleep(1)
                             
