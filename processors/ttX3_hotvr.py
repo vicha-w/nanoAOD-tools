@@ -557,9 +557,6 @@ if args.isData:
     }
 
 else:
-    # pu weight producer are set to AUTO mode for 2022, 2022EE --> https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#True_and_observed_pileup_in_data
-    # 1) no MC distributions available (?) - 07/03/2024
-    # 2) no plus/minus variation
     analyzerChain.append(PUWeightProducer_dict[args.year]())
 
     if args.nosys:

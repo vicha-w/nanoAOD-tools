@@ -209,16 +209,16 @@ puAutoWeight_UL2018 = lambda: puWeightProducer(
     "auto", pufile_dataUL2018, "pu_mc", "pileup", verbose=False)
 
 # 2022 - 2022EE
-pufile_data2022 = "%s/src/PhysicsTools/NanoAODTools/data/pileup/pileupHistogram-Cert_Collisions2022_355100_362760_GoldenJson-13p6TeV-69200ub-99bins.root" % os.environ['CMSSW_BASE']
-# pufile_mc2022 = "%s/src/PhysicsTools/NanoAODTools/data/pileup/mcPileup2022.root" % os.environ['CMSSW_BASE']
-# puWeight_2022 = lambda: puWeightProducer(pufile_mc2022,
-#                                            pufile_data2022,
-#                                            "pu_mc",
-#                                            "pileup",
-#                                            verbose=False,
-#                                            doSysVar=True)
+pufile_data2022 = "%s/src/PhysicsTools/NanoAODTools/data/pileup/PileupHistogram-2022-99bins_withVar.root" % os.environ['CMSSW_BASE']
+pufile_mc2022 = "%s/src/PhysicsTools/NanoAODTools/data/pileup/mcPileup2022.root" % os.environ['CMSSW_BASE']
+puWeight_2022 = lambda: puWeightProducer(pufile_mc2022,
+                                           pufile_data2022,
+                                           "pu_mc",
+                                           "pileup",
+                                           verbose=False,
+                                           doSysVar=True)
 puAutoWeight_2022 = lambda: puWeightProducer(
-    "auto", pufile_data2022, "pu_mc", "pileup", verbose=False, doSysVar=False)
+    "auto", pufile_data2022, "pu_mc", "pileup", verbose=False)
 
 
 
@@ -227,6 +227,6 @@ PUWeightProducer_dict = {
     '2016': puWeight_UL2016,
     '2017': puWeight_UL2017,
     '2018': puWeight_UL2018,
-    '2022': puAutoWeight_2022,
-    '2022EE': puAutoWeight_2022,
+    '2022': puWeight_2022,
+    '2022EE': puWeight_2022,
 }

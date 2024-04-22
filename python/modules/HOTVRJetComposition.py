@@ -38,18 +38,26 @@ class HOTVRJetComposition(Module):
             self.jetCompositions.append('has_hadronicTop_'+flag_top_inside)
             self.jetCompositions.append('has_other_'+flag_top_inside)
             self.jetCompositions.append('has_noTopDaughters_'+flag_top_inside)
-            for top_label in ['fromTop','not_fromTop']:
-                self.jetCompositions.append('has_leptonicW_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_hadronicW_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_plus_quark_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_plus_lepton_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_quark_fromW_'+top_label+'_'+flag_top_inside)
+            if flag_top_inside == 'topIsInside' or flag_top_inside == 'topIsNotInside_and_has_gluon_or_quark_not_fromTop':
+                for top_label in ['fromTop']: #,'not_fromTop']:
+                    self.jetCompositions.append('has_leptonicW_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_hadronicW_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_plus_quark_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_plus_lepton_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_quark_fromW_'+top_label+'_'+flag_top_inside)
+        # --- special case, samples without top and samples like tW, ttH
+        self.jetCompositions.append('has_leptonicW_not_fromTop')
+        self.jetCompositions.append('has_hadronicW_not_fromTop')
+        self.jetCompositions.append('has_b_plus_quark_not_fromTop')
+        self.jetCompositions.append('has_b_plus_lepton_not_fromTop')
+        self.jetCompositions.append('has_b_not_fromTop')
+        self.jetCompositions.append('has_quark_fromW_not_fromTop')
 
         if Module.globalOptions['isSignal']: 
             self.jetCompositions.append('has_top_fromResonance')
 
-        self.print_out = False
+        self.print_out = True
 
     def is_inside_hotvr(self, jet, hotvr):
         rho = 600 
@@ -130,17 +138,51 @@ class HOTVRJetComposition(Module):
                             setattr(hotvr, 'has_top_fromResonance', True)
                     if self.print_out: print('Closest genTop [idx. {}] inside HOTVR'.format(closest_gentop._index))
                     substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_hotvr, flag_is_top_inside='topIsInside')
+
                 else: 
                     if self.print_out: 
                         print('Daugthers {} inside HOTVR of a genTop NOT inside HOTVR [deltaR {} > rho/pt {}]'.format(list(map(lambda daughter: daughter.pdgId, top_daughters_inside_hotvr)), deltaR(closest_gentop,hotvr), effective_radius))
-                    
-                    if any(self.is_inside_hotvr(genp, hotvr) for genp in list(filter(self.is_quark_lepton_gluon, genparticles_not_from_top))):
+
+                    # --- special case of tW processes -> the hotvr comes from the W not from the top
+                    if len(genWs_not_from_top) != 0:
+                        closest_genW = min(genWs_not_from_top, key=lambda genW: deltaR(genW,hotvr))
+                        if deltaR(closest_genW, hotvr) < effective_radius:
+                            if self.print_out: print('Closest genW not from top inside hotvr')
+                            W_daughters_inside_hotvr = []
+                            for W_daughter in closest_genW.daughters:
+                                if deltaR(W_daughter, hotvr) < effective_radius:
+                                    W_daughters_inside_hotvr.append(W_daughter)
+                            if self.print_out: print('Daugthers inside {}'.format(list(map(lambda daughter: daughter.pdgId, W_daughters_inside_hotvr))))
+                            substr_flag = genW_substructures_check(W_daughters_inside_hotvr)
+                            print(substr_flag)
+                            import time
+                            time.sleep(1)
+                            
+                            setattr(hotvr, substr_flag, True)
+                        else: 
+                            setattr(hotvr, 'has_other', True)
+                            continue
+                    # ---
+                    # --- special case of ttH, H->bb -> the hotvr comes from the b from the Higgs
+                    elif len(genbs_not_from_top) != 0:
+                        closest_genb = min(genbs_not_from_top, key=lambda genb: deltaR(genb,hotvr))
+                        if deltaR(closest_genb,hotvr) < effective_radius:
+                            if self.print_out: print('Closest b not from inside hotvr')
+                            setattr(hotvr, 'has_b_not_fromTop', True)
+                            continue
+                        else: 
+                            setattr(hotvr, 'has_other', True)
+                            continue
+                    # ---
+                    # --- special case: daughters are inside but also gluon radiation (which represents the biggest contribution)
+                    elif any(self.is_inside_hotvr(genp, hotvr) for genp in list(filter(self.is_quark_lepton_gluon, genparticles_not_from_top))):
                         substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_hotvr, flag_is_top_inside='topIsNotInside_and_has_gluon_or_quark_not_fromTop')
+                    # --- very rare case 
                     else: 
                         substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_hotvr, flag_is_top_inside='topIsNotInside')  
                 setattr(hotvr, substr_flag, True)
             # ---
-                
+
             # --- check on W, b, others not from top 
             elif len(genWs_not_from_top) != 0:
                 closest_genW = min(genWs_not_from_top, key=lambda genW: deltaR(genW,hotvr))
@@ -170,6 +212,7 @@ class HOTVRJetComposition(Module):
 
             else: 
                 setattr(hotvr, 'has_other', True)
+
 
         self.out.fillBranch("n{}".format(self.outputJetPrefix), len(hotvrjets))
         for composition_flag in self.jetCompositions:

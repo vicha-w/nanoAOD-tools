@@ -308,7 +308,7 @@ def gentop_substructures_check(gentop, top_daughters, **keys):
     
     if len(top_daughters) == 3:
         if gentop.has_hadronically_decay:
-            substructure_flag = 'has_hadronicTop_' + keys['flag_is_top_inside']        
+            substructure_flag = 'has_hadronicTop_' + keys['flag_is_top_inside']
         elif not gentop.has_hadronically_decay:
             substructure_flag = 'has_b_plus_lepton_fromTop_' + keys['flag_is_top_inside']
         else: 
