@@ -483,6 +483,12 @@ def jetSelection(jetDict):
     #        any([getattr(event, "nselectedFatJets_"+systName) >= 2 for systName in systNames])
     #    )
     #)
+
+    seq.append(
+        EventSkim(selection=lambda event, systNames=jetDict.keys(): 
+            any([getattr(event, "nselectedHOTVRJets_"+systName) >= 1 for systName in systNames])
+        )
+    )
     
     # fixed working point event reweighting and shape implemented
     # https://twiki.cern.ch/twiki/bin/view/CMS/BTagSFMethods#b_tagging_efficiency_in_MC_sampl
