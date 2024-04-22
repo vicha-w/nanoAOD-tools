@@ -57,7 +57,7 @@ class HOTVRJetComposition(Module):
         if Module.globalOptions['isSignal']: 
             self.jetCompositions.append('has_top_fromResonance')
 
-        self.print_out = True
+        self.print_out = False
 
     def is_inside_hotvr(self, jet, hotvr):
         rho = 600 
