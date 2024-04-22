@@ -36,13 +36,21 @@ class FatJetComposition(Module):
             self.jetCompositions.append('has_hadronicTop_'+flag_top_inside)
             self.jetCompositions.append('has_other_'+flag_top_inside)
             self.jetCompositions.append('has_noTopDaughters_'+flag_top_inside)
-            for top_label in ['fromTop','not_fromTop']:
-                self.jetCompositions.append('has_leptonicW_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_hadronicW_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_plus_quark_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_plus_lepton_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_b_'+top_label+'_'+flag_top_inside)
-                self.jetCompositions.append('has_quark_fromW_'+top_label+'_'+flag_top_inside)
+            if flag_top_inside == 'topIsInside' or flag_top_inside == 'topIsNotInside_and_has_gluon_or_quark_not_fromTop':
+                for top_label in ['fromTop']: #,'not_fromTop']:
+                    self.jetCompositions.append('has_leptonicW_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_hadronicW_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_plus_quark_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_plus_lepton_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_b_'+top_label+'_'+flag_top_inside)
+                    self.jetCompositions.append('has_quark_fromW_'+top_label+'_'+flag_top_inside)
+        # --- special case, samples without top and samples like tW, ttH
+        self.jetCompositions.append('has_leptonicW_not_fromTop')
+        self.jetCompositions.append('has_hadronicW_not_fromTop')
+        self.jetCompositions.append('has_b_plus_quark_not_fromTop')
+        self.jetCompositions.append('has_b_plus_lepton_not_fromTop')
+        self.jetCompositions.append('has_b_not_fromTop')
+        self.jetCompositions.append('has_quark_fromW_not_fromTop')
 
         if Module.globalOptions['isSignal']: 
             self.jetCompositions.append('has_top_fromResonance')
@@ -116,10 +124,39 @@ class FatJetComposition(Module):
                     if self.print_out: 
                         print('Daugthers {} inside AK8 of a genTop NOT inside AK8 [deltaR {} > rho/pt {}]'.format(list(map(lambda daughter: daughter.pdgId, top_daughters_inside_ak8)), deltaR(closest_gentop,ak8), 0.8))
                     
-                    if any(self.is_inside_ak8(genp, ak8) for genp in list(filter(self.is_quark_lepton_gluon, genparticles_not_from_top))):
+                    # --- special case of tW processes -> the ak8 comes from the W not from the top
+                    if len(genWs_not_from_top) != 0:
+                        closest_genW = min(genWs_not_from_top, key=lambda genW: deltaR(genW,ak8))
+                        if deltaR(closest_genW, ak8) < 0.8:
+                            if self.print_out: print('Closest genW not from top inside ak8')
+                            W_daughters_inside_ak8 = []
+                            for W_daughter in closest_genW.daughters:
+                                if deltaR(W_daughter, ak8) < 0.8:
+                                    W_daughters_inside_ak8.append(W_daughter)
+                            if self.print_out: print('Daugthers inside {}'.format(list(map(lambda daughter: daughter.pdgId, W_daughters_inside_ak8))))
+                            substr_flag = genW_substructures_check(W_daughters_inside_ak8)
+                            setattr(ak8, substr_flag, True)
+                        else: 
+                            setattr(ak8, 'has_other', True)
+                            continue
+                    # ---
+                    # --- special case of ttH, H->bb -> the ak8 comes from the b from the Higgs
+                    elif len(genbs_not_from_top) != 0:
+                        closest_genb = min(genbs_not_from_top, key=lambda genb: deltaR(genb,ak8))
+                        if deltaR(closest_genb,ak8) < 0.8:
+                            if self.print_out: print('Closest b not from inside ak8')
+                            setattr(ak8, 'has_b_not_fromTop', True)
+                            continue
+                        else: 
+                            setattr(ak8, 'has_other', True)
+                            continue
+                    # ---
+                    # --- special case: daughters are inside but also gluon radiation (which represents the biggest contribution)
+                    elif any(self.is_inside_ak8(genp, ak8) for genp in list(filter(self.is_quark_lepton_gluon, genparticles_not_from_top))):
                         substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_ak8, flag_is_top_inside='topIsNotInside_and_has_gluon_or_quark_not_fromTop')
+                    # --- very rare case 
                     else: 
-                        substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_ak8, flag_is_top_inside='topIsNotInside')  
+                        substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_ak8, flag_is_top_inside='topIsNotInside')
                 setattr(ak8, substr_flag, True)
             # ---
                 
