@@ -807,6 +807,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop[0];
                 outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalUp_scoreBDT[0];
                 break;
             case 2:
@@ -817,6 +820,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop[0];
                 outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalDown_scoreBDT[0];
                 break;
             case 3:
@@ -827,6 +833,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop[0];
                 outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerUp_scoreBDT[0];
                 break;
             case 4:
@@ -837,6 +846,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop[0];
                 outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerDown_scoreBDT[0];
                 break;
             default:
@@ -847,6 +859,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_nominal_has_quark_fromW_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_b_plus_lepton_fromTop_topIsInside[0];
                 outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_nominal_has_hadronicW_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_nominal_has_b_plus_quark_not_fromTop[0];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop[0];
                 outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_nominal_scoreBDT[0];
                 break;
         }
