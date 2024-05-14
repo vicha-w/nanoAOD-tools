@@ -164,8 +164,8 @@ class ElectronSelection(Module):
                     # continue
 
                 # gap between barrel and endcap
-                # if math.fabs(electron.eta) > 1.4442 and math.fabs(electron.eta) < 1.5660:
-                #     continue
+                if math.fabs(electron.eta + electron.deltaEtaSC) > 1.4442 and math.fabs(electron.eta  + electron.deltaEtaSC ) < 1.5660:
+                    continue
 
                 #reject electron if close-by muon
                 if len(muons)>0:
