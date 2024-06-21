@@ -16,41 +16,21 @@ class GenParticleModule(Module):
     def __init__(
         self,
         inputGenCollection=lambda event: Collection(event, "GenPart"),
-        inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
-        inputGenJetCollection=lambda event: Collection(event, "GenJet"),
-        inputFatJetCollection=lambda event: Collection(event, "FatJet"),
-        inputJetCollection=lambda event: Collection(event, "Jet"),
-        inputMuonCollection=lambda event: Collection(event, "Muon"),
-        inputElectronCollection=lambda event: Collection(event, "Electron"),
         outputName="genPart",
         storeKinematics= ['pt','eta','phi','mass'],
     ):
-
         self.inputGenCollection = inputGenCollection
-        self.inputFatGenJetCollection = inputFatGenJetCollection
-        self.inputGenJetCollection = inputGenJetCollection
-        self.inputFatJetCollection = inputFatJetCollection
-        self.inputJetCollection = inputJetCollection
-        self.inputMuonCollection = inputMuonCollection
-        self.inputElectronCollection = inputElectronCollection
         self.outputName = outputName
         self.storeKinematics = storeKinematics
 
         self.verbose = False
 
-        self.genP_lastcopies, self.genP_lastcopies_pdgid, self.genP_lastcopies_id, self.genP_lastcopies_mother_idx = [], [], [], []
-        self.oldToNew, self.new_motherIdx_list = OrderedDict(), []
-
         self.quarks_list = [1,2,3,4]
         self.leptons_list = [11,13,15]
 
-        self.genTopKeys = ['has_hadronically_decay', 'is_inside_ak8', 'is_inside_ak8_top_tagged', 'inside_nak8', 'min_deltaR_ak8', 'first_daughter', 'second_daughter', 'third_daughter', 'all_decays_inside_ak8', 'max_deltaR_q_ak8']
+        self.genTopKeys = [
+            'first_daughter', 'second_daughter', 'third_daughter', 'has_hadronically_decay',]
         if Module.globalOptions['isSignal']: self.genTopKeys.append('from_resonance')
-
-    def is_genP_inside_genFJet(self, genFJet, genP):
-        if deltaR(genFJet, genP)<0.8:
-            return True
-        else: return False
 
     def has_x_as_mother(self, genParticle_idx, target_mother_pdg, event):
         # recursive check if x is the mother of the particles under investigation
@@ -105,10 +85,25 @@ class GenParticleModule(Module):
     def check_W_daughters(self, W, daughters_list, event):
         W_sign = np.sign(W.pdgId)
 
+        if W_sign > 0: 
+            decay_pairs = [
+                (2, -1), (2, -3), (2, -5),
+                (4, -1), (4, -3), (4, -5),
+                (6, -1), (6, -3), (6, -5),
+                (-11, 12), (-13, 14), (-15, 16)
+            ]
+        else:
+            decay_pairs = [
+                (-2, 1), (-2, 3), (-2, 5),
+                (-4, 1), (-4, 3), (-4, 5),
+                (-6, 1), (-6, 3), (-6, 5),
+                (11, -12), (13, -14), (15, -16)
+            ]
+
         # recursively check the W daughters
-        for daughter_1_id, daughter_2_id in [(-1, 2), (-3, 4), (-11, 12), (-13, 14), (-15, 16)]:
-            check_1, daughter_1 = self.has_x_as_daughter(W, W_sign * daughter_1_id, event)
-            check_2, daughter_2 = self.has_x_as_daughter(W, W_sign * daughter_2_id, event)
+        for daughter_1_id, daughter_2_id in decay_pairs:
+            check_1, daughter_1 = self.has_x_as_daughter(W, daughter_1_id, event)
+            check_2, daughter_2 = self.has_x_as_daughter(W, daughter_2_id, event)
             if check_1 and check_2:
                 daughters_list.extend([daughter_1, daughter_2])
                 break
@@ -152,6 +147,13 @@ class GenParticleModule(Module):
             self.out.branch("{}_status".format(genlepton), "F", lenVar="n{}".format(genlepton))
             self.out.branch("{}_index".format(genlepton), "F", lenVar="n{}".format(genlepton))
 
+        # self.out.branch("ngenParticle", "I")
+        # for variable in self.storeKinematics:
+        #     self.out.branch("genParticle_"+variable, "F", lenVar="ngenParticle")  
+        # for genvar in ['pdgId', 'genPartIdxMother', 'status', 'statusFlags']:
+        #     self.out.branch("genParticle_"+genvar, "I", lenVar="ngenParticle")  
+
+
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
 
@@ -159,16 +161,6 @@ class GenParticleModule(Module):
         """process event, return True (go to next module) or False (fail, go to next event)"""
 
         genParticles = self.inputGenCollection(event)
-        fatGenJets = self.inputFatGenJetCollection(event)
-        fatGenJets = sorted(fatGenJets,key=lambda x: x.pt, reverse=True)
-        genJets = self.inputGenJetCollection(event)
-        genJets = sorted(genJets,key=lambda x: x.pt, reverse=True)
-
-        # muons = self.inputMuonCollection(event)
-        # electrons = self.inputElectronCollection(event)
-
-        fatjets = self.inputFatJetCollection(event)
-        jets = self.inputJetCollection(event)
 
         if self.verbose:
             print('########## EVENT ############')
@@ -237,7 +229,9 @@ class GenParticleModule(Module):
                             setattr(genParticle, i, daughter.pdgId)
                     else:
                         if self.verbose:
+                            print(gentop_daughters)
                             print("Wierd Event...")
+                            sys.exit()
                     if self.verbose:
                         print('Top pos.[{}] has {} in pos.[{}] as daughters'.format(genParticle._index, list(map(lambda daughter: daughter.pdgId, gentop_daughters)), list(map(lambda daughter: daughter._index, gentop_daughters))))
 
@@ -245,50 +239,6 @@ class GenParticleModule(Module):
                     if any(top_daughter in list(map(lambda daughter: daughter.pdgId, gentop_daughters)) for top_daughter in quarks_from_w):
                         if self.verbose: print('Top pos.[{}] decays hadronically')
                         setattr(genParticle, 'has_hadronically_decay', True)
-                    # ----
-
-                    # ---- genStudies with AK8
-                    setattr(genParticle, 'is_inside_ak8', False), setattr(genParticle, 'is_inside_ak8_top_tagged', False)
-                    setattr(genParticle, 'inside_nak8', 0) #, setattr(genParticle, 'min_deltaR_ak8', -99.)
-                    setattr(genParticle,'all_decays_inside_ak8', False), setattr(genParticle,'max_deltaR_q_ak8', -99)
-
-                    min_deltaR_ak8_top  = float('inf')
-                    for ak8 in fatjets:
-                        if self.verbose: print('------------ Beginning loop over reco ak8 jets (that have a link to genAK8Jet) ------------')
-                        if self.verbose: print('---- AK8 Number {}'.format((ak8._index)+1))
-
-                        associated_genFJet = None
-                        for genFJet in fatGenJets:
-                            if ak8.genJetAK8Idx == genFJet._index:
-                                associated_genFJet = genFJet
-                            else: continue
-                        if associated_genFJet == None:
-                            if self.verbose: print('No associated genJet')
-                            continue
-
-                        min_deltaR_ak8_top = min(min_deltaR_ak8_top, deltaR(genFJet, genParticle))
-
-                        if self.is_genP_inside_genFJet(associated_genFJet, genParticle):
-                            if self.verbose: print('The genTop is inside an ak8!')
-                            setattr(genParticle, 'is_inside_ak8', True)
-                            setattr(genParticle, 'inside_nak8', genParticle.inside_nak8+1)
-
-                            max_deltaR_ak8_q = 0.
-                            for daughter in gentop_daughters:
-                                max_deltaR_ak8_q = max(max_deltaR_ak8_q, deltaR(associated_genFJet, daughter))
-                            setattr(genParticle, 'max_deltaR_q_ak8', max_deltaR_ak8_q)
-
-                            if max_deltaR_ak8_q < 0.8:
-                                if self.verbose: print('All the decays are inside the ak8. The greater dR is {}'.format(max_deltaR_ak8_q))
-                                setattr(genParticle, 'all_decays_inside_ak8', True)
-
-
-                            if ak8.particleNet_TvsQCD>0.58:
-                                if self.verbose: print('which is top tagged!')
-                                setattr(genParticle, 'is_inside_ak8_top_tagged', True)
-                        else: continue
-
-                    setattr(genParticle, 'min_deltaR_ak8', min_deltaR_ak8_top)
                     # ----
                     gen_top_quarks.append(genParticle)
 
@@ -326,6 +276,12 @@ class GenParticleModule(Module):
         setattr(event, 'gen_w_bosons_not_from_top', gen_w_bosons_not_from_top_list)
         setattr(event, 'gen_b_quarks_not_from_top', gen_b_quarks_not_from_top)
         setattr(event, 'gen_particles_not_from_top', gen_particles_not_from_top)
+
+        # self.out.fillBranch("ngenParticle", len(genParticles))
+        # for variable in self.storeKinematics:
+        #     self.out.fillBranch("genParticle_"+variable, map(lambda genp: getattr(genp, variable), genParticles))  
+        # for genvar in ['pdgId', 'genPartIdxMother', 'status', 'statusFlags']:
+        #     self.out.fillBranch("genParticle_"+genvar, map(lambda genp: getattr(genp, genvar), genParticles))  
 
         self.out.fillBranch("ngenTop", len(gen_top_quarks))
         for genTopKey in self.genTopKeys:
