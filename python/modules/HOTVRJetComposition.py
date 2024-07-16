@@ -33,7 +33,7 @@ class HOTVRJetComposition(Module):
         # light quarks/gluon not coming from top
 
         self.jetCompositions = ['has_gluon_or_quark_not_fromTop']
-        self.jetCompositions.extend(['has_other','has_b_not_fromTop'])
+        self.jetCompositions.extend(['has_other'])
         for flag_top_inside in ['topIsInside','topIsNotInside','topIsNotInside_and_has_gluon_or_quark_not_fromTop']:
             self.jetCompositions.append('has_hadronicTop_'+flag_top_inside)
             self.jetCompositions.append('has_other_'+flag_top_inside)
@@ -54,10 +54,12 @@ class HOTVRJetComposition(Module):
         self.jetCompositions.append('has_b_not_fromTop')
         self.jetCompositions.append('has_quark_fromW_not_fromTop')
 
+        self.jetCompositions = list(set(self.jetCompositions))
+
         if Module.globalOptions['isSignal']: 
             self.jetCompositions.append('has_top_fromResonance')
 
-        self.print_out = True
+        self.print_out = False
 
     def is_inside_hotvr(self, jet, hotvr):
         rho = 600 
@@ -154,10 +156,6 @@ class HOTVRJetComposition(Module):
                                     W_daughters_inside_hotvr.append(W_daughter)
                             if self.print_out: print('Daugthers inside {}'.format(list(map(lambda daughter: daughter.pdgId, W_daughters_inside_hotvr))))
                             substr_flag = genW_substructures_check(W_daughters_inside_hotvr)
-                            print(substr_flag)
-                            import time
-                            time.sleep(1)
-                            
                             setattr(hotvr, substr_flag, True)
                         else: 
                             setattr(hotvr, 'has_other', True)
@@ -212,7 +210,6 @@ class HOTVRJetComposition(Module):
 
             else: 
                 setattr(hotvr, 'has_other', True)
-
 
         self.out.fillBranch("n{}".format(self.outputJetPrefix), len(hotvrjets))
         for composition_flag in self.jetCompositions:
