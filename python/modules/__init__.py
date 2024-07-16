@@ -7,6 +7,7 @@ if (ROOT.gSystem.Load("libPhysicsToolsNanoAODTools.so")!=0):
 
 #genParticle
 from GenParticleModule import GenParticleModule
+from GenTopModule import GenTopModule
 
 #trigger
 from DoubleMuonTriggerSelection import DoubleMuonTriggerSelection
@@ -38,7 +39,6 @@ from JetMetUncertainties import JetMetUncertainties
 from JetSelection import JetSelection
 from BTagSelection import BTagSelection
 from btagSFProducer import btagSFProducer
-from BTagWeightProducer import BTagWeightProducer
 
 #event
 from PUWeightProducer import puWeightProducer, PUWeightProducer_dict
