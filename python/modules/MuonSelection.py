@@ -42,7 +42,7 @@ class MuonSelection(Module):
         self.triggerMatch = triggerMatch
         self.triggerObjectCollection = lambda event: Collection(event, "TrigObj") if triggerMatch else lambda event: []
         self.storeTruthKeys = storeTruthKeys
-        
+        self.muonID = {'tight': [], 'medium': [], 'loose': []}
 
     def triggerMatched(self, muon, trigger_object): 
         #return 2 arguments: 
@@ -76,8 +76,10 @@ class MuonSelection(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         
-        for var in ['PFRelIso04', 'tightID', 'mediumID', 'looseID']:        
-            self.out.branch("muon_"+var,"F",lenVar="nMuon")
+        for variable in ['PFRelIso04', 'tightID', 'mediumID', 'looseID']:
+            self.out.branch("muon_"+variable,"F",lenVar="nMuons")
+        for variable in self.storeKinematics:
+            self.out.branch("muon_"+variable,"F",lenVar="nMuons")
 
         for outputName in self.outputName_list:
             self.out.branch("n"+outputName, "I")
@@ -86,7 +88,7 @@ class MuonSelection(Module):
                 self.out.branch(outputName+"_"+variable,"F",lenVar="n"+outputName)
             if not Module.globalOptions["isData"]:
                 for variable in self.storeTruthKeys:
-                    self.out.branch(outputName+"_"+variable,"F",lenVar="n"+outputName)    
+                    self.out.branch(outputName+"_"+variable,"F",lenVar="n"+outputName)
             self.out.branch(outputName+"_trigger_matching", "F", lenVar="n"+outputName)
                 # if not Module.globalOptions["isData"]:
                         # self.out.branch(outputName+"_genPartFlav","F",lenVar="n"+outputName)
@@ -99,14 +101,11 @@ class MuonSelection(Module):
         muons = self.inputCollection(event)
         triggerObjects = self.triggerObjectCollection(event)
 
-        selectedMuons = {'tight': [], 'medium': [], 'loose': []}
+        selectedMuons = {
+            'tight': [], 'medium': [], 'loose': [], 'all': []}
         unselectedMuons = []
         matched_trgObj_id_list = []
-        muonRelIso = []
-        muonID = {'tight': [], 'medium': [], 'loose': []}
-        nMuon = 0
 
-        
         #https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2#Tight_Muon
         for muon in muons:
             trigger_matching = self.triggerMatched(muon, triggerObjects)
@@ -124,12 +123,8 @@ class MuonSelection(Module):
                 if not Module.globalOptions["isData"]:
                     setattr(muon, 'genPartIdx', muon.genPartIdx) 
 
-                #saving relIso, cutBased Id 
-                nMuon+=1
-                muonRelIso.append(muon.pfRelIso04_all)
-                muonID['tight'].append(muon.tightId)
-                muonID['medium'].append(muon.mediumId)
-                muonID['loose'].append(muon.looseId)
+                #saving all electrons that pass baseline eta, pT 
+                selectedMuons['all'].append(muon)
 
                 #selectedMuons: tightIso, differentID --> https://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS%20AN-2020/085 (4 top in dilepton final state)
                 if muon.pfRelIso04_all<0.15:
@@ -144,28 +139,22 @@ class MuonSelection(Module):
                         selectedMuons['loose'].append(muon)
                     else:
                         unselectedMuons.append(muon)
-                # elif muon.mediumId==1 and muon.pfRelIso04_all<0.20:
-                #     selectedMuons['medium'].append(muon)
-                #     selectedMuons['loose'].append(muon)
-                # elif muon.looseId==1 and muon.pfRelIso04_all<0.25:
-                #     print('muone buon')
-                #     selectedMuons['loose'].append(muon)
 
             else:
                 unselectedMuons.append(muon)
 
-        self.out.fillBranch("nMuon",nMuon) 
-        self.out.fillBranch("muon_PFRelIso04", map(lambda iso: iso, muonRelIso))
-        for wp in muonID.keys():
-            self.out.fillBranch("muon_"+wp+"ID", map(lambda id: id, muonID[wp]))
+        self.out.fillBranch("nMuons", len(selectedMuons['all'])) 
+        self.out.fillBranch("muon_pfRelIso04_all", map(lambda muon: getattr(muon, "pfRelIso04_all"), selectedMuons['all']))
+        for wp in self.muonID.keys():
+            self.out.fillBranch("muon_"+wp+"ID", map(lambda muon: getattr(muon, wp+"Id"), selectedMuons['all']))
+        for variable in self.storeKinematics:
+            self.out.fillBranch("muon_"+variable, map(lambda muon: getattr(muon, variable), selectedMuons['all']))
 
         for outputName, muon_ID in zip(self.outputName_list, ['tight', 'medium', 'loose']):
-            self.out.fillBranch("n"+outputName,len(selectedMuons[muon_ID]))
+            self.out.fillBranch("n"+outputName, len(selectedMuons[muon_ID]))
 
             for variable in self.storeKinematics:
-                self.out.fillBranch(outputName+"_"+variable,map(lambda muon: getattr(muon,variable),selectedMuons[muon_ID]))
-                # if not Module.globalOptions["isData"]:
-                    # self.out.fillBranch(outputName+"_genPartFlav",map(lambda muon: getattr(muon,'genPartFlav'),selectedMuons[muon_ID]))
+                self.out.fillBranch(outputName+"_"+variable,map(lambda muon: getattr(muon,variable), selectedMuons[muon_ID]))
             self.out.fillBranch(outputName + "_trigger_matching", map(lambda muon: getattr(muon, "trigger_matching"), selectedMuons[muon_ID]))
     
             if not Module.globalOptions["isData"]:
@@ -173,8 +162,8 @@ class MuonSelection(Module):
                         self.out.fillBranch(outputName+"_"+variable,map(lambda muon: getattr(muon,variable), selectedMuons[muon_ID]))
             setattr(event,outputName,selectedMuons[muon_ID])
 
-        setattr(event,"unselectedMuons",unselectedMuons)
-        setattr(event,'nMuon',nMuon)
+        # setattr(event,"unselectedMuons",unselectedMuons)
+        # setattr(event,'nMuon', )
 
         return True
 
