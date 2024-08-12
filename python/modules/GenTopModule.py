@@ -41,7 +41,8 @@ class GenTopModule(Module):
 
         self.genTopKeys = [
             'is_inside_ak8', 'is_inside_ak8_top_tagged', 'inside_nak8', 'min_deltaR_ak8', 'all_decays_inside_ak8', 'max_deltaR_q_ak8',
-            'is_inside_hotvr', 'is_inside_hotvr_top_tagged', 'inside_nhotvr', 'min_deltaR_hotvr', 'all_decays_inside_hotvr', 'max_deltaR_q_hotvr']
+            'is_inside_hotvr', 'is_inside_hotvr_top_tagged', 'inside_nhotvr', 'is_inside_hotvr_index',
+            'min_deltaR_hotvr', 'all_decays_inside_hotvr', 'max_deltaR_q_hotvr', 'two_decays_inside_hotvr']
         if Module.globalOptions['isSignal']: self.genTopKeys.append('from_resonance')
 
     def is_genP_inside_genFJet(self, genFJet, genP):
@@ -150,6 +151,7 @@ class GenTopModule(Module):
             setattr(genTop, 'is_inside_hotvr', False), setattr(genTop, 'is_inside_hotvr_top_tagged', False)
             setattr(genTop, 'inside_nhotvr', 0) #, setattr(genTop, 'min_deltaR_ak8', -99.)
             setattr(genTop,'all_decays_inside_hotvr', False), setattr(genTop,'max_deltaR_q_hotvr', -99)
+            setattr(genTop,'two_decays_inside_hotvr', False), setattr(genTop, 'is_inside_hotvr_index', -99)
 
             min_deltaR_hotvr_top  = float('inf')
             for ihotvr, hotvr in enumerate(hotvrjets):
@@ -162,20 +164,28 @@ class GenTopModule(Module):
                 min_deltaR_hotvr_top = min(min_deltaR_hotvr_top, deltaR(hotvr, genTop))
 
                 if self.is_genP_inside_hotvr(hotvr, genTop):
-                    if self.verbose: print('The genTop is inside an hotvr!')
+                    if self.verbose: print('The genTop is inside an hotvr (R:{})!'.format(effective_radius))
                     setattr(genTop, 'is_inside_hotvr', True)
                     setattr(genTop, 'inside_nhotvr', genTop.inside_nhotvr+1)
+                    setattr(genTop, 'is_inside_hotvr_index', hotvr._index)
 
-                    max_deltaR_hotvr_q = 0.
-                    for daughter in genTop.daughters:
-                        max_deltaR_hotvr_q = max(max_deltaR_hotvr_q, deltaR(hotvr, daughter))
-                    setattr(genTop, 'max_deltaR_q_hotvr', max_deltaR_hotvr_q)
-
-                    if max_deltaR_hotvr_q < effective_radius:
-                        if self.verbose: print('All the decays are inside the hotvr. The greater dR is {}'.format(max_deltaR_hotvr_q))
+                    deltaR_daughters_jet = [deltaR(hotvr, daughter) for daughter in genTop.daughters]
+                    deltaR_daughters_jet.sort()
+                    if self.verbose:
+                        print('DeltaR(daughters, jet): {}'.format(deltaR_daughters_jet))
+                    
+                    if deltaR_daughters_jet[-1] < effective_radius:
+                        if self.verbose:
+                            print('All the decays are inside the hotvr. The greatest dR is {}'.format(deltaR_daughters_jet[-1]))
                         setattr(genTop, 'all_decays_inside_hotvr', True)
+                        setattr(genTop, 'two_decays_inside_hotvr', True) # If all are inside, two are inside
+                    elif deltaR_daughters_jet[-2] < effective_radius:
+                        if self.verbose:
+                            print('Two of the three decays are inside the hotvr. The second greatest dR is {}'.format(deltaR_daughters_jet[-2]))
+                        setattr(genTop, 'two_decays_inside_hotvr', True)
 
-                    if event.selectedHOTVRJets_nominal_scoreBDT[ihotvr]>0.5: #not the best pythonic way to retrieve the jet score; we should setattr(score, jet) to the XGBEvaluationProducer module
+                    if event.selectedHOTVRJets_nominal_scoreBDT[ihotvr]>0.5: 
+                        #not the best pythonic way to retrieve the jet score; we should setattr(score, jet) to the XGBEvaluationProducer module
                         if self.verbose: print('which is top tagged!')
                         setattr(genTop, 'is_inside_hotvr_top_tagged', True)
                 else: continue
