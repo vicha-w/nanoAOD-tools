@@ -264,9 +264,8 @@ def leptonSequence():
         #    storeKinematics=['pt','eta','charge','phi','mass'],
         #),
 
-        # EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
+        EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
         # EventSkim(selection=lambda event: event.nMuon == 1 ),
-        EventSkim(selection=lambda event: (event.nMuons + event.nElectrons) > 0 ),
     ]
 
     if not Module.globalOptions["isData"]:
@@ -384,7 +383,7 @@ def jetSelection(jetDict):
                 storeKinematics=['pt','eta','phi','mass', 
                                  'tau2', 'tau3', 'tau1', 'area', 
                                  'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3',
-                                 'minDPhiClean', 'minDRClean'],
+                                 'minDPhiClean', 'minDRClean', '_index'],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
                 metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -450,8 +449,12 @@ def jetSelection(jetDict):
     #        any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
     #    )
     # )
+    # seq.append(
+    #    EventSkim(selection=lambda event, systNames=systNames: 
+    #        any([getattr(event, "nselectedBJets_"+systName+"_medium") >= 2 for systName in systNames])
+    #    )
+    # )
 
-    
     # fixed working point event reweighting and shape implemented
     # https://twiki.cern.ch/twiki/bin/view/CMS/BTagSFMethods#b_tagging_efficiency_in_MC_sampl
     if isMC:
@@ -746,16 +749,21 @@ analyzerChain.extend([
 ##### GENTOP MODULE --- to study if they are inside/outside recoJets
 ##### it needs to be in this position as some jet variables are calculated in the EventReconstruction module
 if isMC:
-    # for systName,(jetCollection,fatjetCollection) in jetDict.items():
-        analyzerChain.extend( [
-            GenTopModule(
-                inputGenTopCollection=lambda event: event.genTops,
-                inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
-                inputGenJetCollection=lambda event: Collection(event, "GenJet"),
-                inputFatJetCollection=lambda event: event.selectedFatJets_nominal,
-                inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
-            ),
-        ])
+    analyzerChain.extend( [
+        GenTopModule(
+            inputGenTopCollection=lambda event: event.genTops,
+            inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
+            inputGenJetCollection=lambda event: Collection(event, "GenJet"),
+            inputFatJetCollection=lambda event: event.selectedFatJets_nominal,
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
+        ),
+    ])
+    # analyzerChain.append(
+    #    EventSkim(selection=lambda event: 
+    #        map(lambda gentop: gentop.has_hadronically_decay, event.genTops).count(True) == 4
+    #    ),
+    # )
+
 ####
 
 ##### HOTVR/AK8 JET COMPOSITION MODULE
