@@ -82,6 +82,9 @@ if args.isData:
     if args.year == '2016preVFP':
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_UL2016_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
+    elif args.year == '2022' or args.year == '2022EE':
+        with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_ReReco2022_GoldenJSON.txt", 'r') as f:
+            data_json = json.load(f)
     else:
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_UL"+args.year+"_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
