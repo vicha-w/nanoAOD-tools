@@ -42,7 +42,7 @@ parser.add_argument('--nosys', dest='nosys',
 parser.add_argument('--invid', dest='invid',
                     action='store_true', default=False)
 parser.add_argument('--year', dest='year',
-                    action='store', type=str, default='2017', choices=['2016','2016preVFP','2017','2018'])
+                    action='store', type=str, default='2017', choices=['2016','2016preVFP','2017','2018', '2022', '2022EE'])
 parser.add_argument('-i','--input', dest='inputFiles', action='append', default=[])
 parser.add_argument('--maxEvents', dest='maxEvents', type=int, default=None)
 parser.add_argument('--trigger', dest='trigger', type=str, default=None, choices=['mumu','emu','ee'])
@@ -703,9 +703,9 @@ else:
             genSubJetCollection = lambda event: Collection(event,"GenHOTVRSubJet"),
             outputJetPrefix = 'hotvrjets_',
             outputSubJetPrefix = "hotvrsubjets_",
-            jetKeys=['nConstituents','hadronFlavour','partonFlavour',
+            jetKeys=['nConstituents','hadronFlavour',
                       'area', 'tau2', 'tau3', 'tau1', 'btagDeepB', 
-                      'btagDeepFlavB', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'],
+                      'btagDeepFlavB', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3'] + (["partonFlavour"] if args.year not in ["2022", "2022EE"] else []),
         )
     ])
 
