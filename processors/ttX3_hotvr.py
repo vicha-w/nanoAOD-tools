@@ -218,9 +218,19 @@ xgb_models = {
     '2022EE': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022EE/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
     '2022': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.08_minChildWeight0.5.bin",
     '2018': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2018/hadronicTopVSQCD_bdt_nTrees1000_maxDepth3_learningRate0.05_minChildWeight0.5.bin",
-    '2017': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2017/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03_minChildWeight0.5.bin", 
+    '2017': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2017/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03l.bin", 
     '2016': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03_minChildWeight0.5.bin",
     '2016preVFP': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016preVFP/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
+}
+
+#BDT SF https://icms.cern.ch/tools-api/restplus/relay/piggyback/notes/AN/2024/65/files/4/download (by V. Wachirapusitanand)
+bdtSFFiles = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016postVFP/BDT_SF_2016.json.gz",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016preVFP/BDT_SF_2016preVFP.json.gz",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2017/BDT_SF_2017.json.gz", 
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2018/BDT_SF_2018.json.gz", 
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022/BDT_SF_2018.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022EE/BDT_SF_2018.json.gz", 
 }
 
 ##### LEPTON MODULES
@@ -439,7 +449,7 @@ def jetSelection(jetDict):
     # at least 1 HOTVR
     # seq.append(
     #    EventSkim(selection=lambda event: 
-    #        getattr(event, "npreselectedHOTVRJets") > 0
+    #        getattr(event, "nselectedHOTVRJets_nominal") > 0
     #    ),
     # )
    
@@ -744,7 +754,6 @@ analyzerChain.extend([
     ) for event_reco_input in event_reco_inputs
 ])
 ####
-
  
 ##### GENTOP MODULE --- to study if they are inside/outside recoJets
 ##### it needs to be in this position as some jet variables are calculated in the EventReconstruction module
@@ -805,6 +814,16 @@ if not Module.globalOptions["isData"]:
             outputJetPrefix='selectedFatJets_nominal'
         )
     )
+
+    ##### SF BDT EVALUATION ON HOTVR
+    analyzerChain.extend([
+        HOTVRJetSFProducer(
+            bdtSFFiles[args.year],
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
+            outputName="bdt_sf",
+        ) 
+    ])
+    ####
 
 
 if not args.isData:

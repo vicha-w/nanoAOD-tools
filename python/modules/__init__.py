@@ -49,6 +49,7 @@ from TopPtWeightProducer import TopPtWeightProducer
 from EventReconstruction import EventReconstruction
 from HOTVR_MVA import HOTVR_MVA
 from HOTVRJetComposition import HOTVRJetComposition
+from HOTVRJetSFProducer import HOTVRJetSFProducer
 from FatJetComposition import FatJetComposition
 from JetHOTVRUncertainties import JetHOTVRUncertainties
 
