@@ -218,19 +218,25 @@ xgb_models = {
     '2022EE': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022EE/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
     '2022': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2022/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.08_minChildWeight0.5.bin",
     '2018': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2018/hadronicTopVSQCD_bdt_nTrees1000_maxDepth3_learningRate0.05_minChildWeight0.5.bin",
-    '2017': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2017/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03l.bin", 
+    '2017': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2017/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03_minChildWeight0.5.bin", 
     '2016': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016/hadronicTopVSQCD_bdt_nTrees1000_maxDepth5_learningRate0.03_minChildWeight0.5.bin",
     '2016preVFP': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016preVFP/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
 }
 
 #BDT SF https://icms.cern.ch/tools-api/restplus/relay/piggyback/notes/AN/2024/65/files/4/download (by V. Wachirapusitanand)
 bdtSFFiles = {
-    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016postVFP/BDT_SF_2016.json.gz",
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016/BDT_SF_2016.json.gz",
     '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016preVFP/BDT_SF_2016preVFP.json.gz",
     '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2017/BDT_SF_2017.json.gz", 
     '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2018/BDT_SF_2018.json.gz", 
     '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022/BDT_SF_2018.json.gz", 
     '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022EE/BDT_SF_2018.json.gz", 
+}
+
+#https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+jetVetoMaps = {
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022/jetvetomaps.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022EE/jetvetomaps.json.gz", 
 }
 
 ##### LEPTON MODULES
@@ -347,11 +353,22 @@ def trigger():
     return seq
 #####
 
-##### JET MODULES   
+##### JET MODULES
 selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
-    
+
+    if args.year == '2022' or args.year == '2022EE':
+        seq.append(
+            JetVeto(
+                inputCollection=lambda event: Collection(event,"Jet"),
+                leptonCollectionDRCleaning=lambda event: Collection(event,"Muon"),
+                jetVetoMaps=jetVetoMaps[args.year],
+                dRCleaning=0.2,
+                jetMinPt=15.,
+            )
+        )
+
     for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
         seq.extend([
             JetSelection(
