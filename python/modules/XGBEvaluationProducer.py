@@ -38,7 +38,6 @@ class XGBEvaluationProducer(Module):
 
         self.out.branch("inference_time_"+self.outputName, "F")
 
-        self.out.branch("n{}".format(self.outputJetPrefix), "I")
         self.out.branch("{}_{}".format(self.outputJetPrefix, self.outputName), "F", lenVar="n{}".format(self.outputJetPrefix))
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
@@ -51,7 +50,6 @@ class XGBEvaluationProducer(Module):
         feature_dict = []
         for input in self.inputs:
             feature_dict.append(np.array(list(map(lambda hotvr: getattr(hotvr, input), hotvrjets))))
-            # feature_dict.append(list(map(lambda hotvr: getattr(hotvr, input), hotvrjets)))
         features_array = np.stack(feature_dict, axis=1)
 
         if len(features_array) > 0:
@@ -60,15 +58,11 @@ class XGBEvaluationProducer(Module):
             end_time =  time.time()
             inference_time_perJet = (end_time - start_time) / len(features_array)
 
-            self.out.fillBranch("n{}".format(self.outputJetPrefix, self.outputName), len(hotvrjets))
+            assert len(hotvrjets) == len(bdt_score[:, 1]), "Mismatch in number of jets and BDT scores."
+            for jet, score in zip(hotvrjets, bdt_score[:, 1]):
+                setattr(jet, format(self.outputName), score)
 
-            # to avoid overtraining, the training is done on jets of odd event number
-            # while the evaluation on jets of even number
-            # if event.run % 2 == 0:
-            #    self.out.fillBranch("preselectedHOTVRJets_"+self.outputName, map(lambda hotvr: -1, hotvrjets))
-            # else: 
             self.out.fillBranch("{}_{}".format(self.outputJetPrefix, self.outputName), bdt_score[:, 1].tolist())
-
             self.out.fillBranch("inference_time_"+self.outputName, inference_time_perJet)
 
         return True

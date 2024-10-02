@@ -8,6 +8,8 @@
 #include "PhysicsTools/NanoAODTools/src/MuonCorrlibReader.h"
 #include "PhysicsTools/NanoAODTools/src/MuonCorrlibReader_Run3.h"
 #include "PhysicsTools/NanoAODTools/src/ElectronCorrlibReader.h"
+#include "PhysicsTools/NanoAODTools/src/HOTVRCorrlibReader.h"
+#include "PhysicsTools/NanoAODTools/src/JetVetolibReader.h"
 
 PyJetResolutionWrapper jetRes;
 PyJetResolutionScaleFactorWrapper jetResScaleFactor;
@@ -19,3 +21,5 @@ BTagCorrlibReader btagSFReader;
 MuonCorrlibReader muonSFReader;
 MuonCorrlibReader_Run3 muonSFReader_Run3;
 ElectronCorrlibReader electronSFReader;
+HOTVRCorrlibReader hotvrSFReader;
+JetVetolibReader jetVetoReader;

@@ -17,7 +17,6 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import \
 
 parser = argparse.ArgumentParser()
 
-
 parser.add_argument('--isData', dest='isData',
                     action='store_true', default=False)
 parser.add_argument('--isSignal', dest='isSignal',
@@ -36,15 +35,15 @@ parser.add_argument('output', nargs=1)
 
 args = parser.parse_args()
 
-print "isData:",args.isData
-print "isSignal:",args.isSignal
-print "evaluate systematics:",not args.nosys
-print "invert lepton id/iso:",args.invid
-print "inputs:",len(args.inputFiles)
-print "year:", args.year
-print "output directory:", args.output[0]
+print("isData:", args.isData)
+print("isSignal:", args.isSignal)
+print("evaluate systematics:", not args.nosys)
+print("invert lepton id/iso:", args.invid)
+print("inputs:", len(args.inputFiles))
+print("year:", args.year)
+print("output directory:", args.output[0])
 if args.maxEvents:
-    print 'max number of events', args.maxEvents
+    print('max number of events', args.maxEvents)
 
 globalOptions = {
     "isData": args.isData,
@@ -223,6 +222,22 @@ xgb_models = {
     '2016preVFP': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016preVFP/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
 }
 
+#BDT SF https://icms.cern.ch/tools-api/restplus/relay/piggyback/notes/AN/2024/65/files/4/download (by V. Wachirapusitanand)
+bdtSFFiles = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016/BDT_SF_2016.json.gz",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016preVFP/BDT_SF_2016preVFP.json.gz",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2017/BDT_SF_2017.json.gz", 
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2018/BDT_SF_2018.json.gz", 
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022/BDT_SF_2018.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022EE/BDT_SF_2018.json.gz", 
+}
+
+#https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+jetVetoMaps = {
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022/jetvetomaps.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022EE/jetvetomaps.json.gz", 
+}
+
 ##### LEPTON MODULES
 muon_dict, electron_dict = {}, {}
 def leptonSequence():
@@ -252,7 +267,7 @@ def leptonSequence():
             triggerMatch=True,
             electronMinPt = minElectronPt[args.year],
             electronMaxEta = 2.4,
-            storeKinematics=['pt', 'eta', 'charge', 'phi', 'mass', 'dxy', 'dz', 'pfRelIso03_all', 'miniPFRelIso_all', 'jetRelIso'],
+            storeKinematics=['pt', 'eta', 'charge', 'phi', 'mass', 'dxy', 'dz', 'pfRelIso03_all', 'miniPFRelIso_all', 'jetRelIso', 'deltaEtaSC'],
             storeTruthKeys = ['genPartIdx'], 
         ),
 
@@ -264,8 +279,8 @@ def leptonSequence():
         #    storeKinematics=['pt','eta','charge','phi','mass'],
         #),
 
-        # EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
-        EventSkim(selection=lambda event: (event.nMuon + event.nloose_MVA_Electrons) > 1 ),
+        EventSkim(selection=lambda event: (event.nMuon + event.nElectron) > 1 ),
+        # EventSkim(selection=lambda event: event.nMuon == 1 ),
     ]
 
     if not Module.globalOptions["isData"]:
@@ -337,11 +352,22 @@ def trigger():
     return seq
 #####
 
-##### JET MODULES   
+##### JET MODULES
 selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
-    
+
+    if args.year == '2022' or args.year == '2022EE':
+        seq.append(
+            JetVeto(
+                inputCollection=lambda event: Collection(event,"Jet"),
+                leptonCollectionDRCleaning=lambda event: Collection(event,"Muon"),
+                jetVetoMaps=jetVetoMaps[args.year],
+                dRCleaning=0.2,
+                jetMinPt=15.,
+            )
+        )
+
     for systName, (jetCollection, fatjetCollection, hotvrjetCollection, subhotvrjetCollection) in jetDict.items():
         seq.extend([
             JetSelection(
@@ -350,9 +376,9 @@ def jetSelection(jetDict):
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area',
-                                 'minDPhiClean', 'minDRClean', 'jetId'],
+                                 'minDPhiClean', 'minDRClean', 'jetId', 'btagDeepB'],
                 outputName_list=["selectedJets_"+systName, "unselectedJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -364,11 +390,11 @@ def jetSelection(jetDict):
                 jetMinPt=400., 
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD',
                                   'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD',
                                     'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area',
-                                    'minDPhiClean', 'minDRClean', 'jetId'],
+                                    'minDPhiClean', 'minDRClean', 'jetId', 'deepTag_QCDothers'],
                 outputName_list=["selectedFatJets_"+systName,"unselectedFatJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 storeTruthKeys = ['hadronFlavour','nBHadrons', 'nCHadrons', 'genJetAK8Idx'],
@@ -383,7 +409,7 @@ def jetSelection(jetDict):
                 storeKinematics=['pt','eta','phi','mass', 
                                  'tau2', 'tau3', 'tau1', 'area', 
                                  'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3',
-                                 'minDPhiClean', 'minDRClean'],
+                                 'minDPhiClean', 'minDRClean', '_index'],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
@@ -439,17 +465,22 @@ def jetSelection(jetDict):
     # at least 1 HOTVR
     # seq.append(
     #    EventSkim(selection=lambda event: 
-    #        getattr(event, "npreselectedHOTVRJets") > 0
+    #        getattr(event, "nselectedHOTVRJets_nominal") > 0
     #    ),
     # )
    
-    #at least 2 AK8 jets
-    #seq.append(
+    # at least 2 AK4 jets
+    # seq.append(
     #    EventSkim(selection=lambda event, systNames=systNames: 
-    #        any([getattr(event, "nselectedFatJets_"+systName) >= 2 for systName in systNames])
+    #        any([getattr(event, "nselectedJets_"+systName) >= 2 for systName in systNames])
     #    )
-    #)
-    
+    # )
+    # seq.append(
+    #    EventSkim(selection=lambda event, systNames=systNames: 
+    #        any([getattr(event, "nselectedBJets_"+systName+"_medium") >= 2 for systName in systNames])
+    #    )
+    # )
+
     # fixed working point event reweighting and shape implemented
     # https://twiki.cern.ch/twiki/bin/view/CMS/BTagSFMethods#b_tagging_efficiency_in_MC_sampl
     if isMC:
@@ -492,10 +523,22 @@ if not Module.globalOptions["isData"]:
          lambda tree, event: tree.fillBranch("genweight", event.Generator_weight)],
         [lambda tree: tree.branch("LHE_HT", "F"), 
          lambda tree, event: tree.fillBranch("LHE_HT", event.LHE_HT)],
+        [lambda tree: tree.branch("LHE_Njets", "I"), 
+         lambda tree, event: tree.fillBranch("LHE_Njets", event.LHE_Njets)],
+         [lambda tree: tree.branch("LHE_Nb", "I"), 
+         lambda tree, event: tree.fillBranch("LHE_Nb", event.LHE_Nb)],
         [lambda tree: tree.branch("nPSWeight", "I"), 
          lambda tree, event: tree.fillBranch("nPSWeight", event.nPSWeight)],
         [lambda tree: tree.branch("PSWeight", "F", lenVar="nPSWeight"), 
-         lambda tree, event: tree.fillBranch("PSWeight", map(lambda psweight: psweight, [event.PSWeight[i] for i in range(event.PSWeight.GetSize())]))]
+         lambda tree, event: tree.fillBranch("PSWeight", map(lambda psweight: psweight, [event.PSWeight[i] for i in range(event.PSWeight.GetSize())]))],
+        [lambda tree: tree.branch("nLHEScaleWeight", "I"), 
+         lambda tree, event: tree.fillBranch("nLHEScaleWeight", event.nLHEScaleWeight)],
+        [lambda tree: tree.branch("LHEScaleWeight", "F", lenVar="nLHEScaleWeight"), 
+         lambda tree, event: tree.fillBranch("LHEScaleWeight", map(lambda lhescaleweight: lhescaleweight, [event.LHEScaleWeight[i] for i in range(event.LHEScaleWeight.GetSize())]))],
+        [lambda tree: tree.branch("nLHEPdfWeight", "I"), 
+         lambda tree, event: tree.fillBranch("nLHEPdfWeight", event.nLHEPdfWeight)],
+        [lambda tree: tree.branch("LHEPdfWeight", "F", lenVar="nLHEPdfWeight"), 
+         lambda tree, event: tree.fillBranch("LHEPdfWeight", map(lambda lhepdfweight: lhepdfweight, [event.LHEPdfWeight[i] for i in range(event.LHEPdfWeight.GetSize())]))],
         ])
     if Module.globalOptions["year"] in ['2016', '2016preVFP', '2017']:
         for l1prefiringw in ['Nom', 'Up', 'Dn']:
@@ -563,13 +606,13 @@ else:
         jesUncertaintyNames = []
     else:
         
-        jesUncertaintyNames = ["Total","Absolute","EC2","BBEC1", "HF","RelativeBal","FlavorQCD" ]
-        for jesUncertaintyExtra in ["RelativeSample","HF","Absolute","EC2","BBEC1"]:
+        jesUncertaintyNames = ["Total", "Absolute", "EC2", "BBEC1", "HF", "RelativeBal", "FlavorQCD" ]
+        for jesUncertaintyExtra in ["RelativeSample" ,"HF", "Absolute", "EC2", "BBEC1"]:
             jesUncertaintyNames.append(jesUncertaintyExtra+"_"+args.year.replace("preVFP",""))
         
         jesUncertaintyNames = ["Total"]
             
-        print "JECs: ",jesUncertaintyNames
+        print("JECs: ", jesUncertaintyNames)
         
     #TODO: apply type2 corrections? -> improves met modelling; in particular for 2018
     if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
@@ -593,7 +636,7 @@ else:
             propagateJER = False, #not recommended
             outputJetPrefix = 'jets_',
             outputMetPrefix = 'met_',
-            jetKeys=['jetId', 'nConstituents','btagDeepFlavB','hadronFlavour','partonFlavour','genJetIdx', 'area'],
+            jetKeys=['jetId', 'nConstituents','btagDeepFlavB','hadronFlavour','partonFlavour','genJetIdx', 'area', 'btagDeepB'],
         ),
         JetMetUncertainties(
             jesAK8UncertaintyFilesRegrouped[args.year],
@@ -614,7 +657,7 @@ else:
             jetKeys=['jetId', 'btagDeepB','deepTag_TvsQCD','deepTag_WvsQCD',
                      'particleNet_TvsQCD','particleNet_WvsQCD','particleNet_mass', 
                      'particleNet_QCD','hadronFlavour', 'genJetAK8Idx', 'nBHadrons', 
-                     'tau2', 'tau3', 'tau1', 'msoftdrop', 'nCHadrons', 'nBHadrons', 'area'],  #'nConstituents'
+                     'tau2', 'tau3', 'tau1', 'msoftdrop', 'nCHadrons', 'nBHadrons', 'area', 'deepTag_QCDothers'],  #'nConstituents'
         ), 
         JetHOTVRUncertainties(
             jesHOTVRUncertaintyFilesRegrouped[args.year],
@@ -669,23 +712,17 @@ else:
     )
 #####
 
-
 ##### GENERATION MODULE
 if isMC:
     # for systName,(jetCollection,fatjetCollection) in jetDict.items():
         analyzerChain.extend( [
             GenParticleModule(
                 inputGenCollection=lambda event: Collection(event, "GenPart"),
-                inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
-                inputGenJetCollection=lambda event: Collection(event, "GenJet"),
-                inputMuonCollection=lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-                inputElectronCollection=lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
                 outputName="genPart",
                 storeKinematics= ['pt','eta','phi','mass'],
             ),
         ])
 ####
-
 
 ##### EVENT RECONSTRUCTION MODULE
 triggers = {'ee': lambda event: event.trigger_ee_flag, 'emu': lambda event: event.trigger_emu_flag, 'mumu': lambda event: event.trigger_mumu_flag}
@@ -721,7 +758,9 @@ if not Module.globalOptions["isData"]:
         })
 
 analyzerChain.extend([EventReconstruction(**event_reco_input) for event_reco_input in event_reco_inputs])
+#####
 
+##### BDT EVALUATION ON HOTVR
 analyzerChain.extend([
     XGBEvaluationProducer(
         modelPath=xgb_models[args.year],
@@ -730,9 +769,29 @@ analyzerChain.extend([
         outputJetPrefix="selectedHOTVRJets_"+event_reco_input["systName"]
     ) for event_reco_input in event_reco_inputs
 ])
+####
+ 
+##### GENTOP MODULE --- to study if they are inside/outside recoJets
+##### it needs to be in this position as some jet variables are calculated in the EventReconstruction module
+if isMC:
+    analyzerChain.extend( [
+        GenTopModule(
+            inputGenTopCollection=lambda event: event.genTops,
+            inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
+            inputGenJetCollection=lambda event: Collection(event, "GenJet"),
+            inputFatJetCollection=lambda event: event.selectedFatJets_nominal,
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
+        ),
+    ])
+    # analyzerChain.append(
+    #    EventSkim(selection=lambda event: 
+    #        map(lambda gentop: gentop.has_hadronically_decay, event.genTops).count(True) == 4
+    #    ),
+    # )
 
+####
 
-##### HOTVR/AK8 JET COMPOSITION MODULE 
+##### HOTVR/AK8 JET COMPOSITION MODULE
 if not Module.globalOptions["isData"]:
     # analyzerChain.append(
     #     HOTVR_MVA(
@@ -772,6 +831,16 @@ if not Module.globalOptions["isData"]:
         )
     )
 
+    ##### SF BDT EVALUATION ON HOTVR
+    analyzerChain.extend([
+        HOTVRJetSFProducer(
+            bdtSFFiles[args.year],
+            inputHOTVRJetCollection=lambda event: event.selectedHOTVRJets_nominal,
+            outputName="bdt_sf",
+        ) 
+    ])
+    ###
+
 
 if not args.isData:
     #analyzerChain.append(GenWeightProducer())
@@ -793,4 +862,3 @@ p = PostProcessor(
 )
 
 p.run()
-

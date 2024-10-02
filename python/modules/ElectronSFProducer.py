@@ -60,7 +60,7 @@ class ElectronSFProducer(Module):
                 year = '2022Re-recoBCD'
             if Module.globalOptions["year"] == '2022EE':
                 year = '2022Re-recoE+PromptFG'
-            sf = reader.evaluateElectronSF(type, year, syst, wp, lep.eta, lep.pt)
+            sf = reader.evaluateElectronSF(type, year, syst, wp, lep.eta + lep.deltaEtaSC, lep.pt)
             # check if SF is OK
             
             if sf < 0.01:

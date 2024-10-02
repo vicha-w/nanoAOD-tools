@@ -46,7 +46,8 @@ class JetSelection(Module):
         self.storeTruthKeys = storeTruthKeys
 
         #loose jet ID does not exists for UL -> accepting all jets  https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD
-        if self.jetId==JetSelection.LOOSE and Module.globalOptions['year'] in ['2016','2016preVFP', '2017', '2018', '2022', "2022EE"]:
+        #more details on jets -> https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Jets
+        if self.jetId==JetSelection.LOOSE:
             self.jetId = JetSelection.NONE
 
     def beginJob(self):
