@@ -17,7 +17,6 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import \
 
 parser = argparse.ArgumentParser()
 
-
 parser.add_argument('--isData', dest='isData',
                     action='store_true', default=False)
 parser.add_argument('--isSignal', dest='isSignal',
@@ -377,7 +376,7 @@ def jetSelection(jetDict):
                 jetMinPt=30.,
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area',
                                  'minDPhiClean', 'minDRClean', 'jetId', 'btagDeepB'],
                 outputName_list=["selectedJets_"+systName, "unselectedJets_"+systName],
@@ -391,7 +390,7 @@ def jetSelection(jetDict):
                 jetMinPt=400., 
                 jetMaxEta=2.4,
                 dRCleaning=0.8,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass', 'genJetAK8Idx', 'deepTag_TvsQCD', 'deepTag_WvsQCD',
                                   'particleNet_TvsQCD', 'particleNet_WvsQCD', 'particleNet_QCD',
                                     'particleNet_mass', 'btagDeepB', 'tau2', 'tau3', 'tau1', 'msoftdrop', 'area',
@@ -840,7 +839,7 @@ if not Module.globalOptions["isData"]:
             outputName="bdt_sf",
         ) 
     ])
-    ####
+    ###
 
 
 if not args.isData:
@@ -863,4 +862,3 @@ p = PostProcessor(
 )
 
 p.run()
-
