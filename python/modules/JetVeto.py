@@ -1,9 +1,8 @@
-import ROOT
-
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
-from functools import reduce
+import ROOT
+import os
 from utils import deltaR
 
 ROOT.PyConfig.IgnoreCommandLineOptions = True
@@ -27,31 +26,19 @@ class JetVeto(Module):
 
 
     def beginJob(self):
-        # if Module.globalOptions['year']:
-        #     lib_path = "/afs/desy.de/user/g/gmilella/ttx3_analysis/CMSSW_11_1_7/lib/slc7_amd64_gcc820/libPhysicsToolsNanoAODTools.so"
-        #     load_result = ROOT.gSystem.Load(lib_path)
-        # if load_result != 0:
-        #     print(f"Failed to load library {lib_path} with error code {load_result}")
-        # else:
-        #     print(f"Successfully loaded library {lib_path}")
+        # the src libraries are not corrected loaded when skimming data (--> need to fix the bug; for MC, they are loaded when calling the PUWeightProducer module)
+        try:
+            # Attempt to load the library that contains JetVetolibReader
+            ROOT.gSystem.Load("libPhysicsToolsNanoAODTools")
+            dummy = ROOT.JetVetolibReader
+        except Exception as e:
+            header_path = "{}/src/PhysicsTools/NanoAODTools/src/JetVetolibReader.h".format(os.environ['CMSSW_BASE'])
+            ROOT.gInterpreter.Declare('''
+            #include "{}"
+            '''.format(header_path))
 
-        # try:
-        # self.corrlibreader = ROOT.JetVetolibReader()
-        #     print("JetVetolibReader initialized successfully")
-        # try:
-        #     ROOT.gSystem.Load("libPhysicsToolsNanoAODTools")
-        #     self.corrlibreader = ROOT.JetVetolibReader()
-        #     self.corrlibreader.loadCorrections(self.jetVetoMaps)
-        #     self.corrlibreader.printTypes()
-        # except Exception as e:
-        #     print("Could not load module via python, trying via ROOT" + str(e))
-        #     print("Load C++ Worker")
-        #     ROOT.gROOT.ProcessLine(
-        #         ".L %s/src/PhysicsTools/NanoAODTools/src/JetVetolibReader.h++"
-        #         % os.environ['CMSSW_BASE'])
         self.corrlibreader = ROOT.JetVetolibReader()
         self.corrlibreader.loadCorrections(self.jetVetoMaps)
-        self.corrlibreader.printTypes()
 
     def endJob(self):
         pass
@@ -60,7 +47,6 @@ class JetVeto(Module):
         self.out = wrappedOutputTree
 
         self.out.branch("jetMapVeto", "I")
-
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
