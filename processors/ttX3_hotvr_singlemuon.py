@@ -804,10 +804,6 @@ if isMC:
         analyzerChain.extend( [
             GenParticleModule(
                 inputGenCollection=lambda event: Collection(event, "GenPart"),
-                inputFatGenJetCollection=lambda event: Collection(event, "GenJetAK8"),
-                inputGenJetCollection=lambda event: Collection(event, "GenJet"),
-                inputMuonCollection=lambda event: getattr(event, muon_collection_for_selection_and_cleaning),
-                inputElectronCollection=lambda event: getattr(event, electron_collection_for_selection_and_cleaning),
                 outputName="genPart",
                 storeKinematics= ['pt','eta','phi','mass'],
             ),
