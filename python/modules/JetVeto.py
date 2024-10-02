@@ -53,7 +53,10 @@ class JetVeto(Module):
 
     def eventVeto(self, reader, data_type, jets):
         for idx, jet in enumerate(jets):
-            veto_value = reader.evaluateVetoRegion(data_type, jet.eta, jet.phi)
+            if jet.phi > 3.1415926535: jet_phi_safe = 3.14159
+            elif jet.phi < -3.1415926535: jet_phi_safe = -3.14159
+            else: jet_phi_safe = jet.phi
+            veto_value = reader.evaluateVetoRegion(data_type, jet.eta, jet_phi_safe)
             if veto_value > 0:
                 return True
         return False
