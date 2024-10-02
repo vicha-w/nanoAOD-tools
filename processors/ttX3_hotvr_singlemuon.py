@@ -75,13 +75,16 @@ isPowheg = 'powheg' in args.inputFiles[0].lower()
 isPowhegTTbar = 'TTTo' in args.inputFiles[0] and isPowheg
 
 #recommended pT threshold for the subleading lepton --> https://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS%20AN-2020/085 (4 top in dilepton final state)
-minMuonPt =     {'2016': 15., '2016preVFP': 15., '2017': 15., '2018': 15.}
-minElectronPt = {'2016': 15., '2016preVFP': 15., '2017': 15., '2018': 15.}
+minMuonPt =     {'2016': 15., '2016preVFP': 15., '2017': 15., '2018': 15.,
+                 '2022': 15., '2022EE': 15.}
+minElectronPt = {'2016': 15., '2016preVFP': 15., '2017': 15., '2018': 15.,
+                 '2022': 15., '2022EE': 15.}
 
 if args.isData:
     if args.year == '2016preVFP':
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_UL2016_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
+    # goldenJSON ReReco 2022 --> https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json
     elif args.year == '2022' or args.year == '2022EE':
         with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/GoldenJSON/13TeV_ReReco2022_GoldenJSON.txt", 'r') as f:
             data_json = json.load(f)
@@ -234,6 +237,22 @@ xgb_models = {
     '2016preVFP': os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/bdt/2016preVFP/hadronicTopVSQCD_bdt_nTrees500_maxDepth5_learningRate0.05_minChildWeight0.5.bin",
 }
 
+#BDT SF https://icms.cern.ch/tools-api/restplus/relay/piggyback/notes/AN/2024/65/files/4/download (by V. Wachirapusitanand)
+bdtSFFiles = {
+    '2016':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016/BDT_SF_2016.json.gz",
+    '2016preVFP': os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2016preVFP/BDT_SF_2016preVFP.json.gz",
+    '2017':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2017/BDT_SF_2017.json.gz", 
+    '2018':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2018/BDT_SF_2018.json.gz", 
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022/BDT_SF_2018.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/bdt_sf/2022EE/BDT_SF_2018.json.gz", 
+}
+
+#https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+jetVetoMaps = {
+    '2022':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022/jetvetomaps.json.gz", 
+    '2022EE':       os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jet_veto_maps/2022EE/jetvetomaps.json.gz", 
+}
+
 ##### LEPTON MODULES
 muon_dict, electron_dict = {}, {}
 def leptonSequence():
@@ -380,6 +399,17 @@ selectedFatJets_dict, selectedJets_dict, selectedBJets_dict = {}, {}, {}
 def jetSelection(jetDict):
     seq = []
     
+    if args.year == '2022' or args.year == '2022EE':
+        seq.append(
+            JetVeto(
+                inputCollection=lambda event: Collection(event,"Jet"),
+                leptonCollectionDRCleaning=lambda event: Collection(event,"Muon"),
+                jetVetoMaps=jetVetoMaps[args.year],
+                dRCleaning=0.2,
+                jetMinPt=15.,
+            )
+        )
+        
     for systName,(jetCollection,fatjetCollection, hotvrjetCollection, subhotvrjetCollection, metCollection) in jetDict.items():
         seq.extend([
             JetSelection(
@@ -390,7 +420,7 @@ def jetSelection(jetDict):
                 jetMaxEta=2.4,
                 dRCleaning=0.4,
                 #jetId=JetSelection.TIGHTLEPVETO,
-                jetId=JetSelection.LOOSE,
+                jetId=JetSelection.NONE,
                 storeKinematics=['pt', 'eta','phi','mass','btagDeepFlavB', 'area', "minDPhiClean", "minDRClean", "jetId"],
                 outputName_list=["selectedJets_"+systName,"unselectedJets_"+systName],
                 #metInput = lambda event: Object(event, "MET"),
