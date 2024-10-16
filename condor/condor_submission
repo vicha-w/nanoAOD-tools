@@ -1,0 +1,5 @@
+Executable   = EXE
+
+Should_Transfer_Files = NO
+Getenv = True
+
