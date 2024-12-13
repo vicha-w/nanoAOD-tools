@@ -52,6 +52,8 @@ from HOTVRJetComposition import HOTVRJetComposition
 from HOTVRJetSFProducer import HOTVRJetSFProducer
 from FatJetComposition import FatJetComposition
 from JetHOTVRUncertainties import JetHOTVRUncertainties
+from HOTVRJetRecalibration import HOTVRJetRecalibration
+from HOTVRJetSelection import HOTVRJetSelection
 
 #bdt evaluation
 from XGBEvaluationProducer import XGBEvaluationProducer

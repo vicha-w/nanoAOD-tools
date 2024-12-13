@@ -220,28 +220,29 @@ class EventReconstruction(Module):
             effective_radius = 600./ hotvr.pt if 600./ hotvr.pt <= 1.5 else 1.5
             setattr(hotvr, 'effective_radius', effective_radius)
 
-            subjets_in_hotvr = []
-            for hotvr_subjet in hotvrsubjets:
-                if hotvr.subJetIdx1 == hotvr_subjet._index:
-                    subjets_in_hotvr.insert(0, hotvr_subjet)
-                if hotvr.subJetIdx2 == hotvr_subjet._index:  
-                    subjets_in_hotvr.insert(1, hotvr_subjet)
-                if hotvr.subJetIdx3 == hotvr_subjet._index:  
-                    subjets_in_hotvr.insert(2, hotvr_subjet)                
-            subjets_in_hotvr = sorted(subjets_in_hotvr,key=lambda x: x.pt, reverse=True)
+            # subjets_in_hotvr = []
+            # for hotvr_subjet in hotvrsubjets:
+            #     if hotvr.subJetIdx1 == hotvr_subjet._index:
+            #         subjets_in_hotvr.insert(0, hotvr_subjet)
+            #     if hotvr.subJetIdx2 == hotvr_subjet._index:  
+            #         subjets_in_hotvr.insert(1, hotvr_subjet)
+            #     if hotvr.subJetIdx3 == hotvr_subjet._index:  
+            #         subjets_in_hotvr.insert(2, hotvr_subjet)
+            # subjets_in_hotvr = sorted(subjets_in_hotvr,key=lambda x: x.pt, reverse=True)
 
-            setattr(hotvr, 'nsubjets', len(subjets_in_hotvr))
+            # setattr(hotvr, 'nsubjets', len(subjets_in_hotvr))
+
             if hotvr.tau2 != 0.: 
                 setattr(hotvr, 'tau3_over_tau2', hotvr.tau3/hotvr.tau2 )
             else: setattr(hotvr, 'tau3_over_tau2', -1 )
             if hotvr.tau1 != 0.:
                 setattr(hotvr, 'tau2_over_tau1', hotvr.tau2/hotvr.tau1 )
             else: setattr(hotvr, 'tau2_over_tau1', -1 )
-            if len(subjets_in_hotvr)!=0:
-                setattr(hotvr, 'fractional_subjet_pt', subjets_in_hotvr[0].pt/hotvr.pt )
+            if len(hotvr.subjets)!=0:
+                setattr(hotvr, 'fractional_subjet_pt', hotvr.subjets[0].pt/hotvr.pt )
             else: 
                 setattr(hotvr, 'fractional_subjet_pt', 0.) #-99 )
-            setattr(hotvr, 'min_pairwise_subjets_mass', self.minimum_pairwise_mass(subjets_in_hotvr) )
+            setattr(hotvr, 'min_pairwise_subjets_mass', self.minimum_pairwise_mass(hotvr.subjets) )
 
             # gen-composition in top samples
             if not Module.globalOptions['isData']:

@@ -44,15 +44,12 @@ class ElectronVeto(Module):
         
         #use electron cut-based veto ID
         for electron in electrons:
-            if electron.pt>self.electronMinPt and math.fabs(electron.eta)<self.electronMaxEta and electron.cutBased>=1:
+            if electron.pt > self.electronMinPt and math.fabs(electron.eta) < self.electronMaxEta and electron.cutBased >= 1:
                 selectedElectrons.append(electron)
             else:
                 unselectedElectrons.append(electron)
-  
-        #self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
-        
-        setattr(event,self.outputName,selectedElectrons)
-        setattr(event,self.outputName+"_unselected",unselectedElectrons)
+
+        setattr(event, self.outputName, selectedElectrons)
+        setattr(event, self.outputName + "_unselected", unselectedElectrons)
 
         return True
-        
