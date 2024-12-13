@@ -22,7 +22,7 @@ class JetSelection(Module):
          self,
          inputCollection=lambda event: Collection(event, "Jet"),
          leptonCollectionDRCleaning=lambda event: [],
-         outputName_list=["selectedJets","unselectedJets"],
+         outputName_list=["selectedJets", "unselectedJets"],
          jetMinPt=30.,
          jetMaxEta=4.8,
          dRCleaning=0.4,
@@ -61,6 +61,7 @@ class JetSelection(Module):
         
         self.out.branch("MET_energy", "F")
         for outputName in self.outputName_list:
+            if 'unselected' in outputName and 'nominal' not in outputName: continue
             self.out.branch("n"+outputName, "I")
 
             for variable in self.storeKinematics:
@@ -85,8 +86,10 @@ class JetSelection(Module):
         selectedJets = []
         unselectedJets = []
 
+
         leptonsForDRCleaning = self.leptonCollectionDRCleaning(event)
         for i, jet in enumerate(jets):
+
             # -- lepton cleaning
             jet_radius = self.dRCleaning
             # in case of HOTVR, the radius is be calculated as 600/jet pT
@@ -134,9 +137,11 @@ class JetSelection(Module):
         self.out.fillBranch("MET_energy", (metP4(met)).E())
 
         for outputName, jet_list in zip(self.outputName_list, [selectedJets, unselectedJets]):
+            if 'unselected' in outputName and 'nominal' not in outputName: continue
             setattr(event, outputName, jet_list)
-            self.out.fillBranch("n"+outputName, len(jet_list))
+            self.out.fillBranch("n" + outputName, len(jet_list))
             for variable in self.storeKinematics:
+                if variable == 'puId' and '202' in Module.globalOptions["year"]: continue
                 if Module.globalOptions["isData"] and variable=='genJetAK8Idx': continue
                 if variable == '_index': 
                     self.out.fillBranch(outputName+variable, map(lambda jet: getattr(jet, variable), jet_list))
