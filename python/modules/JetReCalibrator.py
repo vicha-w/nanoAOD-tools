@@ -103,7 +103,8 @@ class JetReCalibrator:
             raise RuntimeError('Configuration not supported')
         corrector.setJetPhi(jet.phi)
         corrector.setJetEta(jet.eta)
-        corrector.setJetPt(jet.pt * (1. - jet.rawFactor)) if hasattr(jet, "rawFactor") else corrector.setJetPt(jet.pt)
+        # corrector.setJetPt(jet.pt * (1. - jet.rawFactor)) if hasattr(jet, "rawFactor") else corrector.setJetPt(jet.pt)
+        corrector.setJetPt(jet.pt) #rawFactor not available for HOTVR jet
         corrector.setJetA(jet.area)
         corrector.setRho(rho)
         corr = corrector.getCorrection()
@@ -148,7 +149,7 @@ class JetReCalibrator:
        MET (e.g. jet pt cuts).
 
         """
-        raw = 1. #- jet.rawFactor
+        raw = 1. #- jet.rawFactor (rawFactor not available for HOTVR)
         corr = self.getCorrection(jet, rho, delta)
         if corr <= 0:
             return (jet.pt, jet.mass)

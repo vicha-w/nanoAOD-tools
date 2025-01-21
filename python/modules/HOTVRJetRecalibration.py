@@ -44,14 +44,16 @@ class HOTVRJetRecalibration(Module):
         self.rhoBranchName = "fixedGridRhoFastjetAll"
         self.lenVar = "n" + self.jetBranchName
 
+        self.print_out = False 
+
         if Module.globalOptions["isData"]:
             run_str = "_Run" + Module.globalOptions["era"]
             if Module.globalOptions["year"] == '2016':
                 run_str = "_RunFGH"
             if Module.globalOptions["year"] == '2016preVFP':
-                if Module.globalOptions["era"] == 'B' or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
+                if 'B_' in Module.globalOptions["era"] or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
                     run_str = "_RunBCD"
-                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F':
+                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F-HIPM':
                     run_str = "_RunEF"
             if Module.globalOptions["year"] == '2022':
                 run_str = "_RunCD"
@@ -106,7 +108,7 @@ class HOTVRJetRecalibration(Module):
         newJets = []
         newKeys = self.jetKeys
         if collection_type == 'subjets': 
-            newKeys = ['_index', 'area']
+            newKeys = ['_index', 'area', '_indexOfJet']
         for jet in jets:
             corrFactor = jet.recalibration_p4.Pt() / jet.pt
             newJet = PhysicsObject(
@@ -114,15 +116,15 @@ class HOTVRJetRecalibration(Module):
                 pt = jet.recalibration_p4.Pt(), 
                 eta = jet.recalibration_p4.Eta(), 
                 phi = jet.recalibration_p4.Phi(),
-                mass = jet.mass,
+                mass = jet.recalibration_p4.M(),
                 keys = newKeys
             )
             newJet.corrFactor = corrFactor
             if collection_type == 'jets':
                 newJet.subjets = jet.subjets  
+                newJet.uncalibrated_subjets = jet.uncalibrated_subjets  
             newJets.append(newJet)
         newJets = sorted(newJets, key=lambda x: x.pt, reverse=True)
-        #print 'jet',variation,newJets[0].pt
         return newJets
 
     def beginJob(self):
@@ -189,7 +191,7 @@ class HOTVRJetRecalibration(Module):
 
         for ijet, jet in enumerate(jets):
             subjets_in_hotvr = []
-            matched_subjets_sum_p4 = ROOT.TLorentzVector(0, 0, 0, 0)  # Sum of matched subjets, used for the uncalibrated 4-vectors
+            matched_subjets_sum_p4 = ROOT.TLorentzVector(0, 0, 0, 0) # Sum of matched subjets, used for the uncalibrated 4-vectors
             jet_p4 = ROOT.TLorentzVector()
             jet_p4.SetPtEtaPhiM(jet.pt, jet.eta, jet.phi, jet.mass)
 
@@ -214,10 +216,22 @@ class HOTVRJetRecalibration(Module):
                     matched_subjets_sum_p4 += uncalibrated_p4
 
                     # N.B.: JES, JER corrections are to be applied only on HOTVR subjets --> https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetTopTagging#Working_point_and_scale_factors
+                    if self.print_out:
+                        print('Jet {} [subjets idx {},{},{}] has subjet [{}]'.format(
+                            jet._index, jet.subJetIdx1, jet.subJetIdx2, jet.subJetIdx3, subjet._index
+                        ))
                     if self.redoJEC:
+                        if self.print_out: 
+                            print('## subjet before calibration: pt {}, mass {}'.format(subjet.pt, subjet.mass))
+
                         (subjet_pt, subjet_mass) = self.jetReCalibrator.correct(subjet, rho)
-                        # if abs(subjet_pt/subjet.pt-1)>0.7:
-                        #     print ((subjet_pt/subjet.pt-1),subjet.eta,subjet.pt, subjet.mass, jet.eta, rho)
+
+                        if self.print_out:
+                            print('## subjet after calibration: pt {}, mass {}'.format(subjet_pt, subjet_mass))
+                            if abs((subjet_pt / subjet.pt) -1) > 0.2:
+                                print ("Correction greater than 20% [{}]; eta: {}, phi {} (subjet) |  eta {}, phi {} (jet)".format(
+                                    abs((subjet_pt / subjet.pt) -1), subjet.eta, subjet.phi, jet.eta, jet.phi)
+                                )
                     subjet.recalibration_p4 = ROOT.TLorentzVector()
                     subjet.recalibration_p4.SetPtEtaPhiM(
                         subjet_pt,
@@ -226,8 +240,14 @@ class HOTVRJetRecalibration(Module):
                         subjet_mass
                     )
 
+                    subjet._indexOfJet = jet._index
+
             subjets_in_hotvr = sorted(subjets_in_hotvr, key=lambda x: x.pt, reverse=True)
-            setattr(jet, "subjets", subjets_in_hotvr)
+            setattr(jet, "uncalibrated_subjets", subjets_in_hotvr)
+
+            calibrated_subjets_in_hotvr = self.makeNewJetCollection(subjets_in_hotvr, collection_type='subjets')
+            calibrated_subjets_in_hotvr = sorted(calibrated_subjets_in_hotvr, key=lambda x: x.pt, reverse=True)
+            setattr(jet, "subjets", calibrated_subjets_in_hotvr)
 
             jet.recalibration_p4 = ROOT.TLorentzVector(0, 0, 0, 0)
             # If no subjets are found, assign original jet p4 to recalibration_p4
@@ -244,6 +264,14 @@ class HOTVRJetRecalibration(Module):
                 for isubjet, subjet in enumerate(subjets_in_hotvr):
                     jet.recalibration_p4 += subjet.recalibration_p4
                 jet.recalibration_p4 += unclustered_energy_p4
+
+                if self.print_out:
+                    print('## jet before calibration: pt {}, mass {}'.format(jet.pt, jet.mass))
+                    if abs((jet.recalibration_p4.Pt() / jet.pt) -1) > 0.2:
+                        print ("Correction greater than 20% [{}]; eta {}, phi {} (jet)".format(
+                            abs((jet.recalibration_p4.Pt() / jet.pt) -1), jet.eta, jet.phi)
+                        )
+                    print('## jet after calibration: pt {}, mass {}'.format(jet.recalibration_p4.Pt(), jet.recalibration_p4.M()))
 
                 # if unclustered_energy_p4.Pt() > 3:
                 #     print('\n### Unclustered pT > 3 GeV ###')
@@ -304,16 +332,16 @@ class HOTVRJetRecalibration(Module):
             #     0.0) if groomedP4 == None else jets_msoftdrop_nom.append(
             #         groomedP4.M())
 
-        setattr(
-            event, 
-            self.outputJetPrefix + "jec", 
-            self.makeNewJetCollection(jets, collection_type='jets')
-        )
         #creating the subjet collection only for the matched subjets
         setattr(
             event, 
             self.outputSubJetPrefix + "jec", 
-            self.makeNewJetCollection([subjet for jet in jets for subjet in jet.subjets], collection_type='subjets')
+            self.makeNewJetCollection([subjet for jet in jets for subjet in jet.uncalibrated_subjets], collection_type='subjets')
+        )
+        setattr(
+            event, 
+            self.outputJetPrefix + "jec", 
+            self.makeNewJetCollection(jets, collection_type='jets')
         )
 
         # self.out.fillBranch("%s_pt_raw" % self.jetBranchName, jets_pt_raw)

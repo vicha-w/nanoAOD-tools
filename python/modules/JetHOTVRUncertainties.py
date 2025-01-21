@@ -202,9 +202,9 @@ class JetHOTVRUncertainties(Module):
             if Module.globalOptions["year"] == '2016':
                 run_str = "_RunFGH"
             if Module.globalOptions["year"] == '2016preVFP':
-                if Module.globalOptions["era"] == 'B' or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
+                if 'B_' in Module.globalOptions["era"] or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
                     run_str = "_RunBCD"
-                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F':
+                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F-HIPM':
                     run_str = "_RunEF"
             if Module.globalOptions["year"] == '2022':
                 run_str = "_RunCD"
@@ -267,10 +267,11 @@ class JetHOTVRUncertainties(Module):
     def makeNewJetCollection(self, jets, variation, collection_type='jets'):
         newJets = []
         newKeys = self.jetKeys
-        if collection_type == 'subjets': 
+        if collection_type == 'subjets':
             newKeys = ['_index', 'area']
         for jet in jets:
-            if not hasattr(jet, 'uncertainty_p4'): #this takes include in the new collection also the subjets-not linked to jets (which do not have correction applied)
+            if not hasattr(jet, 'uncertainty_p4'): 
+                #this takes include in the new collection also the subjets-not linked to jets (which do not have correction applied)
                 newJets.append(jet)
             else:
                 uncFactor = jet.uncertainty_p4[variation].Pt() / jet.pt
@@ -303,8 +304,8 @@ class JetHOTVRUncertainties(Module):
             lowPtJet.rawFactor = 0
             lowPtJet.mass = 0
             lowPtJet.neEmEF = 0
-            lowPtJet.chEmEF = 0      
-      
+            lowPtJet.chEmEF = 0
+
         if not Module.globalOptions['isData']:
             def genjet_resolution_matching(jet, genjet):
                 resolution = self.jerUncertaintyCalculator.getResolution(jet,rho)
@@ -313,7 +314,7 @@ class JetHOTVRUncertainties(Module):
             genjet_match = matchObjectCollection(jets, genJets, dRmax=0.2, presel=genjet_resolution_matching)
             genjet_lowpt_match = matchObjectCollection(lowPtJets, genJets, dRmax=0.2, presel=genjet_resolution_matching)
             genjet_match.update(genjet_lowpt_match)
-            gensubjet = matchObjectCollection(subjets, gensubJets, dRmax=0.2, presel=genjet_resolution_matching)
+            gensubjet = matchObjectCollection([subjet for jet in jets for subjet in jet.subjets], gensubJets, dRmax=0.2, presel=genjet_resolution_matching)
             genjet_match.update(gensubjet)
 
             self.jerUncertaintyCalculator.setSeed(event)
@@ -333,16 +334,16 @@ class JetHOTVRUncertainties(Module):
 
             # N.B.: JES, JER corrections are to be applied only on HOTVR subjets --> https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetTopTagging#Working_point_and_scale_factors
             # first step is to match jet and subjets with correct subjet indexes
-            subjets_in_hotvr = []
-            for isubjet, subjet in enumerate(subjets):
-                if (jet.subJetIdx1 == subjet._index or 
-                    jet.subJetIdx2 == subjet._index or 
-                    jet.subJetIdx3 == subjet._index or 
-                    (hasattr(jet, 'subJetIdx4') and jet.subJetIdx4 == subjet._index)):
-                    subjets_in_hotvr.append(subjet) 
-            subjets_in_hotvr = sorted(subjets_in_hotvr, key=lambda x: x.pt, reverse=True)
+            # subjets_in_hotvr = []
+            # for isubjet, subjet in enumerate(subjets):
+            #     if (jet.subJetIdx1 == subjet._index or 
+            #         jet.subJetIdx2 == subjet._index or 
+            #         jet.subJetIdx3 == subjet._index or 
+            #         (hasattr(jet, 'subJetIdx4') and jet.subJetIdx4 == subjet._index)):
+            #         subjets_in_hotvr.append(subjet) 
+            # subjets_in_hotvr = sorted(subjets_in_hotvr, key=lambda x: x.pt, reverse=True)
 
-            if not subjets_in_hotvr:
+            if not jet.subjets: #subjets_in_hotvr:
                 # Assign original jet p4 to all variations
                 jet.uncertainty_p4['nominal'] = jet.p4()
                 jet.uncertainty_p4['jerUp'] = jet.p4()
@@ -353,7 +354,7 @@ class JetHOTVRUncertainties(Module):
                 continue 
 
             else:
-                for isubjet, subjet in enumerate(subjets_in_hotvr):
+                for isubjet, subjet in enumerate(jet.subjets):
                     subjet.uncertainty_p4 = {}
 
                     if not Module.globalOptions['isData']:
@@ -388,20 +389,50 @@ class JetHOTVRUncertainties(Module):
 
         setattr(event, self.outputJetPrefix + "nominal", self.makeNewJetCollection(jets, "nominal", collection_type='jets'))
         #for subjets, storing only the subjects collection linked to jets
-        setattr(event, self.outputSubJetPrefix + "nominal", self.makeNewJetCollection(subjets, "nominal", collection_type='subjets'))
+        setattr(event, self.outputSubJetPrefix + "nominal", self.makeNewJetCollection(
+            [subjet for jet in jets for subjet in jet.subjets], 
+            "nominal", 
+            collection_type='subjets')
+        )
 
         for jesUncertaintyName in self.jesUncertaintyNames:
             for mode in ["Up","Down"]:
-                setattr(event, self.outputJetPrefix + "jes" + jesUncertaintyName + mode, 
-                        self.makeNewJetCollection(jets, "jes"+jesUncertaintyName + mode))
-                setattr(event, self.outputSubJetPrefix + "jes" + jesUncertaintyName + mode, 
-                        self.makeNewJetCollection(subjets, "jes"+jesUncertaintyName + mode, collection_type='subjets'))
+                setattr(
+                    event, 
+                    self.outputJetPrefix + "jes" + jesUncertaintyName + mode, 
+                    self.makeNewJetCollection(jets, "jes"+jesUncertaintyName + mode)
+                )
+                setattr(
+                    event, 
+                    self.outputSubJetPrefix + "jes" + jesUncertaintyName + mode, 
+                    self.makeNewJetCollection([subjet for jet in jets for subjet in jet.subjets], "jes"+jesUncertaintyName + mode, collection_type='subjets')
+                )
 
         if not Module.globalOptions['isData']:
             for mode in ["Up","Down"]:
-                setattr(event, self.outputJetPrefix + "jer" + mode, 
-                        self.makeNewJetCollection(jets, "jer" + mode))
-                setattr(event, self.outputSubJetPrefix + "jer" + mode, 
-                        self.makeNewJetCollection(subjets, "jer" + mode, collection_type='subjets'))
+                setattr(
+                    event, 
+                    self.outputJetPrefix + "jer" + mode, 
+                    self.makeNewJetCollection(jets, "jer" + mode)
+                )
+                setattr(
+                    event, 
+                    self.outputSubJetPrefix + "jer" + mode, 
+                    self.makeNewJetCollection([subjet for jet in jets for subjet in jet.subjets], "jer" + mode, collection_type='subjets')
+                )
+
+        # print([subjet.pt for subjet in subjets])
+        # print([subjet.pt for subjet in jets[1].subjets])
+        # print([subjet.pt for jet in jets for subjet in jet.subjets])
+        # print([subjet.pt for jet in jets for subjet in jet.uncalibrated_subjets])
+
+        
+        # ee = self.makeNewJetCollection(
+        #     [subjet for jet in jets for subjet in jet.subjets], 
+        #     "nominal", 
+        #     collection_type='subjets')
+        # print([subjet.recalibration_p4.Pt() for subjet in ee])
+
+        
 
         return True
