@@ -44,6 +44,7 @@ class HOTVRJetSelection(Module):
         self.jetMaxEta = jetMaxEta
         self.dRCleaning = dRCleaning
         self.storeKinematics = storeKinematics
+        self.storeKinematicsSubJets = ['pt', 'eta', 'phi', 'mass', '_index', 'area', 'minDPhiClean', 'minDRClean', '_indexJets']
         self.jetId=jetId
         self.fatFlag = fatFlag
         self.metInput = metInput
@@ -85,10 +86,8 @@ class HOTVRJetSelection(Module):
             # Initialize branches for subjets
             subjet_outputName = outputName.replace("HOTVRJet", "HOTVRSubJet")
             self.out.branch("n" + subjet_outputName, "I")
-            for variable in self.storeKinematics:
-                if variable not in ['pt', 'eta', 'phi', 'mass', '_index', 'area', 'minDPhiClean', 'minDRClean']:
-                    continue
-                if variable == '_index':
+            for variable in self.storeKinematicsSubJets:
+                if 'index' in variable:
                     self.out.branch(subjet_outputName + variable, "I", lenVar="n" + subjet_outputName)
                     continue
                 self.out.branch(subjet_outputName + "_" + variable, "F", lenVar="n" + subjet_outputName)
@@ -119,13 +118,6 @@ class HOTVRJetSelection(Module):
             # in case of HOTVR, the radius is be calculated as 600/jet pT
             if self.dRCleaning == None:
                 jet_radius = 600./ jet.pt if 600./ jet.pt <= 1.5 else 1.5 
-
-            if hasattr(jet, "subjets"):
-                setattr(jet, "max_eta_subjets", max(map(lambda subjet: subjet.eta, jet.subjets)))
-                setattr(jet, "nsubjets", len(jet.subjets))
-            else:
-                setattr(jet, "max_eta_subjets", float('inf'))
-                setattr(jet, "nsubjets", -1)
 
             minDeltaRSubtraction = 999.
             if len(leptonsForDRCleaning) > 0:
@@ -160,6 +152,7 @@ class HOTVRJetSelection(Module):
             # --- matching with subjets
             # the jet.subjets is obtained in the "HOTVRJetRecalibration.py" module
             if not hasattr(jet, "subjets"): continue
+            selectedSubJets_perJet = []
             for isubjet, subjet in enumerate(jet.subjets):
                     if leptonsForDRCleaning:
                         mindphi = min(map(lambda lepton: deltaPhi(lepton, subjet), leptonsForDRCleaning))
@@ -170,6 +163,7 @@ class HOTVRJetSelection(Module):
 
                     setattr(subjet, "minDPhiClean", mindphi)
                     setattr(subjet, "minDRClean", mindr)
+                    setattr(subjet, "_indexJets", jet._index)
 
                     if mindr < 0.4: #using 0.4 radius for the subjet
                         continue
@@ -177,11 +171,15 @@ class HOTVRJetSelection(Module):
                     if subjet.pt < self.subjetMinPt:
                         continue
 
+                    selectedSubJets_perJet.append(subjet)
                     selectedSubJets.append(subjet)
             # ---
-            if selectedSubJets:
-                setattr(jet, "max_eta_subjets", max(map(lambda subjet: subjet.eta, selectedSubJets)))
-                setattr(jet, "nsubjets", len(selectedSubJets))
+            if len(selectedSubJets_perJet) > 0:
+                setattr(jet, "max_eta_subjets", max(map(lambda subjet: subjet.eta, selectedSubJets_perJet)))
+            else:
+                setattr(jet, "max_eta_subjets", float('inf'))
+            setattr(jet, "nsubjets", len(selectedSubJets_perJet))
+            # print(dir(selectedSubJets[0]))
 
         def metP4(obj):
             p4 = ROOT.TLorentzVector()
@@ -213,15 +211,11 @@ class HOTVRJetSelection(Module):
                 continue
 
             outputName = outputName.replace("HOTVRJet", "HOTVRSubJet")
-            
             setattr(event, outputName, subjet_list)
             self.out.fillBranch("n" + outputName, len(subjet_list))
-            
-            for variable in self.storeKinematics:
-                if variable not in ['pt', 'eta', 'phi', 'mass', '_index', 'area', 'minDPhiClean', 'minDRClean']:
-                    continue
 
-                branch_name = ("%s_%s" % (outputName, variable)) if variable != '_index' else ("%s%s" % (outputName, variable))
+            for variable in self.storeKinematicsSubJets:
+                branch_name = ("%s_%s" % (outputName, variable)) if 'index' not in variable else ("%s%s" % (outputName, variable))
                 values = list(map(lambda jet: getattr(jet, variable, None) if hasattr(jet, variable) else -999, subjet_list))
                 self.out.fillBranch(branch_name, values)
 
