@@ -60,7 +60,7 @@ class EventReconstruction(Module):
         if  Module.globalOptions['isSignal']: self.jet_composition.append('has_genTopFromResonance_inside')
 
     def minimum_pairwise_mass(self, subjets_in_hotvr):
-        if len(subjets_in_hotvr)>2:
+        if len(subjets_in_hotvr) > 2:
             min_pair_sum_mass = float('inf')
             for i, sjet_i in enumerate(subjets_in_hotvr[:2]):  # minimum pairwise mass of the three leading subjets
                 for j, sjet_j in enumerate(subjets_in_hotvr[i+1:3]):
@@ -253,11 +253,13 @@ class EventReconstruction(Module):
 
             if hotvr.tau2 != 0.: 
                 setattr(hotvr, 'tau3_over_tau2', hotvr.tau3/hotvr.tau2 )
-            else: setattr(hotvr, 'tau3_over_tau2', -1 )
+            else: 
+                setattr(hotvr, 'tau3_over_tau2', -1 )
             if hotvr.tau1 != 0.:
                 setattr(hotvr, 'tau2_over_tau1', hotvr.tau2/hotvr.tau1 )
-            else: setattr(hotvr, 'tau2_over_tau1', -1 )
-            if len(hotvr.subjets)!=0:
+            else: 
+                setattr(hotvr, 'tau2_over_tau1', -1 )
+            if len(hotvr.subjets) != 0 :
                 setattr(hotvr, 'fractional_subjet_pt', hotvr.subjets[0].pt/hotvr.pt )
             else: 
                 setattr(hotvr, 'fractional_subjet_pt', 0.) #-99 )
