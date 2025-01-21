@@ -106,16 +106,6 @@ class HOTVRJetComposition(Module):
             if self.print_out: print('HOTVR N. {}'.format(ihotvr+1))
             effective_radius = 600./ hotvr.pt if 600./ hotvr.pt <= 1.5 else 1.5
 
-            subjets_in_hotvr = []
-            for hotvr_subjet in subhotvrjets:
-                if hotvr.subJetIdx1 == hotvr_subjet._index:
-                    subjets_in_hotvr.insert(0, hotvr_subjet)
-                if hotvr.subJetIdx2 == hotvr_subjet._index:  
-                    subjets_in_hotvr.insert(1, hotvr_subjet)
-                if hotvr.subJetIdx3 == hotvr_subjet._index:  
-                    subjets_in_hotvr.insert(2, hotvr_subjet)                
-            subjets_in_hotvr = sorted(subjets_in_hotvr, key=lambda x: x.pt, reverse=True)
-
             # --- initializing the flags as attributes of the jet
             for flag in self.jetCompositions:
                 setattr(hotvr, flag, False)
@@ -140,7 +130,6 @@ class HOTVRJetComposition(Module):
                             setattr(hotvr, 'has_top_fromResonance', True)
                     if self.print_out: print('Closest genTop [idx. {}] inside HOTVR'.format(closest_gentop._index))
                     substr_flag = gentop_substructures_check(closest_gentop, top_daughters_inside_hotvr, flag_is_top_inside='topIsInside')
-
                 else: 
                     if self.print_out: 
                         print('Daugthers {} inside HOTVR of a genTop NOT inside HOTVR [deltaR {} > rho/pt {}]'.format(list(map(lambda daughter: daughter.pdgId, top_daughters_inside_hotvr)), deltaR(closest_gentop,hotvr), effective_radius))

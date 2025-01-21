@@ -131,16 +131,18 @@ class GenParticleModule(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
 
-        self.out.branch("ngenTop", "I")
+        self.out.branch("ngenTops", "I")
         for genTopKey in self.genTopKeys:
-            if 'deltaR' in genTopKey or 'rho_over_pt' in genTopKey: self.out.branch("genTop_"+genTopKey, "F", lenVar="ngenTop")
-            else: self.out.branch("genTop_"+genTopKey, "I", lenVar="ngenTop")
+            if 'deltaR' in genTopKey or 'rho_over_pt' in genTopKey: 
+                self.out.branch("genTops_"+genTopKey, "F", lenVar="ngenTops")
+            else: 
+                self.out.branch("genTops_"+genTopKey, "I", lenVar="ngenTops")
         for variable in self.storeKinematics:
-            self.out.branch("genTop_"+variable, "F", lenVar="ngenTop")
+            self.out.branch("genTops_"+variable, "F", lenVar="ngenTops")
         # self.out.branch("ngenTop_daughters","I")
-        self.out.branch("genTop_daughters_pdgId", "I", lenVar="ngenTop")
+        self.out.branch("genTops_daughters_pdgId", "I", lenVar="ngenTops")
 
-        for genlepton in ['genElectron', 'genMuon']:
+        for genlepton in ['genElectrons', 'genMuons']:
             self.out.branch("n{}".format(genlepton), "I")
             for variable in self.storeKinematics:
                 self.out.branch("{}_{}".format(genlepton, variable), "F", lenVar="n{}".format(genlepton))
@@ -283,13 +285,13 @@ class GenParticleModule(Module):
         # for genvar in ['pdgId', 'genPartIdxMother', 'status', 'statusFlags']:
         #     self.out.fillBranch("genParticle_"+genvar, map(lambda genp: getattr(genp, genvar), genParticles))  
 
-        self.out.fillBranch("ngenTop", len(gen_top_quarks))
+        self.out.fillBranch("ngenTops", len(gen_top_quarks))
         for genTopKey in self.genTopKeys:
-            self.out.fillBranch("genTop_"+genTopKey, map(lambda gentop: getattr(gentop,genTopKey), gen_top_quarks))
+            self.out.fillBranch("genTops_"+genTopKey, map(lambda gentop: getattr(gentop,genTopKey), gen_top_quarks))
         for variable in self.storeKinematics:
-            self.out.fillBranch("genTop_"+variable, map(lambda gentop: getattr(gentop,variable), gen_top_quarks))
+            self.out.fillBranch("genTops_"+variable, map(lambda gentop: getattr(gentop,variable), gen_top_quarks))
 
-        for genlepton, genlepton_collection in zip(['genElectron', 'genMuon'], [gen_electrons, gen_muons]):
+        for genlepton, genlepton_collection in zip(['genElectrons', 'genMuons'], [gen_electrons, gen_muons]):
             self.out.fillBranch("n{}".format(genlepton), len(genlepton_collection))
             for variable in self.storeKinematics:
                 self.out.fillBranch("{}_{}".format(genlepton, variable), map(lambda genlep: getattr(genlep, variable), genlepton_collection))

@@ -83,10 +83,10 @@ class GenTopModule(Module):
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
 
-        self.out.branch("ngenTop", "I")
         for genTopKey in self.genTopKeys:
-            if 'deltaR' in genTopKey or 'rho_over_pt' in genTopKey: self.out.branch("genTop_"+genTopKey, "F", lenVar="ngenTop")
-            else: self.out.branch("genTop_"+genTopKey, "I", lenVar="ngenTop")
+            if 'deltaR' in genTopKey or 'rho_over_pt' in genTopKey: 
+                self.out.branch("genTops_"+genTopKey, "F", lenVar="ngenTops")
+            else: self.out.branch("genTops_"+genTopKey, "I", lenVar="ngenTops")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
@@ -208,9 +208,8 @@ class GenTopModule(Module):
             setattr(genTop, 'min_deltaR_hotvr', min_deltaR_hotvr_top)
             # ----
 
-        self.out.fillBranch("ngenTop", len(genTops))
         for genTopKey in self.genTopKeys:
-            self.out.fillBranch("genTop_"+genTopKey, map(lambda gentop: getattr(gentop,genTopKey), genTops))
+            self.out.fillBranch("genTops_"+genTopKey, map(lambda gentop: getattr(gentop,genTopKey), genTops))
 
         return True
 

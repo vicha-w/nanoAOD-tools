@@ -213,9 +213,9 @@ class JetMetUncertainties(Module):
             if Module.globalOptions["year"] == '2016':
                 run_str = "_RunFGH"
             if Module.globalOptions["year"] == '2016preVFP':
-                if Module.globalOptions["era"] == 'B' or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
+                if 'B_' in Module.globalOptions["era"] or Module.globalOptions["era"] == 'C' or Module.globalOptions["era"] == 'D':
                     run_str = "_RunBCD"
-                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F':
+                if Module.globalOptions["era"] == 'E' or Module.globalOptions["era"] == 'F-HIPM':
                     run_str = "_RunEF"
             if Module.globalOptions["year"] == '2022':
                 run_str = "_RunCD"
