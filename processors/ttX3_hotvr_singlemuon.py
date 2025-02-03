@@ -72,7 +72,7 @@ Module.globalOptions = globalOptions
 
 isMC = not args.isData
 isPowheg = 'powheg' in args.inputFiles[0].lower()
-isPowhegTTbar = 'TTTo' in args.inputFiles[0] and isPowheg
+isPowhegTTbar = (('TTTo' in args.inputFiles[0]) or ('TTto' in args.inputFiles[0])) and isPowheg
 
 #recommended pT threshold for the subleading lepton --> https://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS%20AN-2020/085 (4 top in dilepton final state)
 minMuonPt =     {'2016': 15., '2016preVFP': 15., '2017': 15., '2018': 15.,
