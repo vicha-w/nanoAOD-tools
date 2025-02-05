@@ -621,9 +621,7 @@ else:
 ]
 #####
 
-analyzerChain.extend(leptonSequence())
 #analyzerChain.extend(trigger())
-
 analyzerChain.extend([
     SingleMuonTriggerSelection(
         inputCollection=lambda event: Collection(event, "tightRelIso_tightID_Muons"),
@@ -632,6 +630,7 @@ analyzerChain.extend([
         applyCut=True
     )
 ])
+analyzerChain.extend(leptonSequence())
 
 #####JETMET UNCERTAINTIES MODULE
 if args.isData:
