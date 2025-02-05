@@ -105,8 +105,11 @@ class SingleMuonTriggerSelection(Module):
         #elif Module.globalOptions["year"] == '2018':
         #    trigger_flag = event.HLT_IsoMu24
 
-        if hasattr(event, "HLT_Mu50"): trigger_flag = trigger_flag or event.HLT_Mu50
-        if hasattr(event, "HLT_TkMu50"): trigger_flag = trigger_flag or event.HLT_TkMu50
+        if Module.globalOptions["year"] in ["2022", "2022EE"]:
+            trigger_flag = event.HLT_IsoMu24
+        else:
+            if hasattr(event, "HLT_Mu50"): trigger_flag = trigger_flag or event.HLT_Mu50
+            if hasattr(event, "HLT_TkMu50"): trigger_flag = trigger_flag or event.HLT_TkMu50
 
         if self.applyCut and (not trigger_flag): return False
 
