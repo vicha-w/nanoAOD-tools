@@ -575,45 +575,24 @@ analyzerChain.extend([
 analyzerChain.extend(leptonSequence())
 
 #####JETMET UNCERTAINTIES MODULE
-if args.isData:
-    analyzerChain.extend(
-        jetSelection({
-            "nominal": (
-                lambda event: Collection(event,"Jet"),
-                lambda event: Collection(event,"FatJet"),
-                lambda event: Collection(event,"HOTVRJet"),
-                lambda event: Collection(event,"HOTVRSubJet"),
-                lambda event: Object(event,"MET")
-            )
-        })
-    )
-
-    #jetDict = {
-    #    "nominal": (lambda event: event.selectedJets_nominal,
-    #                lambda event: event.selectedFatJets_nominal,
-    #                lambda event: event.selectedHOTVRJets_nominal,
-    #                lambda event: event.selectedHOTVRSubJets_nominal,
-    #                lambda event: Object(event,"MET")
-    #                )
-    #}
-
-else:
+if not args.isData:
     # GM: pu weight producer are set to AUTO mode for 2022, 2022EE --> https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#True_and_observed_pileup_in_data
     # 1) no MC distributions available (?) - 07/03/2024
     # 2) no plus/minus variation
     analyzerChain.append(PUWeightProducer_dict[args.year]())
 
-    if args.nosys:
-        jesUncertaintyNames = []
-    else:
+if args.nosys:
+    jesUncertaintyNames = []
+else:
+    
+    jesUncertaintyNames = ["Total","Absolute","EC2","BBEC1", "HF","RelativeBal","FlavorQCD" ]
+    for jesUncertaintyExtra in ["RelativeSample","HF","Absolute","EC2","BBEC1"]:
+        jesUncertaintyNames.append(jesUncertaintyExtra+"_"+args.year.replace("preVFP",""))
+    
+    jesUncertaintyNames = ["Total"]
         
-        jesUncertaintyNames = ["Total","Absolute","EC2","BBEC1", "HF","RelativeBal","FlavorQCD" ]
-        for jesUncertaintyExtra in ["RelativeSample","HF","Absolute","EC2","BBEC1"]:
-            jesUncertaintyNames.append(jesUncertaintyExtra+"_"+args.year.replace("preVFP",""))
-        
-        jesUncertaintyNames = ["Total"]
-            
-        print("JECs: ",jesUncertaintyNames)
+    print("JECs: ",jesUncertaintyNames)
+    
         
     #TODO: apply type2 corrections? -> improves met modelling; in particular for 2018
     if Module.globalOptions["year"] == '2022' or Module.globalOptions["year"] == '2022EE':
@@ -699,53 +678,55 @@ else:
     }
     
     if not args.nosys:
-        jetDict["jerUp"] = (
-            lambda event: event.jets_jerUp,
-            lambda event: event.fatjets_jerUp,
-            lambda event: event.hotvrjets_jerUp,
-            lambda event: event.hotvrsubjets_jerUp,
-            lambda event: event.met_jerUp
-            )
-        jetDict["jerDown"] = (
-            lambda event: event.jets_jerDown,
-            lambda event: event.fatjets_jerDown,
-            lambda event: event.hotvrjets_jerDown,
-            lambda event: event.hotvrsubjets_jerDown,
-            lambda event: event.met_jerDown
-            )
+        if not Module.globalOptions["isData"]:
+            jetDict["jerUp"] = (
+                lambda event: event.jets_jerUp,
+                lambda event: event.fatjets_jerUp,
+                lambda event: event.hotvrjets_jerUp,
+                lambda event: event.hotvrsubjets_jerUp,
+                lambda event: event.met_jerUp
+                )
+            jetDict["jerDown"] = (
+                lambda event: event.jets_jerDown,
+                lambda event: event.fatjets_jerDown,
+                lambda event: event.hotvrjets_jerDown,
+                lambda event: event.hotvrsubjets_jerDown,
+                lambda event: event.met_jerDown
+                )
         
-        for jesUncertaintyName in jesUncertaintyNames:
-            jetDict['jes'+jesUncertaintyName+"Up"] = (
-                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Up"),
-                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Up")
-                )
-            jetDict['jes'+jesUncertaintyName+"Down"] = (
-                lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
-                lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Down"),
-                lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Down")
-                )
+            for jesUncertaintyName in jesUncertaintyNames:
+                jetDict['jes'+jesUncertaintyName+"Up"] = (
+                    lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Up"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Up"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Up"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Up"),
+                    lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Up")
+                    )
+                jetDict['jes'+jesUncertaintyName+"Down"] = (
+                    lambda event,sys=jesUncertaintyName: getattr(event,"jets_jes"+sys+"Down"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"fatjets_jes"+sys+"Down"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"hotvrjets_jes"+sys+"Down"),
+                    lambda event,sys=jesUncertaintyName: getattr(event,"hotvrsubjets_jes"+sys+"Down"),
+                    lambda event,sys=jesUncertaintyName: getattr(event, "met_jes"+sys+"Down")
+                    )
     
     analyzerChain.extend(
         jetSelection(jetDict)
     )
 
-    analyzerChain.extend(
-        [
-            MetSelection(
-                metInput = lambda event: event.met_unclEnUp,
-                outputName = "MET_unclEnUp"
-            ),
-            MetSelection(
-                metInput = lambda event: event.met_unclEnDown,
-                outputName = "MET_unclEnDown"
-            ),
-        ]
-    )
+    if not Module.globalOptions["isData"]:
+        analyzerChain.extend(
+            [
+                MetSelection(
+                    metInput = lambda event: event.met_unclEnUp,
+                    outputName = "MET_unclEnUp"
+                ),
+                MetSelection(
+                    metInput = lambda event: event.met_unclEnDown,
+                    outputName = "MET_unclEnDown"
+                ),
+            ]
+        )
 #####
 
 ##### GENERATION MODULE

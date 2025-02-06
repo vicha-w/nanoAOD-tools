@@ -321,17 +321,17 @@ class JetHOTVRUncertainties(Module):
 
         if self.print_out: print('EVENTO ########')
 
-        for subjet in subjets:
-            subjet.uncertainty_p4 = {}
-            genjet = genjet_match[subjet]
-            jerFactor = self.jerUncertaintyCalculator.getFactor(subjet, genjet, rho)
-            subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
-            subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
-            subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
-            for jesUncertaintyName in self.jesUncertaintyNames:
-                jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
-                subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]   = subjet.uncertainty_p4['nominal'] * (1. + jecDelta)
-                subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = subjet.uncertainty_p4['nominal'] * (1. - jecDelta)
+        #for subjet in subjets:
+        #    subjet.uncertainty_p4 = {}
+        #    genjet = genjet_match[subjet]
+        #    jerFactor = self.jerUncertaintyCalculator.getFactor(subjet, genjet, rho)
+        #    subjet.uncertainty_p4['nominal'] = subjet.p4() * jerFactor['nominal']
+        #    subjet.uncertainty_p4['jerUp'] = subjet.p4() * jerFactor['up']
+        #    subjet.uncertainty_p4['jerDown'] = subjet.p4() * jerFactor['down']
+        #    for jesUncertaintyName in self.jesUncertaintyNames:
+        #        jecDelta = self.jesUncertaintyCaculators[jesUncertaintyName].getDelta(subjet.uncertainty_p4['nominal'])
+        #        subjet.uncertainty_p4['jes' + jesUncertaintyName + "Up"]   = subjet.uncertainty_p4['nominal'] * (1. + jecDelta)
+        #        subjet.uncertainty_p4['jes' + jesUncertaintyName + "Down"] = subjet.uncertainty_p4['nominal'] * (1. - jecDelta)
 
         for ijet, jet in enumerate(itertools.chain(jets, lowPtJets)):
             # JER/JES correction for subjets in the jet and resummation of the p4

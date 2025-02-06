@@ -49,7 +49,7 @@ from TopPtWeightProducer import TopPtWeightProducer
 
 #event reco + HOTVR mva + fat jet composition
 from EventReconstruction import EventReconstruction
-#from HOTVR_MVA import HOTVR_MVA
+from HOTVR_MVA import HOTVR_MVA
 from HOTVRJetComposition import HOTVRJetComposition
 from HOTVRJetSFProducer import HOTVRJetSFProducer
 from FatJetComposition import FatJetComposition
