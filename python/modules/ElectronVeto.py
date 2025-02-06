@@ -53,7 +53,6 @@ class ElectronVeto(Module):
                 selectedElectrons.append(electron)
             else:
                 unselectedElectrons.append(electron)
-<<<<<<< HEAD
   
         self.out.fillBranch("n"+self.outputName,len(selectedElectrons))
         for variable in self.storeKinematics:
@@ -61,10 +60,5 @@ class ElectronVeto(Module):
         
         setattr(event,self.outputName,selectedElectrons)
         setattr(event,self.outputName+"_unselected",unselectedElectrons)
-=======
-
-        setattr(event, self.outputName, selectedElectrons)
-        setattr(event, self.outputName + "_unselected", unselectedElectrons)
->>>>>>> minor updates
 
         return True
