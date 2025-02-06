@@ -1,0 +1,137 @@
+Executable   = /afs/desy.de/user/g/gmilella/ttx3_analysis/CMSSW_11_1_7/src/PhysicsTools/NanoAODTools/condor/executable_files/2022/executable_jobs_2022_hotvr.sh
+
+Should_Transfer_Files = NO
+Getenv = True
+
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_5.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_4.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_3.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_7.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_1.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_9.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_2.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_8.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_6.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_10.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_11.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_12.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_13.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_14.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_15.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_16.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_17.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_18.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_19.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_20.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_21.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
+
+arguments = "  -i /pnfs/desy.de/cms/tier2/store/user/gmilella/sgn_2022/nanoaod_hotvr_UL2022v1_230112/TTZprimetoTT_M-500_Width4_TuneCP5_13p6TeV_madgraph-pythia8/crab_TTZprimeToTT_M-500_Width4_nanoaod_hotvr_UL2022v1_230112/241009_152701/0000/NANO_NANO_22.root  /nfs/dust/cms/user/gmilella/ttX_ntuplizer/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4  --isSignal "
+Output = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).out
+Error = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).err
+Log = /nfs/dust/cms/user/gmilella/ttX_ntuplizer/log_files/sgn_2022_central_hotvr/TTZprimeToTT_M-500_Width4/log/log_TTZprimeToTT_M-500_Width4$(Cluster).$(Process).log
+queue
