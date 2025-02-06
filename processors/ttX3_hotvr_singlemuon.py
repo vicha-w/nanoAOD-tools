@@ -97,6 +97,27 @@ if args.isData:
         filtered_data[int(run)] = list()
         for lumi in data_json[run]:
             filtered_data[int(run)].extend(range(lumi[0], lumi[1]+1))
+            
+    # --- MIGHT NEED IMPROVEMENT
+    inputFile = ROOT.TFile.Open(args.inputFiles[0])
+    runsTree = inputFile.Get("Runs")
+    if runsTree and runsTree.GetBranch("run"):
+        runsTree.GetEntry(0)
+        firstRun = runsTree.run
+
+        runsTree.GetEntry(runsTree.GetEntries() - 1)
+        lastRun = runsTree.run
+
+        with open(os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/13TeV_UL_Era_runNumber.yaml") as yaml_f:
+            try:
+                era_yaml = yaml.safe_load(yaml_f)
+            except yaml.YAMLError as exc:
+                print(exc)
+
+        for era in era_yaml[Module.globalOptions['year']]:
+            if firstRun >= era_yaml[Module.globalOptions['year']][era][0] and lastRun <= era_yaml[Module.globalOptions['year']][era][1]:
+                Module.globalOptions['era'] = era
+    # ---
 
 
 #b-tagging working point
