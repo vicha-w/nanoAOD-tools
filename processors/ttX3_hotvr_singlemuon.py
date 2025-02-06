@@ -397,7 +397,7 @@ def jetSelection(jetDict):
                                  'nConstituents', 'subJetIdx1', 'subJetIdx2', 'subJetIdx3', 'subJetIdx4',
                                  'minDPhiClean', 'minDRClean', '_index', 'max_eta_subjets', 'nsubjets', 'corrFactor'],
                 outputName_list=["selectedHOTVRJets_"+systName, "unselectedHOTVRJets_"+systName],
-                #metInput = lambda event: Object(event, "MET"),
+                metInput = lambda event: Object(event, "MET"),
                 # storeTruthKeys = ['hadronFlavour','partonFlavour'],
             ),
             MetSelection(
@@ -566,7 +566,7 @@ if isMC:
 #analyzerChain.extend(trigger())
 analyzerChain.extend([
     SingleMuonTriggerSelection(
-        inputCollection=lambda event: Collection(event, "tightRelIso_tightID_Muons"),
+        inputCollection=lambda event: Collection(event, "Muon"),
         storeWeights=False,
         outputName="SingleMu_Trigger",
         applyCut=True
@@ -588,14 +588,14 @@ if args.isData:
         })
     )
 
-    jetDict = {
-        "nominal": (lambda event: event.selectedJets_nominal,
-                    lambda event: event.selectedFatJets_nominal,
-                    lambda event: event.selectedHOTVRJets_nominal,
-                    lambda event: event.selectedHOTVRSubJets_nominal,
-                    lambda event: Object(event,"MET")
-                    )
-    }
+    #jetDict = {
+    #    "nominal": (lambda event: event.selectedJets_nominal,
+    #                lambda event: event.selectedFatJets_nominal,
+    #                lambda event: event.selectedHOTVRJets_nominal,
+    #                lambda event: event.selectedHOTVRSubJets_nominal,
+    #                lambda event: Object(event,"MET")
+    #                )
+    #}
 
 else:
     # GM: pu weight producer are set to AUTO mode for 2022, 2022EE --> https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#True_and_observed_pileup_in_data
