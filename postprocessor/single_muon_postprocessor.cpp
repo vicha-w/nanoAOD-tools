@@ -884,9 +884,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
     if (!isData)
     {
-        TParameter<Float_t> *genEventCount_obj_out = new TParameter<Float_t>();
-        TParameter<Float_t> *sumgenweight_obj_out  = new TParameter<Float_t>();
-        TParameter<Float_t> *sumgenweight2_obj_out = new TParameter<Float_t>();
+        TParameter<Float_t> *genEventCount_obj_out = new TParameter<Float_t>("genEventCount");
+        TParameter<Float_t> *sumgenweight_obj_out  = new TParameter<Float_t>("sumGenWeight");
+        TParameter<Float_t> *sumgenweight2_obj_out = new TParameter<Float_t>("sumGenWeight2");
         genEventCount_obj_out->SetVal(genEventCount);
         sumgenweight_obj_out->SetVal(sumgenweight);
         sumgenweight2_obj_out->SetVal(sumgenweight2);
