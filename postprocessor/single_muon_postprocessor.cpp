@@ -881,5 +881,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
     //outevents->fChain->Show(outevents->fChain->GetEntries()-1);
 
     outevents->WriteFile();
+
+    TParameter<Float_t> *genEventCount_obj_out = new TParameter<Float_t>();
+    TParameter<Float_t> *sumgenweight_obj_out  = new TParameter<Float_t>();
+    TParameter<Float_t> *sumgenweight2_obj_out = new TParameter<Float_t>();
+    genEventCount_obj_out->SetVal(genEventCount);
+    sumgenweight_obj_out->SetVal(sumgenweight);
+    sumgenweight2_obj_out->SetVal(sumgenweight2);
+    genEventCount_obj_out->Write();
+    sumgenweight_obj_out->Write();
+    sumgenweight2_obj_out->Write();
+
     outevents->outfile->Close();
 }

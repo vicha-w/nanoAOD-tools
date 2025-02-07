@@ -5,6 +5,7 @@ import os
 import random
 import sys
 from collections import OrderedDict
+import yaml
 
 import numpy as np
 import ROOT
@@ -97,7 +98,7 @@ if args.isData:
         filtered_data[int(run)] = list()
         for lumi in data_json[run]:
             filtered_data[int(run)].extend(range(lumi[0], lumi[1]+1))
-            
+
     # --- MIGHT NEED IMPROVEMENT
     inputFile = ROOT.TFile.Open(args.inputFiles[0])
     runsTree = inputFile.Get("Runs")
