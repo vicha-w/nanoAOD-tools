@@ -184,6 +184,17 @@ public :
    Float_t preselectedHOTVRJets_nsubjets;
    Float_t preselectedHOTVRJets_tau3_over_tau2;
 
+   Float_t btag_light_weight;
+   Float_t btag_light_weight_up;
+   Float_t btag_light_weight_down;
+   Float_t btag_light_weight_correlated_up;
+   Float_t btag_light_weight_correlated_down;
+   Float_t btag_bc_weight;
+   Float_t btag_bc_weight_up;
+   Float_t btag_bc_weight_down;
+   Float_t btag_bc_weight_correlated_up;
+   Float_t btag_bc_weight_correlated_down;
+
    // List of branches
    TBranch        *b_run;   //!
    TBranch        *b_luminosityBlock;   //!
@@ -564,6 +575,17 @@ void Events::Init(TTree *tree)
    fChain->Branch("preselectedHOTVRJets_mass", &preselectedHOTVRJets_mass, "preselectedHOTVRJets_mass/F");
    fChain->Branch("preselectedHOTVRJets_nsubjets", &preselectedHOTVRJets_nsubjets, "preselectedHOTVRJets_nsubjets/F");
    fChain->Branch("preselectedHOTVRJets_tau3_over_tau2", &preselectedHOTVRJets_tau3_over_tau2, "preselectedHOTVRJets_tau3_over_tau2/F");
+
+   fChain->Branch("btag_light_weight", &btag_light_weight, "btag_light_weight/F");
+   fChain->Branch("btag_light_weight_up", &btag_light_weight_up, "btag_light_weight_up/F");
+   fChain->Branch("btag_light_weight_down", &btag_light_weight_down, "btag_light_weight_down/F");
+   fChain->Branch("btag_light_weight_correlated_up", &btag_light_weight_correlated_up, "btag_light_weight_correlated_up/F");
+   fChain->Branch("btag_light_weight_correlated_down", &btag_light_weight_correlated_down, "btag_light_weight_correlated_down/F");
+   fChain->Branch("btag_bc_weight", &btag_bc_weight, "btag_bc_weight/F");
+   fChain->Branch("btag_bc_weight_up", &btag_bc_weight_up, "btag_bc_weight_up/F");
+   fChain->Branch("btag_bc_weight_down", &btag_bc_weight_down, "btag_bc_weight_down/F");
+   fChain->Branch("btag_bc_weight_correlated_up", &btag_bc_weight_correlated_up, "btag_bc_weight_correlated_up/F");
+   fChain->Branch("btag_bc_weight_correlated_down", &btag_bc_weight_correlated_down, "btag_bc_weight_correlated_down/F");
 
    Notify();
 }

@@ -874,6 +874,17 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][0] < 0.56);
         outevents->passedHOTVRCut = passedHOTVRCut;
 
+        outevents->btag_light_weight = isData ? 1 : infriends->btagSFlight_deepJet_L_2022;
+        outevents->btag_light_weight_up = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_up;
+        outevents->btag_light_weight_down = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_down;
+        outevents->btag_light_weight_correlated_up = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_correlated_up;
+        outevents->btag_light_weight_correlated_down = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_correlated_down;
+        outevents->btag_bc_weight = isData ? 1 : infriends->btagSFbc_deepJet_L_2022;
+        outevents->btag_bc_weight_up = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_up;
+        outevents->btag_bc_weight_down = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_down;
+        outevents->btag_bc_weight_correlated_up = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_correlated_up;
+        outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_correlated_down;
+
         outevents->FillTree();
     }
 
