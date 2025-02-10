@@ -278,6 +278,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_tau3)
     };
 
+    /* Turned off for 2022 samples... for now
     Float_t* hotvrjets_btagDeepFlavB_pointers[] = {
         (infriends->selectedHOTVRJets_nominal_btagDeepFlavB),
         (infriends->selectedHOTVRJets_jesTotalUp_btagDeepFlavB),
@@ -287,6 +288,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_btagDeepFlavB),
         (infriends->selectedHOTVRJets_nominal_btagDeepFlavB)
     };
+    */
 
     Int_t* hotvrjets_nsubjets_pointers[] = {
         (infriends->selectedHOTVRJets_nominal_nsubjets),
@@ -667,8 +669,10 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
             outevents->fj_1_regressed_mass = hotvrjets_mass_pointers[uncmode][0];
             outevents->fj_1_tau21 = hotvrjets_tau1_pointers[uncmode][0] != 0 ? hotvrjets_tau2_pointers[uncmode][0]/hotvrjets_tau1_pointers[uncmode][0] : -1;
             outevents->fj_1_tau32 = hotvrjets_tau2_pointers[uncmode][0] != 0 ? hotvrjets_tau3_pointers[uncmode][0]/hotvrjets_tau2_pointers[uncmode][0] : -1;
-            outevents->fj_1_btagcsvv2 = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
-            outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
+            //outevents->fj_1_btagcsvv2 = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
+            //outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
+            outevents->fj_1_btagcsvv2 = 1.; // Turned off for 2022 data for now.
+            outevents->fj_1_btagjp = 1.; // Turned off for 2022 data for now.
             outevents->fj_1_deltaR_sj12 = 0.;
 
             outevents->preselectedHOTVRJets_fractional_subjet_pt = hotvrjets_fractional_subjet_pt[uncmode][0];
