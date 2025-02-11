@@ -195,6 +195,8 @@ public :
    Float_t btag_bc_weight_correlated_up;
    Float_t btag_bc_weight_correlated_down;
 
+   Float_t lepton_weight;
+
    // List of branches
    TBranch        *b_run;   //!
    TBranch        *b_luminosityBlock;   //!
@@ -586,6 +588,9 @@ void Events::Init(TTree *tree)
    fChain->Branch("btag_bc_weight_down", &btag_bc_weight_down, "btag_bc_weight_down/F");
    fChain->Branch("btag_bc_weight_correlated_up", &btag_bc_weight_correlated_up, "btag_bc_weight_correlated_up/F");
    fChain->Branch("btag_bc_weight_correlated_down", &btag_bc_weight_correlated_down, "btag_bc_weight_correlated_down/F");
+
+   fChain->Branch("lepton_weight", &lepton_weight, "lepton_weight/F");
+
 
    Notify();
 }

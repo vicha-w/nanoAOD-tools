@@ -889,6 +889,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->btag_bc_weight_correlated_up = isData ? 1 : infriends->btagSFbc_deepJet_L_correlated_up;
         outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_L_correlated_down;
 
+        outevents->lepton_weight = infriends->loose_MVA_Electrons_weight_id_nominal * infriends->loose_MVA_Electrons_weight_recoPt_nominal * infriends->tightRelIso_mediumID_Muons_weight_id_nominal * infriends->tightRelIso_mediumID_Muons_weight_iso_nominal;
+
         outevents->FillTree();
     }
 
