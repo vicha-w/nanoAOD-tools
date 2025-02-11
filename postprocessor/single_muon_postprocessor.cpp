@@ -360,6 +360,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedHOTVRJets_nominal_tau3_over_tau2)
     };
 
+    Float_t* hotvrjets_max_eta_subjets_pointers[] = {
+        (infriends->selectedHOTVRJets_nominal_max_eta_subjets),
+        (infriends->selectedHOTVRJets_jesTotalUp_max_eta_subjets),
+        (infriends->selectedHOTVRJets_jesTotalDown_max_eta_subjets),
+        (infriends->selectedHOTVRJets_jerUp_max_eta_subjets),
+        (infriends->selectedHOTVRJets_jerDown_max_eta_subjets),
+        (infriends->selectedHOTVRJets_nominal_max_eta_subjets),
+        (infriends->selectedHOTVRJets_nominal_max_eta_subjets)
+    };
+
     Float_t* subjets_pt_pointers[] = {
         (infriends->selectedHOTVRSubJets_nominal_pt),
         (infriends->selectedHOTVRSubJets_jesTotalUp_pt),
@@ -506,6 +516,19 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         //if (infriends->npreselectedHOTVRJets == 0) continue;
         if (!at_least_one_hotvr_jet) continue;
+
+        bool one_HOTVR_jet_after_overcorrection = false;
+        int nHOTVRjets_after_overcorrection = 0;
+        int chosen_HOTVR_jet = -1;
+        for (int fjet=0; fjet<num_HOTVRJets; fjet++)
+        {
+            if (*(hotvrjets_max_eta_subjets_pointers[uncmode]) < 2.4 && *(hotvrjets_max_eta_subjets_pointers[uncmode]) > -2.4)
+            {
+                chosen_HOTVR_jet = fjet;
+                nHOTVRjets_after_overcorrection++;
+            }
+        }
+        if (nHOTVRjets_after_overcorrection != 1) continue;
         
         Float_t met_pt, met_phi;
         switch (uncmode)
