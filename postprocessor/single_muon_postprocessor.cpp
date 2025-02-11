@@ -497,22 +497,24 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;
+        int num_HOTVRJets = 0;
         switch (uncmode)
         {
             case 1:
-                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jesTotalUp > 0;
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jesTotalUp;
                 break;
             case 2:
-                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jesTotalDown > 0;
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jesTotalDown;
                 break;
             case 3:
-                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jerUp > 0;
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jerUp;
                 break;
             case 4:
-                at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_jerDown > 0;
+                num_HOTVRJets = infriends->nselectedHOTVRJets_jerDown;
                 break;
-            default: at_least_one_hotvr_jet = infriends->nselectedHOTVRJets_nominal > 0;
+            default: num_HOTVRJets = infriends->nselectedHOTVRJets_nominal;
         }
+        at_least_one_hotvr_jet = num_HOTVRJets > 0;
 
         //if (infriends->npreselectedHOTVRJets == 0) continue;
         if (!at_least_one_hotvr_jet) continue;
@@ -579,6 +581,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // At least one fat jet away from muon (JME-18-002)
         bool fatjet_away_from_muon = false;
+        /*
         int num_HOTVRJets = 0;
         switch(uncmode)
         {
@@ -596,13 +599,14 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 break;
             default: num_HOTVRJets = infriends->nselectedHOTVRJets_nominal;
         }
-        for (int fjet=0; fjet<num_HOTVRJets; fjet++)
-        {
+            */
+        //for (int fjet=0; fjet<num_HOTVRJets; fjet++)
+        //{
             //Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
-            Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][fjet]);
-            fatjet_away_from_muon = fatjet_away_from_muon or (deltaphi_fjet_muon > 2);
-            if (fatjet_away_from_muon) break;
-        }
+        Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][chosen_HOTVR_jet]);
+        fatjet_away_from_muon = fatjet_away_from_muon or (deltaphi_fjet_muon > 2);
+        //if (fatjet_away_from_muon) break;
+        //}
         if (!fatjet_away_from_muon) continue;
 
         //printf("Processing event %d\n", ievent);
@@ -684,32 +688,32 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (*(nhotvr_pointers[uncmode]) >= 1)
         {
             outevents->fj_1_is_qualified = true;
-            outevents->fj_1_pt = hotvrjets_pt_pointers[uncmode][0];
-            outevents->fj_1_eta = hotvrjets_eta_pointers[uncmode][0];
-            outevents->fj_1_phi = hotvrjets_phi_pointers[uncmode][0];
-            outevents->fj_1_rawmass = hotvrjets_mass_pointers[uncmode][0];
-            outevents->fj_1_sdmass = hotvrjets_mass_pointers[uncmode][0];
-            outevents->fj_1_regressed_mass = hotvrjets_mass_pointers[uncmode][0];
-            outevents->fj_1_tau21 = hotvrjets_tau1_pointers[uncmode][0] != 0 ? hotvrjets_tau2_pointers[uncmode][0]/hotvrjets_tau1_pointers[uncmode][0] : -1;
-            outevents->fj_1_tau32 = hotvrjets_tau2_pointers[uncmode][0] != 0 ? hotvrjets_tau3_pointers[uncmode][0]/hotvrjets_tau2_pointers[uncmode][0] : -1;
+            outevents->fj_1_pt = hotvrjets_pt_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_eta = hotvrjets_eta_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_phi = hotvrjets_phi_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_rawmass = hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_sdmass = hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_regressed_mass = hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->fj_1_tau21 = hotvrjets_tau1_pointers[uncmode][chosen_HOTVR_jet] != 0 ? hotvrjets_tau2_pointers[uncmode][chosen_HOTVR_jet]/hotvrjets_tau1_pointers[uncmode][chosen_HOTVR_jet] : -1;
+            outevents->fj_1_tau32 = hotvrjets_tau2_pointers[uncmode][chosen_HOTVR_jet] != 0 ? hotvrjets_tau3_pointers[uncmode][chosen_HOTVR_jet]/hotvrjets_tau2_pointers[uncmode][chosen_HOTVR_jet] : -1;
             //outevents->fj_1_btagcsvv2 = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
             //outevents->fj_1_btagjp = hotvrjets_btagDeepFlavB_pointers[uncmode][0];
             outevents->fj_1_btagcsvv2 = 1.; // Turned off for 2022 data for now.
             outevents->fj_1_btagjp = 1.; // Turned off for 2022 data for now.
             outevents->fj_1_deltaR_sj12 = 0.;
 
-            outevents->preselectedHOTVRJets_fractional_subjet_pt = hotvrjets_fractional_subjet_pt[uncmode][0];
-            outevents->preselectedHOTVRJets_min_pairwise_subjets_mass = hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][0];
-            outevents->preselectedHOTVRJets_mass = hotvrjets_mass_pointers[uncmode][0];
-            outevents->preselectedHOTVRJets_nsubjets = hotvrjets_nsubjets_pointers[uncmode][0];
-            outevents->preselectedHOTVRJets_tau3_over_tau2 = hotvrjets_tau3_over_tau2_pointers[uncmode][0];
+            outevents->preselectedHOTVRJets_fractional_subjet_pt = hotvrjets_fractional_subjet_pt[uncmode][chosen_HOTVR_jet];
+            outevents->preselectedHOTVRJets_min_pairwise_subjets_mass = hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->preselectedHOTVRJets_mass = hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->preselectedHOTVRJets_nsubjets = hotvrjets_nsubjets_pointers[uncmode][chosen_HOTVR_jet];
+            outevents->preselectedHOTVRJets_tau3_over_tau2 = hotvrjets_tau3_over_tau2_pointers[uncmode][chosen_HOTVR_jet];
 
-            if (hotvrjets_nsubjets_pointers[uncmode][0] >= 1)
+            if (hotvrjets_nsubjets_pointers[uncmode][chosen_HOTVR_jet] >= 1)
             {
-                outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
-                outevents->fj_1_sj1_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
-                outevents->fj_1_sj1_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
-                outevents->fj_1_sj1_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][0])];
+                outevents->fj_1_sj1_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj1_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj1_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj1_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx1_pointers[uncmode][chosen_HOTVR_jet])];
             }
             else
             {
@@ -719,12 +723,12 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 outevents->fj_1_sj1_rawmass = 0;
             }
             outevents->fj_1_sj1_btagdeepcsv = 0.;
-            if (hotvrjets_nsubjets_pointers[uncmode][0] >= 2)
+            if (hotvrjets_nsubjets_pointers[uncmode][chosen_HOTVR_jet] >= 2)
             {
-                outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
-                outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][0])];
+                outevents->fj_1_sj2_pt =      subjets_pt_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj2_eta =     subjets_eta_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj2_phi =     subjets_phi_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][chosen_HOTVR_jet])];
+                outevents->fj_1_sj2_rawmass = subjets_mass_pointers[uncmode][int(hotvrjets_subJetIdx2_pointers[uncmode][chosen_HOTVR_jet])];
             }
             else
             {
@@ -810,9 +814,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->fj_1_T_Wq_min_pdgId = 0;
         outevents->fj_1_T_pt = 0.;
         outevents->passMuTrig = infriends->SingleMu_Trigger_flag;
-        outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[0];
-        outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[0];
-        outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[0];
+        outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[chosen_HOTVR_jet];
+        outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[chosen_HOTVR_jet];
+        outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[chosen_HOTVR_jet];
         outevents->leptonicW_pt = *leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
         outevents->puWeightUp = infriends->puWeight_up;
@@ -821,84 +825,84 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (infriends->fChain->GetListOfBranches()->FindObject("TopPtWeight")) outevents->topptWeight = infriends->TopPtWeight;
         else outevents->topptWeight = 1.;
 
-        //outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
-        //outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
-        //outevents->preselectedHOTVRJets_scoreBDT = infriends->selectedHOTVRJets_nominal_scoreBDT[0]; 
+        //outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+        //outevents->preselectedHOTVRJets_has_hadronicW_topIsInside = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+        //outevents->preselectedHOTVRJets_scoreBDT = infriends->selectedHOTVRJets_nominal_scoreBDT[chosen_HOTVR_jet]; 
         switch (uncmode)
         {
             case 1:
-                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jesTotalUp_has_b_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalUp_scoreBDT[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jesTotalUp_has_b_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jesTotalUp_has_b_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_quark_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_lepton_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalUp_has_hadronicW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalUp_has_b_plus_quark_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalUp_has_quark_fromW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalUp_scoreBDT[chosen_HOTVR_jet];
                 break;
             case 2:
-                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jesTotalDown_has_b_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalDown_scoreBDT[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jesTotalDown_has_b_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jesTotalDown_has_b_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_quark_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_lepton_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jesTotalDown_has_hadronicW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jesTotalDown_has_b_plus_quark_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jesTotalDown_has_quark_fromW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jesTotalDown_scoreBDT[chosen_HOTVR_jet];
                 break;
             case 3:
-                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jerUp_has_b_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerUp_scoreBDT[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jerUp_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jerUp_has_b_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jerUp_has_b_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jerUp_has_b_plus_quark_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerUp_has_b_plus_lepton_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerUp_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerUp_has_hadronicW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerUp_has_b_plus_quark_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerUp_has_quark_fromW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerUp_scoreBDT[chosen_HOTVR_jet];
                 break;
             case 4:
-                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jerDown_has_b_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerDown_scoreBDT[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_jerDown_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_jerDown_has_b_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_jerDown_has_b_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_jerDown_has_b_plus_quark_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_jerDown_has_b_plus_lepton_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_jerDown_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_jerDown_has_hadronicW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_jerDown_has_b_plus_quark_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_jerDown_has_quark_fromW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_jerDown_scoreBDT[chosen_HOTVR_jet];
                 break;
             default:
-                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_nominal_has_b_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_nominal_has_b_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_nominal_has_b_plus_quark_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_nominal_has_quark_fromW_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_b_plus_lepton_fromTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[0];
-                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_nominal_has_hadronicW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_nominal_has_b_plus_quark_not_fromTop[0];
-                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop[0];
-                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_nominal_scoreBDT[0];
+                outevents->preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside     = infriends->selectedHOTVRJets_nominal_has_hadronicW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_fromTop_topIsInside             = infriends->selectedHOTVRJets_nominal_has_b_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_not_fromTop                     = infriends->selectedHOTVRJets_nominal_has_b_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_fromTop_topIsInside  = infriends->selectedHOTVRJets_nominal_has_b_plus_quark_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_fromTop_topIsInside   = infriends->selectedHOTVRJets_nominal_has_quark_fromW_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_lepton_fromTop_topIsInside = infriends->selectedHOTVRJets_nominal_has_b_plus_lepton_fromTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicTop_topIsInside           = infriends->selectedHOTVRJets_nominal_has_hadronicTop_topIsInside[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_hadronicW_not_fromTop             = infriends->selectedHOTVRJets_nominal_has_hadronicW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_b_plus_quark_not_fromTop          = infriends->selectedHOTVRJets_nominal_has_b_plus_quark_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_has_quark_fromW_not_fromTop           = infriends->selectedHOTVRJets_nominal_has_quark_fromW_not_fromTop[chosen_HOTVR_jet];
+                outevents->preselectedHOTVRJets_scoreBDT                              = infriends->selectedHOTVRJets_nominal_scoreBDT[chosen_HOTVR_jet];
                 break;
         }
 
         bool passedHOTVRCut = true;
-        passedHOTVRCut = passedHOTVRCut and (hotvrjets_mass_pointers[uncmode][0] > 140) and (hotvrjets_mass_pointers[uncmode][0] < 220);
-        passedHOTVRCut = passedHOTVRCut and (hotvrjets_nsubjets_pointers[uncmode][0] >= 3);
-        passedHOTVRCut = passedHOTVRCut and (hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][0] > 50);
-        passedHOTVRCut = passedHOTVRCut and (hotvrjets_fractional_subjet_pt[uncmode][0] < 0.8);
-        passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][0] < 0.56);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet] > 140) and (hotvrjets_mass_pointers[uncmode][chosen_HOTVR_jet] < 220);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_nsubjets_pointers[uncmode][chosen_HOTVR_jet] >= 3);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_min_pairwise_subjet_mass_pointers[uncmode][chosen_HOTVR_jet] > 50);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_fractional_subjet_pt[uncmode][chosen_HOTVR_jet] < 0.8);
+        passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][chosen_HOTVR_jet] < 0.56);
         outevents->passedHOTVRCut = passedHOTVRCut;
 
         outevents->btag_light_weight = isData ? 1 : infriends->btagSFlight_deepJet_L_2022;
