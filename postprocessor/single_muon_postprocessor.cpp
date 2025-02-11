@@ -413,7 +413,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         // Passes MET filters (AN2017/006)
         if (!infriends->MET_filter) continue;
         // Exactly one muon (JME-18-002)
-        if (infriends->ntightRelIso_tightID_Muons != 1) continue;
+        if (infriends->ntightRelIso_mediumID_Muons != 1) continue;
 
         // Electron veto (AN2017/006)
         if (infriends->nloose_MVA_Electrons > 0) continue;
@@ -547,8 +547,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         //for (int bjet=0; bjet<infriends->nselectedBJets_nominal_medium; bjet++)
         for (int bjet=0; bjet<*(nbjets_pointers[uncmode]); bjet++)
         {
-            //Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], infriends->selectedBJets_nominal_medium_phi[bjet]);
-            Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], bjets_phi_pointers[uncmode][bjet]);
+            //Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->selectedBJets_nominal_medium_phi[bjet]);
+            Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], bjets_phi_pointers[uncmode][bjet]);
             bjet_in_same_hemisphere_as_muon = bjet_in_same_hemisphere_as_muon or (deltaphi_bjet_muon < 2);
             if (bjet_in_same_hemisphere_as_muon) break;
         }
@@ -575,8 +575,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         }
         for (int fjet=0; fjet<num_HOTVRJets; fjet++)
         {
-            //Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
-            Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_tightID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][fjet]);
+            //Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->preselectedHOTVRJets_phi[fjet]);
+            Float_t deltaphi_fjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], hotvrjets_phi_pointers[uncmode][fjet]);
             fatjet_away_from_muon = fatjet_away_from_muon or (deltaphi_fjet_muon > 2);
             if (fatjet_away_from_muon) break;
         }
@@ -653,7 +653,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->l1PreFiringWeight = 1.;
         outevents->l1PreFiringWeightUp = 1.;
         outevents->l1PreFiringWeightDown = 1.;
-        outevents->nlep = infriends->ntightRelIso_tightID_Muons;
+        outevents->nlep = infriends->ntightRelIso_mediumID_Muons;
         outevents->ht = ht;
         outevents->met = met_pt;
         outevents->metphi = met_phi;
@@ -787,9 +787,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->fj_1_T_Wq_min_pdgId = 0;
         outevents->fj_1_T_pt = 0.;
         outevents->passMuTrig = infriends->SingleMu_Trigger_flag;
-        outevents->muon_pt = infriends->tightRelIso_tightID_Muons_pt[0];
-        outevents->muon_eta = infriends->tightRelIso_tightID_Muons_eta[0];
-        outevents->muon_miniIso = infriends->tightRelIso_tightID_Muons_miniPFRelIso_all[0];
+        outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[0];
+        outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[0];
+        outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[0];
         outevents->leptonicW_pt = *leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
         outevents->puWeightUp = infriends->puWeight_up;
