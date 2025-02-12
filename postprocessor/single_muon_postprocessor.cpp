@@ -428,6 +428,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         // Electron veto (AN2017/006)
         if (infriends->nloose_MVA_Electrons > 0) continue;
 
+        // Jet veto for 2022 samples
+        if (infriends->jetMapVeto != 0) continue;
+
         bool two_or_more_ak4_jets;
         //for (int i=0; i<5; i++) 
         //{
