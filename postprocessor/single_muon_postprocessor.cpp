@@ -817,9 +817,9 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->fj_1_T_Wq_min_pdgId = 0;
         outevents->fj_1_T_pt = 0.;
         outevents->passMuTrig = infriends->SingleMu_Trigger_flag;
-        outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[chosen_HOTVR_jet];
-        outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[chosen_HOTVR_jet];
-        outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[chosen_HOTVR_jet];
+        outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[0];
+        outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[0];
+        outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[0];
         outevents->leptonicW_pt = *leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
         outevents->puWeightUp = infriends->puWeight_up;
@@ -908,16 +908,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][chosen_HOTVR_jet] < 0.56);
         outevents->passedHOTVRCut = passedHOTVRCut;
 
-        outevents->btag_light_weight = isData ? 1 : infriends->btagSFlight_deepJet_L_2022;
-        outevents->btag_light_weight_up = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_up;
-        outevents->btag_light_weight_down = isData ? 1 : infriends->btagSFlight_deepJet_L_2022_down;
-        outevents->btag_light_weight_correlated_up = isData ? 1 : infriends->btagSFlight_deepJet_L_correlated_up;
-        outevents->btag_light_weight_correlated_down = isData ? 1 : infriends->btagSFlight_deepJet_L_correlated_down;
-        outevents->btag_bc_weight = isData ? 1 : infriends->btagSFbc_deepJet_L_2022;
-        outevents->btag_bc_weight_up = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_up;
-        outevents->btag_bc_weight_down = isData ? 1 : infriends->btagSFbc_deepJet_L_2022_down;
-        outevents->btag_bc_weight_correlated_up = isData ? 1 : infriends->btagSFbc_deepJet_L_correlated_up;
-        outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_L_correlated_down;
+        outevents->btag_light_weight = isData ? 1 : infriends->btagSFlight_deepJet_M_2022;
+        outevents->btag_light_weight_up = isData ? 1 : infriends->btagSFlight_deepJet_M_2022_up;
+        outevents->btag_light_weight_down = isData ? 1 : infriends->btagSFlight_deepJet_M_2022_down;
+        outevents->btag_light_weight_correlated_up = isData ? 1 : infriends->btagSFlight_deepJet_M_correlated_up;
+        outevents->btag_light_weight_correlated_down = isData ? 1 : infriends->btagSFlight_deepJet_M_correlated_down;
+        outevents->btag_bc_weight = isData ? 1 : infriends->btagSFbc_deepJet_M_2022;
+        outevents->btag_bc_weight_up = isData ? 1 : infriends->btagSFbc_deepJet_M_2022_up;
+        outevents->btag_bc_weight_down = isData ? 1 : infriends->btagSFbc_deepJet_M_2022_down;
+        outevents->btag_bc_weight_correlated_up = isData ? 1 : infriends->btagSFbc_deepJet_M_correlated_up;
+        outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_M_correlated_down;
 
         outevents->lepton_weight = infriends->loose_MVA_Electrons_weight_id_nominal * infriends->loose_MVA_Electrons_weight_recoPt_nominal * infriends->tightRelIso_mediumID_Muons_weight_id_nominal * infriends->tightRelIso_mediumID_Muons_weight_iso_nominal;
 
