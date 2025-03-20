@@ -347,7 +347,7 @@ analyzerChain.extend([
 ])
 
 if not args.isData:
-    #analyzerChain.append(GenWeightProducer())
+    analyzerChain.append(GenWeightProducer())
     analyzerChain.append(
         GenParticleSelection(
             inputCollection = lambda event: Collection(event, "GenPart"),

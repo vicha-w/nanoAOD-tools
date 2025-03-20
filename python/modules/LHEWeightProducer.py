@@ -37,12 +37,12 @@ class LHEWeightProducer(Module):
         #    eventSum += j.p4()
 
         for yt in range(0, 601, 50):
-            if hasattr(event, "LHEWeights_yt_{}".format(yt)):
-                ytweight = getattr(event, "LHEWeights_yt_{}".format(yt))
+            if hasattr(event, "LHEWeight_yt_{}".format(yt)):
+                ytweight = getattr(event, "LHEWeight_yt_{}".format(yt))
             else: ytweight = 1
             self.out.fillBranch("weights_yt_{}".format(yt), ytweight)
-        if hasattr(event, "LHEWeights_yt_sm"):
-            ytweight = getattr(event, "LHEWeights_yt_sm")
+        if hasattr(event, "LHEWeight_yt_sm"):
+            ytweight = getattr(event, "LHEWeight_yt_sm")
         else: ytweight = 1
         self.out.fillBranch("weights_yt_sm", ytweight)
         return True
