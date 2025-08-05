@@ -158,12 +158,14 @@ public :
    Bool_t          passMuTrig;
    Float_t         muon_pt;
    Float_t         muon_eta;
+   Float_t         muon_phi;
    Float_t         muon_miniIso;
    Float_t         leptonicW_pt;
    Float_t         puWeight;
    Float_t         puWeightUp;
    Float_t         puWeightDown;
    Float_t         topptWeight;
+   Float_t         deltaR_jet_muon;
 
    Bool_t  preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside;
    Bool_t  preselectedHOTVRJets_has_b_fromTop_topIsInside;
@@ -332,12 +334,14 @@ public :
    TBranch        *b_passMuTrig;   //!
    TBranch        *b_muon_pt;   //!
    TBranch        *b_muon_eta;   //!
+   TBranch        *b_muon_phi;   //!
    TBranch        *b_muon_miniIso;   //!
    TBranch        *b_leptonicW_pt;   //!
    TBranch        *b_puWeight;   //!
    TBranch        *b_puWeightUp;   //!
    TBranch        *b_puWeightDown;   //!
    TBranch        *b_topptWeight;   //!
+   TBranch.       *b_deltaR_jet_muon;
 
    Events(TString outfilename);
    TFile *outfile;
@@ -551,6 +555,7 @@ void Events::Init(TTree *tree)
    fChain->Branch("passMuTrig", &passMuTrig, "passMuTrig/O");
    fChain->Branch("muon_pt", &muon_pt, "muon_pt/F");
    fChain->Branch("muon_eta", &muon_eta, "muon_eta/F");
+   fChain->Branch("muon_phi", &muon_eta, "muon_phi/F");
    fChain->Branch("muon_miniIso", &muon_miniIso, "muon_miniIso/F");
    fChain->Branch("leptonicW_pt", &leptonicW_pt, "leptonicW_pt/F");
    fChain->Branch("puWeight", &puWeight, "puWeight/F");
@@ -590,6 +595,8 @@ void Events::Init(TTree *tree)
    fChain->Branch("btag_bc_weight_correlated_down", &btag_bc_weight_correlated_down, "btag_bc_weight_correlated_down/F");
 
    fChain->Branch("lepton_weight", &lepton_weight, "lepton_weight/F");
+
+   fChain->Branch("deltaR_jet_lepton", &deltaR_jet_muon, "deltaR_jet_muon/F");
 
 
    Notify();

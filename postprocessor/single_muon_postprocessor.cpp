@@ -27,6 +27,13 @@ Float_t deltaPhi(Float_t phi1, Float_t phi2)
     return TMath::Abs(dphi);
 }
 
+Float_t deltaR(Float_t phi1, Float_t eta1, Float_t phi2, Float_t eta2)
+{
+    Float_t deltaphi = deltaPhi(phi1, phi2);
+    Float_t deltaeta2 = (eta1 - eta2) * (eta1 - eta2);
+    return TMath::Sqrt(deltaphi*deltaphi + deltaeta2);
+}
+
 void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0) // outfilename must not have .root suffix! 
 {
     gErrorIgnoreLevel = kFatal;
@@ -496,7 +503,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (!at_least_one_bjet) continue;
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
-        if (*leptonic_w_pt_pointers[uncmode] < 250) continue;
+        // Relaxing the leptonic W pT cut to 150, per Dominic's request.
+        if (*leptonic_w_pt_pointers[uncmode] < 150) continue;
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;
@@ -613,6 +621,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (!fatjet_away_from_muon) continue;
 
         //printf("Processing event %d\n", ievent);
+
+        Float_t deltaR_fjet_muon = deltaR(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->tightRelIso_mediumID_Muons_eta[0], hotvrjets_phi_pointers[uncmode][chosen_HOTVR_jet], hotvrjets_eta_pointers[uncmode][chosen_HOTVR_jet]);
 
         Float_t ht = 0.;
         for (int jet=0; jet<*(njets_pointers[uncmode]); jet++) ht += jets_pt_pointers[uncmode][jet];
@@ -819,6 +829,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->passMuTrig = infriends->SingleMu_Trigger_flag;
         outevents->muon_pt = infriends->tightRelIso_mediumID_Muons_pt[0];
         outevents->muon_eta = infriends->tightRelIso_mediumID_Muons_eta[0];
+        outevents->muon_phi = infriends->tightRelIso_mediumID_Muons_phi[0];
         outevents->muon_miniIso = infriends->tightRelIso_mediumID_Muons_miniPFRelIso_all[0];
         outevents->leptonicW_pt = *leptonic_w_pt_pointers[uncmode];
         outevents->puWeight = infriends->puWeight;
@@ -920,6 +931,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_M_correlated_down;
 
         outevents->lepton_weight = infriends->loose_MVA_Electrons_weight_id_nominal * infriends->loose_MVA_Electrons_weight_recoPt_nominal * infriends->tightRelIso_mediumID_Muons_weight_id_nominal * infriends->tightRelIso_mediumID_Muons_weight_iso_nominal;
+
+        outevents->deltaR_jet_muon = deltaR_fjet_muon;
 
         outevents->FillTree();
     }
