@@ -342,8 +342,8 @@ public :
    TBranch        *b_puWeightUp;   //!
    TBranch        *b_puWeightDown;   //!
    TBranch        *b_topptWeight;   //!
-   TBranch.       *b_deltaR_jet_muon;
-   TBranch.       *b_deltaR_fjet_muon;
+   TBranch        *b_deltaR_jet_muon;
+   TBranch        *b_deltaR_fjet_muon;
 
    Events(TString outfilename);
    TFile *outfile;
