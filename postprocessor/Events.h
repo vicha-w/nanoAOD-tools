@@ -166,6 +166,7 @@ public :
    Float_t         puWeightDown;
    Float_t         topptWeight;
    Float_t         deltaR_jet_muon;
+   Float_t         deltaR_fjet_muon;
 
    Bool_t  preselectedHOTVRJets_has_hadronicW_fromTop_topIsInside;
    Bool_t  preselectedHOTVRJets_has_b_fromTop_topIsInside;
@@ -342,6 +343,7 @@ public :
    TBranch        *b_puWeightDown;   //!
    TBranch        *b_topptWeight;   //!
    TBranch.       *b_deltaR_jet_muon;
+   TBranch.       *b_deltaR_fjet_muon;
 
    Events(TString outfilename);
    TFile *outfile;
@@ -597,6 +599,7 @@ void Events::Init(TTree *tree)
    fChain->Branch("lepton_weight", &lepton_weight, "lepton_weight/F");
 
    fChain->Branch("deltaR_jet_lepton", &deltaR_jet_muon, "deltaR_jet_muon/F");
+   fChain->Branch("deltaR_fjet_lepton", &deltaR_fjet_muon, "deltaR_fjet_muon/F");
 
 
    Notify();

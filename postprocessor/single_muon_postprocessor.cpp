@@ -214,6 +214,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         (infriends->selectedBJets_nominal_medium_phi),
         (infriends->selectedBJets_nominal_medium_phi)
     };
+
+    Float_t* bjets_eta_pointers[] = {
+        (infriends->selectedBJets_nominal_medium_eta),
+        (infriends->selectedBJets_jesTotalUp_medium_eta),
+        (infriends->selectedBJets_jesTotalDown_medium_eta),
+        (infriends->selectedBJets_jerUp_medium_eta),
+        (infriends->selectedBJets_jerDown_medium_eta),
+        (infriends->selectedBJets_nominal_medium_eta),
+        (infriends->selectedBJets_nominal_medium_eta)
+    };
     
     Float_t* hotvrjets_pt_pointers[] = {
         (infriends->selectedHOTVRJets_nominal_pt),
@@ -580,13 +590,18 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         // b-jet in the same hemisphere as muon (AN2018/103)
         bool bjet_in_same_hemisphere_as_muon = false;
 
+        Float_t deltaR_jet_muon = -1;
         //for (int bjet=0; bjet<infriends->nselectedBJets_nominal_medium; bjet++)
         for (int bjet=0; bjet<*(nbjets_pointers[uncmode]); bjet++)
         {
             //Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->selectedBJets_nominal_medium_phi[bjet]);
             Float_t deltaphi_bjet_muon = deltaPhi(infriends->tightRelIso_mediumID_Muons_phi[0], bjets_phi_pointers[uncmode][bjet]);
             bjet_in_same_hemisphere_as_muon = bjet_in_same_hemisphere_as_muon or (deltaphi_bjet_muon < 2);
-            if (bjet_in_same_hemisphere_as_muon) break;
+            if (bjet_in_same_hemisphere_as_muon) 
+            {
+                deltaR_jet_muon = deltaR(infriends->tightRelIso_mediumID_Muons_phi[0], infriends->tightRelIso_mediumID_Muons_eta[0], bjets_phi_pointers[uncmode][bjet], bjets_eta_pointers[uncmode][bjet]);
+                break;
+            }
         }
         if (!bjet_in_same_hemisphere_as_muon) continue;
 
@@ -932,7 +947,8 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         outevents->lepton_weight = infriends->loose_MVA_Electrons_weight_id_nominal * infriends->loose_MVA_Electrons_weight_recoPt_nominal * infriends->tightRelIso_mediumID_Muons_weight_id_nominal * infriends->tightRelIso_mediumID_Muons_weight_iso_nominal;
 
-        outevents->deltaR_jet_muon = deltaR_fjet_muon;
+        outevents->deltaR_jet_muon = deltaR_jet_muon;
+        outevents->deltaR_fjet_muon = deltaR_fjet_muon;
 
         outevents->FillTree();
     }
