@@ -514,7 +514,7 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
         // Relaxing the leptonic W pT cut to 150, per Dominic's request.
-        if (*leptonic_w_pt_pointers[uncmode] < 150) continue;
+        //if (*leptonic_w_pt_pointers[uncmode] < 150) continue;
 
         // At least one HOTVR jet
         bool at_least_one_hotvr_jet = false;

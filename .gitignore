@@ -9,5 +9,7 @@ build
 *.so
 *.pcm
 postprocessor/for_ParticleNetSF/*
+postprocessor/single_muon_batchprocessor.*.out
+postprocessor/single_muon_batchprocessor.*.err
 postprocessor/test/*
 batchprocessor_output/*
