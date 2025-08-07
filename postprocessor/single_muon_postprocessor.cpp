@@ -34,7 +34,7 @@ Float_t deltaR(Float_t phi1, Float_t eta1, Float_t phi2, Float_t eta2)
     return TMath::Sqrt(deltaphi*deltaphi + deltaeta2);
 }
 
-void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0) // outfilename must not have .root suffix! 
+void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0, bool isRun3=true) // outfilename must not have .root suffix! 
 {
     gErrorIgnoreLevel = kFatal;
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
@@ -446,7 +446,10 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         if (infriends->nloose_MVA_Electrons > 0) continue;
 
         // Jet veto for 2022 samples
-        if (infriends->jetMapVeto != 0) continue;
+        if (isRun3)
+	{
+            if (infriends->jetMapVeto != 0) continue;
+        }
 
         bool two_or_more_ak4_jets;
         //for (int i=0; i<5; i++) 
@@ -543,15 +546,19 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         bool one_HOTVR_jet_after_overcorrection = false;
         int nHOTVRjets_after_overcorrection = 0;
         int chosen_HOTVR_jet = -1;
-        for (int fjet=0; fjet<num_HOTVRJets; fjet++)
-        {
-            if (*(hotvrjets_max_eta_subjets_pointers[uncmode]) < 2.4 && *(hotvrjets_max_eta_subjets_pointers[uncmode]) > -2.4)
+        if (isRun3)
+	{
+            for (int fjet=0; fjet<num_HOTVRJets; fjet++)
             {
-                chosen_HOTVR_jet = fjet;
-                nHOTVRjets_after_overcorrection++;
+                if (*(hotvrjets_max_eta_subjets_pointers[uncmode]) < 2.4 && *(hotvrjets_max_eta_subjets_pointers[uncmode]) > -2.4)
+                {
+                    chosen_HOTVR_jet = fjet;
+                    nHOTVRjets_after_overcorrection++;
+                }
             }
-        }
-        if (nHOTVRjets_after_overcorrection != 1) continue;
+            if (nHOTVRjets_after_overcorrection != 1) continue;
+	}
+	else chosen_HOTVR_jet = 0;
         
         Float_t met_pt, met_phi;
         switch (uncmode)
@@ -934,16 +941,16 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         passedHOTVRCut = passedHOTVRCut and (hotvrjets_tau3_over_tau2_pointers[uncmode][chosen_HOTVR_jet] < 0.56);
         outevents->passedHOTVRCut = passedHOTVRCut;
 
-        outevents->btag_light_weight = isData ? 1 : infriends->btagSFlight_deepJet_M_2022;
-        outevents->btag_light_weight_up = isData ? 1 : infriends->btagSFlight_deepJet_M_2022_up;
-        outevents->btag_light_weight_down = isData ? 1 : infriends->btagSFlight_deepJet_M_2022_down;
-        outevents->btag_light_weight_correlated_up = isData ? 1 : infriends->btagSFlight_deepJet_M_correlated_up;
-        outevents->btag_light_weight_correlated_down = isData ? 1 : infriends->btagSFlight_deepJet_M_correlated_down;
-        outevents->btag_bc_weight = isData ? 1 : infriends->btagSFbc_deepJet_M_2022;
-        outevents->btag_bc_weight_up = isData ? 1 : infriends->btagSFbc_deepJet_M_2022_up;
-        outevents->btag_bc_weight_down = isData ? 1 : infriends->btagSFbc_deepJet_M_2022_down;
-        outevents->btag_bc_weight_correlated_up = isData ? 1 : infriends->btagSFbc_deepJet_M_correlated_up;
-        outevents->btag_bc_weight_correlated_down = isData ? 1 : infriends->btagSFbc_deepJet_M_correlated_down;
+        outevents->btag_light_weight = (isData || isRun3) ? 1 : infriends->btagSFlight_deepJet_M_2022;
+        outevents->btag_light_weight_up = (isData || isRun3) ? 1 : infriends->btagSFlight_deepJet_M_2022_up;
+        outevents->btag_light_weight_down = (isData || isRun3) ? 1 : infriends->btagSFlight_deepJet_M_2022_down;
+        outevents->btag_light_weight_correlated_up = (isData || isRun3) ? 1 : infriends->btagSFlight_deepJet_M_correlated_up;
+        outevents->btag_light_weight_correlated_down = (isData || isRun3) ? 1 : infriends->btagSFlight_deepJet_M_correlated_down;
+        outevents->btag_bc_weight = (isData || isRun3) ? 1 : infriends->btagSFbc_deepJet_M_2022;
+        outevents->btag_bc_weight_up = (isData || isRun3) ? 1 : infriends->btagSFbc_deepJet_M_2022_up;
+        outevents->btag_bc_weight_down = (isData || isRun3) ? 1 : infriends->btagSFbc_deepJet_M_2022_down;
+        outevents->btag_bc_weight_correlated_up = (isData || isRun3) ? 1 : infriends->btagSFbc_deepJet_M_correlated_up;
+        outevents->btag_bc_weight_correlated_down = (isData || isRun3) ? 1 : infriends->btagSFbc_deepJet_M_correlated_down;
 
         outevents->lepton_weight = infriends->loose_MVA_Electrons_weight_id_nominal * infriends->loose_MVA_Electrons_weight_recoPt_nominal * infriends->tightRelIso_mediumID_Muons_weight_id_nominal * infriends->tightRelIso_mediumID_Muons_weight_iso_nominal;
 

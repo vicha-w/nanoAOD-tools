@@ -20,13 +20,20 @@ OUTDIR=/eos/home-v/vwachira/HOTVR_nanoaod_output/$YEAR/batchprocessor_output/$2
 ISDATA=$3
 UNCMODE=$4
 
+if [[ $YEAR == "2022" ]]; then ISRUN3=true;
+elif [[ $YEAR == "2022EE" ]]; then ISRUN3=true;
+else ISRUN3=false;
+fi
+
 mkdir -p $(dirname $OUTDIR)
 
 echo "Processing" $INDIR
 echo "Writing inputs to" $OUTDIR
 echo "isData =" $ISDATA
 echo "uncmode =" $UNCMODE
+echo "year = " $YEAR
+echo "ISRUN3 = " $ISRUN3
 
 echo "Starting at" $(date)
-root -l "postprocessor/single_muon_postprocessor.cpp(\"${INDIR}/NANO*.root\", \"${OUTDIR}\", ${ISDATA}, ${UNCMODE})" -q
+root -l "postprocessor/single_muon_postprocessor.cpp(\"${INDIR}/NANO*.root\", \"${OUTDIR}\", ${ISDATA}, ${UNCMODE}, ${ISRUN3})" -q
 echo "Finished at" $(date)
