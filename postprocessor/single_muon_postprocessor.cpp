@@ -34,7 +34,7 @@ Float_t deltaR(Float_t phi1, Float_t eta1, Float_t phi2, Float_t eta2)
     return TMath::Sqrt(deltaphi*deltaphi + deltaeta2);
 }
 
-void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0, bool isRun3=true) // outfilename must not have .root suffix! 
+void single_muon_postprocessor(TString infilename, TString outfilename, bool isData=false, Int_t uncmode=0, bool isRun3=true, bool debug=false) // outfilename must not have .root suffix! 
 {
     gErrorIgnoreLevel = kFatal;
     //enum class Unctype = { nominal, jesup, jesdown, jerup, jerdown, metdown, metup };
@@ -438,17 +438,33 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         infriends->GetEntry(ievent);
 
         // Passes MET filters (AN2017/006)
-        if (!infriends->MET_filter) continue;
+        if (!infriends->MET_filter) 
+        {
+            if (debug) printf("Rejecting event %d with false MET_filter\n", ievent);
+            continue;
+        }
         // Exactly one muon (JME-18-002)
-        if (infriends->ntightRelIso_mediumID_Muons != 1) continue;
+        if (infriends->ntightRelIso_mediumID_Muons != 1) 
+        {
+            if (debug) printf("Rejecting event %d with %d muons\n", ievent, infriends->ntightRelIso_mediumID_Muons);
+            continue;
+        }
 
         // Electron veto (AN2017/006)
-        if (infriends->nloose_MVA_Electrons > 0) continue;
+        if (infriends->nloose_MVA_Electrons > 0) 
+        {
+            if (debug) printf("Rejecting event %d with %d electrons\n", ievent, infriends->nloose_MVA_Electrons);
+            continue;
+        }
 
         // Jet veto for 2022 samples
         if (isRun3)
-	{
-            if (infriends->jetMapVeto != 0) continue;
+        {
+            if (infriends->jetMapVeto != 0) 
+            {
+                if (debug) printf("Rejecting event %d with jet map veto\n", ievent);
+                continue;
+            }
         }
 
         bool two_or_more_ak4_jets;
@@ -481,7 +497,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         
         // Two or more AK4 jets (JME-18-002)
         //if (infriends->nselectedJets_nominal < 2) continue;
-        if (!two_or_more_ak4_jets) continue;
+        if (!two_or_more_ak4_jets)
+        {
+            if (debug) printf("Rejecting event %d with less than two AK4 jets\n", ievent);
+            continue;
+        }
 
         bool at_least_one_bjet = false;
         //for (int i=0; i<5; i++) 
@@ -513,7 +533,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
 
         // At least one b-jet (JME-18-002)
         //if (infriends->nselectedBJets_nominal_medium == 0) continue;
-        if (!at_least_one_bjet) continue;
+        if (!at_least_one_bjet) 
+        {
+            if (debug) printf("Rejecting event %d with no b-jets\n", ievent);
+            continue;
+        }
 
         // Leptonic W pT > 250 GeV (JME-18-002, AN2017/006)
         // Relaxing the leptonic W pT cut to 150, per Dominic's request.
@@ -541,13 +565,17 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         at_least_one_hotvr_jet = num_HOTVRJets > 0;
 
         //if (infriends->npreselectedHOTVRJets == 0) continue;
-        if (!at_least_one_hotvr_jet) continue;
+        if (!at_least_one_hotvr_jet) 
+        {
+            if (debug) printf("Rejecting event %d with no HOTVR jet\n", ievent);
+            continue;
+        }
 
         bool one_HOTVR_jet_after_overcorrection = false;
         int nHOTVRjets_after_overcorrection = 0;
         int chosen_HOTVR_jet = -1;
         if (isRun3)
-	{
+        {
             for (int fjet=0; fjet<num_HOTVRJets; fjet++)
             {
                 if (*(hotvrjets_max_eta_subjets_pointers[uncmode]) < 2.4 && *(hotvrjets_max_eta_subjets_pointers[uncmode]) > -2.4)
@@ -556,9 +584,13 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                     nHOTVRjets_after_overcorrection++;
                 }
             }
-            if (nHOTVRjets_after_overcorrection != 1) continue;
-	}
-	else chosen_HOTVR_jet = 0;
+            if (nHOTVRjets_after_overcorrection != 1) 
+            {
+                if (debug) printf("Rejecting event %d with no HOTVR jets after overcorrection\n", ievent);
+                continue;
+            }
+        }
+        else chosen_HOTVR_jet = 0;
         
         Float_t met_pt, met_phi;
         switch (uncmode)
@@ -592,7 +624,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 met_phi = infriends->MET_nominal_phi;
         }
         // MET pT >= 50 (JME-18-002)
-        if (met_pt < 50) continue;
+        if (met_pt < 50) 
+        {
+            if (debug) printf("Rejecting event %d with MET pT = %f\n", ievent, met_pt);
+            continue;
+        }
 
         // b-jet in the same hemisphere as muon (AN2018/103)
         bool bjet_in_same_hemisphere_as_muon = false;
@@ -610,7 +646,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
                 break;
             }
         }
-        if (!bjet_in_same_hemisphere_as_muon) continue;
+        if (!bjet_in_same_hemisphere_as_muon) 
+        {
+            if (debug) printf("Rejecting event %d with b-jet not in the same hemisphere as muon\n", ievent);
+            continue;
+        }
 
         // At least one fat jet away from muon (JME-18-002)
         bool fatjet_away_from_muon = false;
@@ -640,7 +680,11 @@ void single_muon_postprocessor(TString infilename, TString outfilename, bool isD
         fatjet_away_from_muon = fatjet_away_from_muon or (deltaphi_fjet_muon > 2);
         //if (fatjet_away_from_muon) break;
         //}
-        if (!fatjet_away_from_muon) continue;
+        if (!fatjet_away_from_muon) 
+        {
+            if (debug) printf("Rejecting event %d with HOTVR jet close to muon\n", ievent);
+            continue;
+        }
 
         //printf("Processing event %d\n", ievent);
 
