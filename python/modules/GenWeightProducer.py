@@ -7,12 +7,12 @@ class GenWeightProducer(Module):
     def __init__(self):
         self.isSignal = self.globalOptions['isSignal']
 
-        self.nPDFs = 103
+        self.nPDFs = 0
         self.nPSweights = 4
         self.nMEweights = 9
 
-        if self.isSignal:
-            self.nPDFs = 101
+        #if self.isSignal:
+        #    self.nPDFs = 101
 
         # to be added once new files available
         self.fragWeights = []
